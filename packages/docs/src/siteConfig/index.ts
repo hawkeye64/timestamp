@@ -168,7 +168,7 @@ const footerLinks = [
 
 const gettingStartedMenu: SiteMenuItem = {
   name: "Getting Started",
-  mq: 520,
+  mq: 470,
   children: [
     { name: "Introduction", path: "/getting-started/introduction" },
     { name: "Installation", path: "/getting-started/installation" },
@@ -180,7 +180,7 @@ const gettingStartedMenu: SiteMenuItem = {
 
 const apiMenu: SiteMenuItem = {
   name: "API",
-  mq: 680,
+  mq: 600,
   children: [
     { name: "Timestamp API", path: "/api/timestamp-api" },
     { name: "Timestamp Object", path: "/api/timestamp-object" },
@@ -191,7 +191,7 @@ const apiMenu: SiteMenuItem = {
 
 const guideMenu: SiteMenuItem = {
   name: "Guides",
-  mq: 760,
+  mq: 780,
   children: [
     { name: "Timezone Model", path: "/guides/timezone-model" },
     { name: "Future Scope", path: "/guides/future-scope" },
@@ -200,7 +200,7 @@ const guideMenu: SiteMenuItem = {
 
 const otherMenu: SiteMenuItem = {
   name: "Other",
-  mq: 900,
+  mq: 910,
   children: [
     { name: "Releases", path: "/other/releases" },
     { name: "Upgrade Guide", path: "/other/upgrade-guide" },
