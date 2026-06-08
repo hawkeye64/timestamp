@@ -1,0 +1,67 @@
+# Timestamp
+
+Framework-agnostic TypeScript utilities for date-only, time-only, date-time, interval, and range workflows in browsers, Node.js, and modern JavaScript runtimes.
+
+Timestamp focuses on immutable plain objects and small utility functions. It is intentionally independent of any UI framework, backend framework, or application platform.
+
+## Install
+
+```bash
+pnpm add timestamp
+```
+
+## Basic Usage
+
+```ts
+import { addToDate, getDateTime, parseTimestamp } from "timestamp";
+
+const start = parseTimestamp("2026-06-08T09:30:15.250Z");
+const end = start ? addToDate(start, { day: 2, minute: 45 }) : null;
+
+console.log(end ? getDateTime(end) : "Invalid date");
+```
+
+## Timestamp Values
+
+Timestamp objects are immutable. Parsers and update helpers return frozen objects, and functions that change date/time fields return a new Timestamp instead of mutating the original.
+
+```ts
+const start = parseTimestamp("2026-06-08 09:30")!;
+const next = addToDate(start, { day: 1 });
+
+console.log(start.date); // 2026-06-08
+console.log(next.date); // 2026-06-09
+```
+
+## Supported Input Shape
+
+The parser accepts compact calendar inputs and fuller ISO-style date-time inputs:
+
+- `2026-06-08`
+- `2026-06-08 09:30`
+- `2026-06-08T09:30`
+- `2026-06-08T09:30:15`
+- `2026-06-08T09:30:15.250Z`
+- `2026-06-08T09:30:15.250-07:00`
+
+Seconds, milliseconds, and timezone suffixes are optional. Timezone suffixes are preserved on the Timestamp object, but the parser does not convert the wall-clock values into another zone.
+
+## Current Scope
+
+- Parse date strings and ISO-like date-time strings into Timestamp objects.
+- Convert native `Date` objects into Timestamp objects.
+- Compare dates, times, date-times, and timestamp ranges, including optional second and millisecond precision.
+- Generate day and interval lists for calendar-style views.
+- Format weekday and month names through `Intl.DateTimeFormat`.
+- Keep the public surface small, typed, immutable, and runtime-agnostic while the package stabilizes.
+
+## Future Scope
+
+The package is intentionally not trying to become a full general-purpose date library on day one. Planned evaluations include Temporal support, explicit timezone behavior, alternate calendar systems, duration helpers, Unix timestamp helpers, compact formatting masks, and a script-tag/browser build if CodePen-style demos need it.
+
+## Development
+
+```bash
+pnpm install
+pnpm verify
+```

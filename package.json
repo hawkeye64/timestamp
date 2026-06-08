@@ -1,0 +1,45 @@
+{
+  "name": "timestamp",
+  "version": "0.1.0-alpha.0",
+  "description": "Framework-agnostic Timestamp utility.",
+  "keywords": [
+    "calendar",
+    "date",
+    "time",
+    "timestamp",
+    "typescript"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "oxfmt": "0.53.0",
+    "oxlint": "1.68.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.8"
+  },
+  "packageManager": "pnpm@11.5.1"
+}
