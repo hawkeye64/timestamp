@@ -95,11 +95,6 @@ export const DAY_MIN = 1;
 export const FIRST_HOUR = 0;
 
 /**
- * Alias for {@link PARSE_DATETIME}.
- */
-export const PARSE_REGEX = PARSE_DATETIME;
-
-/**
  * Number of days in a week.
  */
 export const DAYS_IN_WEEK = TIME_CONSTANTS.DAYS_IN.WEEK;
@@ -1945,7 +1940,6 @@ export function getMonthNames(type: string, locale: string): string[] {
 // the exports...
 export default {
   PARSE_DATETIME,
-  PARSE_REGEX,
   PARSE_DATE,
   PARSE_TIME,
   DAYS_IN_MONTH,
