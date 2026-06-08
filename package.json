@@ -9,7 +9,15 @@
     "timestamp",
     "typescript"
   ],
+  "homepage": "https://github.com/hawkeye64/timestamp#readme",
+  "bugs": {
+    "url": "https://github.com/hawkeye64/timestamp/issues"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hawkeye64/timestamp.git"
+  },
   "files": [
     "dist",
     "README.md",
