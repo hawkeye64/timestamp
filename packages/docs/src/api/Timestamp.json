@@ -4,7 +4,6 @@
   },
   "methods": {
     "today": {
-      "addedIn": "v2.2.1",
       "desc": "Returns today's date in YYYY-MM-DD format",
       "params": null,
       "returns": {
@@ -190,7 +189,6 @@
       }
     },
     "makeDate": {
-      "addedIn": "v1.3.9",
       "desc": "Takes a timestamp and returns a JavaScript Date with time set to 00:00",
       "params": {
         "timestamp": {
@@ -210,7 +208,6 @@
       }
     },
     "makeDateTime": {
-      "addedIn": "v1.3.9",
       "desc": "Takes a timestamp and returns a JavaScript Date",
       "params": {
         "timestamp": {
@@ -259,7 +256,6 @@
     },
     "getDayTimeIdentifier": {
       "desc": "Turns passed in timestamp object to a date/time identifier",
-      "addedIn": "v3.2.0",
       "params": {
         "timestamp": {
           "extends": "timestamp",
@@ -668,7 +664,6 @@
       "__exemption": ["examples"]
     },
     "getDateTime": {
-      "addedIn": "v1.3.11",
       "desc": "Returns the timestamp as a padded date and time. If time is not available, then only the date will be used",
       "params": {
         "timestamp": {
@@ -765,7 +760,6 @@
     },
     "moveRelativeDays": {
       "desc": "Returns the timestamp set to the relative day, takes into account allowed weekdays",
-      "addedIn": "v1.5.0",
       "params": {
         "timestamp": {
           "extends": "timestamp",
@@ -1091,7 +1085,6 @@
       }
     },
     "isBetweenDates": {
-      "addedIn": "v1.3.10",
       "desc": "Checks passed timestamp is between start and end timestamps",
       "params": {
         "timestamp": {
@@ -1121,7 +1114,6 @@
       }
     },
     "isOverlappingDates": {
-      "addedIn": "v1.3.12",
       "desc": "Checks passed start and end timestamps overlap the first and last timestamps. This method can be used to find if an event, with start and end dates overlap a range, like a week",
       "examples": [
         "# isOverlappingDates(parsed('2020-01-01'), parsed('2020-01-10'), parsed('2019-12-29'), parsed('2020-01-04')) === true",
@@ -1156,7 +1148,6 @@
       }
     },
     "daysBetween": {
-      "addedIn": "v1.3.12",
       "desc": "Returns the number days between two timestamps",
       "params": {
         "startTimestamp": {
@@ -1177,7 +1168,6 @@
       }
     },
     "weeksBetween": {
-      "addedIn": "v1.3.12",
       "desc": "Returns the number weeks between two timestamps",
       "params": {
         "startTimestamp": {
@@ -1198,7 +1188,6 @@
       }
     },
     "addToDate": {
-      "addedIn": "v1.3.10",
       "desc": "Takes a timestamp and increments/decrements based on options",
       "params": {
         "timestamp": {
