@@ -46,6 +46,14 @@ The parser accepts compact calendar inputs and fuller ISO-style date-time inputs
 
 Seconds, milliseconds, and timezone suffixes are optional. Timezone suffixes are preserved on the Timestamp object, but the parser does not convert the wall-clock values into another zone.
 
+## SSR And Runtime Compatibility
+
+Timestamp is designed for server-rendered and client-rendered applications. The package is ESM, side-effect free, and does not depend on browser globals such as `window`, `document`, `navigator`, or storage APIs.
+
+The library relies on standard JavaScript runtime APIs such as `Date` and `Intl.DateTimeFormat`, so it works in modern Node.js, browser, serverless, and edge-style runtimes that provide those APIs.
+
+For deterministic SSR output, prefer passing explicit timestamps into helpers instead of calling `today()` during render. `today()` intentionally uses the host runtime clock and timezone.
+
 ## Current Scope
 
 - Parse date strings and ISO-like date-time strings into Timestamp objects.
