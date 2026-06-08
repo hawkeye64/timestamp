@@ -189,12 +189,12 @@ const apiMenu: SiteMenuItem = {
   ],
 };
 
-const guideMenu: SiteMenuItem = {
-  name: "Guides",
+const developingMenu: SiteMenuItem = {
+  name: "Developing",
   mq: 780,
   children: [
-    { name: "Timezone Model", path: "/guides/timezone-model" },
-    { name: "Future Scope", path: "/guides/future-scope" },
+    { name: "Timezone Model", path: "/developing/timezone-model" },
+    { name: "Future Scope", path: "/developing/future-scope" },
   ],
 };
 
@@ -224,7 +224,7 @@ const otherMenu: SiteMenuItem = {
 export const sidebar: MenuItem[] = [
   processMenuItem(gettingStartedMenu),
   processMenuItem(apiMenu),
-  processMenuItem(guideMenu),
+  processMenuItem(developingMenu),
   processMenuItem(otherMenu),
 ];
 
@@ -271,11 +271,11 @@ const siteConfig: SiteConfig = {
   },
   links: {
     primaryHeaderLinks: [],
-    secondaryHeaderLinks: [gettingStartedMenu, apiMenu, guideMenu, otherMenu],
+    secondaryHeaderLinks: [gettingStartedMenu, apiMenu, developingMenu, otherMenu],
     moreLinks: [
       {
         name: "More",
-        children: [gettingStartedMenu, apiMenu, guideMenu, otherMenu, socialLinks],
+        children: [gettingStartedMenu, apiMenu, developingMenu, otherMenu, socialLinks],
       },
     ],
     footerLinks,

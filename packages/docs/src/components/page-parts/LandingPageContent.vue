@@ -118,7 +118,7 @@ formatTimestamp(next)</code></pre>
           from drifting across server/client timezones.
         </p>
         <div class="timestamp-resource__links">
-          <q-btn to="/guides/timezone-model" no-caps rounded unelevated>Timezone Model</q-btn>
+          <q-btn to="/developing/timezone-model" no-caps rounded unelevated>Timezone Model</q-btn>
           <q-btn to="/getting-started/ssr" no-caps rounded unelevated>SSR Notes</q-btn>
         </div>
       </article>
