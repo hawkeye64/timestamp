@@ -5,8 +5,15 @@ desc: Add Timestamp to a project
 
 Install the core package from npm:
 
-```bash
+```tabs
+<<| bash pnpm |>>
 pnpm add @timestamp-js/core
+<<| bash bun |>>
+bun add @timestamp-js/core
+<<| bash yarn |>>
+yarn add @timestamp-js/core
+<<| bash npm |>>
+npm install @timestamp-js/core
 ```
 
 The package is ESM and side-effect free.
