@@ -80,7 +80,7 @@ formatTimestamp(next)</code></pre>
             <article class="timestamp-mini-card timestamp-mini-card--bottom">
               <q-icon name="public" />
               <strong>Timezone-aware</strong>
-              <span>Suffixes are preserved unless you opt into conversion.</span>
+              <span>Suffixes stay preserved unless converted.</span>
             </article>
           </div>
         </div>
@@ -235,6 +235,7 @@ const apiLinks = [
 .timestamp-hero__visual {
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 
 .timestamp-hero__copy {
@@ -303,6 +304,7 @@ const apiLinks = [
   display: flex;
   flex-wrap: wrap;
   gap: 10px 12px;
+  max-width: 100%;
 }
 
 .timestamp-action {
@@ -340,6 +342,7 @@ const apiLinks = [
 .timestamp-preview {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
   min-height: 100%;
   padding: clamp(18px, 3vw, 26px);
   border-radius: 30px;
@@ -371,6 +374,7 @@ const apiLinks = [
 .timestamp-code-card,
 .timestamp-mini-card {
   position: absolute;
+  box-sizing: border-box;
   border: 1px solid var(--qpress-highlight-border);
   background: var(--qpress-highlight-bg);
   backdrop-filter: blur(10px);
@@ -397,6 +401,7 @@ const apiLinks = [
 
 .timestamp-code-card pre {
   overflow: auto;
+  max-width: 100%;
   margin: 0;
   color: var(--qpress-text-primary);
   font-size: clamp(0.82rem, 1.5vw, 0.96rem);
@@ -531,6 +536,37 @@ const apiLinks = [
     grid-template-columns: 1fr;
   }
 
+  .timestamp-preview__stack {
+    display: grid;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .timestamp-code-card,
+  .timestamp-mini-card {
+    position: relative;
+    inset: auto;
+  }
+
+  .timestamp-code-card {
+    transform: rotate(-1deg);
+  }
+
+  .timestamp-mini-card {
+    width: 100%;
+  }
+
+  .timestamp-mini-card--top {
+    right: auto;
+    transform: rotate(1.5deg);
+  }
+
+  .timestamp-mini-card--bottom {
+    right: auto;
+    bottom: auto;
+    transform: rotate(-1.5deg);
+  }
+
   .timestamp-feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -546,36 +582,78 @@ const apiLinks = [
     border-radius: 26px;
   }
 
+  .timestamp-hero__logo {
+    width: 72px;
+    border-radius: 22px;
+  }
+
+  .timestamp-hero h1 {
+    font-size: clamp(3rem, 17vw, 4.35rem);
+    letter-spacing: -0.08em;
+  }
+
+  .timestamp-hero__subtitle {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .timestamp-hero__lede {
+    font-size: 0.95rem;
+  }
+
+  .timestamp-action {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.82rem;
+  }
+
   .timestamp-feature-grid {
     grid-template-columns: 1fr;
   }
 
   .timestamp-preview__stack {
-    display: grid;
     gap: 14px;
-    min-height: 0;
   }
 
   .timestamp-code-card,
-  .timestamp-mini-card {
-    position: relative;
-    inset: auto;
-  }
-
-  .timestamp-mini-card {
-    width: 100%;
-  }
-
-  .timestamp-mini-card--top {
-    right: auto;
-    transform: rotate(1.5deg);
-  }
-
+  .timestamp-mini-card--top,
   .timestamp-mini-card--bottom {
-    right: auto;
-    left: auto;
-    bottom: auto;
-    transform: rotate(-1.5deg);
+    transform: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .timestamp-landing {
+    padding-inline: 10px;
+  }
+
+  .timestamp-hero {
+    padding: 18px 16px;
+  }
+
+  .timestamp-hero h1 {
+    font-size: clamp(2.65rem, 13.5vw, 3.45rem);
+  }
+
+  .timestamp-actions {
+    gap: 8px;
+  }
+
+  .timestamp-action {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+
+  .timestamp-action :deep(.q-btn__content) {
+    gap: 7px;
+  }
+
+  .timestamp-action--ghost:last-child {
+    flex-basis: 100%;
+  }
+
+  .timestamp-preview {
+    padding: 14px;
   }
 }
 </style>
