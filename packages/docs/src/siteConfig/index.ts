@@ -233,7 +233,7 @@ const siteConfig: SiteConfig = {
   versionConfig: {
     showTitle: true,
     showVersion: true,
-    showOnHeader: true,
+    showOnHeader: false,
     showOnSidebar: true,
   },
   config: {
