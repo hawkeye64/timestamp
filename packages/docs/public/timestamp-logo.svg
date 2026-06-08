@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Timestamp Logo</title>
+  <desc id="desc">A clock and calendar mark for the Timestamp JavaScript library.</desc>
+  <defs>
+    <linearGradient id="shell" x1="18" y1="14" x2="110" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f39c12" />
+      <stop offset="0.48" stop-color="#e74c3c" />
+      <stop offset="1" stop-color="#8e44ad" />
+    </linearGradient>
+    <linearGradient id="face" x1="36" y1="28" x2="98" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff7e6" />
+      <stop offset="1" stop-color="#ecf0f1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#2c3e50" flood-opacity="0.28" />
+    </filter>
+  </defs>
+  <rect x="10" y="10" width="108" height="108" rx="30" fill="url(#shell)" filter="url(#shadow)" />
+  <rect x="26" y="30" width="76" height="70" rx="18" fill="url(#face)" />
+  <path d="M42 24v18M86 24v18" fill="none" stroke="#2c3e50" stroke-width="8" stroke-linecap="round" />
+  <path d="M30 52h68" fill="none" stroke="#2c3e50" stroke-width="8" stroke-linecap="round" />
+  <circle cx="64" cy="72" r="20" fill="#34495e" />
+  <path d="M64 59v14l11 7" fill="none" stroke="#f39c12" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -88,12 +88,20 @@ export interface SiteConfig {
   sidebar: MenuItem[];
 }
 
-function processMenuItem(item: MenuItem): MenuItem {
+function processMenuItem(item: MenuItem, parentPath = ""): MenuItem {
+  const normalizedPath = item.path?.replace(/^\/+/, "") ?? slugify(item.name);
+  const relativePath =
+    parentPath !== "" && normalizedPath.startsWith(`${parentPath}/`)
+      ? normalizedPath.slice(parentPath.length + 1)
+      : normalizedPath;
+
   return {
     name: item.name,
-    path: item.path?.replace(/^\/+/, "") ?? slugify(item.name),
+    path: relativePath,
     expanded: item.expanded ?? false,
-    children: item.children ? item.children.map(processMenuItem) : undefined,
+    children: item.children
+      ? item.children.map((child) => processMenuItem(child, normalizedPath))
+      : undefined,
   };
 }
 
@@ -216,9 +224,9 @@ const siteConfig: SiteConfig = {
     link: "/privacy-policy",
   },
   logoConfig: {
-    showLogo: false,
-    logoLight: "",
-    logoDark: "",
+    showLogo: true,
+    logoLight: "/timestamp-logo.svg",
+    logoDark: "/timestamp-logo.svg",
     logoAlt: "Timestamp",
   },
   versionConfig: {
