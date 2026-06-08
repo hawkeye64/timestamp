@@ -198,10 +198,34 @@ const guideMenu: SiteMenuItem = {
   ],
 };
 
+const otherMenu: SiteMenuItem = {
+  name: "Other",
+  mq: 900,
+  children: [
+    { name: "Releases", path: "/other/releases" },
+    { name: "Upgrade Guide", path: "/other/upgrade-guide" },
+    { name: "FAQ", path: "/other/faq" },
+    { name: "Contact", path: "/other/contact" },
+    {
+      name: "Contributing",
+      children: [
+        { name: "Overview", path: "/other/contributing/overview" },
+        {
+          name: "Bugs and Feature Requests",
+          path: "/other/contributing/bugs-and-feature-requests",
+        },
+        { name: "Documentation", path: "/other/contributing/documentation" },
+        { name: "Sponsor", path: "/other/contributing/sponsor" },
+      ],
+    },
+  ],
+};
+
 export const sidebar: MenuItem[] = [
   processMenuItem(gettingStartedMenu),
   processMenuItem(apiMenu),
   processMenuItem(guideMenu),
+  processMenuItem(otherMenu),
 ];
 
 const siteConfig: SiteConfig = {
@@ -247,8 +271,13 @@ const siteConfig: SiteConfig = {
   },
   links: {
     primaryHeaderLinks: [],
-    secondaryHeaderLinks: [gettingStartedMenu, apiMenu, guideMenu],
-    moreLinks: [socialLinks],
+    secondaryHeaderLinks: [gettingStartedMenu, apiMenu, guideMenu, otherMenu],
+    moreLinks: [
+      {
+        name: "More",
+        children: [gettingStartedMenu, apiMenu, guideMenu, otherMenu, socialLinks],
+      },
+    ],
     footerLinks,
     socialLinks: socialLinks.children,
   },
