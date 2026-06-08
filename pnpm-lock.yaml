@@ -34,7 +34,7 @@ importers:
         version: 2.0.0
       '@timestamp-js/core':
         specifier: workspace:*
-        version: link:../..
+        version: link:../lib
       '@vue/server-renderer':
         specifier: ^3.5.0
         version: 3.5.35(vue@3.5.35(typescript@6.0.3))
@@ -87,6 +87,24 @@ importers:
       vue-tsc:
         specifier: ^3.3.3
         version: 3.3.3(typescript@6.0.3)
+
+  packages/lib:
+    devDependencies:
+      '@types/node':
+        specifier: 25.9.1
+        version: 25.9.1
+      oxfmt:
+        specifier: 0.53.0
+        version: 0.53.0
+      oxlint:
+        specifier: 1.68.0
+        version: 1.68.0
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.8
+        version: 4.1.8(@types/node@25.9.1)(vite@8.0.16(@types/node@25.9.1)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.48.0)(yaml@2.9.0))
 
 packages:
 

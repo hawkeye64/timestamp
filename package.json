@@ -1,51 +1,23 @@
 {
-  "name": "@timestamp-js/core",
+  "name": "timestamp-workspace",
   "version": "0.1.0-alpha.0",
-  "description": "Framework-agnostic Timestamp utility.",
-  "keywords": [
-    "calendar",
-    "date",
-    "time",
-    "timestamp",
-    "typescript"
-  ],
-  "homepage": "https://github.com/hawkeye64/timestamp#readme",
-  "bugs": {
-    "url": "https://github.com/hawkeye64/timestamp/issues"
-  },
+  "private": true,
+  "description": "Timestamp workspace.",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hawkeye64/timestamp.git"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "author": "Jeff <galbraith64@gmail.com>",
   "type": "module",
-  "sideEffects": false,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "pnpm build:lib && pnpm build:docs",
+    "build:lib": "pnpm --filter @timestamp-js/core build",
+    "build:docs": "pnpm --filter @timestamp-js/docs build",
     "docs:build": "pnpm --filter @timestamp-js/docs build",
     "docs:dev": "pnpm --filter @timestamp-js/docs dev",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",
-    "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.build.json --noEmit",
-    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "test": "pnpm --filter @timestamp-js/core test",
+    "typecheck": "pnpm --filter @timestamp-js/core typecheck && pnpm --filter @timestamp-js/docs typecheck",
+    "verify": "pnpm format:check && pnpm lint && pnpm test && pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@types/node": "25.9.1",
@@ -53,6 +25,10 @@
     "oxlint": "1.68.0",
     "typescript": "6.0.3",
     "vitest": "4.1.8"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.5.0"
   },
   "packageManager": "pnpm@11.5.1"
 }
