@@ -1,11 +1,40 @@
+/**
+ * Matches supported date and date-time input.
+ *
+ * Accepts `YYYY-MM`, `YYYY-MM-DD`, space-separated date/time strings,
+ * ISO-style `T` separators, optional seconds, optional milliseconds, and
+ * optional timezone suffixes such as `Z`, `+06:00`, or `-0700`.
+ */
 export const PARSE_DATETIME =
   /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?(?:[Tt\s]+(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2})(?:\.(\d{1,3}))?)?)?(?:\s*(Z|[+-]\d{2}:?\d{2}))?$/;
+
+/**
+ * Matches the date portion of a timestamp string.
+ */
 export const PARSE_DATE = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?/;
+
+/**
+ * Matches `HH`, `HH:mm`, `HH:mm:ss`, or `HH:mm:ss.SSS` time strings.
+ */
 export const PARSE_TIME = /^(\d\d?)(?::(\d\d?))?(?::(\d\d?))?(?:\.(\d{1,3}))?$/;
 
+/**
+ * Month lengths for a non-leap Gregorian year.
+ *
+ * Index `0` is intentionally unused so month numbers can be used directly.
+ */
 export const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+/**
+ * Month lengths for a leap Gregorian year.
+ *
+ * Index `0` is intentionally unused so month numbers can be used directly.
+ */
 export const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+/**
+ * Shared conversion constants for milliseconds, seconds, minutes, hours, and days.
+ */
 export const TIME_CONSTANTS = {
   MILLISECONDS_IN: {
     SECOND: 1000,
@@ -35,134 +64,326 @@ export const TIME_CONSTANTS = {
   },
 };
 
+/**
+ * Minimum number of days found in any Gregorian month.
+ */
 export const DAYS_IN_MONTH_MIN = 28;
+
+/**
+ * Maximum number of days found in any Gregorian month.
+ */
 export const DAYS_IN_MONTH_MAX = 31;
+
+/**
+ * Maximum Gregorian month number.
+ */
 export const MONTH_MAX = 12;
+
+/**
+ * Minimum Gregorian month number.
+ */
 export const MONTH_MIN = 1;
+
+/**
+ * Minimum day-of-month number.
+ */
 export const DAY_MIN = 1;
+
+/**
+ * First hour in a 24-hour day.
+ */
 export const FIRST_HOUR = 0;
 
-// Backward-compatible aliases for consumers migrating from older timestamp utilities.
+/**
+ * Alias for {@link PARSE_DATETIME}.
+ */
 export const PARSE_REGEX = PARSE_DATETIME;
+
+/**
+ * Number of days in a week.
+ */
 export const DAYS_IN_WEEK = TIME_CONSTANTS.DAYS_IN.WEEK;
+
+/**
+ * Number of minutes in an hour.
+ */
 export const MINUTES_IN_HOUR = TIME_CONSTANTS.MINUTES_IN.HOUR;
+
+/**
+ * Number of hours in a day.
+ */
 export const HOURS_IN_DAY = TIME_CONSTANTS.HOURS_IN.DAY;
+
+/**
+ * Number of milliseconds in one minute.
+ */
 export const MILLISECONDS_IN_MINUTE = TIME_CONSTANTS.MILLISECONDS_IN.MINUTE;
+
+/**
+ * Number of milliseconds in one hour.
+ */
 export const MILLISECONDS_IN_HOUR = TIME_CONSTANTS.MILLISECONDS_IN.HOUR;
+
+/**
+ * Number of milliseconds in one day.
+ */
 export const MILLISECONDS_IN_DAY = TIME_CONSTANTS.MILLISECONDS_IN.DAY;
+
+/**
+ * Number of milliseconds in one week.
+ */
 export const MILLISECONDS_IN_WEEK = TIME_CONSTANTS.MILLISECONDS_IN.WEEK;
 
+/**
+ * Inline style metadata that can be attached to disabled timestamp ranges.
+ */
 export type TimestampStyle = Record<string, string | number | undefined>;
 
+/**
+ * CSS class metadata that can be attached to disabled timestamp ranges.
+ */
 export type TimestampClass = string | string[] | Record<string, boolean>;
 
+/**
+ * Object form for a disabled day or disabled date range.
+ */
 export interface DisabledDayConfig {
+  /**
+   * Single disabled date in `YYYY-MM-DD` form.
+   */
   date?: string;
+
+  /**
+   * Inclusive range start date in `YYYY-MM-DD` form.
+   */
   from?: string;
+
+  /**
+   * Inclusive range end date in `YYYY-MM-DD` form.
+   */
   to?: string;
+
+  /**
+   * Alias for {@link DisabledDayConfig.from}.
+   */
   start?: string;
+
+  /**
+   * Alias for {@link DisabledDayConfig.to}.
+   */
   end?: string;
+
+  /**
+   * Optional background color metadata for matching disabled dates.
+   */
   color?: string;
+
+  /**
+   * Optional text color metadata for matching disabled dates.
+   */
   textColor?: string;
+
+  /**
+   * Optional CSS class metadata for matching disabled dates.
+   */
   class?: TimestampClass;
+
+  /**
+   * Optional inline style metadata for matching disabled dates.
+   */
   style?: TimestampStyle;
+
+  /**
+   * Optional human-readable label for matching disabled dates.
+   */
   label?: string;
 }
 
+/**
+ * Supported disabled-day declaration.
+ *
+ * A string disables a single date, a string array disables multiple dates or
+ * an inclusive two-date range, and an object can carry display metadata.
+ */
 export type DisabledDay = string | string[] | DisabledDayConfig;
+
+/**
+ * Collection of disabled-day declarations.
+ */
 export type DisabledDays = DisabledDay[];
 
 /**
- * @typedef {Object} Timestamp The Timestamp object
- * @property {string=} Timestamp.date Date string in format 'YYYY-MM-DD'
- * @property {string=} Timestamp.time Time string in format 'HH:MM'
- * @property {number} Timestamp.year The numeric year
- * @property {number} Timestamp.month The numeric month (Jan = 1, ...)
- * @property {number} Timestamp.day The numeric day
- * @property {number} Timestamp.weekday The numeric weekday (Sun = 0, ..., Sat = 6)
- * @property {number=} Timestamp.hour The numeric hour
- * @property {number} Timestamp.minute The numeric minute
- * @property {number=} Timestamp.second The numeric second
- * @property {number=} Timestamp.millisecond The numeric millisecond
- * @property {string=} Timestamp.timezone The parsed ISO timezone suffix (`Z`, `+06:00`, `-0700`)
- * @property {number=} Timestamp.doy The numeric day of the year (doy)
- * @property {number=} Timestamp.workweek The numeric workweek
- * @property {boolean} Timestamp.hasDay True if Timestamp.date is filled in and usable
- * @property {boolean} Timestamp.hasTime True if Timestamp.time is filled in and usable
- * @property {boolean=} Timestamp.past True if the Timestamp is in the past
- * @property {boolean=} Timestamp.current True if Timestamp is current day (now)
- * @property {boolean=} Timestamp.future True if Timestamp is in the future
- * @property {boolean=} Timestamp.disabled True if this is a disabled date
- * @property {string=} Timestamp.disabledColor Background color for this disabled date
- * @property {string=} Timestamp.disabledTextColor Text color for this disabled date
- * @property {TimestampClass=} Timestamp.disabledClass Class metadata for this disabled date
- * @property {TimestampStyle=} Timestamp.disabledStyle Inline style metadata for this disabled date
- * @property {string=} Timestamp.disabledLabel Label associated with this disabled date
- * @property {boolean=} Timestamp.currentWeekday True if this date corresponds to current weekday
+ * Immutable timestamp data used by all parser, comparison, and date math helpers.
+ *
+ * Timestamps use Gregorian calendar fields and preserve optional ISO timezone
+ * suffixes without converting the wall-clock values into another zone.
  */
-// export const Timestamp = {
-//   date: '', // YYYY-MM-DD
-//   time: '', // HH:MM (optional)
-//   year: 0, // YYYY
-//   month: 0, // MM (Jan = 1, etc)
-//   day: 0, // day of the month
-//   weekday: 0, // week day (0=Sunday...6=Saturday)
-//   hour: 0, // 24-hr format
-//   minute: 0, // mm
-//   doy: 0, // day of year
-//   workweek: 0, // workweek number
-//   hasDay: false, // if this timestamp is supposed to have a date
-//   hasTime: false, // if this timestamp is supposed to have a time
-//   past: false, // if timestamp is in the past (based on `now` property)
-//   current: false, // if timestamp is current date (based on `now` property)
-//   future: false, // if timestamp is in the future (based on `now` property)
-//   disabled: false, // if timestamp is disabled
-//   currentWeekday: false, // if this date corresponds to current weekday
-// }
+export interface Timestamp {
+  /**
+   * Date string in `YYYY-MM-DD` form when the timestamp has a day.
+   */
+  readonly date: string;
 
-// export const TimeObject = {
-//   hour: 0, // Number
-//   minute: 0, // Number
-// }
+  /**
+   * True when the timestamp includes a meaningful date/day value.
+   */
+  readonly hasDay: boolean;
 
-interface TimestampData {
-  date: string; // YYYY-MM-DD
-  hasDay: boolean; // if this timestamp is supposed to have a date
-  year: number; // YYYY
-  month: number; // MM (Jan = 1, etc)
-  day: number; // day of the month
-  time?: string; // HH:MM (optional)
-  hasTime: boolean; // if this timestamp is supposed to have a time
-  hour: number; // 24-hr format
-  minute: number; // mm
-  second?: number; // ss
-  millisecond?: number; // SSS
-  timezone?: string; // ISO timezone suffix, if parsed
-  weekday?: number; // week day (0=Sunday...6=Saturday)
-  doy?: number; // day of year
-  workweek?: number; // workweek number
-  past?: boolean; // if timestamp is in the past (based on `now` property)
-  current?: boolean; // if timestamp is current date (based on `now` property)
-  future?: boolean; // if timestamp is in the future (based on `now` property)
-  disabled?: boolean; // if timestamp is disabled
-  disabledColor?: string; // background color for this disabled date
-  disabledTextColor?: string; // text color for this disabled date
-  disabledClass?: TimestampClass; // class for this disabled date
-  disabledStyle?: TimestampStyle; // inline style for this disabled date
-  disabledLabel?: string; // label associated with this disabled date
-  currentWeekday?: boolean; // if this date corresponds to current weekday
+  /**
+   * Four-digit Gregorian year.
+   */
+  readonly year: number;
+
+  /**
+   * Gregorian month number, where January is `1` and December is `12`.
+   */
+  readonly month: number;
+
+  /**
+   * Day of the month.
+   */
+  readonly day: number;
+
+  /**
+   * Formatted time string.
+   *
+   * Minute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;
+   * millisecond precision as `HH:mm:ss.SSS`.
+   */
+  readonly time?: string;
+
+  /**
+   * True when the timestamp includes time fields.
+   */
+  readonly hasTime: boolean;
+
+  /**
+   * Hour in 24-hour format.
+   */
+  readonly hour: number;
+
+  /**
+   * Minute of the hour.
+   */
+  readonly minute: number;
+
+  /**
+   * Optional second of the minute.
+   */
+  readonly second?: number;
+
+  /**
+   * Optional millisecond of the second.
+   */
+  readonly millisecond?: number;
+
+  /**
+   * Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.
+   *
+   * The suffix is preserved for callers, but parsing does not convert the
+   * wall-clock values into another timezone.
+   */
+  readonly timezone?: string;
+
+  /**
+   * Weekday number where Sunday is `0` and Saturday is `6`.
+   */
+  readonly weekday?: number;
+
+  /**
+   * Day of the year.
+   */
+  readonly doy?: number;
+
+  /**
+   * ISO-style workweek number.
+   */
+  readonly workweek?: number;
+
+  /**
+   * True when the timestamp is before a comparison timestamp.
+   */
+  readonly past?: boolean;
+
+  /**
+   * True when the timestamp matches a comparison timestamp.
+   */
+  readonly current?: boolean;
+
+  /**
+   * True when the timestamp is after a comparison timestamp.
+   */
+  readonly future?: boolean;
+
+  /**
+   * True when this timestamp represents a disabled date.
+   */
+  readonly disabled?: boolean;
+
+  /**
+   * Optional background color metadata for a disabled date.
+   */
+  readonly disabledColor?: string;
+
+  /**
+   * Optional text color metadata for a disabled date.
+   */
+  readonly disabledTextColor?: string;
+
+  /**
+   * Optional class metadata for a disabled date.
+   */
+  readonly disabledClass?: TimestampClass;
+
+  /**
+   * Optional inline style metadata for a disabled date.
+   */
+  readonly disabledStyle?: TimestampStyle;
+
+  /**
+   * Optional human-readable label for a disabled date.
+   */
+  readonly disabledLabel?: string;
+
+  /**
+   * True when this timestamp's weekday matches a comparison timestamp's weekday.
+   */
+  readonly currentWeekday?: boolean;
 }
 
-export type Timestamp = Readonly<TimestampData>;
-type MutableTimestamp = { -readonly [Key in keyof TimestampData]: TimestampData[Key] };
+type MutableTimestamp = { -readonly [Key in keyof Timestamp]: Timestamp[Key] };
 
+/**
+ * Time-only value used when callers need hour/minute input without a date.
+ */
 export interface TimeObject {
-  readonly hour: number; // Number
-  readonly minute: number; // Number
-  readonly second?: number; // Number
-  readonly millisecond?: number; // Number
+  /**
+   * Hour in 24-hour format.
+   */
+  readonly hour: number;
+
+  /**
+   * Minute of the hour.
+   */
+  readonly minute: number;
+
+  /**
+   * Optional second of the minute.
+   */
+  readonly second?: number;
+
+  /**
+   * Optional millisecond of the second.
+   */
+  readonly millisecond?: number;
 }
 
+/**
+ * Frozen empty timestamp template.
+ *
+ * Use {@link copyTimestamp} or parser helpers to create new timestamp objects
+ * instead of mutating this shared default.
+ */
 export const Timestamp: Timestamp = freezeTimestamp({
   date: "",
   hasDay: false,
@@ -181,6 +402,9 @@ export const Timestamp: Timestamp = freezeTimestamp({
   disabled: false,
 });
 
+/**
+ * Frozen empty time-object template.
+ */
 export const TimeObject: TimeObject = Object.freeze({
   hour: 0,
   minute: 0,
@@ -199,8 +423,9 @@ function parseMillisecond(value: string | undefined): number | undefined {
 }
 
 /**
- * Validates the passed input ('YYYY-MM-DD') as a date or ISO-like date time combination.
- * @param {string} input A string in the form 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM', or full ISO-like date time.
+ * Validates whether an input string matches the supported timestamp grammar.
+ *
+ * @param {string} input A string in the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm`, or a full ISO-like date time.
  * @returns {boolean} True if parseable
  */
 export function validateTimestamp(input: string): boolean {
@@ -209,9 +434,13 @@ export function validateTimestamp(input: string): boolean {
 }
 
 /**
- * Fast low-level parser for a date string ('YYYY-MM-DD'). Does not update formatted or relative date.
- * Use 'parseTimestamp' for formatted and relative updates
- * @param {string} input In the form 'YYYY-MM-DD', 'YYYY-MM-DD hh:mm:ss', or an ISO-like date time with optional milliseconds and timezone suffix.
+ * Fast low-level parser for date and date-time strings.
+ *
+ * This parser fills numeric fields, but does not update formatted date,
+ * weekday, day-of-year, workweek, or relative flags. Use
+ * {@link parseTimestamp} when those derived fields are needed.
+ *
+ * @param {string} input In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.
  * @returns {Timestamp} This {@link Timestamp} is minimally filled in. The {@link Timestamp.date} and {@link Timestamp.time} as well as relative data will not be filled in.
  */
 export function parsed(input: string): Timestamp | null {
@@ -309,7 +538,9 @@ export function parseDate(date: Date, utc = false): Timestamp | null {
 }
 
 /**
- * Padds a passed in number to length (converts to a string). Good for converting '5' as '05'.
+ * Pads a number to a requested string length.
+ *
+ * Useful for formatting values such as `5` as `05`.
  * @param {number} x The number to pad
  * @param {number} length The length of the required number as a string
  * @returns {string} The padded number (as a string). (ie: 5 = '05')
@@ -337,7 +568,7 @@ export function isLeapYear(year: number): boolean {
 /**
  * Returns the days of the specified month in a year
  * @param {number} year The year (ie: 1999, 2020)
- * @param {number} month The month (zero-based)
+ * @param {number} month The Gregorian month number, where January is `1`
  * @returns {number} The number of days in the month (corrected for leap years)
  */
 export function daysInMonth(year: number, month: number): number {
@@ -347,7 +578,7 @@ export function daysInMonth(year: number, month: number): number {
 /**
  * Returns a {@link Timestamp} of next day from passed in {@link Timestamp}
  * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {Timestamp} The modified {@link Timestamp} as the next day
+ * @returns {Timestamp} A new {@link Timestamp} representing the next day
  */
 export function nextDay(timestamp: Timestamp): Timestamp {
   const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day + 1);
@@ -364,7 +595,7 @@ export function nextDay(timestamp: Timestamp): Timestamp {
 /**
  * Returns a {@link Timestamp} of previous day from passed in {@link Timestamp}
  * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {Timestamp} The modified {@link Timestamp} as the previous day
+ * @returns {Timestamp} A new {@link Timestamp} representing the previous day
  */
 export function prevDay(timestamp: Timestamp): Timestamp {
   const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day - 1);
@@ -380,7 +611,7 @@ export function prevDay(timestamp: Timestamp): Timestamp {
 
 /**
  * Returns today's date
- * @returns {string} Date string in the form 'YYYY-MM-dd'
+ * @returns {string} Date string in the form `YYYY-MM-DD`
  */
 export function today(): string {
   const d = new Date(),
@@ -406,7 +637,7 @@ export function isToday(date: string): boolean {
  * @param {Timestamp} timestamp The {@link Timestamp} to use to find the start of the week
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
  * @param {Timestamp=} today If passed in then the {@link Timestamp} is updated with relative information
- * @returns {Timestamp} The {@link Timestamp} representing the start of the week
+ * @returns {Timestamp} A new {@link Timestamp} representing the start of the week
  */
 export function getStartOfWeek(
   timestamp: Timestamp,
@@ -436,7 +667,7 @@ export function getStartOfWeek(
  * @param {Timestamp} timestamp The {@link Timestamp} to use to find the end of the week
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
  * @param {Timestamp=} today If passed in then the {@link Timestamp} is updated with relative information
- * @returns {Timestamp} The {@link Timestamp} representing the end of the week
+ * @returns {Timestamp} A new {@link Timestamp} representing the end of the week
  */
 export function getEndOfWeek(
   timestamp: Timestamp,
@@ -487,7 +718,15 @@ export function getEndOfMonth(timestamp: Timestamp): Timestamp {
   return end;
 }
 
-// returns minutes since midnight
+/**
+ * Converts time input into minutes since midnight.
+ *
+ * Strings may include seconds or milliseconds, but sub-minute precision is
+ * ignored for this minute-oriented helper.
+ *
+ * @param input - Minutes since midnight, a time string, or an object with hour and minute fields.
+ * @returns Minutes since midnight, or `false` when the input cannot be parsed.
+ */
 export function parseTime(
   input: number | string | { hour: number; minute: number },
 ): number | false {
@@ -574,8 +813,12 @@ export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
 }
 
 /**
- * High-level parser that converts the passed in string to {@link Timestamp} and uses 'now' to update relative information.
- * @param {string} input In the form 'YYYY-MM-DD hh:mm:ss' (seconds are optional, but not used)
+ * High-level parser that converts a string to a fully formatted {@link Timestamp}.
+ *
+ * If `now` is supplied, the returned timestamp also includes relative flags
+ * such as `past`, `current`, `future`, and `currentWeekday`.
+ *
+ * @param {string} input In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.
  * @param {Timestamp} now A {@link Timestamp} to use for relative data updates
  * @returns {Timestamp} The {@link Timestamp.date} will be filled in as well as the {@link Timestamp.time} if a time is supplied and formatted fields (doy, weekday, workweek, etc). If 'now' is supplied, then relative data will also be updated.
  */
@@ -695,8 +938,12 @@ export function updateRelative(timestamp: Timestamp, now: Timestamp, time = fals
 }
 
 /**
- * Sets a Timestamp{@link Timestamp} to number of minutes past midnight (modifies hour and minutes if needed)
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * Returns a timestamp set to a number of minutes past midnight.
+ *
+ * The returned timestamp has updated hour/minute fields and clears second and
+ * millisecond precision because this helper is minute-oriented.
+ *
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @param {number} minutes The number of minutes to set from midnight
  * @param {Timestamp=} now Optional {@link Timestamp} representing current date and time
  * @returns {Timestamp} A new {@link Timestamp}
@@ -722,7 +969,7 @@ export function updateMinutes(
 
 /**
  * Updates the {@link Timestamp} with the weekday
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @returns A new Timestamp
  */
 export function updateWeekday(timestamp: Timestamp): Timestamp {
@@ -734,7 +981,7 @@ export function updateWeekday(timestamp: Timestamp): Timestamp {
 
 /**
  * Updates the {@link Timestamp} with the day of the year (doy)
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @returns A new Timestamp
  */
 export function updateDayOfYear(timestamp: Timestamp): Timestamp {
@@ -746,7 +993,7 @@ export function updateDayOfYear(timestamp: Timestamp): Timestamp {
 
 /**
  * Updates the {@link Timestamp} with the workweek
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @returns A new {@link Timestamp}
  */
 export function updateWorkWeek(timestamp: Timestamp): Timestamp {
@@ -823,9 +1070,9 @@ function isTimestampInDisabledDay(timestamp: Timestamp, day: DisabledDay): boole
 
 /**
  * Updates the passed {@link Timestamp} with disabled, if needed
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
- * @param {string} [disabledBefore] In 'YYY-MM-DD' format
- * @param {string} [disabledAfter] In 'YYY-MM-DD' format
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * @param {string} [disabledBefore] In `YYYY-MM-DD` format
+ * @param {string} [disabledAfter] In `YYYY-MM-DD` format
  * @param {number[]} [disabledWeekdays] An array of numbers representing weekdays [0 = Sun, ..., 6 = Sat]
  * @param {DisabledDays} [disabledDays] An array of days in 'YYYY-MM-DD' format. If an array with a pair of dates is in first array, then this is treated as a range. Object entries can include date/from/to plus color metadata.
  * @returns A new {@link Timestamp}
@@ -883,7 +1130,7 @@ export function updateDisabled(
 
 /**
  * Updates the passed {@link Timestamp} with formatted data (time string, date string, weekday, day of year and workweek)
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @returns A new {@link Timestamp}
  */
 export function updateFormatted(timestamp: Timestamp): Timestamp {
@@ -1001,7 +1248,7 @@ export function getDate(timestamp: Timestamp): string {
 }
 
 /**
- * Used intenally to convert {@link Timestamp} with 'parsed' or 'parseDate' so the 'time' portion of the {@link Timestamp} is correct.
+ * Used internally to convert {@link Timestamp} with 'parsed' or 'parseDate' so the 'time' portion of the {@link Timestamp} is correct.
  * @param {Timestamp} timestamp The (raw) {@link Timestamp}
  * @returns {string} A formatted time ('hh:mm')
  */
@@ -1032,11 +1279,11 @@ export function getDateTime(timestamp: Timestamp): string {
 
 /**
  * An alias for {relativeDays}
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @param {function} [mover=nextDay] The mover function to use (ie: {nextDay} or {prevDay}).
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
- * @returns The modified {@link Timestamp}
+ * @returns A new {@link Timestamp}
  */
 export function moveRelativeDays(
   timestamp: Timestamp,
@@ -1049,7 +1296,7 @@ export function moveRelativeDays(
 
 /**
  * Moves the {@link Timestamp} the number of relative days
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @param {function} [mover=nextDay] The mover function to use (ie: {nextDay} or {prevDay}).
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
@@ -1077,7 +1324,7 @@ export function relativeDays(
 
 /**
  * Finds the specified weekday (forward or back) based on the {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to modify
+ * @param {Timestamp} timestamp The {@link Timestamp} to transform
  * @param {number} weekday The weekday number (Sun = 0, ..., Sat = 6)
  * @param {function} [mover=nextDay] The function to use ({prevDay} or {nextDay}).
  * @param {number} [maxDays=6] The number of days to look forward or back.
@@ -1178,22 +1425,36 @@ export function createIntervalList(
   return intervals;
 }
 
+/**
+ * Callback that returns `Intl.DateTimeFormat` options for a timestamp.
+ *
+ * Used by {@link createNativeLocaleFormatter} to let callers switch between
+ * long and short formatting styles per timestamp.
+ */
 export type LocaleFormatter = (
   _timestamp: Timestamp,
   _short: boolean,
 ) => Intl.DateTimeFormatOptions;
+
+/**
+ * Function that formats a weekday key for a locale.
+ */
 export type WeekdayFormatter = (
   _weekday: keyof typeof weekdayDateMap,
   _type: string,
   _locale?: string,
 ) => string;
+
+/**
+ * Function that formats a zero-based month number for a locale.
+ */
 export type MonthFormatter = (_month: number, _type?: string, _locale?: string) => string;
 
 /**
  * @callback getOptions
  * @param {Timestamp} timestamp A {@link Timestamp} object
  * @param {boolean} short True if using short options
- * @returns {Object} An Intl object representing optioons to be used
+ * @returns {Object} An Intl object representing options to be used
  */
 
 /**
@@ -1204,7 +1465,12 @@ export type MonthFormatter = (_month: number, _type?: string, _locale?: string) 
  */
 
 /**
- * Returns a function that uses Intl.DateTimeFormat formatting
+ * Returns a locale formatter backed by `Intl.DateTimeFormat`.
+ *
+ * The helper is SSR-safe: if `Intl.DateTimeFormat` is unavailable in a target
+ * runtime, it returns a formatter that produces an empty string instead of
+ * throwing during module load.
+ *
  * @param {string} locale The locale to use (ie: en-US)
  * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
  * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
@@ -1272,6 +1538,14 @@ export function makeDateTime(timestamp: Timestamp, utc = true): Date {
   );
 }
 
+/**
+ * Converts a {@link Timestamp} to a local JavaScript `Date`.
+ *
+ * This is equivalent to `makeDateTime(timestamp, false)`.
+ *
+ * @param {Timestamp} timestamp The {@link Timestamp} to convert
+ * @returns {Date} A local JavaScript Date
+ */
 export function getDateObject(timestamp: Timestamp): Date {
   return makeDateTime(timestamp, false);
 }
@@ -1361,18 +1635,56 @@ export function isOverlappingDates(
   );
 }
 
+/**
+ * Date and time offsets accepted by {@link addToDate}.
+ *
+ * Positive values add time; negative values subtract time. The result is
+ * normalized through JavaScript Date rules, so overflowing months, days,
+ * seconds, or milliseconds roll into adjacent fields.
+ */
 export interface AddToDateOptions {
+  /**
+   * Number of years to add or subtract.
+   */
   year?: number;
+
+  /**
+   * Number of months to add or subtract.
+   */
   month?: number;
+
+  /**
+   * Number of days to add or subtract.
+   */
   day?: number;
+
+  /**
+   * Number of hours to add or subtract.
+   */
   hour?: number;
+
+  /**
+   * Number of minutes to add or subtract.
+   */
   minute?: number;
+
+  /**
+   * Number of seconds to add or subtract.
+   */
   second?: number;
+
+  /**
+   * Number of milliseconds to add or subtract.
+   */
   millisecond?: number;
 }
 
 /**
- * Add or decrements years, months, days, hours or minutes to a timestamp
+ * Adds or subtracts date/time units from a timestamp.
+ *
+ * This function returns a new frozen {@link Timestamp}; it does not mutate the
+ * timestamp passed in.
+ *
  * @param {Timestamp} timestamp The {@link Timestamp} object
  * @param {Object} options configuration data
  * @param {number=} options.year If positive, adds years. If negative, removes years.
@@ -1382,7 +1694,7 @@ export interface AddToDateOptions {
  * @param {number=} options.minute If positive, adds minutes. If negative, removes minutes.
  * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
  * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
- * @returns {Timestamp} A modified copy of the passed in {@link Timestamp}
+ * @returns {Timestamp} A new normalized {@link Timestamp}
  */
 export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
   const ts = cloneTimestamp(timestamp);
