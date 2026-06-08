@@ -182,6 +182,7 @@ const apiMenu: SiteMenuItem = {
   name: "API",
   mq: 680,
   children: [
+    { name: "Timestamp API", path: "/api/timestamp-api" },
     { name: "Timestamp Object", path: "/api/timestamp-object" },
     { name: "Calendar Helpers", path: "/api/calendar-helpers" },
     { name: "Comparisons", path: "/api/comparisons" },
