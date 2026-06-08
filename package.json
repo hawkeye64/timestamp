@@ -1,5 +1,5 @@
 {
-  "name": "timestamp",
+  "name": "@timestamp-js/core",
   "version": "0.1.0-alpha.0",
   "description": "Framework-agnostic Timestamp utility.",
   "keywords": [

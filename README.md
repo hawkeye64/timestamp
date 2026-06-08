@@ -7,13 +7,13 @@ Timestamp focuses on immutable plain objects and small utility functions. It is 
 ## Install
 
 ```bash
-pnpm add timestamp
+pnpm add @timestamp-js/core
 ```
 
 ## Basic Usage
 
 ```ts
-import { addToDate, getDateTime, parseTimestamp } from "timestamp";
+import { addToDate, getDateTime, parseTimestamp } from "@timestamp-js/core";
 
 const start = parseTimestamp("2026-06-08T09:30:15.250Z");
 const end = start ? addToDate(start, { day: 2, minute: 45 }) : null;
