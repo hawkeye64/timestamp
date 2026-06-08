@@ -14,6 +14,7 @@ const current = parseTimestamp("2026-06-08")!;
 const tomorrow = nextDay(current);
 const yesterday = prevDay(current);
 const nextMonth = addToDate(current, { month: 1 });
+const lastYear = addToDate(current, { year: -1 });
 ```
 
 ## Lists
