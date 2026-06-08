@@ -551,26 +551,31 @@ const apiLinks = [
   }
 
   .timestamp-preview__stack {
-    min-height: 520px;
+    display: grid;
+    gap: 14px;
+    min-height: 0;
   }
 
-  .timestamp-code-card {
-    inset: 24px 0 auto;
+  .timestamp-code-card,
+  .timestamp-mini-card {
+    position: relative;
+    inset: auto;
   }
 
   .timestamp-mini-card {
-    width: calc(100% - 22px);
+    width: 100%;
   }
 
   .timestamp-mini-card--top {
-    top: 260px;
-    right: 10px;
+    right: auto;
+    transform: rotate(1.5deg);
   }
 
   .timestamp-mini-card--bottom {
     right: auto;
-    left: 10px;
-    bottom: 0;
+    left: auto;
+    bottom: auto;
+    transform: rotate(-1.5deg);
   }
 }
 </style>
