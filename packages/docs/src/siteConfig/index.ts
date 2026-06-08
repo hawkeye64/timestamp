@@ -1,0 +1,249 @@
+import { fabGithub, fabXTwitter } from "@quasar/extras/fontawesome-v7";
+import { version, productName } from "../../package.json";
+import { slugify } from "../.q-press/components/markdown-utils";
+
+export interface SocialLink {
+  name: string;
+  icon: string;
+  path: string;
+  external?: boolean;
+}
+
+export interface SiteMenuItem extends MenuItem {
+  about?: string;
+  expanded?: boolean;
+  external?: boolean;
+  children?: SiteMenuItem[];
+  separator?: boolean;
+  header?: string;
+  mq?: number;
+  extract?: string;
+  image?: string;
+  maxWidth?: string;
+}
+
+export interface LinksConfig {
+  primaryHeaderLinks: SiteMenuItem[];
+  secondaryHeaderLinks: SiteMenuItem[];
+  moreLinks: SiteMenuItem[];
+  footerLinks: SiteMenuItem[];
+  socialLinks: SocialLink[];
+  ecoSystemLinks?: SiteMenuItem[];
+}
+
+export interface LogoConfig {
+  showLogo: boolean;
+  logoLight: string;
+  logoDark: string;
+  logoAlt: string;
+}
+
+export interface VersionConfig {
+  showTitle: boolean;
+  showVersion: boolean;
+  showOnHeader: boolean;
+  showOnSidebar: boolean;
+}
+
+export interface UIConfig {
+  usePrimaryHeader: boolean;
+  useSecondaryHeader: boolean;
+  headerHeightHint: number;
+  useMoreLinks: boolean;
+  useFooter: boolean;
+  useSidebar: boolean;
+  useToc: boolean;
+}
+
+export interface CopyrightConfig {
+  line1: string;
+  line2: string;
+}
+
+export interface LicenseConfig {
+  label: string;
+  link: string;
+}
+
+export interface PrivacyConfig {
+  label: string;
+  link: string;
+}
+
+export interface SiteConfig {
+  lang: string;
+  title: string;
+  description: string;
+  theme: string;
+  version: string;
+  copyright: CopyrightConfig;
+  githubEditRootSrc: string;
+  githubSourceRootSrc?: string;
+  license: LicenseConfig;
+  privacy: PrivacyConfig;
+  logoConfig: LogoConfig;
+  versionConfig: VersionConfig;
+  config: UIConfig;
+  links: LinksConfig;
+  sidebar: MenuItem[];
+}
+
+function processMenuItem(item: MenuItem): MenuItem {
+  return {
+    name: item.name,
+    path: item.path?.replace(/^\/+/, "") ?? slugify(item.name),
+    expanded: item.expanded ?? false,
+    children: item.children ? item.children.map(processMenuItem) : undefined,
+  };
+}
+
+const socialLinks = {
+  name: "Social",
+  mq: 1400,
+  children: [
+    {
+      name: "GitHub",
+      icon: fabGithub,
+      path: "https://github.com/hawkeye64/timestamp",
+      external: true,
+    },
+    {
+      name: "X (Twitter)",
+      icon: fabXTwitter,
+      path: "https://twitter.com/jgalbraith64",
+      external: true,
+    },
+  ] as SocialLink[],
+};
+
+const netlifyLink = {
+  path: "https://www.netlify.com",
+  external: true,
+  image: "https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg",
+  name: "Deploys by Netlify",
+  maxWidth: "120px",
+};
+
+const sponsorLink = {
+  path: "https://github.com/sponsors/hawkeye64",
+  external: true,
+  image: "https://github.com/hawkeye64.png?size=96",
+  name: "Sponsor Jeff",
+  maxWidth: "24px",
+};
+
+const footerLinks = [
+  {
+    name: "Sponsors",
+    children: [
+      {
+        name: netlifyLink.name,
+        path: netlifyLink.path,
+        external: netlifyLink.external,
+        image: netlifyLink.image,
+        maxWidth: netlifyLink.maxWidth,
+      },
+      {
+        name: sponsorLink.name,
+        path: sponsorLink.path,
+        external: sponsorLink.external,
+        image: sponsorLink.image,
+        maxWidth: sponsorLink.maxWidth,
+      },
+    ],
+  },
+  {
+    name: socialLinks.name,
+    children: [...socialLinks.children],
+  },
+];
+
+const gettingStartedMenu: SiteMenuItem = {
+  name: "Getting Started",
+  mq: 520,
+  children: [
+    { name: "Introduction", path: "/getting-started/introduction" },
+    { name: "Installation", path: "/getting-started/installation" },
+    { name: "Parsing", path: "/getting-started/parsing" },
+    { name: "Immutability", path: "/getting-started/immutability" },
+    { name: "SSR", path: "/getting-started/ssr" },
+  ],
+};
+
+const apiMenu: SiteMenuItem = {
+  name: "API",
+  mq: 680,
+  children: [
+    { name: "Timestamp Object", path: "/api/timestamp-object" },
+    { name: "Calendar Helpers", path: "/api/calendar-helpers" },
+    { name: "Comparisons", path: "/api/comparisons" },
+  ],
+};
+
+const guideMenu: SiteMenuItem = {
+  name: "Guides",
+  mq: 760,
+  children: [
+    { name: "Timezone Model", path: "/guides/timezone-model" },
+    { name: "Future Scope", path: "/guides/future-scope" },
+  ],
+};
+
+export const sidebar: MenuItem[] = [
+  processMenuItem(gettingStartedMenu),
+  processMenuItem(apiMenu),
+  processMenuItem(guideMenu),
+];
+
+const siteConfig: SiteConfig = {
+  lang: "en-US",
+  title: productName,
+  description: "Immutable date, time, interval, and range helpers for JavaScript and TypeScript.",
+  theme: "sunrise",
+  version,
+  copyright: {
+    line1: "MIT License",
+    line2: "Copyright (c) Jeff Galbraith",
+  },
+  githubEditRootSrc: "https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src",
+  githubSourceRootSrc: "https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src",
+  license: {
+    label: "MIT",
+    link: "https://github.com/hawkeye64/timestamp/blob/master/LICENSE",
+  },
+  privacy: {
+    label: "Privacy",
+    link: "/privacy-policy",
+  },
+  logoConfig: {
+    showLogo: false,
+    logoLight: "",
+    logoDark: "",
+    logoAlt: "Timestamp",
+  },
+  versionConfig: {
+    showTitle: true,
+    showVersion: true,
+    showOnHeader: true,
+    showOnSidebar: true,
+  },
+  config: {
+    usePrimaryHeader: true,
+    useSecondaryHeader: false,
+    headerHeightHint: 72,
+    useMoreLinks: true,
+    useFooter: true,
+    useSidebar: true,
+    useToc: true,
+  },
+  links: {
+    primaryHeaderLinks: [gettingStartedMenu, apiMenu, guideMenu],
+    secondaryHeaderLinks: [],
+    moreLinks: [socialLinks],
+    footerLinks,
+    socialLinks: socialLinks.children,
+  },
+  sidebar,
+};
+
+export default siteConfig;

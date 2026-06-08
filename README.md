@@ -54,6 +54,15 @@ The library relies on standard JavaScript runtime APIs such as `Date` and `Intl.
 
 For deterministic SSR output, prefer passing explicit timestamps into helpers instead of calling `today()` during render. `today()` intentionally uses the host runtime clock and timezone.
 
+## Documentation
+
+The project includes a Q-Press documentation site under `packages/docs`.
+
+```bash
+pnpm docs:dev
+pnpm docs:build
+```
+
 ## Current Scope
 
 - Parse date strings and ISO-like date-time strings into Timestamp objects.

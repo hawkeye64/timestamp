@@ -1,0 +1,53 @@
+{
+  "name": "@timestamp-js/docs",
+  "version": "0.1.0-alpha.0",
+  "private": true,
+  "description": "Q-Press documentation site for @timestamp-js/core.",
+  "author": "Jeff <galbraith64@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "typecheck": "vue-tsc -p tsconfig.json --noEmit --pretty false",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "pnpm run build:ssg",
+    "build:spa": "quasar build",
+    "build:ssg": "quasar prepare && quasar build && qpress-ssg",
+    "postinstall": "quasar prepare",
+    "build:ssg:renderer": "quasar prepare && quasar build -m ssr",
+    "prerender:ssg": "qpress-ssg"
+  },
+  "dependencies": {
+    "@md-plugins/vite-ssg-plugin": "^0.1.0-beta.24",
+    "@quasar/extras": "2.0.0",
+    "@timestamp-js/core": "workspace:*",
+    "@vue/server-renderer": "^3.5.0",
+    "mermaid": "^11.15.0",
+    "pinia": "^3.0.4",
+    "quasar": "^2.19.3",
+    "shiki": "^4.1.0",
+    "vue": "^3.5.35",
+    "vue-router": "^5.1.0"
+  },
+  "devDependencies": {
+    "@md-plugins/quasar-app-extension-q-press": "0.1.0-beta.24",
+    "@md-plugins/vite-md-plugin": "0.1.0-beta.24",
+    "@md-plugins/vite-ssg-plugin": "0.1.0-beta.24",
+    "@quasar/app-vite": "3.0.0-beta.42",
+    "@types/node": "^25.9.2",
+    "autoprefixer": "^10.5.0",
+    "sass-embedded": "^1.100.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-checker": "^0.14.1",
+    "vue-tsc": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.3.0"
+  },
+  "productName": "Timestamp"
+}

@@ -1,5 +1,7 @@
 node_modules
 dist
+packages/docs/.quasar
+packages/docs/dist
 coverage
 .playwright-cli
 .playwright

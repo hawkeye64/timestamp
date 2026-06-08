@@ -38,6 +38,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "docs:build": "pnpm --filter @timestamp-js/docs build",
+    "docs:dev": "pnpm --filter @timestamp-js/docs dev",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",

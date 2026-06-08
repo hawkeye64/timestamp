@@ -1,0 +1,13 @@
+packages:
+  - "packages/*"
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@md-plugins/quasar-app-extension-q-press@0.1.0-beta.24"
+  - "@md-plugins/vite-md-plugin@0.1.0-beta.24"
+  - "@md-plugins/vite-ssg-plugin@0.1.0-beta.24"
+  - "@quasar/app-vite@3.0.0-beta.42"
+  - "oxfmt@0.53.0"
+  - "oxlint@1.68.0"
+  - "typescript@6.0.3"
+  - "vitest@4.1.8"
