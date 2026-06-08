@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/core",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Framework-agnostic Timestamp utility.",
   "keywords": [
     "calendar",
