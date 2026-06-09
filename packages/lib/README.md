@@ -4,6 +4,8 @@ Framework-agnostic TypeScript utilities for date-only, time-only, date-time, int
 
 Timestamp focuses on immutable plain objects and small utility functions. It is intentionally independent of any UI framework, backend framework, or application platform.
 
+The package is ESM, side-effect free, and designed for tree-shaking. Prefer named imports so bundlers can keep only the helpers your app actually uses.
+
 ## Install
 
 ```bash

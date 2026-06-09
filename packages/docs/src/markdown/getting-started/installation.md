@@ -16,7 +16,7 @@ yarn add @timestamp-js/core
 npm install @timestamp-js/core
 ```
 
-The package is ESM and side-effect free.
+The package is ESM, side-effect free, and designed for tree-shaking. Prefer named imports so bundlers can keep only the helpers your app actually uses.
 
 ```ts
 import { parseTimestamp, today, type Timestamp } from "@timestamp-js/core";
