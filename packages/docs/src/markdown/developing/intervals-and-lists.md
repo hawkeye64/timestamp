@@ -31,11 +31,12 @@ days;
 
 `createIntervalList()` creates time slots for a single day. Pass the starting interval index, minutes per interval, total interval count, and the Timestamp to use for relative flags.
 
-```ts
+```ts [twoslash]
 import { createIntervalList, parseTimestamp } from "@timestamp-js/core";
 
 const day = parseTimestamp("2026-06-08")!;
 const hourly = createIntervalList(day, 0, 60, 24, day);
+//    ^?
 
 hourly[0]?.time; // "00:00"
 hourly[9]?.time; // "09:00"
@@ -46,7 +47,7 @@ hourly[23]?.time; // "23:00"
 
 You can also create compact option lists for forms or filters.
 
-```ts
+```ts [twoslash]
 import { createIntervalList, parseTimestamp } from "@timestamp-js/core";
 
 const day = parseTimestamp("2026-06-08")!;
