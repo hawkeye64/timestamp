@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/docs",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": true,
   "description": "Q-Press documentation site for @timestamp-js/core.",
   "author": "Jeff <galbraith64@gmail.com>",
