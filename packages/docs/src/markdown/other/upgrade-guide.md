@@ -27,9 +27,10 @@ npm install @timestamp-js/core
 
 Replace QCalendar-owned or source-path Timestamp imports with direct `@timestamp-js/core` imports.
 
-```ts
-// Before: your app imported Timestamp helpers from QCalendar or a source utility path.
-// import { parseTimestamp, today } from "@quasar/quasar-ui-qcalendar/..."
+```ts [rem=2-3 add=6]
+// Before: your app imported Timestamp helpers from a UI package or source utility path.
+import { parseTimestamp, today } from "@quasar/quasar-ui-qcalendar";
+import { parseTimestamp, today } from "@quasar/quasar-ui-qcalendar/src/utils/Timestamp";
 
 // After: your app owns the dependency explicitly.
 import { parseTimestamp, today } from "@timestamp-js/core";

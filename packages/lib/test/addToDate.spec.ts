@@ -82,6 +82,22 @@ describe("[TIMESTAMP] addToDate", () => {
     expect(tests.day).toBe(31);
   });
 
+  it("addToDate 2020-02-29 add 1 year normalizes through March 1", () => {
+    const ts = timestamp.parsed("2020-02-29");
+    const tests = timestamp.addToDate(ts, { year: 1 });
+    expect(tests.year).toBe(2021);
+    expect(tests.month).toBe(3);
+    expect(tests.day).toBe(1);
+  });
+
+  it("addToDate 2020-02-29 remove 1 year normalizes through March 1", () => {
+    const ts = timestamp.parsed("2020-02-29");
+    const tests = timestamp.addToDate(ts, { year: -1 });
+    expect(tests.year).toBe(2019);
+    expect(tests.month).toBe(3);
+    expect(tests.day).toBe(1);
+  });
+
   it("addToDate 2020-01-01 remove 1 minute", () => {
     const ts = timestamp.parsed("2020-01-01");
     const tests = timestamp.addToDate(ts, { minute: -1 });
