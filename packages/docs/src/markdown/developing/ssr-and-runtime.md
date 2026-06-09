@@ -14,8 +14,8 @@ If server and client run in different timezones, `today()` can produce different
 ```ts
 import { parseTimestamp, updateRelative } from "@timestamp-js/core";
 
-const renderedNow = parseTimestamp("2026-06-08")!;
-const event = parseTimestamp("2026-06-10")!;
+const renderedNow = parseTimestamp("2036-06-08")!;
+const event = parseTimestamp("2036-06-10")!;
 
 const stable = updateRelative(event, renderedNow);
 

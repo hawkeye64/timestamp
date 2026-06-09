@@ -22,8 +22,8 @@ For deterministic SSR output:
 ```ts
 import { parseDate, parseTimestamp, updateRelative } from "@timestamp-js/core";
 
-const now = parseTimestamp("2026-06-08")!;
-const target = parseTimestamp("2026-06-09")!;
+const now = parseTimestamp("2036-06-08")!;
+const target = parseTimestamp("2036-06-09")!;
 
 const stable = updateRelative(target, now);
 ```
