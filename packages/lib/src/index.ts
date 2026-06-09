@@ -159,12 +159,12 @@ export interface DisabledDayConfig {
   to?: string;
 
   /**
-   * Alias for {@link DisabledDayConfig.from}.
+   * Alias for DisabledDayConfig.from.
    */
   start?: string;
 
   /**
-   * Alias for {@link DisabledDayConfig.to}.
+   * Alias for DisabledDayConfig.to.
    */
   end?: string;
 
@@ -376,7 +376,7 @@ export interface TimeObject {
 /**
  * Frozen empty timestamp template.
  *
- * Use {@link copyTimestamp} or parser helpers to create new timestamp objects
+ * Use copyTimestamp or parser helpers to create new timestamp objects
  * instead of mutating this shared default.
  */
 export const Timestamp: Timestamp = freezeTimestamp({
@@ -633,12 +633,12 @@ export function isToday(date: string): boolean {
 }
 
 /**
- * Returns the start of the week give a {@link Timestamp} and weekdays (in which it finds the day representing the start of the week).
- * If today {@link Timestamp} is passed in then this is used to update relative information in the returned {@link Timestamp}.
- * @param {Timestamp} timestamp The {@link Timestamp} to use to find the start of the week
+ * Returns the start of the week for a Timestamp and weekday set.
+ * If a current Timestamp is provided, the returned Timestamp includes updated relative information.
+ * @param {Timestamp} timestamp The Timestamp to use to find the start of the week
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
- * @param {Timestamp=} today If passed in then the {@link Timestamp} is updated with relative information
- * @returns {Timestamp} A new {@link Timestamp} representing the start of the week
+ * @param {Timestamp=} today Current timestamp used to update relative information
+ * @returns {Timestamp} A new Timestamp representing the start of the week
  */
 export function getStartOfWeek(
   timestamp: Timestamp,
@@ -663,12 +663,12 @@ export function getStartOfWeek(
 }
 
 /**
- * Returns the end of the week give a {@link Timestamp} and weekdays (in which it finds the day representing the last of the week).
- * If today {@link Timestamp} is passed in then this is used to update relative information in the returned {@link Timestamp}.
- * @param {Timestamp} timestamp The {@link Timestamp} to use to find the end of the week
+ * Returns the end of the week for a Timestamp and weekday set.
+ * If a current Timestamp is provided, the returned Timestamp includes updated relative information.
+ * @param {Timestamp} timestamp The Timestamp to use to find the end of the week
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
- * @param {Timestamp=} today If passed in then the {@link Timestamp} is updated with relative information
- * @returns {Timestamp} A new {@link Timestamp} representing the end of the week
+ * @param {Timestamp=} today Current timestamp used to update relative information
+ * @returns {Timestamp} A new Timestamp representing the end of the week
  */
 export function getEndOfWeek(
   timestamp: Timestamp,
@@ -696,9 +696,9 @@ export function getEndOfWeek(
 }
 
 /**
- * Finds the start of the month based on the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use to find the start of the month
- * @returns {Timestamp} A {@link Timestamp} of the start of the month
+ * Finds the start of the month based on the passed in Timestamp
+ * @param {Timestamp} timestamp The Timestamp to use to find the start of the month
+ * @returns {Timestamp} A Timestamp of the start of the month
  */
 export function getStartOfMonth(timestamp: Timestamp): Timestamp {
   let start = cloneTimestamp(timestamp);
@@ -708,9 +708,9 @@ export function getStartOfMonth(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Finds the end of the month based on the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use to find the end of the month
- * @returns {Timestamp} A {@link Timestamp} of the end of the month
+ * Finds the end of the month based on the passed in Timestamp
+ * @param {Timestamp} timestamp The Timestamp to use to find the end of the month
+ * @returns {Timestamp} A Timestamp of the end of the month
  */
 export function getEndOfMonth(timestamp: Timestamp): Timestamp {
   let end = cloneTimestamp(timestamp);
@@ -885,9 +885,9 @@ export function getDayTimeIdentifier(timestamp: Timestamp): number {
 }
 
 /**
- * Returns the difference between two {@link Timestamp}s
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
+ * Returns the difference between two Timestamps
+ * @param {Timestamp} ts1 The first Timestamp
+ * @param {Timestamp} ts2 The second Timestamp
  * @param {boolean=} strict Optional flag to not to return negative numbers
  * @returns {number} The difference
  */
@@ -956,10 +956,10 @@ export function updateRelative(timestamp: Timestamp, now: Timestamp, time = fals
  * The returned timestamp has updated hour/minute fields and clears second and
  * millisecond precision because this helper is minute-oriented.
  *
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @param {number} minutes The number of minutes to set from midnight
- * @param {Timestamp=} now Optional {@link Timestamp} representing current date and time
- * @returns {Timestamp} A new {@link Timestamp}
+ * @param {Timestamp=} now Optional Timestamp representing current date and time
+ * @returns {Timestamp} A new Timestamp
  */
 export function updateMinutes(
   timestamp: Timestamp,
@@ -981,8 +981,8 @@ export function updateMinutes(
 }
 
 /**
- * Updates the {@link Timestamp} with the weekday
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Updates the Timestamp with the weekday
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
  */
 export function updateWeekday(timestamp: Timestamp): Timestamp {
@@ -993,8 +993,8 @@ export function updateWeekday(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Updates the {@link Timestamp} with the day of the year (doy)
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Updates the Timestamp with the day of the year (doy)
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
  */
 export function updateDayOfYear(timestamp: Timestamp): Timestamp {
@@ -1005,9 +1005,9 @@ export function updateDayOfYear(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Updates the {@link Timestamp} with the workweek
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
- * @returns A new {@link Timestamp}
+ * Updates the Timestamp with the workweek
+ * @param {Timestamp} timestamp The Timestamp to transform
+ * @returns A new Timestamp
  */
 export function updateWorkWeek(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp);
@@ -1082,13 +1082,13 @@ function isTimestampInDisabledDay(timestamp: Timestamp, day: DisabledDay): boole
 }
 
 /**
- * Updates the passed {@link Timestamp} with disabled, if needed
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Updates the passed Timestamp with disabled, if needed
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @param {string} [disabledBefore] In `YYYY-MM-DD` format
  * @param {string} [disabledAfter] In `YYYY-MM-DD` format
  * @param {number[]} [disabledWeekdays] An array of numbers representing weekdays [0 = Sun, ..., 6 = Sat]
  * @param {DisabledDays} [disabledDays] An array of days in 'YYYY-MM-DD' format. If an array with a pair of dates is in first array, then this is treated as a range. Object entries can include date/from/to plus color metadata.
- * @returns A new {@link Timestamp}
+ * @returns A new Timestamp
  */
 export function updateDisabled(
   timestamp: Timestamp,
@@ -1142,9 +1142,9 @@ export function updateDisabled(
 }
 
 /**
- * Updates the passed {@link Timestamp} with formatted data (time string, date string, weekday, day of year and workweek)
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
- * @returns A new {@link Timestamp}
+ * Updates the passed Timestamp with formatted data (time string, date string, weekday, day of year and workweek)
+ * @param {Timestamp} timestamp The Timestamp to transform
+ * @returns A new Timestamp
  */
 export function updateFormatted(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp);
@@ -1159,8 +1159,8 @@ export function updateFormatted(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Returns day of the year (doy) for the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
+ * Returns day of the year (doy) for the passed in Timestamp
+ * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The day of the year
  */
 export function getDayOfYear(timestamp: Timestamp): number | void {
@@ -1176,8 +1176,8 @@ export function getDayOfYear(timestamp: Timestamp): number | void {
 }
 
 /**
- * Returns workweek for the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
+ * Returns workweek for the passed in Timestamp
+ * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The work week
  */
 export function getWorkWeek(timestamp: Timestamp): number {
@@ -1210,8 +1210,8 @@ export function getWorkWeek(timestamp: Timestamp): number {
 }
 
 /**
- * Returns weekday for the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
+ * Returns weekday for the passed in Timestamp
+ * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The weekday
  */
 export function getWeekday(timestamp: Timestamp): number {
@@ -1298,12 +1298,12 @@ export function getDateTime(timestamp: Timestamp): string {
 }
 
 /**
- * An alias for {relativeDays}
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Alias for relativeDays.
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @param {function} [mover=nextDay] The mover function to use (ie: {nextDay} or {prevDay}).
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
- * @returns A new {@link Timestamp}
+ * @returns A new Timestamp
  */
 export function moveRelativeDays(
   timestamp: Timestamp,
@@ -1315,12 +1315,12 @@ export function moveRelativeDays(
 }
 
 /**
- * Moves the {@link Timestamp} the number of relative days
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Moves the Timestamp the number of relative days
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @param {function} [mover=nextDay] The mover function to use (ie: {nextDay} or {prevDay}).
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
- * @returns A new {@link Timestamp}
+ * @returns A new Timestamp
  */
 export function relativeDays(
   timestamp: Timestamp,
@@ -1343,12 +1343,12 @@ export function relativeDays(
 }
 
 /**
- * Finds the specified weekday (forward or back) based on the {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to transform
+ * Finds the specified weekday (forward or back) based on the Timestamp
+ * @param {Timestamp} timestamp The Timestamp to transform
  * @param {number} weekday The weekday number (Sun = 0, ..., Sat = 6)
  * @param {function} [mover=nextDay] The function to use ({prevDay} or {nextDay}).
  * @param {number} [maxDays=6] The number of days to look forward or back.
- * @returns A new {@link Timestamp}
+ * @returns A new Timestamp
  */
 export function findWeekday(
   timestamp: Timestamp,
@@ -1453,7 +1453,7 @@ export function createIntervalList(
 /**
  * Callback that returns `Intl.DateTimeFormat` options for a timestamp.
  *
- * Used by {@link createNativeLocaleFormatter} to let callers switch between
+ * Used by createNativeLocaleFormatter to let callers switch between
  * long and short formatting styles per timestamp.
  */
 export type LocaleFormatter = (
@@ -1477,16 +1477,16 @@ export type MonthFormatter = (_month: number, _type?: string, _locale?: string) 
 
 /**
  * @callback getOptions
- * @param {Timestamp} timestamp A {@link Timestamp} object
+ * @param {Timestamp} timestamp A Timestamp object
  * @param {boolean} short True if using short options
  * @returns {Object} An Intl object representing options to be used
  */
 
 /**
  * @callback formatter
- * @param {Timestamp} timestamp The {@link Timestamp} being used
+ * @param {Timestamp} timestamp The Timestamp being used
  * @param {boolean} short If short format is being requested
- * @returns {string} The localized string of the formatted {@link Timestamp}
+ * @returns {string} The localized string of the formatted Timestamp
  */
 
 /**
@@ -1844,9 +1844,9 @@ function normalizeTimestamp(ts: Timestamp): Timestamp {
 }
 
 /**
- * Returns number of days between two {@link Timestamp}s
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
+ * Returns number of days between two Timestamps
+ * @param {Timestamp} ts1 The first Timestamp
+ * @param {Timestamp} ts2 The second Timestamp
  * @returns Number of days
  */
 export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
@@ -1855,9 +1855,9 @@ export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
 }
 
 /**
- * Returns number of weeks between two {@link Timestamp}s
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
+ * Returns number of weeks between two Timestamps
+ * @param {Timestamp} ts1 The first Timestamp
+ * @param {Timestamp} ts2 The second Timestamp
  */
 export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
   let t1: Timestamp = copyTimestamp(ts1);
