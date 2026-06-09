@@ -13,9 +13,9 @@ keys: Other
 ::::
 
 ::::details Q. Does Timestamp automatically convert timezone suffixes?
-**A.** Not currently. Timezone suffixes are accepted and preserved, but wall-clock fields are not converted. Explicit instant/timezone conversion helpers are tracked as future work.
+**A.** No. Timezone suffixes are accepted and preserved, but wall-clock fields are not converted during parsing.
 ::::
 
 ::::details Q. Should I use Timestamp instead of a full date library?
-**A.** Use Timestamp when you need small, deterministic date/time primitives. If you need broad timezone conversion, natural-language parsing, or mature locale formatting today, pair it with a specialized date library until those helpers are added.
+**A.** Use Timestamp when you need small, deterministic date/time primitives. If you need broad timezone conversion, natural-language parsing, or mature locale formatting, pair it with a specialized date library.
 ::::

@@ -37,5 +37,3 @@ import { parseDate } from "@timestamp-js/core";
 
 const timestamp = parseDate(new Date("2026-06-08T09:30:00Z"), true);
 ```
-
-UTC-specific `todayUTC()` and `nowUTC()` helpers are being evaluated for a future release.

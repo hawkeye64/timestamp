@@ -44,4 +44,4 @@ timestamp?.timezone;
 // "-07:00"
 ```
 
-That behavior keeps calendar-style wall-clock parsing stable. Explicit instant/timezone conversion helpers are being evaluated separately.
+That behavior keeps calendar-style wall-clock parsing stable and avoids silent date shifts during parsing.

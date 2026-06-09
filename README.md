@@ -76,10 +76,6 @@ The publishable package lives in `packages/lib` so the repository follows the sa
 - Format weekday and month names through `Intl.DateTimeFormat`.
 - Keep the public surface small, typed, immutable, and runtime-agnostic while the package stabilizes.
 
-## Future Scope
-
-The package is intentionally not trying to become a full general-purpose date library on day one. Planned evaluations include Temporal support, explicit timezone behavior, alternate calendar systems, duration helpers, Unix timestamp helpers, compact formatting masks, and a script-tag/browser build if CodePen-style demos need it.
-
 ## Development
 
 ```bash

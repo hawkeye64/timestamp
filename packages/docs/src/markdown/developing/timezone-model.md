@@ -20,7 +20,7 @@ timestamp?.timezone; // -07:00
 
 Calendar UIs and scheduling workflows often care about the visible wall-clock value. Automatically converting `2026-06-08T00:30:00Z` into a local timezone can unexpectedly move the date to the previous day.
 
-Timestamp keeps parsing stable and explicit. Future instant/timezone helpers can add conversion behavior without changing the meaning of the current parser.
+Timestamp keeps parsing stable and explicit: parsing records the suffix and preserves the wall-clock fields.
 
 ## SSR note
 

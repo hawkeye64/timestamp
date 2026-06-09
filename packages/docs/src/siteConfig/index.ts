@@ -192,10 +192,7 @@ const apiMenu: SiteMenuItem = {
 const developingMenu: SiteMenuItem = {
   name: "Developing",
   mq: 780,
-  children: [
-    { name: "Timezone Model", path: "/developing/timezone-model" },
-    { name: "Future Scope", path: "/developing/future-scope" },
-  ],
+  children: [{ name: "Timezone Model", path: "/developing/timezone-model" }],
 };
 
 const otherMenu: SiteMenuItem = {

@@ -17,7 +17,7 @@ console.log(next.date); // 2026-06-09
 console.log(lastYear.date); // 2025-06-08
 ```
 
-Calendar math normalizes through JavaScript date rules. For example, adding one year to a leap-day value such as `2020-02-29` produces `2021-03-01`, because February 29 does not exist in 2021. If your app needs end-of-month clamping instead, keep that as explicit app logic until Timestamp adds a dedicated clamped-date helper.
+Calendar math normalizes through JavaScript date rules. For example, adding one year to a leap-day value such as `2020-02-29` produces `2021-03-01`, because February 29 does not exist in 2021.
 
 ## Manual copies
 

@@ -13,7 +13,7 @@ It is not tied to a UI framework, backend framework, or application platform. Yo
 - **Immutable by default:** parser and update helpers return frozen Timestamp objects.
 - **Calendar-friendly:** date strings, weekday metadata, day-of-year, workweek, interval generation, and range comparison are first-class.
 - **Runtime-safe:** no dependency on `window`, `document`, storage APIs, or framework state.
-- **Small core:** deterministic primitives first, optional broader date/time ideas later.
+- **Small core:** deterministic primitives without full date-library scope.
 
 ## Basic example
 
@@ -28,6 +28,4 @@ console.log(end ? getDateTime(end) : "Invalid date");
 
 ## What Timestamp is not
 
-Timestamp is not trying to replace every date library on day one. It does not currently provide full timezone conversion, duration formatting, relative phrase formatting, or non-Gregorian calendar systems.
-
-Those areas are being evaluated as explicit additions so the core stays predictable.
+Timestamp is not trying to replace every date library. It does not currently provide full timezone conversion, duration formatting, relative phrase formatting, or non-Gregorian calendar systems.
