@@ -7,7 +7,7 @@ Comparison helpers avoid repeatedly converting Timestamp objects back into nativ
 
 ## Compare date and time separately
 
-```ts [twoslash]
+```ts
 import { compareDate, compareDateTime, compareTime, parseTimestamp } from "@timestamp-js/core";
 
 const first = parseTimestamp("2026-06-08 09:30")!;
@@ -20,7 +20,7 @@ compareDateTime(first, second); // false
 
 Comparison helpers return booleans. Use identifiers or min/max helpers when you need ordering.
 
-```ts [twoslash]
+```ts
 import { getDayTimeIdentifier, parseTimestamp } from "@timestamp-js/core";
 
 const first = parseTimestamp("2026-06-08 09:30")!;
@@ -31,7 +31,7 @@ getDayTimeIdentifier(first) < getDayTimeIdentifier(second); // true
 
 ## Check inclusive date ranges
 
-```ts [twoslash]
+```ts
 import { isBetweenDates, parseTimestamp } from "@timestamp-js/core";
 
 const start = parseTimestamp("2026-06-01")!;
@@ -43,7 +43,7 @@ isBetweenDates(target, start, end); // true
 
 ## Check overlap between ranges
 
-```ts [twoslash]
+```ts
 import { isOverlappingDates, parseTimestamp } from "@timestamp-js/core";
 
 const vacationStart = parseTimestamp("2026-06-10")!;
@@ -56,7 +56,7 @@ isOverlappingDates(vacationStart, vacationEnd, blackoutStart, blackoutEnd); // t
 
 ## Pick min and max values
 
-```ts [twoslash]
+```ts
 import { getDate, maxTimestamp, minTimestamp, parseTimestamp } from "@timestamp-js/core";
 
 const dates = [

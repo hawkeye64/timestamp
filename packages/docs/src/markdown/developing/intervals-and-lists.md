@@ -9,7 +9,7 @@ List helpers are useful when you need predictable data structures for calendars,
 
 `createDayList()` returns every date from the start boundary through the end boundary.
 
-```ts [twoslash]
+```ts
 import { createDayList, getDate, parseTimestamp } from "@timestamp-js/core";
 
 const start = parseTimestamp("2026-06-01")!;
@@ -31,7 +31,7 @@ days;
 
 `createIntervalList()` creates time slots for a single day. Pass the starting interval index, minutes per interval, total interval count, and the Timestamp to use for relative flags.
 
-```ts [twoslash]
+```ts
 import { createIntervalList, parseTimestamp } from "@timestamp-js/core";
 
 const day = parseTimestamp("2026-06-08")!;
@@ -46,7 +46,7 @@ hourly[23]?.time; // "23:00"
 
 You can also create compact option lists for forms or filters.
 
-```ts [twoslash]
+```ts
 import { createIntervalList, parseTimestamp } from "@timestamp-js/core";
 
 const day = parseTimestamp("2026-06-08")!;
@@ -60,7 +60,7 @@ businessHours;
 
 Month and weekday labels use `Intl.DateTimeFormat`, so pass an explicit locale when server and client output must match.
 
-```ts [twoslash]
+```ts
 import { getMonthNames, getWeekdayNames } from "@timestamp-js/core";
 
 getWeekdayNames("long", "en-US").slice(0, 3); // ["Sunday", "Monday", "Tuesday"]
