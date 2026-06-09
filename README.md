@@ -1,5 +1,7 @@
 # Timestamp
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4020c938-0242-48ed-9069-c774e3909bfd/deploy-status)](https://app.netlify.com/projects/timestamp-js/deploys)
+
 Framework-agnostic TypeScript utilities for date-only, time-only, date-time, interval, and range workflows in browsers, Node.js, and modern JavaScript runtimes.
 
 Timestamp focuses on immutable plain objects and small utility functions. It is intentionally independent of any UI framework, backend framework, or application platform.
@@ -13,12 +15,14 @@ pnpm add @timestamp-js/core
 ## Basic Usage
 
 ```ts
-import { addToDate, getDateTime, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, addToDateClamped, getDateTime, parseTimestamp } from "@timestamp-js/core";
 
 const start = parseTimestamp("2026-06-08T09:30:15.250Z");
 const end = start ? addToDate(start, { day: 2, minute: 45 }) : null;
+const billingDate = start ? addToDateClamped(start, { month: 1 }) : null;
 
 console.log(end ? getDateTime(end) : "Invalid date");
+console.log(billingDate ? getDateTime(billingDate) : "Invalid date");
 ```
 
 ## Timestamp Values

@@ -1255,6 +1255,73 @@
         ]
       }
     },
+    "addToDateClamped": {
+      "desc": "Takes a timestamp and increments/decrements based on options, clamping invalid target month days to the last valid day in the target month",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "options": {
+          "type": "Object",
+          "tsType": "AddToDateOptions",
+          "desc": "The options passed to the method. Year and month changes clamp the day before day and time offsets are applied",
+          "required": true,
+          "examples": [
+            "{ year: 1 }",
+            "{ month: 1 }",
+            "{ month: 1, day: 1 }",
+            "{ month: -1, hour: 2 }"
+          ],
+          "definition": {
+            "year": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the year",
+              "examples": ["# { year: 1 }", "# { year: '-1' }"]
+            },
+            "month": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the month",
+              "examples": ["# { month: 1 }", "# { month: '-1' }"]
+            },
+            "day": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the day after year/month clamping",
+              "examples": ["# { day: 1 }", "# { day: '-1' }"]
+            },
+            "hour": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the hour",
+              "examples": ["# { hour: 1 }", "# { hour: '-1' }"]
+            },
+            "minute": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the minute",
+              "examples": ["# { minute: 1 }", "# { minute: '-1' }"]
+            },
+            "second": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the second",
+              "examples": ["# { second: 30 }", "# { second: '-30' }"]
+            },
+            "millisecond": {
+              "type": ["Number", "String"],
+              "desc": "[Optional] The amount to increment/decrement the millisecond",
+              "examples": ["# { millisecond: 250 }", "# { millisecond: '-250' }"]
+            }
+          }
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "A copy of the modified timestamp object with invalid target month days clamped before remaining offsets are applied",
+        "examples": [
+          "# const leapDay = addToDateClamped(timestamp, { year: 1 })",
+          "# const nextMonth = addToDateClamped(timestamp, { month: 1 })"
+        ]
+      }
+    },
     "getWeekdayFormatter": {
       "desc": "Returns a function to be used for international formatting purposes for the weekday",
       "params": null,

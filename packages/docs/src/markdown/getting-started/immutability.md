@@ -17,7 +17,18 @@ console.log(next.date); // 2026-06-09
 console.log(lastYear.date); // 2025-06-08
 ```
 
-Calendar math normalizes through JavaScript date rules. For example, adding one year to a leap-day value such as `2020-02-29` produces `2021-03-01`, because February 29 does not exist in 2021.
+Calendar math normalizes through JavaScript date rules by default. For example, `addToDate()` with one year added to a leap-day value such as `2020-02-29` produces `2021-03-01`, because February 29 does not exist in 2021.
+
+Use `addToDateClamped()` when month-end workflows should stay inside the target month:
+
+```ts
+import { addToDateClamped, parseTimestamp } from "@timestamp-js/core";
+
+const leapDay = parseTimestamp("2020-02-29")!;
+const renewalDate = addToDateClamped(leapDay, { year: 1 });
+
+console.log(renewalDate.date); // 2021-02-28
+```
 
 ## Manual copies
 

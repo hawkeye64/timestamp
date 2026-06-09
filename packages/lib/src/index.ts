@@ -1631,7 +1631,7 @@ export function isOverlappingDates(
 }
 
 /**
- * Date and time offsets accepted by {@link addToDate}.
+ * Date and time offsets accepted by {@link addToDate} and {@link addToDateClamped}.
  *
  * Positive values add time; negative values subtract time. The result is
  * normalized through JavaScript Date rules, so overflowing months, days,
@@ -1703,6 +1703,64 @@ export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Time
   if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond;
 
   return updateFormatted(normalizeTimestamp(ts));
+}
+
+/**
+ * Adds or subtracts date/time units from a timestamp while clamping invalid
+ * target month days to the last valid day in the target month.
+ *
+ * This helper is useful for calendar and billing workflows where adding one
+ * month to January 31 should produce February 28/29 instead of rolling into
+ * March. Day and time offsets still use normal JavaScript Date normalization
+ * after the year/month clamp is applied.
+ *
+ * This function returns a new frozen {@link Timestamp}; it does not mutate the
+ * timestamp passed in.
+ *
+ * @param {Timestamp} timestamp The {@link Timestamp} object
+ * @param {Object} options configuration data
+ * @param {number=} options.year If positive, adds years. If negative, removes years.
+ * @param {number=} options.month If positive, adds months. If negative, removes month.
+ * @param {number=} options.day If positive, adds days. If negative, removes days.
+ * @param {number=} options.hour If positive, adds hours. If negative, removes hours.
+ * @param {number=} options.minute If positive, adds minutes. If negative, removes minutes.
+ * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
+ * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
+ * @returns {Timestamp} A new normalized {@link Timestamp}
+ */
+export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
+  const ts = cloneTimestamp(timestamp);
+
+  if (options.year || options.month) {
+    const target = normalizeYearMonth(
+      ts.year + (options.year ?? 0),
+      ts.month + (options.month ?? 0),
+    );
+    ts.year = target.year;
+    ts.month = target.month;
+    ts.day = Math.min(ts.day, daysInMonth(ts.year, ts.month));
+  }
+
+  if (options.day) ts.day += options.day;
+  if (options.hour) ts.hour += options.hour;
+  if (options.minute) ts.minute += options.minute;
+  if (options.second) ts.second = (ts.second ?? 0) + options.second;
+  if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond;
+
+  return updateFormatted(normalizeTimestamp(ts));
+}
+
+/**
+ * Normalizes a year/month pair while keeping the day out of the calculation.
+ * This lets clamped date math choose the final day explicitly instead of
+ * letting JavaScript Date roll an overflowing day into the next month.
+ */
+function normalizeYearMonth(year: number, month: number): Pick<Timestamp, "year" | "month"> {
+  const date = new Date(year, month - 1, 1);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+  };
 }
 
 /**
@@ -2007,6 +2065,7 @@ export default {
   daysBetween,
   weeksBetween,
   addToDate,
+  addToDateClamped,
   compareTimestamps,
   compareDate,
   compareTime,

@@ -8,13 +8,16 @@ Timestamp includes helpers for calendar-style workflows without depending on a U
 ## Date math
 
 ```ts
-import { addToDate, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
+import { addToDate, addToDateClamped, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
 
 const current = parseTimestamp("2026-06-08")!;
 const tomorrow = nextDay(current);
 const yesterday = prevDay(current);
 const nextMonth = addToDate(current, { month: 1 });
 const lastYear = addToDate(current, { year: -1 });
+
+const monthEnd = parseTimestamp("2026-01-31")!;
+const billingDate = addToDateClamped(monthEnd, { month: 1 }); // 2026-02-28
 ```
 
 ## Lists
