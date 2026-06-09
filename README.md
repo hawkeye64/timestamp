@@ -1,6 +1,12 @@
 # Timestamp
 
+[![npm](https://img.shields.io/npm/v/@timestamp-js/core/alpha?label=@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4020c938-0242-48ed-9069-c774e3909bfd/deploy-status)](https://app.netlify.com/projects/timestamp-js/deploys)
+[![Verify Timestamp](https://github.com/hawkeye64/timestamp/actions/workflows/run-vitest.yml/badge.svg)](https://github.com/hawkeye64/timestamp/actions/workflows/run-vitest.yml)
+[![License](https://img.shields.io/npm/l/@timestamp-js/core)](https://github.com/hawkeye64/timestamp/blob/master/LICENSE)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hawkeye64/timestamp)](https://github.com/hawkeye64/timestamp)
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/hawkeye64/timestamp)](https://github.com/hawkeye64/timestamp)
+[![npm downloads](https://img.shields.io/npm/dt/@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
 
 Framework-agnostic TypeScript utilities for date-only, time-only, date-time, interval, and range workflows in browsers, Node.js, and modern JavaScript runtimes.
 
