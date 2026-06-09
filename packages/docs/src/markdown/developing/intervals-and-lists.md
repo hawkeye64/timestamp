@@ -9,13 +9,13 @@ List helpers are useful when you need predictable data structures for calendars,
 
 `createDayList()` returns every date from the start boundary through the end boundary.
 
-```ts
+```ts [twoslash]
 import { createDayList, getDate, parseTimestamp } from "@timestamp-js/core";
 
 const start = parseTimestamp("2026-06-01")!;
 const end = parseTimestamp("2026-06-05")!;
 
-const days = createDayList(start, end).map(getDate);
+const days = createDayList(start, end, start).map(getDate);
 
 days;
 // [
@@ -60,9 +60,9 @@ businessHours;
 
 Month and weekday labels use `Intl.DateTimeFormat`, so pass an explicit locale when server and client output must match.
 
-```ts
+```ts [twoslash]
 import { getMonthNames, getWeekdayNames } from "@timestamp-js/core";
 
-getWeekdayNames("en-US").slice(0, 3); // ["Sunday", "Monday", "Tuesday"]
-getMonthNames("en-US").slice(0, 3); // ["January", "February", "March"]
+getWeekdayNames("long", "en-US").slice(0, 3); // ["Sunday", "Monday", "Tuesday"]
+getMonthNames("long", "en-US").slice(0, 3); // ["January", "February", "March"]
 ```

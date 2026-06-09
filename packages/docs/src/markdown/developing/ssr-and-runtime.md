@@ -11,7 +11,7 @@ The SSR detail to watch is not the import itself. It is whether your code asks t
 
 If server and client run in different timezones, `today()` can produce different values.
 
-```ts
+```ts [twoslash]
 import { parseTimestamp, updateRelative } from "@timestamp-js/core";
 
 const renderedNow = parseTimestamp("2026-06-08")!;
@@ -26,24 +26,24 @@ stable.future; // true
 
 When your input is a native `Date`, pass `true` as the second `parseDate()` argument to read UTC fields.
 
-```ts
+```ts [twoslash]
 import { getDateTime, parseDate } from "@timestamp-js/core";
 
 const instant = new Date("2026-06-08T09:30:00.000Z");
 const timestamp = parseDate(instant, true);
 
-getDateTime(timestamp); // "2026-06-08 09:30"
+getDateTime(timestamp!); // "2026-06-08 09:30"
 ```
 
 ## Pass locales explicitly
 
 `Intl.DateTimeFormat` can use the host default locale. Pass a locale when labels are rendered on both server and client.
 
-```ts
+```ts [twoslash]
 import { getMonthNames, getWeekdayNames } from "@timestamp-js/core";
 
-const weekdays = getWeekdayNames("en-US");
-const months = getMonthNames("en-US");
+const weekdays = getWeekdayNames("long", "en-US");
+const months = getMonthNames("long", "en-US");
 
 weekdays[0]; // "Sunday"
 months[0]; // "January"
@@ -53,7 +53,7 @@ months[0]; // "January"
 
 Tests are more stable when the current date is an explicit fixture.
 
-```ts
+```ts [twoslash]
 import { parseTimestamp, updateRelative } from "@timestamp-js/core";
 
 const now = parseTimestamp("2026-06-08")!;

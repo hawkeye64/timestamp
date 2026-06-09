@@ -432,11 +432,11 @@ export function validateTimestamp(input: string): boolean {
  * Fast low-level parser for date and date-time strings.
  *
  * This parser fills numeric fields, but does not update formatted date,
- * weekday, day-of-year, workweek, or relative flags. Use
- * {@link parseTimestamp} when those derived fields are needed.
+ * weekday, day-of-year, workweek, or relative flags. Use parseTimestamp()
+ * when those derived fields are needed.
  *
  * @param {string} input In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.
- * @returns {Timestamp} This {@link Timestamp} is minimally filled in. The {@link Timestamp.date} and {@link Timestamp.time} as well as relative data will not be filled in.
+ * @returns {Timestamp} Minimal Timestamp object, or `null` when the input cannot be parsed.
  */
 export function parsed(input: string): Timestamp | null {
   if (typeof input !== "string") return null;
@@ -485,10 +485,14 @@ export function parsed(input: string): Timestamp | null {
 }
 
 /**
- * Takes a JavaScript Date and returns a {@link Timestamp}. The {@link Timestamp} is not updated with relative information.
- * @param {Date} date JavaScript Date
- * @param {boolean} utc If set the {@link Timestamp} will parse the Date as UTC
- * @returns {Timestamp} A minimal {@link Timestamp} without updated or relative updates.
+ * Converts a JavaScript Date into a formatted Timestamp object.
+ *
+ * Pass `true` for UTC when the Date represents an instant that should be read
+ * with UTC getters instead of host-local getters.
+ *
+ * @param {Date} date JavaScript Date to convert.
+ * @param {boolean} utc Read the Date using UTC getters when true.
+ * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
  */
 export function parseDate(date: Date, utc = false): Timestamp | null {
   if (!(date instanceof Date)) return null;
@@ -571,9 +575,10 @@ export function daysInMonth(year: number, month: number): number {
 }
 
 /**
- * Returns a {@link Timestamp} of next day from passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {Timestamp} A new {@link Timestamp} representing the next day
+ * Returns a new Timestamp for the next calendar day.
+ *
+ * @param {Timestamp} timestamp Base Timestamp object.
+ * @returns {Timestamp} New Timestamp representing the next day.
  */
 export function nextDay(timestamp: Timestamp): Timestamp {
   const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day + 1);
@@ -588,9 +593,10 @@ export function nextDay(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Returns a {@link Timestamp} of previous day from passed in {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {Timestamp} A new {@link Timestamp} representing the previous day
+ * Returns a new Timestamp for the previous calendar day.
+ *
+ * @param {Timestamp} timestamp Base Timestamp object.
+ * @returns {Timestamp} New Timestamp representing the previous day.
  */
 export function prevDay(timestamp: Timestamp): Timestamp {
   const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day - 1);
@@ -757,10 +763,11 @@ export function parseTime(
 }
 
 /**
- * Compares two {@link Timestamp}s for exactness
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
- * @returns {boolean} True if the two {@link Timestamp}s are an exact match
+ * Compares two Timestamp objects for exact date, time, and timezone equality.
+ *
+ * @param {Timestamp} ts1 First Timestamp object.
+ * @param {Timestamp} ts2 Second Timestamp object.
+ * @returns {boolean} True when both timestamps match exactly.
  */
 export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
   if (!ts1 || !ts2) return false;
@@ -778,30 +785,33 @@ export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
 }
 
 /**
- * Compares the date of two {@link Timestamp}s that have been updated with relative data
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
- * @returns {boolean} True if the two dates are the same
+ * Compares the calendar date portion of two Timestamp objects.
+ *
+ * @param {Timestamp} ts1 First Timestamp object.
+ * @param {Timestamp} ts2 Second Timestamp object.
+ * @returns {boolean} True when both dates are the same.
  */
 export function compareDate(ts1: Timestamp, ts2: Timestamp): boolean {
   return getDate(ts1) === getDate(ts2);
 }
 
 /**
- * Compares the time of two {@link Timestamp}s that have been updated with relative data
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
- * @returns {boolean} True if the two times are an exact match
+ * Compares the formatted time portion of two Timestamp objects.
+ *
+ * @param {Timestamp} ts1 First Timestamp object.
+ * @param {Timestamp} ts2 Second Timestamp object.
+ * @returns {boolean} True when both times are the same.
  */
 export function compareTime(ts1: Timestamp, ts2: Timestamp): boolean {
   return getTime(ts1) === getTime(ts2);
 }
 
 /**
- * Compares the date and time of two {@link Timestamp}s that have been updated with relative data
- * @param {Timestamp} ts1 The first {@link Timestamp}
- * @param {Timestamp} ts2 The second {@link Timestamp}
- * @returns {boolean} True if the date and time are an exact match
+ * Compares the formatted date and time portions of two Timestamp objects.
+ *
+ * @param {Timestamp} ts1 First Timestamp object.
+ * @param {Timestamp} ts2 Second Timestamp object.
+ * @returns {boolean} True when both date-time values are the same.
  */
 export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
   return getDateTime(ts1) === getDateTime(ts2);
@@ -831,9 +841,10 @@ export function parseTimestamp(input: string, now: Timestamp | null = null): Tim
 }
 
 /**
- * Converts a {@link Timestamp} into a numeric date identifier based on the passed {@link Timestamp}'s date
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {number} The numeric date identifier
+ * Converts a Timestamp date into a sortable numeric identifier.
+ *
+ * @param {Timestamp} timestamp Timestamp object to read.
+ * @returns {number} Numeric date identifier.
  */
 export function getDayIdentifier(timestamp: Timestamp): number {
   return (
@@ -844,9 +855,10 @@ export function getDayIdentifier(timestamp: Timestamp): number {
 }
 
 /**
- * Converts a {@link Timestamp} into a numeric time identifier based on the passed {@link Timestamp}'s time
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {number} The numeric time identifier
+ * Converts a Timestamp time into a sortable numeric identifier.
+ *
+ * @param {Timestamp} timestamp Timestamp object to read.
+ * @returns {number} Numeric time identifier.
  */
 export function getTimeIdentifier(timestamp: Timestamp): number {
   return (timestamp.hour ?? 0) * 100 + (timestamp.minute ?? 0);
@@ -863,9 +875,10 @@ function getTimeComparisonValue(timestamp: Timestamp): number {
 }
 
 /**
- * Converts a {@link Timestamp} into a numeric date and time identifier based on the passed {@link Timestamp}'s date and time
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @returns {number} The numeric date+time identifier
+ * Converts a Timestamp date and time into a sortable numeric identifier.
+ *
+ * @param {Timestamp} timestamp Timestamp object to read.
+ * @returns {number} Numeric date-time identifier.
  */
 export function getDayTimeIdentifier(timestamp: Timestamp): number {
   return getDayIdentifier(timestamp) + getTimeIdentifier(timestamp);
@@ -906,11 +919,16 @@ export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): n
 }
 
 /**
- * Updates a {@link Timestamp} with relative data (past, current and future)
- * @param {Timestamp} timestamp The {@link Timestamp} that needs relative data updated
- * @param {Timestamp} now {@link Timestamp} that represents the current date (optional time)
- * @param {boolean=} time Optional flag to include time ('timestamp' and 'now' params should have time values)
- * @returns {Timestamp} A new {@link Timestamp}
+ * Returns a Timestamp with relative flags compared to a supplied `now` value.
+ *
+ * The returned object includes `past`, `current`, `future`, and
+ * `currentWeekday` flags. Pass `true` for `time` when both values should be
+ * compared at time-of-day precision.
+ *
+ * @param {Timestamp} timestamp Timestamp object to update.
+ * @param {Timestamp} now Timestamp representing the comparison point.
+ * @param {boolean=} time Include time-of-day in the comparison when true.
+ * @returns {Timestamp} New Timestamp object with relative flags.
  */
 export function updateRelative(timestamp: Timestamp, now: Timestamp, time = false): Timestamp {
   const ts = cloneTimestamp(timestamp as Timestamp);
@@ -1221,18 +1239,20 @@ export function getWeekday(timestamp: Timestamp): number {
 }
 
 /**
- * Makes a copy of the passed in {@link Timestamp}
- * @param {Timestamp} timestamp The original {@link Timestamp}
- * @returns {Timestamp} A copy of the original {@link Timestamp}
+ * Returns an immutable copy of a Timestamp object.
+ *
+ * @param {Timestamp} timestamp Timestamp object to copy.
+ * @returns {Timestamp} Frozen Timestamp copy.
  */
 export function copyTimestamp(timestamp: Timestamp): Timestamp {
   return freezeTimestamp(timestamp);
 }
 
 /**
- * Used internally to convert {@link Timestamp} used with 'parsed' or 'parseDate' so the 'date' portion of the {@link Timestamp} is correct.
- * @param {Timestamp} timestamp The (raw) {@link Timestamp}
- * @returns {string} A formatted date ('YYYY-MM-DD')
+ * Formats the date portion of a Timestamp object.
+ *
+ * @param {Timestamp} timestamp Timestamp object to format.
+ * @returns {string} Date string such as `YYYY-MM-DD`.
  */
 export function getDate(timestamp: Timestamp): string {
   let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`;
@@ -1243,9 +1263,13 @@ export function getDate(timestamp: Timestamp): string {
 }
 
 /**
- * Used internally to convert {@link Timestamp} with 'parsed' or 'parseDate' so the 'time' portion of the {@link Timestamp} is correct.
- * @param {Timestamp} timestamp The (raw) {@link Timestamp}
- * @returns {string} A formatted time ('hh:mm')
+ * Formats the time portion of a Timestamp object.
+ *
+ * Minute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;
+ * millisecond precision as `HH:mm:ss.SSS`.
+ *
+ * @param {Timestamp} timestamp Timestamp object to format.
+ * @returns {string} Time string, or an empty string when the timestamp has no time.
  */
 export function getTime(timestamp: Timestamp): string {
   if (!timestamp.hasTime) {
@@ -1264,9 +1288,10 @@ export function getTime(timestamp: Timestamp): string {
 }
 
 /**
- * Returns a formatted string date and time ('YYYY-YY-MM hh:mm')
- * @param {Timestamp} timestamp The {@link Timestamp}
- * @returns {string} A formatted date time ('YYYY-MM-DD HH:mm')
+ * Formats a Timestamp as date plus time.
+ *
+ * @param {Timestamp} timestamp Timestamp object to format.
+ * @returns {string} Date-time string such as `YYYY-MM-DD HH:mm`.
  */
 export function getDateTime(timestamp: Timestamp): string {
   return getDate(timestamp) + " " + (timestamp.hasTime ? getTime(timestamp) : "00:00");
@@ -1337,18 +1362,22 @@ export function findWeekday(
 }
 
 /**
- * Creates an array of {@link Timestamp}s based on start and end params
- * @param {Timestamp} start The starting {@link Timestamp}
- * @param {Timestamp} end The ending {@link Timestamp}
- * @param {Timestamp} now The relative day
- * @param {number[]} weekdays An array of numbers (representing days of the week) that are 0 (=Sunday) to 6 (=Saturday)
- * @param {string} [disabledBefore] Days before this date are disabled (YYYY-MM-DD)
- * @param {string} [disabledAfter] Days after this date are disabled (YYYY-MM-DD)
- * @param {number[]} [disabledWeekdays] An array representing weekdays that are disabled [0 = Sun, ..., 6 = Sat]
- * @param {DisabledDays} [disabledDays] An array of days in 'YYYY-MM-DD' format. If an array with a pair of dates is in first array, then this is treated as a range.
- * @param {number} [max=42] Max days to do
- * @param {number} [min=0]  Min days to do
- * @returns {Timestamp[]} The requested array of {@link Timestamp}s
+ * Creates an inclusive list of Timestamp days between start and end.
+ *
+ * The returned days are formatted, marked with relative flags against `now`,
+ * and can include disabled metadata when disabled options are supplied.
+ *
+ * @param {Timestamp} start First day in the list.
+ * @param {Timestamp} end Last day boundary for the list.
+ * @param {Timestamp} now Timestamp used to calculate relative flags.
+ * @param {number[]} weekdays Weekday numbers to include, from `0` Sunday to `6` Saturday.
+ * @param {string} [disabledBefore] Disable days before this `YYYY-MM-DD` date.
+ * @param {string} [disabledAfter] Disable days after this `YYYY-MM-DD` date.
+ * @param {number[]} [disabledWeekdays] Weekday numbers to mark disabled.
+ * @param {DisabledDays} [disabledDays] Specific dates or date ranges to mark disabled.
+ * @param {number} [max=42] Maximum number of days to return.
+ * @param {number} [min=0] Minimum number of days to return.
+ * @returns {Timestamp[]} Timestamp days.
  */
 export function createDayList(
   start: Timestamp,
@@ -1494,10 +1523,11 @@ export function createNativeLocaleFormatter(
 }
 
 /**
- * Makes a JavaScript Date from the passed {@link Timestamp}
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @param {boolean} utc True to get Date object using UTC
- * @returns {Date} A JavaScript Date
+ * Converts a Timestamp date into a JavaScript Date.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @param {boolean} utc Create the Date with UTC fields when true.
+ * @returns {Date} JavaScript Date object.
  */
 export function makeDate(timestamp: Timestamp, utc = true): Date {
   if (utc) return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0));
@@ -1505,10 +1535,11 @@ export function makeDate(timestamp: Timestamp, utc = true): Date {
 }
 
 /**
- * Makes a JavaScript Date from the passed {@link Timestamp} (with time)
- * @param {Timestamp} timestamp The {@link Timestamp} to use
- * @param {boolean} utc True to get Date object using UTC
- * @returns {Date} A JavaScript Date
+ * Converts a Timestamp date and time into a JavaScript Date.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @param {boolean} utc Create the Date with UTC fields when true.
+ * @returns {Date} JavaScript Date object.
  */
 export function makeDateTime(timestamp: Timestamp, utc = true): Date {
   if (utc)
@@ -1535,12 +1566,12 @@ export function makeDateTime(timestamp: Timestamp, utc = true): Date {
 }
 
 /**
- * Converts a {@link Timestamp} to a local JavaScript `Date`.
+ * Converts a Timestamp to a local JavaScript Date.
  *
  * This is equivalent to `makeDateTime(timestamp, false)`.
  *
- * @param {Timestamp} timestamp The {@link Timestamp} to convert
- * @returns {Date} A local JavaScript Date
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @returns {Date} Local JavaScript Date object.
  */
 export function getDateObject(timestamp: Timestamp): Date {
   return makeDateTime(timestamp, false);
@@ -1558,10 +1589,11 @@ export function validateNumber(input: string | number): boolean {
 }
 
 /**
- * Given an array of {@link Timestamp}s, finds the max date (and possible time)
- * @param {Timestamp[]} timestamps This is an array of {@link Timestamp}s
- * @param {boolean=} useTime Default false; if true, uses time in the comparison as well
- * @returns The {@link Timestamp} with the highest date (and possibly time) value
+ * Finds the latest Timestamp in an array.
+ *
+ * @param {Timestamp[]} timestamps Timestamp objects to compare.
+ * @param {boolean=} useTime Include time-of-day in the comparison when true.
+ * @returns Latest Timestamp object.
  */
 export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
   const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier;
@@ -1571,10 +1603,11 @@ export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestam
 }
 
 /**
- * Given an array of {@link Timestamp}s, finds the min date (and possible time)
- * @param {Timestamp[]} timestamps This is an array of {@link Timestamp}s
- * @param {boolean=} useTime Default false; if true, uses time in the comparison as well
- * @returns The {@link Timestamp} with the lowest date (and possibly time) value
+ * Finds the earliest Timestamp in an array.
+ *
+ * @param {Timestamp[]} timestamps Timestamp objects to compare.
+ * @param {boolean=} useTime Include time-of-day in the comparison when true.
+ * @returns Earliest Timestamp object.
  */
 export function minTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
   const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier;
@@ -1584,12 +1617,13 @@ export function minTimestamp(timestamps: Timestamp[], useTime = false): Timestam
 }
 
 /**
- * Determines if the passed {@link Timestamp} is between (or equal) to two {@link Timestamp}s (range)
- * @param {Timestamp} timestamp The {@link Timestamp} for testing
- * @param {Timestamp} startTimestamp The starting {@link Timestamp}
- * @param {Timestamp} endTimestamp The ending {@link Timestamp}
- * @param {boolean=} useTime If true, use time from the {@link Timestamp}s
- * @returns {boolean} True if {@link Timestamp} is between (or equal) to two {@link Timestamp}s (range)
+ * Checks whether a Timestamp falls inside an inclusive range.
+ *
+ * @param {Timestamp} timestamp Timestamp object to test.
+ * @param {Timestamp} startTimestamp Inclusive start boundary.
+ * @param {Timestamp} endTimestamp Inclusive end boundary.
+ * @param {boolean=} useTime Include time-of-day in the comparison when true.
+ * @returns {boolean} True when the timestamp is inside the range.
  */
 export function isBetweenDates(
   timestamp: Timestamp,
@@ -1607,12 +1641,13 @@ export function isBetweenDates(
 }
 
 /**
- * Determine if two ranges of {@link Timestamp}s overlap each other
- * @param {Timestamp} startTimestamp The starting {@link Timestamp} of first range
- * @param {Timestamp} endTimestamp The endinging {@link Timestamp} of first range
- * @param {Timestamp} firstTimestamp The starting {@link Timestamp} of second range
- * @param {Timestamp} lastTimestamp The ending {@link Timestamp} of second range
- * @returns {boolean} True if the two ranges overlap each other
+ * Checks whether two inclusive Timestamp ranges overlap.
+ *
+ * @param {Timestamp} startTimestamp Start of the first range.
+ * @param {Timestamp} endTimestamp End of the first range.
+ * @param {Timestamp} firstTimestamp Start of the second range.
+ * @param {Timestamp} lastTimestamp End of the second range.
+ * @returns {boolean} True when the ranges overlap.
  */
 export function isOverlappingDates(
   startTimestamp: Timestamp,
@@ -1632,7 +1667,7 @@ export function isOverlappingDates(
 }
 
 /**
- * Date and time offsets accepted by {@link addToDate} and {@link addToDateClamped}.
+ * Date and time offsets accepted by addToDate() and addToDateClamped().
  *
  * Positive values add time; negative values subtract time. The result is
  * normalized through JavaScript Date rules, so overflowing months, days,
@@ -1678,11 +1713,12 @@ export interface AddToDateOptions {
 /**
  * Adds or subtracts date/time units from a timestamp.
  *
- * This function returns a new frozen {@link Timestamp}; it does not mutate the
- * timestamp passed in.
+ * This function returns a new frozen Timestamp; it does not mutate the
+ * timestamp passed in. Invalid target dates are normalized through JavaScript
+ * Date rules, so month overflow can roll into the following month.
  *
- * @param {Timestamp} timestamp The {@link Timestamp} object
- * @param {Object} options configuration data
+ * @param {Timestamp} timestamp Timestamp object to offset.
+ * @param {Object} options Date/time units to add or subtract.
  * @param {number=} options.year If positive, adds years. If negative, removes years.
  * @param {number=} options.month If positive, adds months. If negative, removes month.
  * @param {number=} options.day If positive, adds days. If negative, removes days.
@@ -1690,7 +1726,7 @@ export interface AddToDateOptions {
  * @param {number=} options.minute If positive, adds minutes. If negative, removes minutes.
  * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
  * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
- * @returns {Timestamp} A new normalized {@link Timestamp}
+ * @returns {Timestamp} New normalized Timestamp object.
  */
 export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
   const ts = cloneTimestamp(timestamp);
@@ -1715,11 +1751,11 @@ export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Time
  * March. Day and time offsets still use normal JavaScript Date normalization
  * after the year/month clamp is applied.
  *
- * This function returns a new frozen {@link Timestamp}; it does not mutate the
+ * This function returns a new frozen Timestamp; it does not mutate the
  * timestamp passed in.
  *
- * @param {Timestamp} timestamp The {@link Timestamp} object
- * @param {Object} options configuration data
+ * @param {Timestamp} timestamp Timestamp object to offset.
+ * @param {Object} options Date/time units to add or subtract.
  * @param {number=} options.year If positive, adds years. If negative, removes years.
  * @param {number=} options.month If positive, adds months. If negative, removes month.
  * @param {number=} options.day If positive, adds days. If negative, removes days.
@@ -1727,7 +1763,7 @@ export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Time
  * @param {number=} options.minute If positive, adds minutes. If negative, removes minutes.
  * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
  * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
- * @returns {Timestamp} A new normalized {@link Timestamp}
+ * @returns {Timestamp} New normalized Timestamp object.
  */
 export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
   const ts = cloneTimestamp(timestamp);
@@ -1916,11 +1952,11 @@ export function getWeekdayFormatter(): WeekdayFormatter {
 }
 
 /**
- * Retrieves an array of localized weekday names.
+ * Retrieves localized weekday names.
  *
- * @param {string} type - The format type for the weekday names. Can be 'narrow', 'short', or 'long'.
- * @param {string} [locale] - The locale to use for formatting. If not provided, the default locale is used.
- * @returns {string[]} An array of localized weekday names in the specified format.
+ * @param {string} type Format type: `narrow`, `short`, or `long`.
+ * @param {string} locale Locale to use for formatting, such as `en-US`.
+ * @returns {string[]} Localized weekday names in Sunday-first order.
  */
 export function getWeekdayNames(type: string, locale: string): string[] {
   const shortWeekdays = Object.keys(weekdayDateMap);
@@ -1985,11 +2021,11 @@ export function getMonthFormatter(): MonthFormatter {
 }
 
 /**
- * Retrieves an array of localized month names.
+ * Retrieves localized month names.
  *
- * @param {string} type - The format type for the month names. Can be 'narrow', 'short', or 'long'.
- * @param {string} [locale] - The locale to use for formatting. If not provided, the default locale is used.
- * @returns {string[]} An array of localized month names in the specified format.
+ * @param {string} type Format type: `narrow`, `short`, or `long`.
+ * @param {string} locale Locale to use for formatting, such as `en-US`.
+ * @returns {string[]} Localized month names in January-first order.
  */
 export function getMonthNames(type: string, locale: string): string[] {
   const monthFormatter = getMonthFormatter();

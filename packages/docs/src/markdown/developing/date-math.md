@@ -7,7 +7,7 @@ Date math helpers always return new Timestamp objects. The original object stays
 
 ## Move by days, months, and years
 
-```ts
+```ts [twoslash]
 import { addToDate, getDate, parseTimestamp } from "@timestamp-js/core";
 
 const current = parseTimestamp("2026-06-08")!;
@@ -26,7 +26,7 @@ getDate(current); // "2026-06-08"
 
 JavaScript date overflow is useful for some workflows, but billing cycles and due dates often need end-of-month clamping.
 
-```ts
+```ts [twoslash]
 import { addToDate, addToDateClamped, getDate, parseTimestamp } from "@timestamp-js/core";
 
 const monthEnd = parseTimestamp("2026-01-31")!;
@@ -42,7 +42,7 @@ getDate(clamped); // "2026-02-28"
 
 Clamped math keeps leap-day anniversaries on the last valid day when the target year is not a leap year.
 
-```ts
+```ts [twoslash]
 import { addToDateClamped, getDate, parseTimestamp } from "@timestamp-js/core";
 
 const leapDay = parseTimestamp("2020-02-29")!;
@@ -55,7 +55,7 @@ getDate(nextYear); // "2021-02-28"
 
 Use `nextDay()` and `prevDay()` when readability matters more than a generic offset object.
 
-```ts
+```ts [twoslash]
 import { getDate, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
 
 const current = parseTimestamp("2026-06-08")!;
