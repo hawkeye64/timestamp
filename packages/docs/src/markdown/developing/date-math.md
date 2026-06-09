@@ -63,3 +63,67 @@ const current = parseTimestamp("2026-06-08")!;
 getDate(prevDay(current)); // "2026-06-07"
 getDate(nextDay(current)); // "2026-06-09"
 ```
+
+## Set minutes from midnight
+
+`updateMinutes()` is useful for time pickers and interval grids that store time as minutes after midnight.
+
+```ts [twoslash]
+import { parseTimestamp, updateMinutes } from "@timestamp-js/core";
+
+const day = parseTimestamp("2036-06-08")!;
+
+const meeting = updateMinutes(day, 9 * 60 + 30);
+
+meeting.time; // "09:30"
+meeting.hour; // 9
+meeting.minute; // 30
+```
+
+## Move by allowed weekdays
+
+Use `relativeDays()` or `moveRelativeDays()` when "next day" should skip weekends or other disallowed weekdays.
+
+```ts [twoslash]
+import {
+  getDate,
+  moveRelativeDays,
+  nextDay,
+  parseTimestamp,
+  prevDay,
+  relativeDays,
+} from "@timestamp-js/core";
+
+const friday = parseTimestamp("2036-06-13")!;
+const mondayToFriday = [1, 2, 3, 4, 5];
+
+getDate(relativeDays(friday, nextDay, 1, mondayToFriday)); // "2036-06-16"
+getDate(moveRelativeDays(friday, prevDay, 1, mondayToFriday)); // "2036-06-12"
+```
+
+## Find a specific weekday
+
+`findWeekday()` moves forward or backward until the requested weekday is found.
+
+```ts [twoslash]
+import { findWeekday, getDate, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
+
+const current = parseTimestamp("2036-06-08")!;
+
+getDate(findWeekday(current, 5, nextDay)); // "2036-06-13"
+getDate(findWeekday(current, 1, prevDay)); // "2036-06-02"
+```
+
+## Type reusable offset objects
+
+`AddToDateOptions` is useful when offsets are passed through app-level helpers.
+
+```ts [twoslash]
+import { addToDate, getDate, parseTimestamp } from "@timestamp-js/core";
+import type { AddToDateOptions } from "@timestamp-js/core";
+
+const renewalOffset: AddToDateOptions = { year: 1, day: -1 };
+const startsAt = parseTimestamp("2036-06-08")!;
+
+getDate(addToDate(startsAt, renewalOffset)); // "2037-06-07"
+```

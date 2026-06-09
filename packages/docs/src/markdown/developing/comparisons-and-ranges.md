@@ -21,12 +21,33 @@ compareDateTime(first, second); // false
 Comparison helpers return booleans. Use identifiers or min/max helpers when you need ordering.
 
 ```ts [twoslash]
-import { getDayTimeIdentifier, parseTimestamp } from "@timestamp-js/core";
+import {
+  getDayIdentifier,
+  getDayTimeIdentifier,
+  getTimeIdentifier,
+  parseTimestamp,
+} from "@timestamp-js/core";
 
 const first = parseTimestamp("2026-06-08 09:30")!;
 const second = parseTimestamp("2026-06-08 10:00")!;
 
+getDayIdentifier(first); // 202606080000
+getTimeIdentifier(first); // 930
 getDayTimeIdentifier(first) < getDayTimeIdentifier(second); // true
+```
+
+## Compare exact timestamps
+
+Use `compareTimestamps()` when timezone suffixes and sub-minute precision matter too.
+
+```ts [twoslash]
+import { compareDateTime, compareTimestamps, parseTimestamp } from "@timestamp-js/core";
+
+const utc = parseTimestamp("2036-06-08T09:30:15.250Z")!;
+const offset = parseTimestamp("2036-06-08T09:30:15.250-07:00")!;
+
+compareDateTime(utc, offset); // true
+compareTimestamps(utc, offset); // false
 ```
 
 ## Check inclusive date ranges
@@ -67,4 +88,19 @@ const dates = [
 
 getDate(minTimestamp(dates)); // "2026-06-01"
 getDate(maxTimestamp(dates)); // "2026-06-12"
+```
+
+## Measure differences
+
+`diffTimestamp()` returns milliseconds. `daysBetween()` and `weeksBetween()` provide common calendar-sized measurements.
+
+```ts [twoslash]
+import { daysBetween, diffTimestamp, parseTimestamp, weeksBetween } from "@timestamp-js/core";
+
+const start = parseTimestamp("2036-06-01")!;
+const end = parseTimestamp("2036-06-15")!;
+
+diffTimestamp(start, end); // 1209600000
+daysBetween(start, end); // 14
+weeksBetween(start, end); // 3
 ```

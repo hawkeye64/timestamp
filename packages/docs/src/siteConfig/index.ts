@@ -194,6 +194,7 @@ const developingMenu: SiteMenuItem = {
   mq: 780,
   children: [
     { name: "Parsing + Formatting", path: "/developing/parsing-and-formatting" },
+    { name: "Validation + Boundaries", path: "/developing/validation-and-boundaries" },
     { name: "Date Math", path: "/developing/date-math" },
     { name: "Intervals + Lists", path: "/developing/intervals-and-lists" },
     { name: "Comparisons + Ranges", path: "/developing/comparisons-and-ranges" },

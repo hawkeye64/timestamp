@@ -22,6 +22,18 @@ const stable = updateRelative(event, renderedNow);
 stable.future; // true
 ```
 
+## Use today checks outside hydration-sensitive render paths
+
+`today()` and `isToday()` are convenient for client-only actions, tests with mocked time, and server logic that owns its timezone.
+
+```ts [twoslash]
+import { isToday, today } from "@timestamp-js/core";
+
+const currentDate = today();
+
+isToday(currentDate); // true
+```
+
 ## Use UTC conversion when the source is an instant
 
 When your input is a native `Date`, pass `true` as the second `parseDate()` argument to read UTC fields.

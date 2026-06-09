@@ -62,3 +62,71 @@ parseTime("09"); // 540
 
 parseTime("09:30:15.250"); // 570
 ```
+
+## Format individual pieces
+
+Use `getDate()`, `getTime()`, and `getDateTime()` when you need stable string output for inputs, route params, storage, or display.
+
+```ts [twoslash]
+import { getDate, getDateTime, getTime, parseTimestamp } from "@timestamp-js/core";
+
+const timestamp = parseTimestamp("2036-06-08T09:30:15.250Z")!;
+
+getDate(timestamp); // "2036-06-08"
+getTime(timestamp); // "09:30:15.250"
+getDateTime(timestamp); // "2036-06-08 09:30:15.250"
+```
+
+## Refresh formatted fields after custom transforms
+
+Most helpers already return formatted timestamps. Reach for `updateFormatted()` only when you intentionally build or alter a timestamp-like object yourself.
+
+```ts [twoslash]
+import { copyTimestamp, parseTimestamp, updateFormatted } from "@timestamp-js/core";
+
+const source = parseTimestamp("2036-06-08 09:30")!;
+const copied = copyTimestamp(source);
+
+const refreshed = updateFormatted({ ...copied, hour: 14, minute: 45 });
+
+refreshed.time; // "14:45"
+copied.time; // "09:30"
+```
+
+## Convert back to native Date values
+
+Use UTC output when the Date represents a portable instant. Use local output when you specifically need host-local `Date` behavior.
+
+```ts [twoslash]
+import { getDateObject, makeDate, makeDateTime, parseTimestamp } from "@timestamp-js/core";
+
+const timestamp = parseTimestamp("2036-06-08 09:30")!;
+
+makeDate(timestamp).toISOString(); // "2036-06-08T00:00:00.000Z"
+makeDateTime(timestamp).toISOString(); // "2036-06-08T09:30:00.000Z"
+
+const localDate = getDateObject(timestamp);
+localDate instanceof Date; // true
+```
+
+## Type your application boundaries
+
+Import types from the same package when your app accepts or returns Timestamp values.
+
+```ts [twoslash]
+import { parseTimestamp } from "@timestamp-js/core";
+import type { TimeObject, Timestamp } from "@timestamp-js/core";
+
+function asStorageKey(timestamp: Timestamp): string {
+  return `${timestamp.date} ${timestamp.time ?? "00:00"}`;
+}
+
+function toMinutes(time: TimeObject): number {
+  return time.hour * 60 + time.minute;
+}
+
+const timestamp = parseTimestamp("2036-06-08 09:30")!;
+
+asStorageKey(timestamp); // "2036-06-08 09:30"
+toMinutes({ hour: 9, minute: 30 }); // 570
+```
