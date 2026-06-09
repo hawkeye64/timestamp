@@ -36,7 +36,6 @@ import { createIntervalList, parseTimestamp } from "@timestamp-js/core";
 
 const day = parseTimestamp("2026-06-08")!;
 const hourly = createIntervalList(day, 0, 60, 24, day);
-//    ^?
 
 hourly[0]?.time; // "00:00"
 hourly[9]?.time; // "09:00"
