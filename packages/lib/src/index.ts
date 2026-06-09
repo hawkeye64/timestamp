@@ -1556,20 +1556,10 @@ export type MonthFormatter = (_month: number, _type?: string, _locale?: string) 
  * @returns {string} The localized string of the formatted Timestamp
  */
 
-/**
- * Returns a locale formatter backed by `Intl.DateTimeFormat`.
- *
- * The helper is SSR-safe: if `Intl.DateTimeFormat` is unavailable in a target
- * runtime, it returns a formatter that produces an empty string instead of
- * throwing during module load.
- *
- * @param {string} locale The locale to use (ie: en-US)
- * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
- * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
- */
-export function createNativeLocaleFormatter(
+function createNativeLocaleFormatterByMode(
   locale: string,
   cb: LocaleFormatter,
+  toDate: (timestamp: Timestamp) => Date,
 ): (_timestamp: Timestamp, _short: boolean) => string {
   const emptyFormatter = (): string => "";
 
@@ -1581,12 +1571,51 @@ export function createNativeLocaleFormatter(
   return (timestamp: Timestamp, short: boolean): string => {
     try {
       const intlFormatter = new Intl.DateTimeFormat(locale || undefined, cb(timestamp, short));
-      return intlFormatter.format(makeDateTimeUTC(timestamp));
+      return intlFormatter.format(toDate(timestamp));
     } catch (e) /* istanbul ignore next */ {
       console.error(`Intl.DateTimeFormat: ${(e as Error).message} -> ${getDateTime(timestamp)}`);
       return "";
     }
   };
+}
+
+/**
+ * Returns a host-local locale formatter backed by `Intl.DateTimeFormat`.
+ *
+ * The helper is SSR-safe: if `Intl.DateTimeFormat` is unavailable in a target
+ * runtime, it returns a formatter that produces an empty string instead of
+ * throwing during module load.
+ *
+ * Use `createNativeLocaleFormatterUTC()` when Timestamp values should be read
+ * as UTC fields before formatting.
+ *
+ * @param {string} locale The locale to use (ie: en-US)
+ * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
+ * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
+ */
+export function createNativeLocaleFormatter(
+  locale: string,
+  cb: LocaleFormatter,
+): (_timestamp: Timestamp, _short: boolean) => string {
+  return createNativeLocaleFormatterByMode(locale, cb, makeDateTime);
+}
+
+/**
+ * Returns a UTC locale formatter backed by `Intl.DateTimeFormat`.
+ *
+ * This helper constructs the native `Date` with UTC fields before formatting.
+ * Pair it with `timeZone: "UTC"` when calendar labels must remain pinned to
+ * the Timestamp's UTC date instead of the viewer's local timezone.
+ *
+ * @param {string} locale The locale to use (ie: en-US)
+ * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
+ * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
+ */
+export function createNativeLocaleFormatterUTC(
+  locale: string,
+  cb: LocaleFormatter,
+): (_timestamp: Timestamp, _short: boolean) => string {
+  return createNativeLocaleFormatterByMode(locale, cb, makeDateTimeUTC);
 }
 
 /**

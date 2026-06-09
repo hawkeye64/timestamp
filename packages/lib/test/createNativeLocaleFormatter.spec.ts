@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { createNativeLocaleFormatter, parseTimestamp, type Timestamp } from "../src";
+import {
+  createNativeLocaleFormatter,
+  createNativeLocaleFormatterUTC,
+  makeDateTime,
+  makeDateTimeUTC,
+  parseTimestamp,
+  type Timestamp,
+} from "../src";
 
 describe("[TIMESTAMP] createNativeLocaleFormatter", () => {
   it("monthFormatter", async () => {
@@ -46,5 +53,17 @@ describe("[TIMESTAMP] createNativeLocaleFormatter", () => {
     const ts = parseTimestamp("2020-01-01") as Timestamp;
     const tests = dayFormatter()(ts, false);
     expect(tests).toBe("1");
+  });
+
+  it("keeps local and UTC formatter construction explicit", async () => {
+    const options = { day: "numeric", hour: "numeric", minute: "numeric" } as const;
+    const formatLocal = createNativeLocaleFormatter("en-US", () => options);
+    const formatUTC = createNativeLocaleFormatterUTC("en-US", () => options);
+    const ts = parseTimestamp("2020-01-01 00:30") as Timestamp;
+    const expectedLocal = new Intl.DateTimeFormat("en-US", options).format(makeDateTime(ts));
+    const expectedUTC = new Intl.DateTimeFormat("en-US", options).format(makeDateTimeUTC(ts));
+
+    expect(formatLocal(ts, false)).toBe(expectedLocal);
+    expect(formatUTC(ts, false)).toBe(expectedUTC);
   });
 });

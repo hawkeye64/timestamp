@@ -1016,12 +1016,12 @@
       "__exemption": ["examples"]
     },
     "createNativeLocaleFormatter": {
-      "desc": "Returns a function to be used for international date formatting purposes",
+      "desc": "Returns a host-local formatter backed by Intl.DateTimeFormat.",
       "params": {
-        "local": {
+        "locale": {
           "type": "String",
           "required": true,
-          "desc": "A string representing the locale to use (ie: en-US for America)",
+          "desc": "Locale to use, such as `en-US`.",
           "__exemption": ["examples"]
         },
         "getOptions": {
@@ -1056,7 +1056,69 @@
       },
       "returns": {
         "type": "Function",
-        "desc": "A function that takes a timestamp and a boolean and returns a formatted string.",
+        "desc": "A function that formats a Timestamp as a host-local Date.",
+        "tsType": "TimestampFormatter",
+        "params": {
+          "timestamp": {
+            "extends": "timestamp",
+            "required": true
+          },
+          "short": {
+            "type": "Boolean",
+            "desc": "if true, specifies to use the short version (ie: 'Monday' to be returns as 'Mon', 'January' to be returned as 'Jan', etc)",
+            "__exemption": ["examples"]
+          }
+        },
+        "returns": {
+          "type": "String",
+          "desc": "A string containing the formatted date/time",
+          "__exemption": ["examples"]
+        }
+      },
+      "__exemption": ["examples"]
+    },
+    "createNativeLocaleFormatterUTC": {
+      "desc": "Returns a UTC formatter backed by Intl.DateTimeFormat.",
+      "params": {
+        "locale": {
+          "type": "String",
+          "required": true,
+          "desc": "Locale to use, such as `en-US`.",
+          "__exemption": ["examples"]
+        },
+        "getOptions": {
+          "type": "Function",
+          "tsType": "TimestampFormatOptions",
+          "required": true,
+          "desc": "A function that receives the timestamp and a boolean, and returns Intl.DateTimeFormat options. Use `timeZone: \"UTC\"` when output must stay pinned to the Timestamp UTC date.",
+          "__exemption": ["examples"],
+          "params": {
+            "timestamp": {
+              "extends": "timestamp",
+              "required": true
+            },
+            "short": {
+              "type": "Boolean",
+              "desc": "if true, specifies to use the short version (ie: 'Monday' to be returns as 'Mon', 'January' to be returned as 'Jan', etc)",
+              "__exemption": ["examples"]
+            }
+          },
+          "returns": {
+            "type": "Object",
+            "tsType": "Intl.DateTimeFormatOptions",
+            "desc": "This uses the Intl.DateTimeFormat function of the browser. Options are specified [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat)",
+            "examples": [
+              "{ timeZone: 'UTC', month: 'long' }",
+              "{ timeZone: 'UTC', month: 'short' }",
+              "{ timeZone: 'UTC', weekday: 'long' }",
+              "{ timeZone: 'UTC', weekday: 'short' }"
+            ]
+          }
+        }
+      },
+      "returns": {
+        "type": "Function",
+        "desc": "A function that formats a Timestamp as a Date built from UTC fields.",
         "tsType": "TimestampFormatter",
         "params": {
           "timestamp": {

@@ -115,12 +115,20 @@ formatMonth(5, "long", "en-US"); // "June"
 
 ## Create custom native locale formatters
 
-`createNativeLocaleFormatter()` lets you share one formatting strategy and switch options per call.
+`createNativeLocaleFormatter()` lets you share one host-local formatting strategy and switch options per call. Use `createNativeLocaleFormatterUTC()` when the timestamp should be converted to a native Date from UTC fields before formatting.
 
 ```ts [twoslash]
-import { createNativeLocaleFormatter, parseTimestamp } from "@timestamp-js/core";
+import {
+  createNativeLocaleFormatter,
+  createNativeLocaleFormatterUTC,
+  parseTimestamp,
+} from "@timestamp-js/core";
 
 const formatDate = createNativeLocaleFormatter("en-US", (_timestamp, short) => ({
+  dateStyle: short ? "medium" : "full",
+}));
+
+const formatDateUTC = createNativeLocaleFormatterUTC("en-US", (_timestamp, short) => ({
   dateStyle: short ? "medium" : "full",
   timeZone: "UTC",
 }));
@@ -129,4 +137,5 @@ const timestamp = parseTimestamp("2036-06-08")!;
 
 formatDate(timestamp, true); // "Jun 8, 2036"
 formatDate(timestamp, false); // "Sunday, June 8, 2036"
+formatDateUTC(timestamp, true); // "Jun 8, 2036"
 ```
