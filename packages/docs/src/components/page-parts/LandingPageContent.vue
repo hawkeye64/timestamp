@@ -64,8 +64,10 @@
           <div class="timestamp-preview__stack">
             <article class="timestamp-code-card timestamp-code-card--main">
               <span class="timestamp-code-card__label">immutable timestamp</span>
-              <pre><code>const start = parseTimestamp("2026-06-08T09:30:15.250Z")
-const next = addToDate(start, { day: 7 })
+              <pre><code>const start =
+  parseTimestamp("2026-06-08")
+const next =
+  addToDate(start, { day: 7 })
 
 start !== next
 formatTimestamp(next)</code></pre>
@@ -341,6 +343,8 @@ const apiLinks = [
 
 .timestamp-preview {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   max-width: 100%;
   min-height: 100%;
@@ -367,13 +371,18 @@ const apiLinks = [
 }
 
 .timestamp-preview__stack {
-  position: relative;
-  min-height: clamp(360px, 36vw, 440px);
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(140px, 0.42fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 24px);
+  min-height: clamp(320px, 31vw, 390px);
 }
 
 .timestamp-code-card,
 .timestamp-mini-card {
-  position: absolute;
+  position: relative;
   box-sizing: border-box;
   border: 1px solid var(--qpress-highlight-border);
   background: var(--qpress-highlight-bg);
@@ -381,9 +390,11 @@ const apiLinks = [
 }
 
 .timestamp-code-card {
-  inset: 34px 8px auto 0;
   z-index: 2;
-  padding: clamp(18px, 3vw, 28px);
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 100%;
+  padding: clamp(18px, 2.4vw, 24px);
   border-radius: 24px;
   box-shadow: var(--qpress-shadow-large);
   transform: rotate(-2deg);
@@ -400,20 +411,22 @@ const apiLinks = [
 }
 
 .timestamp-code-card pre {
-  overflow: auto;
+  overflow: hidden;
   max-width: 100%;
   margin: 0;
   color: var(--qpress-text-primary);
-  font-size: clamp(0.82rem, 1.5vw, 0.96rem);
+  font-size: clamp(0.72rem, 1.05vw, 0.84rem);
   line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .timestamp-mini-card {
   z-index: 3;
   display: grid;
   gap: 5px;
-  width: min(48%, 235px);
-  padding: 18px;
+  width: 100%;
+  padding: 16px;
   border-radius: 22px;
   box-shadow: var(--qpress-card-shadow);
 }
@@ -425,18 +438,16 @@ const apiLinks = [
 
 .timestamp-mini-card strong {
   color: var(--qpress-text-primary);
-  font-size: 1rem;
+  font-size: 0.96rem;
 }
 
 .timestamp-mini-card--top {
-  top: 0;
-  right: 0;
+  align-self: end;
   transform: rotate(3deg);
 }
 
 .timestamp-mini-card--bottom {
-  right: 5%;
-  bottom: 8px;
+  align-self: start;
   transform: rotate(-4deg);
 }
 
@@ -538,6 +549,8 @@ const apiLinks = [
 
   .timestamp-preview__stack {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: 16px;
     min-height: 0;
   }
@@ -615,6 +628,32 @@ const apiLinks = [
     gap: 14px;
   }
 
+  .timestamp-preview__header {
+    display: grid;
+    justify-content: stretch;
+  }
+
+  .timestamp-preview__note {
+    font-size: 0.78rem;
+  }
+
+  .timestamp-code-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .timestamp-code-card pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 0.74rem;
+    line-height: 1.6;
+  }
+
+  .timestamp-mini-card {
+    padding: 15px;
+    border-radius: 18px;
+  }
+
   .timestamp-code-card,
   .timestamp-mini-card--top,
   .timestamp-mini-card--bottom {
@@ -654,6 +693,10 @@ const apiLinks = [
 
   .timestamp-preview {
     padding: 14px;
+  }
+
+  .timestamp-code-card pre {
+    font-size: 0.68rem;
   }
 }
 </style>
