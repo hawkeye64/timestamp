@@ -17,23 +17,30 @@ For deterministic SSR output:
 
 - Prefer passing explicit timestamps into helpers.
 - Use caller-provided `now` values for relative comparisons.
-- Use UTC parsing modes when the application wants server and client to agree on UTC calendar fields.
+- Use `todayUTC()` or `nowUTC()` when the application wants server and client to agree on UTC calendar fields.
+- Use UTC parsing modes when converting native `Date` instances that represent instants.
 
 ```ts
-import { parseDate, parseTimestamp, updateRelative } from "@timestamp-js/core";
+import { nowUTC, parseTimestamp, updateRelative } from "@timestamp-js/core";
 
-const now = parseTimestamp("2036-06-08")!;
+const now = nowUTC(new Date("2036-06-08T12:00:00.000Z"));
 const target = parseTimestamp("2036-06-09")!;
 
 const stable = updateRelative(target, now);
 ```
+
+If the render needs to be stable even when time passes between server render and client hydration, capture the date once in app code and pass it to `nowUTC(date)` or `todayUTC(date)`.
 
 ## Date objects
 
 `parseDate(date, true)` reads a native `Date` using UTC fields.
 
 ```ts
-import { parseDate } from "@timestamp-js/core";
+import { nowUTC, parseDate, todayUTC } from "@timestamp-js/core";
 
-const timestamp = parseDate(new Date("2026-06-08T09:30:00Z"), true);
+const instant = new Date("2036-06-08T09:30:00Z");
+
+const timestamp = parseDate(instant, true);
+const dateOnly = todayUTC(instant);
+const dateTime = nowUTC(instant);
 ```

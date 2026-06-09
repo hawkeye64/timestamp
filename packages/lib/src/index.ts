@@ -611,7 +611,12 @@ export function prevDay(timestamp: Timestamp): Timestamp {
 }
 
 /**
- * Returns today's date
+ * Returns today's date using the host runtime timezone.
+ *
+ * For SSR or static rendering, server and client runtimes can produce different
+ * values when they run in different timezones. Use todayUTC() when the app
+ * wants a stable UTC calendar date instead.
+ *
  * @returns {string} Date string in the form `YYYY-MM-DD`
  */
 export function today(): string {
@@ -621,6 +626,38 @@ export function today(): string {
     year = d.getFullYear();
 
   return [year, padNumber(month, 2), padNumber(day, 2)].join("-");
+}
+
+/**
+ * Returns today's date using UTC calendar fields.
+ *
+ * Pass a Date fixture to make SSR, tests, and hydration-sensitive render paths
+ * deterministic. This helper reads UTC fields only; it does not convert an
+ * existing Timestamp or timezone-suffixed string.
+ *
+ * @param {Date} date Date source to read. Defaults to the current Date.
+ * @returns {string} UTC date string in the form `YYYY-MM-DD`
+ */
+export function todayUTC(date = new Date()): string {
+  return [
+    padNumber(date.getUTCFullYear(), 4),
+    padNumber(date.getUTCMonth() + 1, 2),
+    padNumber(date.getUTCDate(), 2),
+  ].join("-");
+}
+
+/**
+ * Returns the current date-time as an immutable Timestamp using UTC fields.
+ *
+ * Use this when server and client output should agree on UTC calendar and time
+ * values. For fully deterministic SSR output, pass a Date captured by the
+ * caller instead of allowing each runtime to create its own current Date.
+ *
+ * @param {Date} date Date source to read. Defaults to the current Date.
+ * @returns {Timestamp} Immutable Timestamp built from UTC fields.
+ */
+export function nowUTC(date = new Date()): Timestamp {
+  return parseDate(date, true) as Timestamp;
 }
 
 /**
@@ -2056,6 +2093,8 @@ export default {
   Timestamp,
   TimeObject,
   today,
+  todayUTC,
+  nowUTC,
   getStartOfWeek,
   getEndOfWeek,
   getStartOfMonth,

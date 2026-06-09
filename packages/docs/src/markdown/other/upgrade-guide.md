@@ -101,5 +101,5 @@ Seconds, milliseconds, and timezone suffixes are optional. Timezone suffixes are
 - Use parser and date math helpers instead of mutating fields manually.
 - Add `@timestamp-js/core` as a direct dependency in every app or package that uses Timestamp helpers.
 - Review tests that assumed mutation because helpers now return new immutable objects.
-- Review SSR-sensitive code that calls `today()` during render. Prefer explicit input values when server/client timezone differences matter.
+- Review SSR-sensitive code that calls `today()` during render. Prefer explicit input values, `todayUTC()`, or `nowUTC()` when server/client timezone differences matter.
 - Watch release notes for timezone, UTC, calendar-system, and API-shape changes while the package is still alpha.

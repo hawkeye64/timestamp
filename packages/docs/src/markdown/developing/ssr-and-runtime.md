@@ -24,7 +24,7 @@ stable.future; // true
 
 ## Use today checks outside hydration-sensitive render paths
 
-`today()` and `isToday()` are convenient for client-only actions, tests with mocked time, and server logic that owns its timezone.
+`today()` and `isToday()` are convenient for client-only actions, tests with mocked time, and server logic that owns its timezone. They use the host runtime's local timezone.
 
 ```ts [twoslash]
 import { isToday, today } from "@timestamp-js/core";
@@ -32,6 +32,21 @@ import { isToday, today } from "@timestamp-js/core";
 const currentDate = today();
 
 isToday(currentDate); // true
+```
+
+## Use UTC helpers when the app wants UTC calendar fields
+
+`todayUTC()` returns a UTC date string. `nowUTC()` returns an immutable Timestamp built from UTC date-time fields. Pass a `Date` fixture when SSR output must be deterministic across server render and client hydration.
+
+```ts [twoslash]
+import { nowUTC, todayUTC } from "@timestamp-js/core";
+
+const renderedAt = new Date("2036-06-08T23:59:15.250Z");
+const date = todayUTC(renderedAt);
+const now = nowUTC(renderedAt);
+
+date; // "2036-06-08"
+now.time; // "23:59:15.250"
 ```
 
 ## Use UTC conversion when the source is an instant

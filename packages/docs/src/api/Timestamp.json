@@ -12,6 +12,35 @@
         "__exemption": ["examples"]
       }
     },
+    "todayUTC": {
+      "desc": "Returns today's date using UTC calendar fields. Pass a Date fixture for deterministic SSR, tests, and hydration-sensitive render paths.",
+      "params": {
+        "date": {
+          "type": "Date",
+          "desc": "[Optional] Date source to read. Defaults to the current Date.",
+          "examples": ["new Date(\"2036-01-01T01:30:00.000Z\")"]
+        }
+      },
+      "returns": {
+        "type": "String",
+        "desc": "UTC date string in YYYY-MM-DD format"
+      }
+    },
+    "nowUTC": {
+      "desc": "Returns the current date-time as an immutable Timestamp using UTC fields. Pass a Date fixture when server and client output must be deterministic.",
+      "params": {
+        "date": {
+          "type": "Date",
+          "desc": "[Optional] Date source to read. Defaults to the current Date.",
+          "examples": ["new Date(\"2036-12-31T23:59:15.250Z\")"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Immutable Timestamp built from UTC fields"
+      }
+    },
     "getStartOfWeek": {
       "desc": "Returns the start of the week based on the passed in arguments",
       "params": {
