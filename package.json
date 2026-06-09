@@ -26,6 +26,7 @@
     "verify:build": "pnpm build && pnpm typecheck",
     "ci:publish": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master",
     "ci:publish:alpha": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master --tag alpha",
+    "ci:publish:latest": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master --tag latest",
     "ci:publish:beta": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master --tag beta"
   },
   "devDependencies": {
