@@ -39,25 +39,27 @@ isToday(currentDate); // true
 `todayUTC()` returns a UTC date string. `nowUTC()` returns an immutable Timestamp built from UTC date-time fields. Pass a `Date` fixture when SSR output must be deterministic across server render and client hydration.
 
 ```ts [twoslash]
-import { nowUTC, todayUTC } from "@timestamp-js/core";
+import { isTodayUTC, nowUTC, todayUTC } from "@timestamp-js/core";
 
 const renderedAt = new Date("2036-06-08T23:59:15.250Z");
 const date = todayUTC(renderedAt);
 const now = nowUTC(renderedAt);
+const matches = isTodayUTC("2036-06-08", renderedAt);
 
 date; // "2036-06-08"
 now.time; // "23:59:15.250"
+matches; // true
 ```
 
 ## Use UTC conversion when the source is an instant
 
-When your input is a native `Date`, pass `true` as the second `parseDate()` argument to read UTC fields.
+When your input is a native `Date`, use `parseDateUTC()` to read UTC fields. Use `parseDate()` when you want host-local fields.
 
 ```ts [twoslash]
-import { getDateTime, parseDate } from "@timestamp-js/core";
+import { getDateTime, parseDateUTC } from "@timestamp-js/core";
 
 const instant = new Date("2026-06-08T09:30:00.000Z");
-const timestamp = parseDate(instant, true);
+const timestamp = parseDateUTC(instant);
 
 getDateTime(timestamp!); // "2026-06-08 09:30"
 ```

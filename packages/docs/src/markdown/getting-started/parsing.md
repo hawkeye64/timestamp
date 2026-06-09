@@ -30,7 +30,8 @@ Seconds, milliseconds, and timezone suffixes are optional.
 | ----------------------- | ---------------------------------------------------------------------------- |
 | `parseTimestamp(value)` | You need a complete Timestamp with formatted and calendar metadata.          |
 | `parsed(value)`         | You need a faster, minimal Timestamp and do not need derived fields.         |
-| `parseDate(date, utc)`  | You already have a JavaScript `Date` and want a Timestamp object.            |
+| `parseDate(date)`       | You already have a JavaScript `Date` and want host-local Timestamp fields.   |
+| `parseDateUTC(date)`    | You already have a JavaScript `Date` and want UTC Timestamp fields.          |
 | `parseTime(value)`      | You need a time-only object from `HH`, `HH:mm`, `HH:mm:ss`, or milliseconds. |
 
 ## Timezone suffixes

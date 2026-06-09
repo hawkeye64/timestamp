@@ -484,17 +484,7 @@ export function parsed(input: string): Timestamp | null {
   return freezeTimestamp(timestamp);
 }
 
-/**
- * Converts a JavaScript Date into a formatted Timestamp object.
- *
- * Pass `true` for UTC when the Date represents an instant that should be read
- * with UTC getters instead of host-local getters.
- *
- * @param {Date} date JavaScript Date to convert.
- * @param {boolean} utc Read the Date using UTC getters when true.
- * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
- */
-export function parseDate(date: Date, utc = false): Timestamp | null {
+function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
   if (!(date instanceof Date)) return null;
   const UTC = utc ? "UTC" : "";
   const second = date[`get${UTC}Seconds`]();
@@ -534,6 +524,32 @@ export function parseDate(date: Date, utc = false): Timestamp | null {
   }
 
   return updateFormatted(timestamp);
+}
+
+/**
+ * Converts a JavaScript Date into a formatted Timestamp using host-local fields.
+ *
+ * Use parseDateUTC() when the Date represents an instant that should be read
+ * with UTC getters instead of host-local getters.
+ *
+ * @param {Date} date JavaScript Date to convert.
+ * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
+ */
+export function parseDate(date: Date): Timestamp | null {
+  return parseDateByMode(date, false);
+}
+
+/**
+ * Converts a JavaScript Date into a formatted Timestamp using UTC fields.
+ *
+ * Use this when server and client output should agree on the same UTC calendar
+ * and time fields for a native Date instant.
+ *
+ * @param {Date} date JavaScript Date to convert.
+ * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
+ */
+export function parseDateUTC(date: Date): Timestamp | null {
+  return parseDateByMode(date, true);
 }
 
 /**
@@ -657,7 +673,7 @@ export function todayUTC(date = new Date()): string {
  * @returns {Timestamp} Immutable Timestamp built from UTC fields.
  */
 export function nowUTC(date = new Date()): Timestamp {
-  return parseDate(date, true) as Timestamp;
+  return parseDateUTC(date) as Timestamp;
 }
 
 /**
@@ -667,6 +683,20 @@ export function nowUTC(date = new Date()): Timestamp {
  */
 export function isToday(date: string): boolean {
   return date === today();
+}
+
+/**
+ * Checks whether a date string matches today's UTC date.
+ *
+ * Pass a Date fixture when SSR, tests, or hydration-sensitive render paths need
+ * deterministic behavior.
+ *
+ * @param {string} date Date string in the form `YYYY-MM-DD`.
+ * @param {Date} now Date source to read. Defaults to the current Date.
+ * @returns {boolean} True when the date matches the UTC date.
+ */
+export function isTodayUTC(date: string, now = new Date()): boolean {
+  return date === todayUTC(now);
 }
 
 /**
@@ -1551,7 +1581,7 @@ export function createNativeLocaleFormatter(
   return (timestamp: Timestamp, short: boolean): string => {
     try {
       const intlFormatter = new Intl.DateTimeFormat(locale || undefined, cb(timestamp, short));
-      return intlFormatter.format(makeDateTime(timestamp));
+      return intlFormatter.format(makeDateTimeUTC(timestamp));
     } catch (e) /* istanbul ignore next */ {
       console.error(`Intl.DateTimeFormat: ${(e as Error).message} -> ${getDateTime(timestamp)}`);
       return "";
@@ -1560,37 +1590,32 @@ export function createNativeLocaleFormatter(
 }
 
 /**
- * Converts a Timestamp date into a JavaScript Date.
+ * Converts a Timestamp date into a host-local JavaScript Date.
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
- * @param {boolean} utc Create the Date with UTC fields when true.
- * @returns {Date} JavaScript Date object.
+ * @returns {Date} Host-local JavaScript Date object.
  */
-export function makeDate(timestamp: Timestamp, utc = true): Date {
-  if (utc) return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0));
+export function makeDate(timestamp: Timestamp): Date {
   return new Date(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0);
 }
 
 /**
- * Converts a Timestamp date and time into a JavaScript Date.
+ * Converts a Timestamp date into a UTC JavaScript Date.
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
- * @param {boolean} utc Create the Date with UTC fields when true.
- * @returns {Date} JavaScript Date object.
+ * @returns {Date} JavaScript Date object built with `Date.UTC()`.
  */
-export function makeDateTime(timestamp: Timestamp, utc = true): Date {
-  if (utc)
-    return new Date(
-      Date.UTC(
-        timestamp.year,
-        timestamp.month - 1,
-        timestamp.day,
-        timestamp.hour,
-        timestamp.minute,
-        timestamp.second ?? 0,
-        timestamp.millisecond ?? 0,
-      ),
-    );
+export function makeDateUTC(timestamp: Timestamp): Date {
+  return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0));
+}
+
+/**
+ * Converts a Timestamp date and time into a host-local JavaScript Date.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @returns {Date} Host-local JavaScript Date object.
+ */
+export function makeDateTime(timestamp: Timestamp): Date {
   return new Date(
     timestamp.year,
     timestamp.month - 1,
@@ -1603,15 +1628,35 @@ export function makeDateTime(timestamp: Timestamp, utc = true): Date {
 }
 
 /**
+ * Converts a Timestamp date and time into a UTC JavaScript Date.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @returns {Date} JavaScript Date object built with `Date.UTC()`.
+ */
+export function makeDateTimeUTC(timestamp: Timestamp): Date {
+  return new Date(
+    Date.UTC(
+      timestamp.year,
+      timestamp.month - 1,
+      timestamp.day,
+      timestamp.hour,
+      timestamp.minute,
+      timestamp.second ?? 0,
+      timestamp.millisecond ?? 0,
+    ),
+  );
+}
+
+/**
  * Converts a Timestamp to a local JavaScript Date.
  *
- * This is equivalent to `makeDateTime(timestamp, false)`.
+ * This is equivalent to `makeDateTime(timestamp)`.
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} Local JavaScript Date object.
  */
 export function getDateObject(timestamp: Timestamp): Date {
-  return makeDateTime(timestamp, false);
+  return makeDateTime(timestamp);
 }
 
 /**
@@ -2095,6 +2140,7 @@ export default {
   today,
   todayUTC,
   nowUTC,
+  isTodayUTC,
   getStartOfWeek,
   getEndOfWeek,
   getStartOfMonth,
@@ -2104,6 +2150,11 @@ export default {
   parsed,
   parseTimestamp,
   parseDate,
+  parseDateUTC,
+  makeDate,
+  makeDateUTC,
+  makeDateTime,
+  makeDateTimeUTC,
   getDayIdentifier,
   getTimeIdentifier,
   getDayTimeIdentifier,
@@ -2132,8 +2183,6 @@ export default {
   createDayList,
   createIntervalList,
   createNativeLocaleFormatter,
-  makeDate,
-  makeDateTime,
   getDateObject,
   validateNumber,
   isBetweenDates,

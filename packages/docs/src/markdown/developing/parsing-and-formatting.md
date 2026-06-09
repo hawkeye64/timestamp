@@ -37,15 +37,15 @@ timestamp.timezone; // "-07:00"
 
 ## Convert native Date values explicitly
 
-Use `parseDate()` when the input is already a JavaScript `Date`. The second argument controls whether Timestamp reads the date with local getters or UTC getters.
+Use `parseDate()` when the input is already a JavaScript `Date` and you want host-local fields. Use `parseDateUTC()` when the Date represents an instant and you want UTC fields.
 
 ```ts [twoslash]
-import { getDateTime, parseDate } from "@timestamp-js/core";
+import { getDateTime, parseDate, parseDateUTC } from "@timestamp-js/core";
 
 const instant = new Date("2026-06-08T09:30:00.000Z");
 
 const localTimestamp = parseDate(instant)!;
-const utcTimestamp = parseDate(instant, true)!;
+const utcTimestamp = parseDateUTC(instant)!;
 
 getDateTime(localTimestamp); // Depends on the host timezone.
 getDateTime(utcTimestamp); // "2026-06-08 09:30"
@@ -98,12 +98,22 @@ copied.time; // "09:30"
 Use UTC output when the Date represents a portable instant. Use local output when you specifically need host-local `Date` behavior.
 
 ```ts [twoslash]
-import { getDateObject, makeDate, makeDateTime, parseTimestamp } from "@timestamp-js/core";
+import {
+  getDateObject,
+  makeDate,
+  makeDateTime,
+  makeDateTimeUTC,
+  makeDateUTC,
+  parseTimestamp,
+} from "@timestamp-js/core";
 
 const timestamp = parseTimestamp("2036-06-08 09:30")!;
 
-makeDate(timestamp).toISOString(); // "2036-06-08T00:00:00.000Z"
-makeDateTime(timestamp).toISOString(); // "2036-06-08T09:30:00.000Z"
+makeDate(timestamp).getHours(); // 0
+makeDateTime(timestamp).getMinutes(); // 30
+
+makeDateUTC(timestamp).toISOString(); // "2036-06-08T00:00:00.000Z"
+makeDateTimeUTC(timestamp).toISOString(); // "2036-06-08T09:30:00.000Z"
 
 const localDate = getDateObject(timestamp);
 localDate instanceof Date; // true

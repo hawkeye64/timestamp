@@ -196,18 +196,13 @@
       }
     },
     "parseDate": {
-      "desc": "Parses a JavaScript Date object to the timestamp object",
+      "desc": "Parses a JavaScript Date object using host-local fields.",
       "params": {
         "input": {
           "type": "Date",
           "required": true,
           "desc": "A JavaScript Date object",
           "__exemption": ["examples"]
-        },
-        "utc": {
-          "type": "Boolean",
-          "desc": "When true, parse the JavaScript Date using UTC getters instead of local getters.",
-          "examples": ["true", "false"]
         }
       },
       "returns": {
@@ -217,41 +212,76 @@
         "__exemption": ["examples"]
       }
     },
+    "parseDateUTC": {
+      "desc": "Parses a JavaScript Date object using UTC fields.",
+      "params": {
+        "input": {
+          "type": "Date",
+          "required": true,
+          "desc": "A JavaScript Date object",
+          "examples": ["new Date(\"2036-06-08T09:30:00.000Z\")"]
+        }
+      },
+      "returns": {
+        "type": ["Object", "null"],
+        "tsType": "TimestampOrNull",
+        "desc": "A formatted timestamp object based on the UTC fields of the passed Date",
+        "__exemption": ["examples"]
+      }
+    },
     "makeDate": {
-      "desc": "Takes a timestamp and returns a JavaScript Date with time set to 00:00",
+      "desc": "Converts a Timestamp date into a host-local JavaScript Date with time set to 00:00.",
       "params": {
         "timestamp": {
           "extends": "timestamp",
           "required": true
-        },
-        "utc": {
-          "type": "Boolean",
-          "desc": "When true, create the Date with `Date.UTC()`. Defaults to true.",
-          "examples": ["true", "false"]
         }
       },
       "returns": {
         "type": "Date",
-        "desc": "The returned value is a JavaScript Date",
+        "desc": "Host-local JavaScript Date object",
+        "__exemption": ["examples"]
+      }
+    },
+    "makeDateUTC": {
+      "desc": "Converts a Timestamp date into a UTC JavaScript Date with time set to 00:00.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Date",
+        "desc": "JavaScript Date object built with Date.UTC()",
         "__exemption": ["examples"]
       }
     },
     "makeDateTime": {
-      "desc": "Takes a timestamp and returns a JavaScript Date",
+      "desc": "Converts a Timestamp date and time into a host-local JavaScript Date.",
       "params": {
         "timestamp": {
           "extends": "timestamp",
           "required": true
-        },
-        "utc": {
-          "type": "Boolean",
-          "desc": "When true, create the Date with `Date.UTC()`. Defaults to true.",
-          "examples": ["true", "false"]
         }
       },
       "returns": {
         "type": "Date",
-        "desc": "The returned value is a JavaScript Date",
+        "desc": "Host-local JavaScript Date object",
+        "__exemption": ["examples"]
+      }
+    },
+    "makeDateTimeUTC": {
+      "desc": "Converts a Timestamp date and time into a UTC JavaScript Date.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Date",
+        "desc": "JavaScript Date object built with Date.UTC()",
         "__exemption": ["examples"]
       }
     },
@@ -1513,8 +1543,28 @@
         "desc": "True when the passed date is today's local date"
       }
     },
+    "isTodayUTC": {
+      "desc": "Checks whether a date string matches today's UTC date.",
+      "params": {
+        "date": {
+          "type": "String",
+          "required": true,
+          "desc": "Date string in `YYYY-MM-DD` format",
+          "examples": ["'2036-06-08'"]
+        },
+        "now": {
+          "type": "Date",
+          "desc": "[Optional] Date source to read. Defaults to the current Date.",
+          "examples": ["new Date(\"2036-06-08T23:59:15.250Z\")"]
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "True when the passed date matches today's UTC date"
+      }
+    },
     "getDateObject": {
-      "desc": "Converts a Timestamp into a local JavaScript Date object. This is equivalent to `makeDateTime(timestamp, false)`.",
+      "desc": "Converts a Timestamp into a host-local JavaScript Date object. This is equivalent to `makeDateTime(timestamp)`.",
       "params": {
         "timestamp": {
           "extends": "timestamp",
