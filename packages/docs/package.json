@@ -6,6 +6,7 @@
   "author": "Jeff <galbraith64@gmail.com>",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist .quasar node_modules",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt",
