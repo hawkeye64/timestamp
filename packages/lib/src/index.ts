@@ -808,14 +808,14 @@ export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
 }
 
 /**
- * High-level parser that converts a string to a fully formatted {@link Timestamp}.
+ * Converts a supported date or date-time string into a formatted Timestamp object.
  *
  * If `now` is supplied, the returned timestamp also includes relative flags
  * such as `past`, `current`, `future`, and `currentWeekday`.
  *
- * @param {string} input In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.
- * @param {Timestamp} now A {@link Timestamp} to use for relative data updates
- * @returns {Timestamp} The {@link Timestamp.date} will be filled in as well as the {@link Timestamp.time} if a time is supplied and formatted fields (doy, weekday, workweek, etc). If 'now' is supplied, then relative data will also be updated.
+ * @param {string} input Date or date-time string, such as `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like value with optional milliseconds and timezone suffix.
+ * @param {Timestamp} now Optional Timestamp used to calculate relative flags.
+ * @returns {Timestamp} Formatted Timestamp object, or `null` when the input cannot be parsed.
  */
 export function parseTimestamp(input: string, now: Timestamp | null = null): Timestamp | null {
   let timestamp = parsed(input);
@@ -1395,13 +1395,14 @@ export function createDayList(
 }
 
 /**
- * Creates an array of interval {@link Timestamp}s based on params
- * @param {Timestamp} timestamp The starting {@link Timestamp}
- * @param {number} first The starting interval time
- * @param {number} minutes How many minutes between intervals (ie: 60, 30, 15 would be common ones)
- * @param {number} count The number of intervals needed
- * @param {Timestamp} now A relative {@link Timestamp} with time
- * @returns {Timestamp[]} The requested array of interval {@link Timestamp}s
+ * Creates an array of interval Timestamp objects for one day.
+ *
+ * @param {Timestamp} timestamp Base date for the intervals.
+ * @param {number} first Starting interval index.
+ * @param {number} minutes Minutes between intervals, such as 60, 30, or 15.
+ * @param {number} count Number of intervals to create.
+ * @param {Timestamp} now Timestamp used to calculate relative flags.
+ * @returns {Timestamp[]} Interval Timestamp objects.
  */
 export function createIntervalList(
   timestamp: Timestamp,
