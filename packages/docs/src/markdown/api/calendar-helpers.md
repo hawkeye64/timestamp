@@ -29,7 +29,7 @@ const start = parseTimestamp("2026-06-01")!;
 const end = parseTimestamp("2026-06-07")!;
 
 const days = createDayList(start, end);
-const intervals = createIntervalList(start, 24, 60);
+const intervals = createIntervalList(start, 0, 60, 24, start);
 ```
 
 ## Labels

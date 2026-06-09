@@ -192,7 +192,14 @@ const apiMenu: SiteMenuItem = {
 const developingMenu: SiteMenuItem = {
   name: "Developing",
   mq: 780,
-  children: [{ name: "Timezone Model", path: "/developing/timezone-model" }],
+  children: [
+    { name: "Parsing + Formatting", path: "/developing/parsing-and-formatting" },
+    { name: "Date Math", path: "/developing/date-math" },
+    { name: "Intervals + Lists", path: "/developing/intervals-and-lists" },
+    { name: "Comparisons + Ranges", path: "/developing/comparisons-and-ranges" },
+    { name: "SSR + Runtime", path: "/developing/ssr-and-runtime" },
+    { name: "Timezone Model", path: "/developing/timezone-model" },
+  ],
 };
 
 const otherMenu: SiteMenuItem = {
