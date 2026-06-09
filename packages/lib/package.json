@@ -46,7 +46,8 @@
     "lint:fix": "oxlint --fix",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
-    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepack": "pnpm build"
   },
   "devDependencies": {
     "@types/node": "25.9.1",
