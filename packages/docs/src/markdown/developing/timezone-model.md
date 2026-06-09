@@ -7,7 +7,7 @@ Timestamp currently treats parsed strings as calendar-style wall-clock values.
 
 That means a timezone suffix is preserved for caller awareness, but it does not trigger automatic conversion.
 
-```ts
+```ts [twoslash]
 import { parseTimestamp } from "@timestamp-js/core";
 
 const timestamp = parseTimestamp("2026-06-08T09:30:15.250-07:00");

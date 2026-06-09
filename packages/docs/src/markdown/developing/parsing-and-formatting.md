@@ -9,7 +9,7 @@ Timestamp does not need a UI playground like CodePen because the package has no 
 
 ## Parse common inputs
 
-```ts
+```ts [twoslash]
 import { getDate, getDateTime, parseTimestamp } from "@timestamp-js/core";
 
 const dateOnly = parseTimestamp("2026-06-08")!;
@@ -25,7 +25,7 @@ getDateTime(iso); // "2026-06-08 09:30:15.250Z"
 
 Timestamp keeps parsed wall-clock fields stable. Timezone suffixes are stored on the object, but parsing does not convert the date or time into the local runtime timezone.
 
-```ts
+```ts [twoslash]
 import { parseTimestamp } from "@timestamp-js/core";
 
 const timestamp = parseTimestamp("2026-06-08T09:30:15-07:00")!;
@@ -39,7 +39,7 @@ timestamp.timezone; // "-07:00"
 
 Use `parseDate()` when the input is already a JavaScript `Date`. The second argument controls whether Timestamp reads the date with local getters or UTC getters.
 
-```ts
+```ts [twoslash]
 import { getDateTime, parseDate } from "@timestamp-js/core";
 
 const instant = new Date("2026-06-08T09:30:00.000Z");
@@ -55,7 +55,7 @@ getDateTime(utcTimestamp); // "2026-06-08 09:30"
 
 Use `parseTime()` for controls or APIs that only carry time-of-day data.
 
-```ts
+```ts [twoslash]
 import { parseTime } from "@timestamp-js/core";
 
 parseTime("09"); // 540
