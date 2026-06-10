@@ -62,6 +62,26 @@ const target = parseTimestamp("2026-06-08")!;
 isBetweenDates(target, start, end); // true
 ```
 
+## Create reusable range objects
+
+Use `TimestampRange` when the same inclusive boundaries need to flow through several helpers.
+
+```ts [twoslash]
+import {
+  createTimestampRange,
+  getDate,
+  isTimestampInRange,
+  parseTimestamp,
+} from "@timestamp-js/core";
+
+const june = createTimestampRange(parseTimestamp("2036-06-01")!, parseTimestamp("2036-06-30")!);
+const target = parseTimestamp("2036-06-08")!;
+
+isTimestampInRange(target, june); // true
+getDate(june.start); // "2036-06-01"
+getDate(june.end); // "2036-06-30"
+```
+
 ## Check overlap between ranges
 
 ```ts [twoslash]
@@ -73,6 +93,84 @@ const blackoutStart = parseTimestamp("2026-06-12")!;
 const blackoutEnd = parseTimestamp("2026-06-18")!;
 
 isOverlappingDates(vacationStart, vacationEnd, blackoutStart, blackoutEnd); // true
+```
+
+## Intersect two ranges
+
+`intersectRanges()` returns the shared section of two ranges, or `null` when they do not overlap.
+
+```ts [twoslash]
+import { createTimestampRange, getDate, intersectRanges, parseTimestamp } from "@timestamp-js/core";
+
+const sprint = createTimestampRange(parseTimestamp("2036-06-01")!, parseTimestamp("2036-06-20")!);
+const blackout = createTimestampRange(parseTimestamp("2036-06-10")!, parseTimestamp("2036-06-30")!);
+
+const overlap = intersectRanges(sprint, blackout);
+
+getDate(overlap!.start); // "2036-06-10"
+getDate(overlap!.end); // "2036-06-20"
+```
+
+## Merge touching ranges
+
+`mergeRanges()` sorts the ranges and joins ranges that overlap or touch. Date-only ranges touch when the next range starts on the next calendar day.
+
+```ts [twoslash]
+import { createTimestampRange, getDate, mergeRanges, parseTimestamp } from "@timestamp-js/core";
+
+const merged = mergeRanges([
+  createTimestampRange(parseTimestamp("2036-06-10")!, parseTimestamp("2036-06-12")!),
+  createTimestampRange(parseTimestamp("2036-06-01")!, parseTimestamp("2036-06-04")!),
+  createTimestampRange(parseTimestamp("2036-06-05")!, parseTimestamp("2036-06-07")!),
+]);
+
+getDate(merged[0]!.start); // "2036-06-01"
+getDate(merged[0]!.end); // "2036-06-07"
+merged.length; // 2
+```
+
+## Subtract blocked dates
+
+`subtractRanges()` returns the pieces of a source range that remain after blocked ranges are removed.
+
+```ts [twoslash]
+import { createTimestampRange, getDate, parseTimestamp, subtractRanges } from "@timestamp-js/core";
+
+const month = createTimestampRange(parseTimestamp("2036-06-01")!, parseTimestamp("2036-06-30")!);
+const maintenance = [
+  createTimestampRange(parseTimestamp("2036-06-10")!, parseTimestamp("2036-06-12")!),
+];
+
+const available = subtractRanges(month, maintenance);
+
+getDate(available[0]!.end); // "2036-06-09"
+getDate(available[1]!.start); // "2036-06-13"
+```
+
+## Find time-aware gaps
+
+Pass `true` for `useTime` when ranges represent instants inside a day. Time-aware gaps use millisecond boundaries so adjacent ranges stay precise.
+
+```ts [twoslash]
+import { createTimestampRange, findRangeGaps, parseTimestamp } from "@timestamp-js/core";
+
+const workBlock = createTimestampRange(
+  parseTimestamp("2036-06-08T09:00")!,
+  parseTimestamp("2036-06-08T10:00")!,
+  true,
+);
+const booked = [
+  createTimestampRange(
+    parseTimestamp("2036-06-08T09:15")!,
+    parseTimestamp("2036-06-08T09:29:59.999")!,
+    true,
+  ),
+];
+
+const gaps = findRangeGaps(workBlock, booked, true);
+
+gaps[0]!.end.time; // "09:14:59.999"
+gaps[1]!.start.time; // "09:30"
 ```
 
 ## Pick min and max values

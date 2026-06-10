@@ -77,20 +77,50 @@ Start/end helpers are useful for month grids, week views, and reporting ranges.
 ```ts [twoslash]
 import {
   getDate,
+  getEndOfDay,
   getEndOfMonth,
   getEndOfWeek,
+  getEndOfYear,
+  getStartOfDay,
   getStartOfMonth,
   getStartOfWeek,
+  getStartOfYear,
   parseTimestamp,
 } from "@timestamp-js/core";
 
 const now = parseTimestamp("2036-06-08")!;
 const weekdays = [0, 1, 2, 3, 4, 5, 6];
 
+getStartOfDay(now).time; // "00:00"
+getEndOfDay(now).time; // "23:59:59.999"
 getDate(getStartOfWeek(now, weekdays, now)); // "2036-06-08"
 getDate(getEndOfWeek(now, weekdays, now)); // "2036-06-14"
 getDate(getStartOfMonth(now)); // "2036-06-01"
 getDate(getEndOfMonth(now)); // "2036-06-30"
+getDate(getStartOfYear(now)); // "2036-01-01"
+getDate(getEndOfYear(now)); // "2036-12-31"
+```
+
+## Convert Unix epoch values
+
+Unix helpers read and write Timestamp fields as UTC. Use them when storage or APIs use epoch seconds or milliseconds.
+
+```ts [twoslash]
+import {
+  fromUnixMilliseconds,
+  fromUnixSeconds,
+  getDateTime,
+  parseTimestamp,
+  toUnixMilliseconds,
+  toUnixSeconds,
+} from "@timestamp-js/core";
+
+const timestamp = parseTimestamp("2036-06-08T09:30:15.250")!;
+const milliseconds = toUnixMilliseconds(timestamp);
+const seconds = toUnixSeconds(timestamp);
+
+getDateTime(fromUnixMilliseconds(milliseconds)!); // "2036-06-08 09:30:15.250"
+getDateTime(fromUnixSeconds(seconds)!); // "2036-06-08 09:30:15"
 ```
 
 ## Read and refresh derived fields
@@ -128,13 +158,25 @@ import {
   DAYS_IN_WEEK,
   HOURS_IN_DAY,
   MILLISECONDS_IN_DAY,
+  MILLISECONDS_IN_HOUR,
+  MILLISECONDS_IN_MINUTE,
+  MILLISECONDS_IN_SECOND,
   MINUTES_IN_HOUR,
+  SECONDS_IN_DAY,
+  SECONDS_IN_HOUR,
+  SECONDS_IN_MINUTE,
   TIME_CONSTANTS,
 } from "@timestamp-js/core";
 
 DAYS_IN_WEEK; // 7
 HOURS_IN_DAY; // 24
 MINUTES_IN_HOUR; // 60
+SECONDS_IN_MINUTE; // 60
+SECONDS_IN_HOUR; // 3600
+SECONDS_IN_DAY; // 86400
+MILLISECONDS_IN_SECOND; // 1000
+MILLISECONDS_IN_MINUTE; // 60000
+MILLISECONDS_IN_HOUR; // 3600000
 MILLISECONDS_IN_DAY; // 86400000
 TIME_CONSTANTS.SECONDS_IN.HOUR; // 3600
 ```

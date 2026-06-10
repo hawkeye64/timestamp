@@ -115,6 +115,11 @@ export const HOURS_IN_DAY = TIME_CONSTANTS.HOURS_IN.DAY;
 export const MILLISECONDS_IN_MINUTE = TIME_CONSTANTS.MILLISECONDS_IN.MINUTE;
 
 /**
+ * Number of milliseconds in one second.
+ */
+export const MILLISECONDS_IN_SECOND = TIME_CONSTANTS.MILLISECONDS_IN.SECOND;
+
+/**
  * Number of milliseconds in one hour.
  */
 export const MILLISECONDS_IN_HOUR = TIME_CONSTANTS.MILLISECONDS_IN.HOUR;
@@ -128,6 +133,21 @@ export const MILLISECONDS_IN_DAY = TIME_CONSTANTS.MILLISECONDS_IN.DAY;
  * Number of milliseconds in one week.
  */
 export const MILLISECONDS_IN_WEEK = TIME_CONSTANTS.MILLISECONDS_IN.WEEK;
+
+/**
+ * Number of seconds in one minute.
+ */
+export const SECONDS_IN_MINUTE = TIME_CONSTANTS.SECONDS_IN.MINUTE;
+
+/**
+ * Number of seconds in one hour.
+ */
+export const SECONDS_IN_HOUR = TIME_CONSTANTS.SECONDS_IN.HOUR;
+
+/**
+ * Number of seconds in one day.
+ */
+export const SECONDS_IN_DAY = TIME_CONSTANTS.SECONDS_IN.DAY;
 
 /**
  * Inline style metadata that can be attached to disabled timestamp ranges.
@@ -374,6 +394,86 @@ export interface TimeObject {
 }
 
 /**
+ * Immutable inclusive range between two Timestamp values.
+ *
+ * Range helpers normalize start/end order when created with createTimestampRange().
+ */
+export interface TimestampRange {
+  /**
+   * Inclusive range start.
+   */
+  readonly start: Timestamp;
+
+  /**
+   * Inclusive range end.
+   */
+  readonly end: Timestamp;
+}
+
+/**
+ * Immutable elapsed duration broken into convenient absolute components.
+ *
+ * `totalMilliseconds` is signed. The component fields are absolute values so
+ * callers can display or inspect them without repeatedly applying Math.abs().
+ */
+export interface TimestampDuration {
+  /**
+   * Signed elapsed milliseconds from the first timestamp to the second.
+   */
+  readonly totalMilliseconds: number;
+
+  /**
+   * Absolute elapsed milliseconds.
+   */
+  readonly absoluteMilliseconds: number;
+
+  /**
+   * Direction of the duration: `-1`, `0`, or `1`.
+   */
+  readonly sign: -1 | 0 | 1;
+
+  /**
+   * Full days in the absolute duration.
+   */
+  readonly days: number;
+
+  /**
+   * Remaining hours after full days are removed.
+   */
+  readonly hours: number;
+
+  /**
+   * Remaining minutes after full hours are removed.
+   */
+  readonly minutes: number;
+
+  /**
+   * Remaining seconds after full minutes are removed.
+   */
+  readonly seconds: number;
+
+  /**
+   * Remaining milliseconds after full seconds are removed.
+   */
+  readonly milliseconds: number;
+}
+
+/**
+ * Options for formatting a TimestampDuration.
+ */
+export interface FormatDurationOptions {
+  /**
+   * Include the millisecond component when true.
+   */
+  readonly milliseconds?: boolean;
+
+  /**
+   * Preserve a leading `-` for negative durations when true.
+   */
+  readonly signed?: boolean;
+}
+
+/**
  * Frozen empty timestamp template.
  *
  * Use copyTimestamp or parser helpers to create new timestamp objects
@@ -486,6 +586,8 @@ export function parsed(input: string): Timestamp | null {
 
 function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
   if (!(date instanceof Date)) return null;
+  if (Number.isNaN(date.getTime())) return null;
+
   const UTC = utc ? "UTC" : "";
   const second = date[`get${UTC}Seconds`]();
   const millisecond = date[`get${UTC}Milliseconds`]();
@@ -1315,6 +1417,79 @@ export function copyTimestamp(timestamp: Timestamp): Timestamp {
   return freezeTimestamp(timestamp);
 }
 
+function setTimeParts(
+  timestamp: Timestamp,
+  hour: number,
+  minute: number,
+  second?: number,
+  millisecond?: number,
+): Timestamp {
+  const ts = cloneTimestamp(timestamp);
+  ts.hasTime = true;
+  ts.hour = hour;
+  ts.minute = minute;
+
+  if (second === undefined) {
+    delete ts.second;
+  } else {
+    ts.second = second;
+  }
+
+  if (millisecond === undefined) {
+    delete ts.millisecond;
+  } else {
+    ts.millisecond = millisecond;
+  }
+
+  return updateFormatted(ts);
+}
+
+/**
+ * Returns a Timestamp at the start of the same calendar day.
+ *
+ * @param {Timestamp} timestamp Timestamp object to transform.
+ * @returns {Timestamp} New Timestamp at `00:00`.
+ */
+export function getStartOfDay(timestamp: Timestamp): Timestamp {
+  return setTimeParts(timestamp, 0, 0);
+}
+
+/**
+ * Returns a Timestamp at the end of the same calendar day.
+ *
+ * @param {Timestamp} timestamp Timestamp object to transform.
+ * @returns {Timestamp} New Timestamp at `23:59:59.999`.
+ */
+export function getEndOfDay(timestamp: Timestamp): Timestamp {
+  return setTimeParts(timestamp, 23, 59, 59, 999);
+}
+
+/**
+ * Returns a Timestamp at the start of the same Gregorian year.
+ *
+ * @param {Timestamp} timestamp Timestamp object to transform.
+ * @returns {Timestamp} New Timestamp for January 1 at `00:00`.
+ */
+export function getStartOfYear(timestamp: Timestamp): Timestamp {
+  const ts = cloneTimestamp(timestamp);
+  ts.month = MONTH_MIN;
+  ts.day = DAY_MIN;
+  return getStartOfDay(updateFormatted(ts));
+}
+
+/**
+ * Returns a Timestamp at the end of the same Gregorian year.
+ *
+ * @param {Timestamp} timestamp Timestamp object to transform.
+ * @returns {Timestamp} New Timestamp for December 31 at `23:59:59.999`.
+ */
+export function getEndOfYear(timestamp: Timestamp): Timestamp {
+  const ts = cloneTimestamp(timestamp);
+  ts.month = MONTH_MAX;
+  ts.day = daysInMonth(ts.year, MONTH_MAX);
+  return getEndOfDay(updateFormatted(ts));
+}
+
 /**
  * Formats the date portion of a Timestamp object.
  *
@@ -1676,6 +1851,51 @@ export function makeDateTimeUTC(timestamp: Timestamp): Date {
 }
 
 /**
+ * Converts a Timestamp into Unix milliseconds by reading its fields as UTC.
+ *
+ * This is deterministic across server and client runtimes. It does not read or
+ * convert the optional `timezone` suffix stored on the Timestamp.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @returns {number} Unix milliseconds.
+ */
+export function toUnixMilliseconds(timestamp: Timestamp): number {
+  return makeDateTimeUTC(timestamp).getTime();
+}
+
+/**
+ * Converts a Timestamp into Unix seconds by reading its fields as UTC.
+ *
+ * Milliseconds are floored because Unix seconds are integer-oriented.
+ *
+ * @param {Timestamp} timestamp Timestamp object to convert.
+ * @returns {number} Unix seconds.
+ */
+export function toUnixSeconds(timestamp: Timestamp): number {
+  return Math.floor(toUnixMilliseconds(timestamp) / MILLISECONDS_IN_SECOND);
+}
+
+/**
+ * Converts Unix milliseconds into an immutable Timestamp using UTC fields.
+ *
+ * @param {number} milliseconds Unix milliseconds.
+ * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
+ */
+export function fromUnixMilliseconds(milliseconds: number): Timestamp | null {
+  return parseDateUTC(new Date(milliseconds));
+}
+
+/**
+ * Converts Unix seconds into an immutable Timestamp using UTC fields.
+ *
+ * @param {number} seconds Unix seconds.
+ * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
+ */
+export function fromUnixSeconds(seconds: number): Timestamp | null {
+  return fromUnixMilliseconds(seconds * MILLISECONDS_IN_SECOND);
+}
+
+/**
  * Converts a Timestamp to a local JavaScript Date.
  *
  * This is equivalent to `makeDateTime(timestamp)`.
@@ -1724,6 +1944,226 @@ export function minTimestamp(timestamps: Timestamp[], useTime = false): Timestam
   return timestamps.reduce((prev, cur) => {
     return Math.min(func(prev), func(cur)) === func(prev) ? prev : cur;
   });
+}
+
+function getTimestampSortValue(timestamp: Timestamp, useTime: boolean): number {
+  if (useTime === true) {
+    return toUnixMilliseconds(timestamp);
+  }
+
+  return Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day);
+}
+
+function compareTimestampOrder(first: Timestamp, second: Timestamp, useTime: boolean): number {
+  return getTimestampSortValue(first, useTime) - getTimestampSortValue(second, useTime);
+}
+
+function createFrozenRange(start: Timestamp, end: Timestamp): TimestampRange {
+  return Object.freeze({ start: copyTimestamp(start), end: copyTimestamp(end) });
+}
+
+function isRangeTouchingOrOverlapping(
+  first: TimestampRange,
+  second: TimestampRange,
+  useTime: boolean,
+): boolean {
+  const step = useTime ? 1 : MILLISECONDS_IN_DAY;
+  return (
+    getTimestampSortValue(second.start, useTime) <= getTimestampSortValue(first.end, useTime) + step
+  );
+}
+
+function moveBoundary(timestamp: Timestamp, amount: number, useTime: boolean): Timestamp {
+  if (useTime === true) {
+    return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + amount) as Timestamp;
+  }
+
+  return addToDate(timestamp, { day: amount });
+}
+
+/**
+ * Creates an inclusive Timestamp range and normalizes start/end order.
+ *
+ * @param {Timestamp} start First boundary.
+ * @param {Timestamp} end Second boundary.
+ * @param {boolean=} useTime Include time-of-day when ordering boundaries.
+ * @returns {TimestampRange} Frozen inclusive Timestamp range.
+ */
+export function createTimestampRange(
+  start: Timestamp,
+  end: Timestamp,
+  useTime = false,
+): TimestampRange {
+  if (compareTimestampOrder(start, end, useTime) <= 0) {
+    return createFrozenRange(start, end);
+  }
+
+  return createFrozenRange(end, start);
+}
+
+/**
+ * Checks whether a Timestamp falls inside an inclusive TimestampRange.
+ *
+ * @param {Timestamp} timestamp Timestamp object to test.
+ * @param {TimestampRange} range Inclusive range to test against.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {boolean} True when the timestamp is inside the range.
+ */
+export function isTimestampInRange(
+  timestamp: Timestamp,
+  range: TimestampRange,
+  useTime = false,
+): boolean {
+  return isBetweenDates(timestamp, range.start, range.end, useTime);
+}
+
+/**
+ * Checks whether two inclusive TimestampRange values overlap.
+ *
+ * @param {TimestampRange} first First range.
+ * @param {TimestampRange} second Second range.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {boolean} True when the ranges overlap.
+ */
+export function isRangeOverlapping(
+  first: TimestampRange,
+  second: TimestampRange,
+  useTime = false,
+): boolean {
+  const firstRange = createTimestampRange(first.start, first.end, useTime);
+  const secondRange = createTimestampRange(second.start, second.end, useTime);
+  return (
+    getTimestampSortValue(firstRange.start, useTime) <=
+      getTimestampSortValue(secondRange.end, useTime) &&
+    getTimestampSortValue(secondRange.start, useTime) <=
+      getTimestampSortValue(firstRange.end, useTime)
+  );
+}
+
+/**
+ * Returns the inclusive intersection of two TimestampRange values.
+ *
+ * @param {TimestampRange} first First range.
+ * @param {TimestampRange} second Second range.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {TimestampRange | null} Intersected range, or `null` when the ranges do not overlap.
+ */
+export function intersectRanges(
+  first: TimestampRange,
+  second: TimestampRange,
+  useTime = false,
+): TimestampRange | null {
+  if (isRangeOverlapping(first, second, useTime) === false) {
+    return null;
+  }
+
+  const start =
+    compareTimestampOrder(first.start, second.start, useTime) >= 0 ? first.start : second.start;
+  const end = compareTimestampOrder(first.end, second.end, useTime) <= 0 ? first.end : second.end;
+
+  return createTimestampRange(start, end, useTime);
+}
+
+/**
+ * Merges overlapping or touching TimestampRange values.
+ *
+ * Date-only ranges touch when the next range starts on the next calendar day.
+ * Time-aware ranges touch when the next range starts one millisecond after the
+ * previous range ends.
+ *
+ * @param {TimestampRange[]} ranges Ranges to merge.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {TimestampRange[]} Merged ranges sorted by start boundary.
+ */
+export function mergeRanges(ranges: TimestampRange[], useTime = false): TimestampRange[] {
+  const sorted = ranges
+    .map((range) => createTimestampRange(range.start, range.end, useTime))
+    .sort((a, b) => compareTimestampOrder(a.start, b.start, useTime));
+
+  const merged: TimestampRange[] = [];
+
+  for (const range of sorted) {
+    const last = merged[merged.length - 1];
+
+    if (last === undefined || isRangeTouchingOrOverlapping(last, range, useTime) === false) {
+      merged.push(range);
+      continue;
+    }
+
+    const end = compareTimestampOrder(last.end, range.end, useTime) >= 0 ? last.end : range.end;
+    merged[merged.length - 1] = createFrozenRange(last.start, end);
+  }
+
+  return merged;
+}
+
+/**
+ * Subtracts blocked ranges from a source range.
+ *
+ * The result is useful for availability windows because it returns the pieces
+ * of the source range that remain after each blocked range is removed.
+ *
+ * @param {TimestampRange} source Source range.
+ * @param {TimestampRange[]} blocked Ranges to remove from the source.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {TimestampRange[]} Remaining ranges.
+ */
+export function subtractRanges(
+  source: TimestampRange,
+  blocked: TimestampRange[],
+  useTime = false,
+): TimestampRange[] {
+  const normalizedSource = createTimestampRange(source.start, source.end, useTime);
+  const blockers = mergeRanges(blocked, useTime);
+  let available: TimestampRange[] = [normalizedSource];
+
+  for (const blocker of blockers) {
+    const nextAvailable: TimestampRange[] = [];
+
+    for (const range of available) {
+      const overlap = intersectRanges(range, blocker, useTime);
+
+      if (overlap === null) {
+        nextAvailable.push(range);
+        continue;
+      }
+
+      if (compareTimestampOrder(range.start, overlap.start, useTime) < 0) {
+        nextAvailable.push(
+          createTimestampRange(range.start, moveBoundary(overlap.start, -1, useTime), useTime),
+        );
+      }
+
+      if (compareTimestampOrder(overlap.end, range.end, useTime) < 0) {
+        nextAvailable.push(
+          createTimestampRange(moveBoundary(overlap.end, 1, useTime), range.end, useTime),
+        );
+      }
+    }
+
+    available = nextAvailable;
+  }
+
+  return available;
+}
+
+/**
+ * Finds open gaps inside a source range after occupied ranges are removed.
+ *
+ * This is an alias for subtractRanges() with naming that reads naturally in
+ * booking, resource, and availability workflows.
+ *
+ * @param {TimestampRange} source Source range.
+ * @param {TimestampRange[]} occupied Ranges that are not available.
+ * @param {boolean=} useTime Include time-of-day in the comparison.
+ * @returns {TimestampRange[]} Gap ranges.
+ */
+export function findRangeGaps(
+  source: TimestampRange,
+  occupied: TimestampRange[],
+  useTime = false,
+): TimestampRange[] {
+  return subtractRanges(source, occupied, useTime);
 }
 
 /**
@@ -1975,6 +2415,153 @@ export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
   t1 = findWeekday(t1, 0);
   t2 = findWeekday(t2, 6);
   return Math.ceil(daysBetween(t1, t2) / TIME_CONSTANTS.DAYS_IN.WEEK);
+}
+
+/**
+ * Creates a TimestampDuration from signed milliseconds.
+ *
+ * @param {number} milliseconds Signed elapsed milliseconds.
+ * @returns {TimestampDuration} Frozen duration object.
+ */
+export function createDuration(milliseconds: number): TimestampDuration {
+  const sign: -1 | 0 | 1 = milliseconds === 0 ? 0 : milliseconds < 0 ? -1 : 1;
+  let remaining = Math.abs(milliseconds);
+  const days = Math.floor(remaining / MILLISECONDS_IN_DAY);
+  remaining -= days * MILLISECONDS_IN_DAY;
+  const hours = Math.floor(remaining / MILLISECONDS_IN_HOUR);
+  remaining -= hours * MILLISECONDS_IN_HOUR;
+  const minutes = Math.floor(remaining / MILLISECONDS_IN_MINUTE);
+  remaining -= minutes * MILLISECONDS_IN_MINUTE;
+  const seconds = Math.floor(remaining / MILLISECONDS_IN_SECOND);
+  remaining -= seconds * MILLISECONDS_IN_SECOND;
+
+  return Object.freeze({
+    totalMilliseconds: milliseconds,
+    absoluteMilliseconds: Math.abs(milliseconds),
+    sign,
+    days,
+    hours,
+    minutes,
+    seconds,
+    milliseconds: remaining,
+  });
+}
+
+/**
+ * Measures the elapsed duration between two Timestamp values.
+ *
+ * Timestamp fields are read as UTC so the result is deterministic across
+ * server and client runtimes.
+ *
+ * @param {Timestamp} start Start timestamp.
+ * @param {Timestamp} end End timestamp.
+ * @returns {TimestampDuration} Frozen duration object.
+ */
+export function durationBetween(start: Timestamp, end: Timestamp): TimestampDuration {
+  return createDuration(toUnixMilliseconds(end) - toUnixMilliseconds(start));
+}
+
+/**
+ * Adds an elapsed duration to a Timestamp.
+ *
+ * This helper treats the Timestamp fields as UTC and returns a Timestamp built
+ * from UTC fields. Use addToDate() for calendar-unit arithmetic such as
+ * "one month from now".
+ *
+ * @param {Timestamp} timestamp Timestamp object to offset.
+ * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
+ * @returns {Timestamp} Offset Timestamp.
+ */
+export function addDuration(timestamp: Timestamp, duration: TimestampDuration | number): Timestamp {
+  const milliseconds = typeof duration === "number" ? duration : duration.totalMilliseconds;
+  return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + milliseconds) as Timestamp;
+}
+
+/**
+ * Subtracts an elapsed duration from a Timestamp.
+ *
+ * @param {Timestamp} timestamp Timestamp object to offset.
+ * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
+ * @returns {Timestamp} Offset Timestamp.
+ */
+export function subtractDuration(
+  timestamp: Timestamp,
+  duration: TimestampDuration | number,
+): Timestamp {
+  const milliseconds = typeof duration === "number" ? duration : duration.totalMilliseconds;
+  return addDuration(timestamp, -milliseconds);
+}
+
+/**
+ * Formats a duration as `HH:mm:ss` or `HH:mm:ss.SSS`.
+ *
+ * Hours include full days, so a two-day duration formats as `48:00:00`.
+ *
+ * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
+ * @param {FormatDurationOptions=} options Formatting options.
+ * @returns {string} Formatted duration.
+ */
+export function formatDuration(
+  duration: TimestampDuration | number,
+  options: FormatDurationOptions = {},
+): string {
+  const value = typeof duration === "number" ? createDuration(duration) : duration;
+  const hours = value.days * HOURS_IN_DAY + value.hours;
+  const sign = options.signed === true && value.sign < 0 ? "-" : "";
+  let formatted = `${sign}${padNumber(hours, 2)}:${padNumber(value.minutes, 2)}:${padNumber(value.seconds, 2)}`;
+
+  if (options.milliseconds === true) {
+    formatted += `.${padNumber(value.milliseconds, 3)}`;
+  }
+
+  return formatted;
+}
+
+function roundTimestampToInterval(
+  timestamp: Timestamp,
+  minutes: number,
+  rounder: (value: number) => number,
+): Timestamp {
+  if (minutes <= 0 || Number.isFinite(minutes) === false) {
+    return copyTimestamp(timestamp);
+  }
+
+  const interval = minutes * MILLISECONDS_IN_MINUTE;
+  const value = toUnixMilliseconds(timestamp);
+  return fromUnixMilliseconds(rounder(value / interval) * interval) as Timestamp;
+}
+
+/**
+ * Floors a Timestamp down to the nearest interval.
+ *
+ * @param {Timestamp} timestamp Timestamp object to round.
+ * @param {number} minutes Interval size in minutes.
+ * @returns {Timestamp} Rounded Timestamp.
+ */
+export function floorToInterval(timestamp: Timestamp, minutes: number): Timestamp {
+  return roundTimestampToInterval(timestamp, minutes, Math.floor);
+}
+
+/**
+ * Ceils a Timestamp up to the nearest interval.
+ *
+ * @param {Timestamp} timestamp Timestamp object to round.
+ * @param {number} minutes Interval size in minutes.
+ * @returns {Timestamp} Rounded Timestamp.
+ */
+export function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp {
+  return roundTimestampToInterval(timestamp, minutes, Math.ceil);
+}
+
+/**
+ * Rounds a Timestamp to the nearest interval.
+ *
+ * @param {Timestamp} timestamp Timestamp object to round.
+ * @param {number} minutes Interval size in minutes.
+ * @returns {Timestamp} Rounded Timestamp.
+ */
+export function roundToInterval(timestamp: Timestamp, minutes: number): Timestamp {
+  return roundTimestampToInterval(timestamp, minutes, Math.round);
 }
 
 // Known dates

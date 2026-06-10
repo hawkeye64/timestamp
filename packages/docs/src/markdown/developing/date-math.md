@@ -80,6 +80,76 @@ meeting.hour; // 9
 meeting.minute; // 30
 ```
 
+## Measure elapsed duration
+
+`durationBetween()` reads Timestamp fields as UTC so elapsed time stays deterministic across server and client runtimes.
+
+```ts [twoslash]
+import { durationBetween, parseTimestamp } from "@timestamp-js/core";
+
+const startsAt = parseTimestamp("2036-06-08T09:00")!;
+const endsAt = parseTimestamp("2036-06-08T10:30:15.250")!;
+
+const duration = durationBetween(startsAt, endsAt);
+
+duration.totalMilliseconds; // 5415250
+duration.hours; // 1
+duration.minutes; // 30
+duration.seconds; // 15
+duration.milliseconds; // 250
+```
+
+## Create and format durations
+
+Use `createDuration()` when elapsed time starts as milliseconds. `formatDuration()` formats full elapsed hours, including hours from full days.
+
+```ts [twoslash]
+import {
+  createDuration,
+  formatDuration,
+  MILLISECONDS_IN_HOUR,
+  MILLISECONDS_IN_MINUTE,
+} from "@timestamp-js/core";
+
+const duration = createDuration(26 * MILLISECONDS_IN_HOUR + 15 * MILLISECONDS_IN_MINUTE);
+
+formatDuration(duration); // "26:15:00"
+formatDuration(-1500, { signed: true, milliseconds: true }); // "-00:00:01.500"
+```
+
+## Add elapsed durations
+
+Use elapsed durations for stopwatch-style time. Use `addToDate()` for calendar-unit math such as "one month".
+
+```ts [twoslash]
+import { addDuration, createDuration, parseTimestamp, subtractDuration } from "@timestamp-js/core";
+
+const startsAt = parseTimestamp("2036-06-08T09:00")!;
+const ninetyMinutes = createDuration(90 * 60 * 1000);
+
+addDuration(startsAt, ninetyMinutes).time; // "10:30"
+subtractDuration(startsAt, ninetyMinutes).time; // "07:30"
+```
+
+## Round to slot intervals
+
+Slot helpers are useful for schedule grids, booking windows, and time pickers.
+
+```ts [twoslash]
+import {
+  ceilToInterval,
+  floorToInterval,
+  parseTimestamp,
+  roundToInterval,
+} from "@timestamp-js/core";
+
+const time = parseTimestamp("2036-06-08T09:37:30")!;
+
+floorToInterval(time, 15).time; // "09:30"
+ceilToInterval(time, 15).time; // "09:45"
+roundToInterval(time, 15).time; // "09:45"
+```
+
 ## Move by allowed weekdays
 
 Use `relativeDays()` or `moveRelativeDays()` when "next day" should skip weekends or other disallowed weekdays.

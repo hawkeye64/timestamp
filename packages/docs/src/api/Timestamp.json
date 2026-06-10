@@ -123,6 +123,66 @@
         "__exemption": ["examples"]
       }
     },
+    "getStartOfDay": {
+      "desc": "Returns a timestamp at the start of the same calendar day.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "A timestamp set to 00:00 on the same date",
+        "__exemption": ["examples"]
+      }
+    },
+    "getEndOfDay": {
+      "desc": "Returns a timestamp at the end of the same calendar day.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "A timestamp set to 23:59:59.999 on the same date",
+        "__exemption": ["examples"]
+      }
+    },
+    "getStartOfYear": {
+      "desc": "Returns a timestamp at the start of the same Gregorian year.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "A timestamp set to January 1 at 00:00",
+        "__exemption": ["examples"]
+      }
+    },
+    "getEndOfYear": {
+      "desc": "Returns a timestamp at the end of the same Gregorian year.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "A timestamp set to December 31 at 23:59:59.999",
+        "__exemption": ["examples"]
+      }
+    },
     "parseTime": {
       "desc": "Parses the passed in value and returns the number of minutes since midnight",
       "params": {
@@ -282,6 +342,68 @@
       "returns": {
         "type": "Date",
         "desc": "JavaScript Date object built with Date.UTC()",
+        "__exemption": ["examples"]
+      }
+    },
+    "toUnixMilliseconds": {
+      "desc": "Converts a timestamp into Unix milliseconds by reading its fields as UTC.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Number",
+        "desc": "Unix milliseconds",
+        "__exemption": ["examples"]
+      }
+    },
+    "toUnixSeconds": {
+      "desc": "Converts a timestamp into Unix seconds by reading its fields as UTC.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Number",
+        "desc": "Unix seconds with milliseconds floored",
+        "__exemption": ["examples"]
+      }
+    },
+    "fromUnixMilliseconds": {
+      "desc": "Converts Unix milliseconds into a timestamp using UTC fields.",
+      "params": {
+        "milliseconds": {
+          "type": "Number",
+          "required": true,
+          "desc": "Unix milliseconds",
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": ["Timestamp", "null"],
+        "tsType": "TimestampOrNull",
+        "desc": "Timestamp built from UTC fields, or null for invalid input",
+        "__exemption": ["examples"]
+      }
+    },
+    "fromUnixSeconds": {
+      "desc": "Converts Unix seconds into a timestamp using UTC fields.",
+      "params": {
+        "seconds": {
+          "type": "Number",
+          "required": true,
+          "desc": "Unix seconds",
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": ["Timestamp", "null"],
+        "tsType": "TimestampOrNull",
+        "desc": "Timestamp built from UTC fields, or null for invalid input",
         "__exemption": ["examples"]
       }
     },
@@ -1268,6 +1390,200 @@
         "__exemption": ["examples"]
       }
     },
+    "createTimestampRange": {
+      "desc": "Creates an inclusive timestamp range and normalizes the start/end order.",
+      "params": {
+        "start": {
+          "extends": "timestamp",
+          "desc": "First range boundary",
+          "required": true
+        },
+        "end": {
+          "extends": "timestamp",
+          "desc": "Second range boundary",
+          "required": true
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day when ordering boundaries",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Object",
+        "tsType": "TimestampRange",
+        "desc": "Frozen inclusive timestamp range",
+        "__exemption": ["examples"]
+      }
+    },
+    "isTimestampInRange": {
+      "desc": "Checks whether a timestamp falls inside an inclusive TimestampRange.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "range": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "Inclusive range to test against",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "True when the timestamp is inside the range",
+        "__exemption": ["examples"]
+      }
+    },
+    "isRangeOverlapping": {
+      "desc": "Checks whether two inclusive TimestampRange values overlap.",
+      "params": {
+        "first": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "First range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "second": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "Second range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "True when the ranges overlap",
+        "__exemption": ["examples"]
+      }
+    },
+    "intersectRanges": {
+      "desc": "Returns the inclusive intersection of two TimestampRange values.",
+      "params": {
+        "first": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "First range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "second": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "Second range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": ["Object", "null"],
+        "tsType": "TimestampRangeOrNull",
+        "desc": "Intersected range, or null when the ranges do not overlap",
+        "__exemption": ["examples"]
+      }
+    },
+    "mergeRanges": {
+      "desc": "Merges overlapping or touching TimestampRange values.",
+      "params": {
+        "ranges": {
+          "type": "Array",
+          "tsType": "TimestampRangeArray",
+          "desc": "Ranges to merge",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Array",
+        "tsType": "TimestampRangeArray",
+        "desc": "Merged ranges sorted by start boundary",
+        "__exemption": ["examples"]
+      }
+    },
+    "subtractRanges": {
+      "desc": "Subtracts blocked ranges from a source range.",
+      "params": {
+        "source": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "Source range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "blocked": {
+          "type": "Array",
+          "tsType": "TimestampRangeArray",
+          "desc": "Ranges to remove from the source",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Array",
+        "tsType": "TimestampRangeArray",
+        "desc": "Remaining ranges",
+        "__exemption": ["examples"]
+      }
+    },
+    "findRangeGaps": {
+      "desc": "Finds open gaps inside a source range after occupied ranges are removed.",
+      "params": {
+        "source": {
+          "type": "Object",
+          "tsType": "TimestampRange",
+          "desc": "Source range",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "occupied": {
+          "type": "Array",
+          "tsType": "TimestampRangeArray",
+          "desc": "Ranges that are not available",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "useTime": {
+          "type": "Boolean",
+          "desc": "[Optional] Include time-of-day in the comparison",
+          "default": "false"
+        }
+      },
+      "returns": {
+        "type": "Array",
+        "tsType": "TimestampRangeArray",
+        "desc": "Gap ranges",
+        "__exemption": ["examples"]
+      }
+    },
     "daysBetween": {
       "desc": "Returns the number days between two timestamps",
       "params": {
@@ -1305,6 +1621,184 @@
       "returns": {
         "type": "Number",
         "desc": "The number of weeks beween the two timestamps",
+        "__exemption": ["examples"]
+      }
+    },
+    "createDuration": {
+      "desc": "Creates a TimestampDuration from signed milliseconds.",
+      "params": {
+        "milliseconds": {
+          "type": "Number",
+          "desc": "Signed elapsed milliseconds",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Object",
+        "tsType": "TimestampDuration",
+        "desc": "Frozen duration object",
+        "__exemption": ["examples"]
+      }
+    },
+    "durationBetween": {
+      "desc": "Measures the elapsed duration between two timestamp values.",
+      "params": {
+        "start": {
+          "extends": "timestamp",
+          "desc": "Start timestamp",
+          "required": true
+        },
+        "end": {
+          "extends": "timestamp",
+          "desc": "End timestamp",
+          "required": true
+        }
+      },
+      "returns": {
+        "type": "Object",
+        "tsType": "TimestampDuration",
+        "desc": "Frozen duration object",
+        "__exemption": ["examples"]
+      }
+    },
+    "addDuration": {
+      "desc": "Adds an elapsed duration to a timestamp.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "duration": {
+          "type": ["Object", "Number"],
+          "tsType": "TimestampDurationOrNumber",
+          "desc": "Duration object or signed milliseconds",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Offset timestamp built from UTC fields",
+        "__exemption": ["examples"]
+      }
+    },
+    "subtractDuration": {
+      "desc": "Subtracts an elapsed duration from a timestamp.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "duration": {
+          "type": ["Object", "Number"],
+          "tsType": "TimestampDurationOrNumber",
+          "desc": "Duration object or signed milliseconds",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Offset timestamp built from UTC fields",
+        "__exemption": ["examples"]
+      }
+    },
+    "formatDuration": {
+      "desc": "Formats a duration as HH:mm:ss or HH:mm:ss.SSS.",
+      "params": {
+        "duration": {
+          "type": ["Object", "Number"],
+          "tsType": "TimestampDurationOrNumber",
+          "desc": "Duration object or signed milliseconds",
+          "required": true,
+          "__exemption": ["examples"]
+        },
+        "options": {
+          "type": "Object",
+          "tsType": "FormatDurationOptions",
+          "desc": "[Optional] Duration formatting options",
+          "__exemption": ["examples"],
+          "definition": {
+            "milliseconds": {
+              "type": "Boolean",
+              "desc": "Include the millisecond component when true"
+            },
+            "signed": {
+              "type": "Boolean",
+              "desc": "Preserve a leading minus sign for negative durations when true"
+            }
+          }
+        }
+      },
+      "returns": {
+        "type": "String",
+        "desc": "Formatted duration",
+        "__exemption": ["examples"]
+      }
+    },
+    "floorToInterval": {
+      "desc": "Floors a timestamp down to the nearest interval.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "minutes": {
+          "type": "Number",
+          "desc": "Interval size in minutes",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Rounded timestamp",
+        "__exemption": ["examples"]
+      }
+    },
+    "ceilToInterval": {
+      "desc": "Ceils a timestamp up to the nearest interval.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "minutes": {
+          "type": "Number",
+          "desc": "Interval size in minutes",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Rounded timestamp",
+        "__exemption": ["examples"]
+      }
+    },
+    "roundToInterval": {
+      "desc": "Rounds a timestamp to the nearest interval.",
+      "params": {
+        "timestamp": {
+          "extends": "timestamp",
+          "required": true
+        },
+        "minutes": {
+          "type": "Number",
+          "desc": "Interval size in minutes",
+          "required": true,
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Timestamp",
+        "tsType": "Timestamp",
+        "desc": "Rounded timestamp",
         "__exemption": ["examples"]
       }
     },
