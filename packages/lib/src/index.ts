@@ -1563,7 +1563,6 @@ function createNativeLocaleFormatterByMode(
 ): (_timestamp: Timestamp, _short: boolean) => string {
   const emptyFormatter = (): string => "";
 
-  /* istanbul ignore next */
   if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
     return emptyFormatter;
   }
@@ -1572,7 +1571,7 @@ function createNativeLocaleFormatterByMode(
     try {
       const intlFormatter = new Intl.DateTimeFormat(locale || undefined, cb(timestamp, short));
       return intlFormatter.format(toDate(timestamp));
-    } catch (e) /* istanbul ignore next */ {
+    } catch (e) {
       console.error(`Intl.DateTimeFormat: ${(e as Error).message} -> ${getDateTime(timestamp)}`);
       return "";
     }
@@ -2027,7 +2026,6 @@ export function getWeekdayFormatter(): WeekdayFormatter {
     narrow: { timeZone: "UTC", weekday: "narrow" },
   };
 
-  /* istanbul ignore next */
   if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
     return emptyFormatter as WeekdayFormatter;
   }
@@ -2051,7 +2049,7 @@ export function getWeekdayFormatter(): WeekdayFormatter {
         resolveIntlNameFormat(options, type),
       );
       return intlFormatter.format(weekdayDateMap[weekday]);
-    } catch (e) /* istanbul ignore next */ {
+    } catch (e) {
       if (e instanceof Error) {
         console.error(`Intl.DateTimeFormat: ${e.message} -> day of week: ${weekday}`);
       }
@@ -2097,7 +2095,6 @@ export function getMonthFormatter(): MonthFormatter {
     narrow: { timeZone: "UTC", month: "narrow" },
   };
 
-  /* istanbul ignore next */
   if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
     return emptyFormatter;
   }
@@ -2120,7 +2117,7 @@ export function getMonthFormatter(): MonthFormatter {
       date.setDate(1);
       date.setMonth(month);
       return intlFormatter.format(date);
-    } catch (e: unknown) /* istanbul ignore next */ {
+    } catch (e: unknown) {
       if (e instanceof Error) {
         console.error(`Intl.DateTimeFormat: ${e.message} -> month: ${month}`);
       }
