@@ -5,6 +5,9 @@ allowBuilds:
   "@parcel/watcher": true
   esbuild: true
 
+overrides:
+  semver: 7.8.3
+
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@md-plugins/md-plugin-blockquote"
@@ -23,7 +26,7 @@ minimumReleaseAgeExclude:
   - "@md-plugins/shared"
   - "@md-plugins/vite-md-plugin"
   - "@md-plugins/vite-ssg-plugin"
-  - "@quasar/app-vite@3.0.0-beta.43"
+  - "@quasar/app-vite@3.0.0-beta.44"
   - "oxfmt@0.53.0"
   - "oxlint@1.68.0"
   - "typescript@6.0.3"
