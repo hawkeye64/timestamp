@@ -6,7 +6,7 @@ keys: Other
 
 Use this guide when upgrading from an embedded Timestamp utility that shipped with another package, especially older QCalendar usage, to the standalone `@timestamp-js/core` package.
 
-Timestamp is currently in the `0.x` alpha line. Until the first stable release, small API adjustments can happen as existing integrations and third-party projects validate the public surface.
+Timestamp is currently in the `0.x` beta line. Until the first stable release, small API adjustments can happen as existing integrations and third-party projects validate the public surface.
 
 ## Install Timestamp Directly
 
@@ -102,4 +102,4 @@ Seconds, milliseconds, and timezone suffixes are optional. Timezone suffixes are
 - Add `@timestamp-js/core` as a direct dependency in every app or package that uses Timestamp helpers.
 - Review tests that assumed mutation because helpers now return new immutable objects.
 - Review SSR-sensitive code that calls `today()` during render. Prefer explicit input values, `todayUTC()`, or `nowUTC()` when server/client timezone differences matter.
-- Watch release notes for timezone, UTC, calendar-system, and API-shape changes while the package is still alpha.
+- Watch release notes for timezone, UTC, calendar-system, and API-shape changes while the package is still beta.
