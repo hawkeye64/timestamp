@@ -45,6 +45,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "test": "vitest run",
+    "test:tz": "TZ=UTC vitest run test/timezoneMatrix.spec.ts && TZ=America/Edmonton vitest run test/timezoneMatrix.spec.ts && TZ=Asia/Kathmandu vitest run test/timezoneMatrix.spec.ts",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "prepack": "pnpm build"

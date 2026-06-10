@@ -59,6 +59,23 @@ days.find((day) => day.date === "2036-06-04")?.disabled; // true
 days.find((day) => day.date === "2036-06-06")?.disabledLabel; // "Maintenance"
 ```
 
+## Mark one timestamp as disabled
+
+Use `updateDisabled()` when you already have a timestamp and want to apply the same disabled-day rules without building a whole list.
+
+```ts [twoslash]
+import { parseTimestamp, updateDisabled } from "@timestamp-js/core";
+import type { DisabledDays } from "@timestamp-js/core";
+
+const holiday = parseTimestamp("2036-06-04")!;
+const disabledDays: DisabledDays = [{ date: "2036-06-04", label: "Holiday" }];
+
+const disabled = updateDisabled(holiday, undefined, undefined, [], disabledDays);
+
+disabled.disabled; // true
+disabled.disabledLabel; // "Holiday"
+```
+
 ## Create day intervals
 
 `createIntervalList()` creates time slots for a single day. Pass the starting interval index, minutes per interval, total interval count, and the Timestamp to use for relative flags.

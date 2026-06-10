@@ -95,6 +95,22 @@ const blackoutEnd = parseTimestamp("2026-06-18")!;
 isOverlappingDates(vacationStart, vacationEnd, blackoutStart, blackoutEnd); // true
 ```
 
+## Check overlap between reusable range objects
+
+Use `isRangeOverlapping()` when your app already passes around `TimestampRange` values.
+
+```ts [twoslash]
+import { createTimestampRange, isRangeOverlapping, parseTimestamp } from "@timestamp-js/core";
+
+const planningWindow = createTimestampRange(
+  parseTimestamp("2036-06-01")!,
+  parseTimestamp("2036-06-30")!,
+);
+const blackout = createTimestampRange(parseTimestamp("2036-06-12")!, parseTimestamp("2036-06-18")!);
+
+isRangeOverlapping(planningWindow, blackout); // true
+```
+
 ## Intersect two ranges
 
 `intersectRanges()` returns the shared section of two ranges, or `null` when they do not overlap.
