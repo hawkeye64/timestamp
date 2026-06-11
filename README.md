@@ -66,18 +66,20 @@ The library relies on standard JavaScript runtime APIs such as `Date` and `Intl.
 
 For deterministic SSR output, prefer passing explicit timestamps into helpers instead of calling `today()` during render. `today()` intentionally uses the host runtime clock and timezone.
 
-## Documentation
+# Structure
 
-The project includes a Q-Press documentation site under `packages/docs`.
+This is a pnpm workspace mono-repo. You cannot use npm for building.
+
+- [/lib](packages/lib) - standalone npm package (go here for more information)
+- [/docs](packages/docs) - Q-Press documentation site with docs, demos, and examples
+- [live demo](https://timestamp-js.netlify.app/) - **live Q-Press docs, demos, and examples**
+
+## Documentation
 
 ```bash
 pnpm docs:dev
 pnpm docs:build
 ```
-
-## Workspace Layout
-
-The publishable package lives in `packages/lib` so the repository follows the same predictable workspace shape as the sibling projects. The root package is private and only coordinates shared scripts, dependency installation, verification, and docs builds.
 
 ## Current Scope
 
