@@ -96,3 +96,10 @@ pnpm docs:build
 pnpm install
 pnpm verify
 ```
+
+## Support
+
+If Timestamp is useful in your workflow and you want to support ongoing maintenance:
+
+- GitHub Sponsors: https://github.com/sponsors/hawkeye64
+- PayPal: https://paypal.me/hawkeye64
