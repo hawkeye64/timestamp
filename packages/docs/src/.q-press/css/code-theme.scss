@@ -397,6 +397,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .twoslash * {
+    transition: none !important;
+  }
+}
+
 @media (max-width: 600px) {
   .markdown-code {
     &.twoslash {
@@ -445,12 +451,6 @@
       width: min(240px, calc(100vw - 48px));
       max-width: calc(100vw - 48px);
     }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .twoslash * {
-    transition: none !important;
   }
 }
 
