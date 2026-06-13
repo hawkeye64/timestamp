@@ -30,6 +30,7 @@ minimumReleaseAgeExclude:
   - "@vue/compiler-dom@3.5.38"
   - "@vue/compiler-sfc@3.5.38"
   - "@vue/compiler-ssr@3.5.38"
+  - "@vue/language-core@3.3.5"
   - "@vue/reactivity@3.5.38"
   - "@vue/runtime-core@3.5.38"
   - "@vue/runtime-dom@3.5.38"
@@ -42,3 +43,4 @@ minimumReleaseAgeExclude:
   - "typescript@6.0.3"
   - "vitest@4.1.8"
   - "vue@3.5.38"
+  - "vue-tsc@3.3.5"
