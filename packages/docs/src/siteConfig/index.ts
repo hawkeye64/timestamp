@@ -70,6 +70,27 @@ export interface PrivacyConfig {
   link: string;
 }
 
+export interface CodepenGlobalPackage {
+  packageName: string;
+  globalName: string;
+}
+
+export interface CodepenModulePackage {
+  packageName: string;
+  importUrl: string;
+}
+
+export interface CodepenConfig {
+  head?: string;
+  cssExternal?: string[];
+  jsExternal?: string[];
+  jsPreProcessor?: string;
+  titleSuffix?: string;
+  jsSetup?: string;
+  globalPackages?: CodepenGlobalPackage[];
+  modulePackages?: CodepenModulePackage[];
+}
+
 export interface SiteConfig {
   lang: string;
   title: string;
@@ -79,6 +100,7 @@ export interface SiteConfig {
   copyright: CopyrightConfig;
   githubEditRootSrc: string;
   githubSourceRootSrc?: string;
+  codepen?: CodepenConfig;
   license: LicenseConfig;
   privacy: PrivacyConfig;
   logoConfig: LogoConfig;
