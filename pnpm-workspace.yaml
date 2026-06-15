@@ -23,7 +23,7 @@ minimumReleaseAgeExclude:
   - "@md-plugins/shared"
   - "@md-plugins/vite-md-plugin"
   - "@md-plugins/vite-ssg-plugin"
-  - "@quasar/app-vite@3.0.0-rc.2"
+  - "@quasar/app-vite@3.0.0-rc.3"
   - "@quasar/extras@2.0.1"
   - "@types/node@25.9.3"
   - "@vue/compiler-core@3.5.38"
