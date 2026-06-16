@@ -21,12 +21,12 @@ For deterministic SSR output:
 - Use `parseDateUTC()` when converting native `Date` instances that represent instants.
 
 ```ts
-import { nowUTC, parseTimestamp, updateRelative } from "@timestamp-js/core";
+import { nowUTC, parseTimestamp, updateRelative } from '@timestamp-js/core'
 
-const now = nowUTC(new Date("2036-06-08T12:00:00.000Z"));
-const target = parseTimestamp("2036-06-09")!;
+const now = nowUTC(new Date('2036-06-08T12:00:00.000Z'))
+const target = parseTimestamp('2036-06-09')!
 
-const stable = updateRelative(target, now);
+const stable = updateRelative(target, now)
 ```
 
 If the render needs to be stable even when time passes between server render and client hydration, capture the date once in app code and pass it to `nowUTC(date)` or `todayUTC(date)`.
@@ -36,12 +36,12 @@ If the render needs to be stable even when time passes between server render and
 `parseDateUTC(date)` reads a native `Date` using UTC fields. `parseDate(date)` reads host-local fields.
 
 ```ts
-import { nowUTC, parseDate, parseDateUTC, todayUTC } from "@timestamp-js/core";
+import { nowUTC, parseDate, parseDateUTC, todayUTC } from '@timestamp-js/core'
 
-const instant = new Date("2036-06-08T09:30:00Z");
+const instant = new Date('2036-06-08T09:30:00Z')
 
-const localTimestamp = parseDate(instant);
-const utcTimestamp = parseDateUTC(instant);
-const dateOnly = todayUTC(instant);
-const dateTime = nowUTC(instant);
+const localTimestamp = parseDate(instant)
+const utcTimestamp = parseDateUTC(instant)
+const dateOnly = todayUTC(instant)
+const dateTime = nowUTC(instant)
 ```

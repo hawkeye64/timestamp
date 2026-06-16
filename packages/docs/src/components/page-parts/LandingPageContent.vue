@@ -139,50 +139,50 @@ formatTimestamp(next)</code></pre>
 </template>
 
 <script setup lang="ts">
-import { fabGithub } from "@quasar/extras/fontawesome-v7";
-import siteConfig from "../../siteConfig";
+import { fabGithub } from '@quasar/extras/fontawesome-v7'
+import siteConfig from '../../siteConfig'
 
-const heroPills = ["Immutable", "ISO parsing", "SSR-friendly", "ESM", "Zero UI dependency"];
+const heroPills = ['Immutable', 'ISO parsing', 'SSR-friendly', 'ESM', 'Zero UI dependency']
 
 const features = [
   {
-    icon: "event",
-    title: "Date + Time Objects",
-    body: "Represent date-only, time-only, and date-time values with explicit fields instead of hidden mutable Date state.",
+    icon: 'event',
+    title: 'Date + Time Objects',
+    body: 'Represent date-only, time-only, and date-time values with explicit fields instead of hidden mutable Date state.',
   },
   {
-    icon: "sync_alt",
-    title: "Safe Date Math",
-    body: "Add, compare, diff, clamp, and validate values while returning fresh timestamp objects each time.",
+    icon: 'sync_alt',
+    title: 'Safe Date Math',
+    body: 'Add, compare, diff, clamp, and validate values while returning fresh timestamp objects each time.',
   },
   {
-    icon: "travel_explore",
-    title: "Runtime Agnostic",
-    body: "Use the same helpers in browsers, Node.js, SSR, serverless, edge runtimes, Vue, React, or plain TypeScript.",
+    icon: 'travel_explore',
+    title: 'Runtime Agnostic',
+    body: 'Use the same helpers in browsers, Node.js, SSR, serverless, edge runtimes, Vue, React, or plain TypeScript.',
   },
   {
-    icon: "schedule",
-    title: "Intervals + Workweeks",
-    body: "Build predictable calendar structures such as day lists, intervals, weekdays, month labels, and workweek ranges.",
+    icon: 'schedule',
+    title: 'Intervals + Workweeks',
+    body: 'Build predictable calendar structures such as day lists, intervals, weekdays, month labels, and workweek ranges.',
   },
   {
-    icon: "verified",
-    title: "Deterministic Testing",
-    body: "Prefer caller-provided values and explicit UTC helpers when server/client timezone differences matter.",
+    icon: 'verified',
+    title: 'Deterministic Testing',
+    body: 'Prefer caller-provided values and explicit UTC helpers when server/client timezone differences matter.',
   },
   {
-    icon: "extension",
-    title: "Room to Grow",
-    body: "Future modules can add instant conversion, non-Gregorian calendars, relative labels, and duration helpers.",
+    icon: 'extension',
+    title: 'Room to Grow',
+    body: 'Future modules can add instant conversion, non-Gregorian calendars, relative labels, and duration helpers.',
   },
-];
+]
 
 const apiLinks = [
-  { label: "Parsing", to: "/getting-started/parsing", icon: "data_object" },
-  { label: "Timestamp Object", to: "/api/timestamp-object", icon: "description" },
-  { label: "Calendar Helpers", to: "/api/calendar-helpers", icon: "calendar_month" },
-  { label: "Comparisons", to: "/api/comparisons", icon: "compare_arrows" },
-];
+  { label: 'Parsing', to: '/getting-started/parsing', icon: 'data_object' },
+  { label: 'Timestamp Object', to: '/api/timestamp-object', icon: 'description' },
+  { label: 'Calendar Helpers', to: '/api/calendar-helpers', icon: 'calendar_month' },
+  { label: 'Comparisons', to: '/api/comparisons', icon: 'compare_arrows' },
+]
 </script>
 
 <style lang="scss" scoped>

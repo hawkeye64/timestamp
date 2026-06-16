@@ -8,18 +8,18 @@ Date math helpers always return new Timestamp objects. The original object stays
 ## Move by days, months, and years
 
 ```ts [twoslash]
-import { addToDate, getDate, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, getDate, parseTimestamp } from '@timestamp-js/core'
 
-const current = parseTimestamp("2026-06-08")!;
+const current = parseTimestamp('2026-06-08')!
 
-const nextWeek = addToDate(current, { day: 7 });
-const nextMonth = addToDate(current, { month: 1 });
-const lastYear = addToDate(current, { year: -1 });
+const nextWeek = addToDate(current, { day: 7 })
+const nextMonth = addToDate(current, { month: 1 })
+const lastYear = addToDate(current, { year: -1 })
 
-getDate(nextWeek); // "2026-06-15"
-getDate(nextMonth); // "2026-07-08"
-getDate(lastYear); // "2025-06-08"
-getDate(current); // "2026-06-08"
+getDate(nextWeek) // "2026-06-15"
+getDate(nextMonth) // "2026-07-08"
+getDate(lastYear) // "2025-06-08"
+getDate(current) // "2026-06-08"
 ```
 
 ## Use clamped math for billing-style dates
@@ -27,15 +27,15 @@ getDate(current); // "2026-06-08"
 JavaScript date overflow is useful for some workflows, but billing cycles and due dates often need end-of-month clamping.
 
 ```ts [twoslash]
-import { addToDate, addToDateClamped, getDate, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, addToDateClamped, getDate, parseTimestamp } from '@timestamp-js/core'
 
-const monthEnd = parseTimestamp("2026-01-31")!;
+const monthEnd = parseTimestamp('2026-01-31')!
 
-const overflow = addToDate(monthEnd, { month: 1 });
-const clamped = addToDateClamped(monthEnd, { month: 1 });
+const overflow = addToDate(monthEnd, { month: 1 })
+const clamped = addToDateClamped(monthEnd, { month: 1 })
 
-getDate(overflow); // "2026-03-03"
-getDate(clamped); // "2026-02-28"
+getDate(overflow) // "2026-03-03"
+getDate(clamped) // "2026-02-28"
 ```
 
 ## Leap-year clamping
@@ -43,12 +43,12 @@ getDate(clamped); // "2026-02-28"
 Clamped math keeps leap-day anniversaries on the last valid day when the target year is not a leap year.
 
 ```ts [twoslash]
-import { addToDateClamped, getDate, parseTimestamp } from "@timestamp-js/core";
+import { addToDateClamped, getDate, parseTimestamp } from '@timestamp-js/core'
 
-const leapDay = parseTimestamp("2020-02-29")!;
-const nextYear = addToDateClamped(leapDay, { year: 1 });
+const leapDay = parseTimestamp('2020-02-29')!
+const nextYear = addToDateClamped(leapDay, { year: 1 })
 
-getDate(nextYear); // "2021-02-28"
+getDate(nextYear) // "2021-02-28"
 ```
 
 ## Move one day at a time
@@ -56,12 +56,12 @@ getDate(nextYear); // "2021-02-28"
 Use `nextDay()` and `prevDay()` when readability matters more than a generic offset object.
 
 ```ts [twoslash]
-import { getDate, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
+import { getDate, nextDay, parseTimestamp, prevDay } from '@timestamp-js/core'
 
-const current = parseTimestamp("2026-06-08")!;
+const current = parseTimestamp('2026-06-08')!
 
-getDate(prevDay(current)); // "2026-06-07"
-getDate(nextDay(current)); // "2026-06-09"
+getDate(prevDay(current)) // "2026-06-07"
+getDate(nextDay(current)) // "2026-06-09"
 ```
 
 ## Set minutes from midnight
@@ -69,15 +69,15 @@ getDate(nextDay(current)); // "2026-06-09"
 `updateMinutes()` is useful for time pickers and interval grids that store time as minutes after midnight.
 
 ```ts [twoslash]
-import { parseTimestamp, updateMinutes } from "@timestamp-js/core";
+import { parseTimestamp, updateMinutes } from '@timestamp-js/core'
 
-const day = parseTimestamp("2036-06-08")!;
+const day = parseTimestamp('2036-06-08')!
 
-const meeting = updateMinutes(day, 9 * 60 + 30);
+const meeting = updateMinutes(day, 9 * 60 + 30)
 
-meeting.time; // "09:30"
-meeting.hour; // 9
-meeting.minute; // 30
+meeting.time // "09:30"
+meeting.hour // 9
+meeting.minute // 30
 ```
 
 ## Measure elapsed duration
@@ -85,18 +85,18 @@ meeting.minute; // 30
 `durationBetween()` reads Timestamp fields as UTC so elapsed time stays deterministic across server and client runtimes.
 
 ```ts [twoslash]
-import { durationBetween, parseTimestamp } from "@timestamp-js/core";
+import { durationBetween, parseTimestamp } from '@timestamp-js/core'
 
-const startsAt = parseTimestamp("2036-06-08T09:00")!;
-const endsAt = parseTimestamp("2036-06-08T10:30:15.250")!;
+const startsAt = parseTimestamp('2036-06-08T09:00')!
+const endsAt = parseTimestamp('2036-06-08T10:30:15.250')!
 
-const duration = durationBetween(startsAt, endsAt);
+const duration = durationBetween(startsAt, endsAt)
 
-duration.totalMilliseconds; // 5415250
-duration.hours; // 1
-duration.minutes; // 30
-duration.seconds; // 15
-duration.milliseconds; // 250
+duration.totalMilliseconds // 5415250
+duration.hours // 1
+duration.minutes // 30
+duration.seconds // 15
+duration.milliseconds // 250
 ```
 
 ## Create and format durations
@@ -109,12 +109,12 @@ import {
   formatDuration,
   MILLISECONDS_IN_HOUR,
   MILLISECONDS_IN_MINUTE,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const duration = createDuration(26 * MILLISECONDS_IN_HOUR + 15 * MILLISECONDS_IN_MINUTE);
+const duration = createDuration(26 * MILLISECONDS_IN_HOUR + 15 * MILLISECONDS_IN_MINUTE)
 
-formatDuration(duration); // "26:15:00"
-formatDuration(-1500, { signed: true, milliseconds: true }); // "-00:00:01.500"
+formatDuration(duration) // "26:15:00"
+formatDuration(-1500, { signed: true, milliseconds: true }) // "-00:00:01.500"
 ```
 
 ## Add elapsed durations
@@ -122,13 +122,13 @@ formatDuration(-1500, { signed: true, milliseconds: true }); // "-00:00:01.500"
 Use elapsed durations for stopwatch-style time. Use `addToDate()` for calendar-unit math such as "one month".
 
 ```ts [twoslash]
-import { addDuration, createDuration, parseTimestamp, subtractDuration } from "@timestamp-js/core";
+import { addDuration, createDuration, parseTimestamp, subtractDuration } from '@timestamp-js/core'
 
-const startsAt = parseTimestamp("2036-06-08T09:00")!;
-const ninetyMinutes = createDuration(90 * 60 * 1000);
+const startsAt = parseTimestamp('2036-06-08T09:00')!
+const ninetyMinutes = createDuration(90 * 60 * 1000)
 
-addDuration(startsAt, ninetyMinutes).time; // "10:30"
-subtractDuration(startsAt, ninetyMinutes).time; // "07:30"
+addDuration(startsAt, ninetyMinutes).time // "10:30"
+subtractDuration(startsAt, ninetyMinutes).time // "07:30"
 ```
 
 ## Round to slot intervals
@@ -141,13 +141,13 @@ import {
   floorToInterval,
   parseTimestamp,
   roundToInterval,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const time = parseTimestamp("2036-06-08T09:37:30")!;
+const time = parseTimestamp('2036-06-08T09:37:30')!
 
-floorToInterval(time, 15).time; // "09:30"
-ceilToInterval(time, 15).time; // "09:45"
-roundToInterval(time, 15).time; // "09:45"
+floorToInterval(time, 15).time // "09:30"
+ceilToInterval(time, 15).time // "09:45"
+roundToInterval(time, 15).time // "09:45"
 ```
 
 ## Move by allowed weekdays
@@ -162,13 +162,13 @@ import {
   parseTimestamp,
   prevDay,
   relativeDays,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const friday = parseTimestamp("2036-06-13")!;
-const mondayToFriday = [1, 2, 3, 4, 5];
+const friday = parseTimestamp('2036-06-13')!
+const mondayToFriday = [1, 2, 3, 4, 5]
 
-getDate(relativeDays(friday, nextDay, 1, mondayToFriday)); // "2036-06-16"
-getDate(moveRelativeDays(friday, prevDay, 1, mondayToFriday)); // "2036-06-12"
+getDate(relativeDays(friday, nextDay, 1, mondayToFriday)) // "2036-06-16"
+getDate(moveRelativeDays(friday, prevDay, 1, mondayToFriday)) // "2036-06-12"
 ```
 
 ## Find a specific weekday
@@ -176,12 +176,12 @@ getDate(moveRelativeDays(friday, prevDay, 1, mondayToFriday)); // "2036-06-12"
 `findWeekday()` moves forward or backward until the requested weekday is found.
 
 ```ts [twoslash]
-import { findWeekday, getDate, nextDay, parseTimestamp, prevDay } from "@timestamp-js/core";
+import { findWeekday, getDate, nextDay, parseTimestamp, prevDay } from '@timestamp-js/core'
 
-const current = parseTimestamp("2036-06-08")!;
+const current = parseTimestamp('2036-06-08')!
 
-getDate(findWeekday(current, 5, nextDay)); // "2036-06-13"
-getDate(findWeekday(current, 1, prevDay)); // "2036-06-02"
+getDate(findWeekday(current, 5, nextDay)) // "2036-06-13"
+getDate(findWeekday(current, 1, prevDay)) // "2036-06-02"
 ```
 
 ## Type reusable offset objects
@@ -189,11 +189,11 @@ getDate(findWeekday(current, 1, prevDay)); // "2036-06-02"
 `AddToDateOptions` is useful when offsets are passed through app-level helpers.
 
 ```ts [twoslash]
-import { addToDate, getDate, parseTimestamp } from "@timestamp-js/core";
-import type { AddToDateOptions } from "@timestamp-js/core";
+import { addToDate, getDate, parseTimestamp } from '@timestamp-js/core'
+import type { AddToDateOptions } from '@timestamp-js/core'
 
-const renewalOffset: AddToDateOptions = { year: 1, day: -1 };
-const startsAt = parseTimestamp("2036-06-08")!;
+const renewalOffset: AddToDateOptions = { year: 1, day: -1 }
+const startsAt = parseTimestamp('2036-06-08')!
 
-getDate(addToDate(startsAt, renewalOffset)); // "2037-06-07"
+getDate(addToDate(startsAt, renewalOffset)) // "2037-06-07"
 ```

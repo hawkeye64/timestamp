@@ -18,12 +18,12 @@ It is not tied to a UI framework, backend framework, or application platform. Yo
 ## Basic example
 
 ```ts
-import { addToDate, getDateTime, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, getDateTime, parseTimestamp } from '@timestamp-js/core'
 
-const start = parseTimestamp("2026-06-08T09:30:15.250Z");
-const end = start ? addToDate(start, { day: 2, minute: 45 }) : null;
+const start = parseTimestamp('2026-06-08T09:30:15.250Z')
+const end = start ? addToDate(start, { day: 2, minute: 45 }) : null
 
-console.log(end ? getDateTime(end) : "Invalid date");
+console.log(end ? getDateTime(end) : 'Invalid date')
 ```
 
 ## What Timestamp is not

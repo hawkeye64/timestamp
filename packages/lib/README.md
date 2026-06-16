@@ -15,14 +15,14 @@ pnpm add @timestamp-js/core
 ## Basic Usage
 
 ```ts
-import { addToDate, addToDateClamped, getDateTime, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, addToDateClamped, getDateTime, parseTimestamp } from '@timestamp-js/core'
 
-const start = parseTimestamp("2026-06-08T09:30:15.250Z");
-const end = start ? addToDate(start, { day: 2, minute: 45 }) : null;
-const billingDate = start ? addToDateClamped(start, { month: 1 }) : null;
+const start = parseTimestamp('2026-06-08T09:30:15.250Z')
+const end = start ? addToDate(start, { day: 2, minute: 45 }) : null
+const billingDate = start ? addToDateClamped(start, { month: 1 }) : null
 
-console.log(end ? getDateTime(end) : "Invalid date");
-console.log(billingDate ? getDateTime(billingDate) : "Invalid date");
+console.log(end ? getDateTime(end) : 'Invalid date')
+console.log(billingDate ? getDateTime(billingDate) : 'Invalid date')
 ```
 
 ## Timestamp Values
@@ -30,11 +30,11 @@ console.log(billingDate ? getDateTime(billingDate) : "Invalid date");
 Timestamp objects are immutable. Parsers and update helpers return frozen objects, and functions that change date/time fields return a new Timestamp instead of mutating the original.
 
 ```ts
-const start = parseTimestamp("2026-06-08 09:30")!;
-const next = addToDate(start, { day: 1 });
+const start = parseTimestamp('2026-06-08 09:30')!
+const next = addToDate(start, { day: 1 })
 
-console.log(start.date); // 2026-06-08
-console.log(next.date); // 2026-06-09
+console.log(start.date) // 2026-06-08
+console.log(next.date) // 2026-06-09
 ```
 
 ## Supported Input Shape

@@ -10,14 +10,14 @@ Use these helpers when app code needs to accept external input, guard form value
 `validateTimestamp()` is a lightweight grammar check. Use `parseTimestamp()` when you need a full immutable object.
 
 ```ts [twoslash]
-import { parseTimestamp, validateTimestamp } from "@timestamp-js/core";
+import { parseTimestamp, validateTimestamp } from '@timestamp-js/core'
 
-validateTimestamp("2036-06-08T09:30:15.250Z"); // true
-validateTimestamp("not a date"); // false
+validateTimestamp('2036-06-08T09:30:15.250Z') // true
+validateTimestamp('not a date') // false
 
-const timestamp = validateTimestamp("2036-06-08") ? parseTimestamp("2036-06-08") : null;
+const timestamp = validateTimestamp('2036-06-08') ? parseTimestamp('2036-06-08') : null
 
-timestamp?.date; // "2036-06-08"
+timestamp?.date // "2036-06-08"
 ```
 
 ## Use the low-level parser when you only need fields
@@ -25,14 +25,14 @@ timestamp?.date; // "2036-06-08"
 `parsed()` is intentionally smaller than `parseTimestamp()`. It reads fields and preserves timezone suffixes, but does not fill derived values such as weekday, day of year, or workweek.
 
 ```ts [twoslash]
-import { parsed, parseTimestamp } from "@timestamp-js/core";
+import { parsed, parseTimestamp } from '@timestamp-js/core'
 
-const minimal = parsed("2036-06-08T09:30:15-07:00")!;
-const formatted = parseTimestamp("2036-06-08T09:30:15-07:00")!;
+const minimal = parsed('2036-06-08T09:30:15-07:00')!
+const formatted = parseTimestamp('2036-06-08T09:30:15-07:00')!
 
-minimal.timezone; // "-07:00"
-minimal.doy; // 0
-formatted.doy; // 160
+minimal.timezone // "-07:00"
+minimal.doy // 0
+formatted.doy // 160
 ```
 
 ## Validate numeric input
@@ -40,11 +40,11 @@ formatted.doy; // 160
 `validateNumber()` is useful before converting text input into offsets, intervals, or form-driven date math.
 
 ```ts [twoslash]
-import { validateNumber } from "@timestamp-js/core";
+import { validateNumber } from '@timestamp-js/core'
 
-validateNumber("15"); // true
-validateNumber(30); // true
-validateNumber("fifteen"); // false
+validateNumber('15') // true
+validateNumber(30) // true
+validateNumber('fifteen') // false
 ```
 
 ## Inspect Gregorian month facts
@@ -52,11 +52,11 @@ validateNumber("fifteen"); // false
 Use `isLeapYear()` and `daysInMonth()` when you need to explain or constrain calendar choices.
 
 ```ts [twoslash]
-import { daysInMonth, isLeapYear } from "@timestamp-js/core";
+import { daysInMonth, isLeapYear } from '@timestamp-js/core'
 
-isLeapYear(2036); // true
-daysInMonth(2036, 2); // 29
-daysInMonth(2037, 2); // 28
+isLeapYear(2036) // true
+daysInMonth(2036, 2) // 29
+daysInMonth(2037, 2) // 28
 ```
 
 ## Format small numeric pieces
@@ -64,10 +64,10 @@ daysInMonth(2037, 2); // 28
 `padNumber()` is intentionally simple, but it keeps custom output consistent with Timestamp's own formatting.
 
 ```ts [twoslash]
-import { padNumber } from "@timestamp-js/core";
+import { padNumber } from '@timestamp-js/core'
 
-padNumber(7, 2); // "07"
-padNumber(42, 4); // "0042"
+padNumber(7, 2) // "07"
+padNumber(42, 4) // "0042"
 ```
 
 ## Read period boundaries
@@ -86,19 +86,19 @@ import {
   getStartOfWeek,
   getStartOfYear,
   parseTimestamp,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const now = parseTimestamp("2036-06-08")!;
-const weekdays = [0, 1, 2, 3, 4, 5, 6];
+const now = parseTimestamp('2036-06-08')!
+const weekdays = [0, 1, 2, 3, 4, 5, 6]
 
-getStartOfDay(now).time; // "00:00"
-getEndOfDay(now).time; // "23:59:59.999"
-getDate(getStartOfWeek(now, weekdays, now)); // "2036-06-08"
-getDate(getEndOfWeek(now, weekdays, now)); // "2036-06-14"
-getDate(getStartOfMonth(now)); // "2036-06-01"
-getDate(getEndOfMonth(now)); // "2036-06-30"
-getDate(getStartOfYear(now)); // "2036-01-01"
-getDate(getEndOfYear(now)); // "2036-12-31"
+getStartOfDay(now).time // "00:00"
+getEndOfDay(now).time // "23:59:59.999"
+getDate(getStartOfWeek(now, weekdays, now)) // "2036-06-08"
+getDate(getEndOfWeek(now, weekdays, now)) // "2036-06-14"
+getDate(getStartOfMonth(now)) // "2036-06-01"
+getDate(getEndOfMonth(now)) // "2036-06-30"
+getDate(getStartOfYear(now)) // "2036-01-01"
+getDate(getEndOfYear(now)) // "2036-12-31"
 ```
 
 ## Convert Unix epoch values
@@ -113,14 +113,14 @@ import {
   parseTimestamp,
   toUnixMilliseconds,
   toUnixSeconds,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const timestamp = parseTimestamp("2036-06-08T09:30:15.250")!;
-const milliseconds = toUnixMilliseconds(timestamp);
-const seconds = toUnixSeconds(timestamp);
+const timestamp = parseTimestamp('2036-06-08T09:30:15.250')!
+const milliseconds = toUnixMilliseconds(timestamp)
+const seconds = toUnixSeconds(timestamp)
 
-getDateTime(fromUnixMilliseconds(milliseconds)!); // "2036-06-08 09:30:15.250"
-getDateTime(fromUnixSeconds(seconds)!); // "2036-06-08 09:30:15"
+getDateTime(fromUnixMilliseconds(milliseconds)!) // "2036-06-08 09:30:15.250"
+getDateTime(fromUnixSeconds(seconds)!) // "2036-06-08 09:30:15"
 ```
 
 ## Read and refresh derived fields
@@ -136,17 +136,17 @@ import {
   updateDayOfYear,
   updateWeekday,
   updateWorkWeek,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-const timestamp = parseTimestamp("2036-06-08")!;
+const timestamp = parseTimestamp('2036-06-08')!
 
-getWeekday(timestamp); // 0
-getDayOfYear(timestamp); // 160
-getWorkWeek(timestamp); // 23
+getWeekday(timestamp) // 0
+getDayOfYear(timestamp) // 160
+getWorkWeek(timestamp) // 23
 
-updateWeekday(timestamp).weekday; // 0
-updateDayOfYear(timestamp).doy; // 160
-updateWorkWeek(timestamp).workweek; // 23
+updateWeekday(timestamp).weekday // 0
+updateDayOfYear(timestamp).doy // 160
+updateWorkWeek(timestamp).workweek // 23
 ```
 
 ## Reuse shared constants sparingly
@@ -166,17 +166,17 @@ import {
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE,
   TIME_CONSTANTS,
-} from "@timestamp-js/core";
+} from '@timestamp-js/core'
 
-DAYS_IN_WEEK; // 7
-HOURS_IN_DAY; // 24
-MINUTES_IN_HOUR; // 60
-SECONDS_IN_MINUTE; // 60
-SECONDS_IN_HOUR; // 3600
-SECONDS_IN_DAY; // 86400
-MILLISECONDS_IN_SECOND; // 1000
-MILLISECONDS_IN_MINUTE; // 60000
-MILLISECONDS_IN_HOUR; // 3600000
-MILLISECONDS_IN_DAY; // 86400000
-TIME_CONSTANTS.SECONDS_IN.HOUR; // 3600
+DAYS_IN_WEEK // 7
+HOURS_IN_DAY // 24
+MINUTES_IN_HOUR // 60
+SECONDS_IN_MINUTE // 60
+SECONDS_IN_HOUR // 3600
+SECONDS_IN_DAY // 86400
+MILLISECONDS_IN_SECOND // 1000
+MILLISECONDS_IN_MINUTE // 60000
+MILLISECONDS_IN_HOUR // 3600000
+MILLISECONDS_IN_DAY // 86400000
+TIME_CONSTANTS.SECONDS_IN.HOUR // 3600
 ```

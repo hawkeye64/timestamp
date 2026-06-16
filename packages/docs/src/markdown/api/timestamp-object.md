@@ -7,25 +7,25 @@ Timestamp objects are immutable plain objects with Gregorian calendar fields and
 
 ```ts
 export interface Timestamp {
-  readonly date: string;
-  readonly hasDay: boolean;
-  readonly year: number;
-  readonly month: number;
-  readonly day: number;
-  readonly time?: string;
-  readonly hasTime: boolean;
-  readonly hour: number;
-  readonly minute: number;
-  readonly second?: number;
-  readonly millisecond?: number;
-  readonly timezone?: string;
-  readonly weekday?: number;
-  readonly doy?: number;
-  readonly workweek?: number;
-  readonly past?: boolean;
-  readonly current?: boolean;
-  readonly future?: boolean;
-  readonly disabled?: boolean;
+  readonly date: string
+  readonly hasDay: boolean
+  readonly year: number
+  readonly month: number
+  readonly day: number
+  readonly time?: string
+  readonly hasTime: boolean
+  readonly hour: number
+  readonly minute: number
+  readonly second?: number
+  readonly millisecond?: number
+  readonly timezone?: string
+  readonly weekday?: number
+  readonly doy?: number
+  readonly workweek?: number
+  readonly past?: boolean
+  readonly current?: boolean
+  readonly future?: boolean
+  readonly disabled?: boolean
 }
 ```
 

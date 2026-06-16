@@ -6,11 +6,11 @@ desc: Parse date and date-time input into Timestamp objects
 `parseTimestamp()` is the main parser for user-facing date and date-time values.
 
 ```ts
-import { parseTimestamp } from "@timestamp-js/core";
+import { parseTimestamp } from '@timestamp-js/core'
 
-const dateOnly = parseTimestamp("2026-06-08");
-const dateTime = parseTimestamp("2026-06-08 09:30");
-const iso = parseTimestamp("2026-06-08T09:30:15.250Z");
+const dateOnly = parseTimestamp('2026-06-08')
+const dateTime = parseTimestamp('2026-06-08 09:30')
+const iso = parseTimestamp('2026-06-08T09:30:15.250Z')
 ```
 
 ## Supported shapes
@@ -39,9 +39,9 @@ Seconds, milliseconds, and timezone suffixes are optional.
 Timezone suffixes are preserved, but parsing does not convert the wall-clock values into another zone.
 
 ```ts
-const timestamp = parseTimestamp("2026-06-08T09:30:15.250-07:00");
+const timestamp = parseTimestamp('2026-06-08T09:30:15.250-07:00')
 
-timestamp?.timezone;
+timestamp?.timezone
 // "-07:00"
 ```
 

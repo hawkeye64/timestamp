@@ -1,23 +1,23 @@
-import { defineConfig } from "@quasar/app-vite";
-import { viteMdPlugin, type MenuItem } from "@md-plugins/vite-md-plugin";
-import { viteSsgPlugin } from "@md-plugins/vite-ssg-plugin";
-import type { Plugin } from "vite";
+import { defineConfig } from '@quasar/app-vite'
+import { viteMdPlugin, type MenuItem } from '@md-plugins/vite-md-plugin'
+import { viteSsgPlugin } from '@md-plugins/vite-ssg-plugin'
+import type { Plugin } from 'vite'
 
 export default defineConfig(async (ctx) => {
-  const siteConfig = await import("./src/siteConfig");
-  const { sidebar } = siteConfig;
+  const siteConfig = await import('./src/siteConfig')
+  const { sidebar } = siteConfig
 
   return {
     boot: [],
 
-    css: ["app.scss"],
+    css: ['app.scss'],
 
-    extras: ["fontawesome-v7", "roboto-font", "material-icons"],
+    extras: ['fontawesome-v7', 'roboto-font', 'material-icons'],
 
     build: {
       target: {
-        browser: ["es2022", "firefox115", "chrome115", "safari14"],
-        node: "node20",
+        browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
+        node: 'node20',
       },
 
       typescript: {
@@ -25,7 +25,7 @@ export default defineConfig(async (ctx) => {
         vueShim: true,
       },
 
-      vueRouterMode: "history",
+      vueRouterMode: 'history',
 
       viteVuePluginOptions: {
         include: [/\.(vue|md)$/],
@@ -35,17 +35,17 @@ export default defineConfig(async (ctx) => {
         [
           viteMdPlugin,
           {
-            path: ctx.appPaths.srcDir + "/markdown",
+            path: ctx.appPaths.srcDir + '/markdown',
             menu: sidebar as MenuItem[],
           },
         ],
         viteSsgPlugin({
           markdown: {
-            root: ctx.appPaths.srcDir + "/markdown",
+            root: ctx.appPaths.srcDir + '/markdown',
           },
         }) as unknown as Plugin,
         [
-          "vite-plugin-checker",
+          'vite-plugin-checker',
           {
             vueTsc: true,
           },
@@ -59,13 +59,13 @@ export default defineConfig(async (ctx) => {
     },
 
     framework: {
-      autoImportVueExtensions: ["vue", "md"],
+      autoImportVueExtensions: ['vue', 'md'],
       config: {
-        dark: "auto",
+        dark: 'auto',
       },
-      plugins: ["Cookies", "Dark", "LocalStorage", "Meta", "Notify"],
+      plugins: ['Cookies', 'Dark', 'LocalStorage', 'Meta', 'Notify'],
     },
 
     animations: [],
-  };
-});
+  }
+})

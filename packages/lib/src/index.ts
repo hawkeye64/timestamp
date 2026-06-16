@@ -6,31 +6,31 @@
  * optional timezone suffixes such as `Z`, `+06:00`, or `-0700`.
  */
 export const PARSE_DATETIME =
-  /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?(?:[Tt\s]+(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2})(?:\.(\d{1,3}))?)?)?(?:\s*(Z|[+-]\d{2}:?\d{2}))?$/;
+  /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?(?:[Tt\s]+(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2})(?:\.(\d{1,3}))?)?)?(?:\s*(Z|[+-]\d{2}:?\d{2}))?$/
 
 /**
  * Matches the date portion of a timestamp string.
  */
-export const PARSE_DATE = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?/;
+export const PARSE_DATE = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?/
 
 /**
  * Matches `HH`, `HH:mm`, `HH:mm:ss`, or `HH:mm:ss.SSS` time strings.
  */
-export const PARSE_TIME = /^(\d\d?)(?::(\d\d?))?(?::(\d\d?))?(?:\.(\d{1,3}))?$/;
+export const PARSE_TIME = /^(\d\d?)(?::(\d\d?))?(?::(\d\d?))?(?:\.(\d{1,3}))?$/
 
 /**
  * Month lengths for a non-leap Gregorian year.
  *
  * Index `0` is intentionally unused so month numbers can be used directly.
  */
-export const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 /**
  * Month lengths for a leap Gregorian year.
  *
  * Index `0` is intentionally unused so month numbers can be used directly.
  */
-export const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 /**
  * Shared conversion constants for milliseconds, seconds, minutes, hours, and days.
@@ -62,102 +62,102 @@ export const TIME_CONSTANTS = {
   DAYS_IN: {
     WEEK: 7,
   },
-};
+}
 
 /**
  * Minimum number of days found in any Gregorian month.
  */
-export const DAYS_IN_MONTH_MIN = 28;
+export const DAYS_IN_MONTH_MIN = 28
 
 /**
  * Maximum number of days found in any Gregorian month.
  */
-export const DAYS_IN_MONTH_MAX = 31;
+export const DAYS_IN_MONTH_MAX = 31
 
 /**
  * Maximum Gregorian month number.
  */
-export const MONTH_MAX = 12;
+export const MONTH_MAX = 12
 
 /**
  * Minimum Gregorian month number.
  */
-export const MONTH_MIN = 1;
+export const MONTH_MIN = 1
 
 /**
  * Minimum day-of-month number.
  */
-export const DAY_MIN = 1;
+export const DAY_MIN = 1
 
 /**
  * First hour in a 24-hour day.
  */
-export const FIRST_HOUR = 0;
+export const FIRST_HOUR = 0
 
 /**
  * Number of days in a week.
  */
-export const DAYS_IN_WEEK = TIME_CONSTANTS.DAYS_IN.WEEK;
+export const DAYS_IN_WEEK = TIME_CONSTANTS.DAYS_IN.WEEK
 
 /**
  * Number of minutes in an hour.
  */
-export const MINUTES_IN_HOUR = TIME_CONSTANTS.MINUTES_IN.HOUR;
+export const MINUTES_IN_HOUR = TIME_CONSTANTS.MINUTES_IN.HOUR
 
 /**
  * Number of hours in a day.
  */
-export const HOURS_IN_DAY = TIME_CONSTANTS.HOURS_IN.DAY;
+export const HOURS_IN_DAY = TIME_CONSTANTS.HOURS_IN.DAY
 
 /**
  * Number of milliseconds in one minute.
  */
-export const MILLISECONDS_IN_MINUTE = TIME_CONSTANTS.MILLISECONDS_IN.MINUTE;
+export const MILLISECONDS_IN_MINUTE = TIME_CONSTANTS.MILLISECONDS_IN.MINUTE
 
 /**
  * Number of milliseconds in one second.
  */
-export const MILLISECONDS_IN_SECOND = TIME_CONSTANTS.MILLISECONDS_IN.SECOND;
+export const MILLISECONDS_IN_SECOND = TIME_CONSTANTS.MILLISECONDS_IN.SECOND
 
 /**
  * Number of milliseconds in one hour.
  */
-export const MILLISECONDS_IN_HOUR = TIME_CONSTANTS.MILLISECONDS_IN.HOUR;
+export const MILLISECONDS_IN_HOUR = TIME_CONSTANTS.MILLISECONDS_IN.HOUR
 
 /**
  * Number of milliseconds in one day.
  */
-export const MILLISECONDS_IN_DAY = TIME_CONSTANTS.MILLISECONDS_IN.DAY;
+export const MILLISECONDS_IN_DAY = TIME_CONSTANTS.MILLISECONDS_IN.DAY
 
 /**
  * Number of milliseconds in one week.
  */
-export const MILLISECONDS_IN_WEEK = TIME_CONSTANTS.MILLISECONDS_IN.WEEK;
+export const MILLISECONDS_IN_WEEK = TIME_CONSTANTS.MILLISECONDS_IN.WEEK
 
 /**
  * Number of seconds in one minute.
  */
-export const SECONDS_IN_MINUTE = TIME_CONSTANTS.SECONDS_IN.MINUTE;
+export const SECONDS_IN_MINUTE = TIME_CONSTANTS.SECONDS_IN.MINUTE
 
 /**
  * Number of seconds in one hour.
  */
-export const SECONDS_IN_HOUR = TIME_CONSTANTS.SECONDS_IN.HOUR;
+export const SECONDS_IN_HOUR = TIME_CONSTANTS.SECONDS_IN.HOUR
 
 /**
  * Number of seconds in one day.
  */
-export const SECONDS_IN_DAY = TIME_CONSTANTS.SECONDS_IN.DAY;
+export const SECONDS_IN_DAY = TIME_CONSTANTS.SECONDS_IN.DAY
 
 /**
  * Inline style metadata that can be attached to disabled timestamp ranges.
  */
-export type TimestampStyle = Record<string, string | number | undefined>;
+export type TimestampStyle = Record<string, string | number | undefined>
 
 /**
  * CSS class metadata that can be attached to disabled timestamp ranges.
  */
-export type TimestampClass = string | string[] | Record<string, boolean>;
+export type TimestampClass = string | string[] | Record<string, boolean>
 
 /**
  * Object form for a disabled day or disabled date range.
@@ -166,52 +166,52 @@ export interface DisabledDayConfig {
   /**
    * Single disabled date in `YYYY-MM-DD` form.
    */
-  date?: string;
+  date?: string
 
   /**
    * Inclusive range start date in `YYYY-MM-DD` form.
    */
-  from?: string;
+  from?: string
 
   /**
    * Inclusive range end date in `YYYY-MM-DD` form.
    */
-  to?: string;
+  to?: string
 
   /**
    * Alias for DisabledDayConfig.from.
    */
-  start?: string;
+  start?: string
 
   /**
    * Alias for DisabledDayConfig.to.
    */
-  end?: string;
+  end?: string
 
   /**
    * Optional background color metadata for matching disabled dates.
    */
-  color?: string;
+  color?: string
 
   /**
    * Optional text color metadata for matching disabled dates.
    */
-  textColor?: string;
+  textColor?: string
 
   /**
    * Optional CSS class metadata for matching disabled dates.
    */
-  class?: TimestampClass;
+  class?: TimestampClass
 
   /**
    * Optional inline style metadata for matching disabled dates.
    */
-  style?: TimestampStyle;
+  style?: TimestampStyle
 
   /**
    * Optional human-readable label for matching disabled dates.
    */
-  label?: string;
+  label?: string
 }
 
 /**
@@ -220,12 +220,12 @@ export interface DisabledDayConfig {
  * A string disables a single date, a string array disables multiple dates or
  * an inclusive two-date range, and an object can carry display metadata.
  */
-export type DisabledDay = string | string[] | DisabledDayConfig;
+export type DisabledDay = string | string[] | DisabledDayConfig
 
 /**
  * Collection of disabled-day declarations.
  */
-export type DisabledDays = DisabledDay[];
+export type DisabledDays = DisabledDay[]
 
 /**
  * Immutable timestamp data used by all parser, comparison, and date math helpers.
@@ -237,27 +237,27 @@ export interface Timestamp {
   /**
    * Date string in `YYYY-MM-DD` form when the timestamp has a day.
    */
-  readonly date: string;
+  readonly date: string
 
   /**
    * True when the timestamp includes a meaningful date/day value.
    */
-  readonly hasDay: boolean;
+  readonly hasDay: boolean
 
   /**
    * Four-digit Gregorian year.
    */
-  readonly year: number;
+  readonly year: number
 
   /**
    * Gregorian month number, where January is `1` and December is `12`.
    */
-  readonly month: number;
+  readonly month: number
 
   /**
    * Day of the month.
    */
-  readonly day: number;
+  readonly day: number
 
   /**
    * Formatted time string.
@@ -265,32 +265,32 @@ export interface Timestamp {
    * Minute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;
    * millisecond precision as `HH:mm:ss.SSS`.
    */
-  readonly time?: string;
+  readonly time?: string
 
   /**
    * True when the timestamp includes time fields.
    */
-  readonly hasTime: boolean;
+  readonly hasTime: boolean
 
   /**
    * Hour in 24-hour format.
    */
-  readonly hour: number;
+  readonly hour: number
 
   /**
    * Minute of the hour.
    */
-  readonly minute: number;
+  readonly minute: number
 
   /**
    * Optional second of the minute.
    */
-  readonly second?: number;
+  readonly second?: number
 
   /**
    * Optional millisecond of the second.
    */
-  readonly millisecond?: number;
+  readonly millisecond?: number
 
   /**
    * Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.
@@ -298,75 +298,75 @@ export interface Timestamp {
    * The suffix is preserved for callers, but parsing does not convert the
    * wall-clock values into another timezone.
    */
-  readonly timezone?: string;
+  readonly timezone?: string
 
   /**
    * Weekday number where Sunday is `0` and Saturday is `6`.
    */
-  readonly weekday?: number;
+  readonly weekday?: number
 
   /**
    * Day of the year.
    */
-  readonly doy?: number;
+  readonly doy?: number
 
   /**
    * ISO-style workweek number.
    */
-  readonly workweek?: number;
+  readonly workweek?: number
 
   /**
    * True when the timestamp is before a comparison timestamp.
    */
-  readonly past?: boolean;
+  readonly past?: boolean
 
   /**
    * True when the timestamp matches a comparison timestamp.
    */
-  readonly current?: boolean;
+  readonly current?: boolean
 
   /**
    * True when the timestamp is after a comparison timestamp.
    */
-  readonly future?: boolean;
+  readonly future?: boolean
 
   /**
    * True when this timestamp represents a disabled date.
    */
-  readonly disabled?: boolean;
+  readonly disabled?: boolean
 
   /**
    * Optional background color metadata for a disabled date.
    */
-  readonly disabledColor?: string;
+  readonly disabledColor?: string
 
   /**
    * Optional text color metadata for a disabled date.
    */
-  readonly disabledTextColor?: string;
+  readonly disabledTextColor?: string
 
   /**
    * Optional class metadata for a disabled date.
    */
-  readonly disabledClass?: TimestampClass;
+  readonly disabledClass?: TimestampClass
 
   /**
    * Optional inline style metadata for a disabled date.
    */
-  readonly disabledStyle?: TimestampStyle;
+  readonly disabledStyle?: TimestampStyle
 
   /**
    * Optional human-readable label for a disabled date.
    */
-  readonly disabledLabel?: string;
+  readonly disabledLabel?: string
 
   /**
    * True when this timestamp's weekday matches a comparison timestamp's weekday.
    */
-  readonly currentWeekday?: boolean;
+  readonly currentWeekday?: boolean
 }
 
-type MutableTimestamp = { -readonly [Key in keyof Timestamp]: Timestamp[Key] };
+type MutableTimestamp = { -readonly [Key in keyof Timestamp]: Timestamp[Key] }
 
 /**
  * Time-only value used when callers need hour/minute input without a date.
@@ -375,22 +375,22 @@ export interface TimeObject {
   /**
    * Hour in 24-hour format.
    */
-  readonly hour: number;
+  readonly hour: number
 
   /**
    * Minute of the hour.
    */
-  readonly minute: number;
+  readonly minute: number
 
   /**
    * Optional second of the minute.
    */
-  readonly second?: number;
+  readonly second?: number
 
   /**
    * Optional millisecond of the second.
    */
-  readonly millisecond?: number;
+  readonly millisecond?: number
 }
 
 /**
@@ -402,12 +402,12 @@ export interface TimestampRange {
   /**
    * Inclusive range start.
    */
-  readonly start: Timestamp;
+  readonly start: Timestamp
 
   /**
    * Inclusive range end.
    */
-  readonly end: Timestamp;
+  readonly end: Timestamp
 }
 
 /**
@@ -420,42 +420,42 @@ export interface TimestampDuration {
   /**
    * Signed elapsed milliseconds from the first timestamp to the second.
    */
-  readonly totalMilliseconds: number;
+  readonly totalMilliseconds: number
 
   /**
    * Absolute elapsed milliseconds.
    */
-  readonly absoluteMilliseconds: number;
+  readonly absoluteMilliseconds: number
 
   /**
    * Direction of the duration: `-1`, `0`, or `1`.
    */
-  readonly sign: -1 | 0 | 1;
+  readonly sign: -1 | 0 | 1
 
   /**
    * Full days in the absolute duration.
    */
-  readonly days: number;
+  readonly days: number
 
   /**
    * Remaining hours after full days are removed.
    */
-  readonly hours: number;
+  readonly hours: number
 
   /**
    * Remaining minutes after full hours are removed.
    */
-  readonly minutes: number;
+  readonly minutes: number
 
   /**
    * Remaining seconds after full minutes are removed.
    */
-  readonly seconds: number;
+  readonly seconds: number
 
   /**
    * Remaining milliseconds after full seconds are removed.
    */
-  readonly milliseconds: number;
+  readonly milliseconds: number
 }
 
 /**
@@ -465,12 +465,12 @@ export interface FormatDurationOptions {
   /**
    * Include the millisecond component when true.
    */
-  readonly milliseconds?: boolean;
+  readonly milliseconds?: boolean
 
   /**
    * Preserve a leading `-` for negative durations when true.
    */
-  readonly signed?: boolean;
+  readonly signed?: boolean
 }
 
 /**
@@ -480,7 +480,7 @@ export interface FormatDurationOptions {
  * instead of mutating this shared default.
  */
 export const Timestamp: Timestamp = freezeTimestamp({
-  date: "",
+  date: '',
   hasDay: false,
   year: 0,
   month: 0,
@@ -495,7 +495,7 @@ export const Timestamp: Timestamp = freezeTimestamp({
   current: false,
   future: false,
   disabled: false,
-});
+})
 
 /**
  * Frozen empty time-object template.
@@ -503,18 +503,18 @@ export const Timestamp: Timestamp = freezeTimestamp({
 export const TimeObject: TimeObject = Object.freeze({
   hour: 0,
   minute: 0,
-});
+})
 
 function freezeTimestamp(timestamp: Timestamp | MutableTimestamp): Timestamp {
-  return Object.freeze({ ...timestamp }) as Timestamp;
+  return Object.freeze({ ...timestamp }) as Timestamp
 }
 
 function cloneTimestamp(timestamp: Timestamp): MutableTimestamp {
-  return { ...timestamp };
+  return { ...timestamp }
 }
 
 function parseMillisecond(value: string | undefined): number | undefined {
-  return value === undefined ? undefined : parseInt(value.padEnd(3, "0"), 10);
+  return value === undefined ? undefined : parseInt(value.padEnd(3, '0'), 10)
 }
 
 /**
@@ -524,8 +524,8 @@ function parseMillisecond(value: string | undefined): number | undefined {
  * @returns {boolean} True if parseable
  */
 export function validateTimestamp(input: string): boolean {
-  if (typeof input !== "string") return false;
-  return PARSE_DATETIME.test(input);
+  if (typeof input !== 'string') return false
+  return PARSE_DATETIME.test(input)
 }
 
 /**
@@ -539,18 +539,18 @@ export function validateTimestamp(input: string): boolean {
  * @returns {Timestamp} Minimal Timestamp object, or `null` when the input cannot be parsed.
  */
 export function parsed(input: string): Timestamp | null {
-  if (typeof input !== "string") return null;
-  const parts = PARSE_DATETIME.exec(input);
+  if (typeof input !== 'string') return null
+  const parts = PARSE_DATETIME.exec(input)
 
-  if (!parts || !parts[1] || !parts[2]) return null;
+  if (!parts || !parts[1] || !parts[2]) return null
 
-  const year = parseInt(parts[1], 10);
-  const month = parseInt(parts[2], 10);
-  const day = parseInt(parts[3] || "1", 10);
-  const hour = parseInt(parts[4] || "0", 10);
-  const minute = parseInt(parts[5] || "0", 10);
-  const second = parts[6] === undefined ? undefined : parseInt(parts[6], 10);
-  const millisecond = parseMillisecond(parts[7]);
+  const year = parseInt(parts[1], 10)
+  const month = parseInt(parts[2], 10)
+  const day = parseInt(parts[3] || '1', 10)
+  const hour = parseInt(parts[4] || '0', 10)
+  const minute = parseInt(parts[5] || '0', 10)
+  const second = parts[6] === undefined ? undefined : parseInt(parts[6], 10)
+  const millisecond = parseMillisecond(parts[7])
   const timestamp: MutableTimestamp = {
     date: input,
     year,
@@ -567,40 +567,40 @@ export function parsed(input: string): Timestamp | null {
     weekday: 0,
     doy: 0,
     workweek: 0,
-  };
+  }
 
   if (second !== undefined) {
-    timestamp.second = second;
+    timestamp.second = second
   }
   if (millisecond !== undefined) {
-    timestamp.millisecond = millisecond;
+    timestamp.millisecond = millisecond
   }
   if (parts[8] !== undefined) {
-    timestamp.timezone = parts[8];
+    timestamp.timezone = parts[8]
   }
 
-  timestamp.time = getTime(timestamp);
+  timestamp.time = getTime(timestamp)
 
-  return freezeTimestamp(timestamp);
+  return freezeTimestamp(timestamp)
 }
 
 function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
-  if (!(date instanceof Date)) return null;
-  if (Number.isNaN(date.getTime())) return null;
+  if (!(date instanceof Date)) return null
+  if (Number.isNaN(date.getTime())) return null
 
-  const UTC = utc ? "UTC" : "";
-  const second = date[`get${UTC}Seconds`]();
-  const millisecond = date[`get${UTC}Milliseconds`]();
+  const UTC = utc ? 'UTC' : ''
+  const second = date[`get${UTC}Seconds`]()
+  const millisecond = date[`get${UTC}Milliseconds`]()
   const timestamp: MutableTimestamp = {
     date:
       padNumber(date[`get${UTC}FullYear`](), 4) +
-      "-" +
+      '-' +
       padNumber(date[`get${UTC}Month`]() + 1, 2) +
-      "-" +
+      '-' +
       padNumber(date[`get${UTC}Date`](), 2),
     time:
       padNumber(date[`get${UTC}Hours`]() || 0, 2) +
-      ":" +
+      ':' +
       padNumber(date[`get${UTC}Minutes`]() || 0, 2),
     year: date[`get${UTC}FullYear`](),
     month: date[`get${UTC}Month`]() + 1,
@@ -616,16 +616,16 @@ function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
     current: false,
     future: false,
     disabled: false,
-  };
+  }
 
   if (second !== 0) {
-    timestamp.second = second;
+    timestamp.second = second
   }
   if (millisecond !== 0) {
-    timestamp.millisecond = millisecond;
+    timestamp.millisecond = millisecond
   }
 
-  return updateFormatted(timestamp);
+  return updateFormatted(timestamp)
 }
 
 /**
@@ -638,7 +638,7 @@ function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
  * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
  */
 export function parseDate(date: Date): Timestamp | null {
-  return parseDateByMode(date, false);
+  return parseDateByMode(date, false)
 }
 
 /**
@@ -651,7 +651,7 @@ export function parseDate(date: Date): Timestamp | null {
  * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
  */
 export function parseDateUTC(date: Date): Timestamp | null {
-  return parseDateByMode(date, true);
+  return parseDateByMode(date, true)
 }
 
 /**
@@ -663,12 +663,12 @@ export function parseDateUTC(date: Date): Timestamp | null {
  * @returns {string} The padded number (as a string). (ie: 5 = '05')
  */
 export function padNumber(x: number, length: number): string {
-  let padded = String(x);
+  let padded = String(x)
   while (padded.length < length) {
-    padded = "0" + padded;
+    padded = '0' + padded
   }
 
-  return padded;
+  return padded
 }
 
 /**
@@ -679,7 +679,7 @@ export function padNumber(x: number, length: number): string {
 export function isLeapYear(year: number): boolean {
   // A year is a Gregorian leap year if it is divisible by 4,
   // but not by 100, unless it is also divisible by 400.
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 }
 
 /**
@@ -689,7 +689,7 @@ export function isLeapYear(year: number): boolean {
  * @returns {number} The number of days in the month (corrected for leap years)
  */
 export function daysInMonth(year: number, month: number): number {
-  return (isLeapYear(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month]) as number;
+  return (isLeapYear(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month]) as number
 }
 
 /**
@@ -699,7 +699,7 @@ export function daysInMonth(year: number, month: number): number {
  * @returns {Timestamp} New Timestamp representing the next day.
  */
 export function nextDay(timestamp: Timestamp): Timestamp {
-  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day + 1);
+  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day + 1)
   return updateFormatted(
     normalizeTimestamp({
       ...timestamp,
@@ -707,7 +707,7 @@ export function nextDay(timestamp: Timestamp): Timestamp {
       month: date.getMonth() + 1,
       day: date.getDate(),
     }),
-  );
+  )
 }
 
 /**
@@ -717,7 +717,7 @@ export function nextDay(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} New Timestamp representing the previous day.
  */
 export function prevDay(timestamp: Timestamp): Timestamp {
-  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day - 1);
+  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day - 1)
   return updateFormatted(
     normalizeTimestamp({
       ...timestamp,
@@ -725,7 +725,7 @@ export function prevDay(timestamp: Timestamp): Timestamp {
       month: date.getMonth() + 1,
       day: date.getDate(),
     }),
-  );
+  )
 }
 
 /**
@@ -741,9 +741,9 @@ export function today(): string {
   const d = new Date(),
     month = d.getMonth() + 1,
     day = d.getDate(),
-    year = d.getFullYear();
+    year = d.getFullYear()
 
-  return [year, padNumber(month, 2), padNumber(day, 2)].join("-");
+  return [year, padNumber(month, 2), padNumber(day, 2)].join('-')
 }
 
 /**
@@ -761,7 +761,7 @@ export function todayUTC(date = new Date()): string {
     padNumber(date.getUTCFullYear(), 4),
     padNumber(date.getUTCMonth() + 1, 2),
     padNumber(date.getUTCDate(), 2),
-  ].join("-");
+  ].join('-')
 }
 
 /**
@@ -775,7 +775,7 @@ export function todayUTC(date = new Date()): string {
  * @returns {Timestamp} Immutable Timestamp built from UTC fields.
  */
 export function nowUTC(date = new Date()): Timestamp {
-  return parseDateUTC(date) as Timestamp;
+  return parseDateUTC(date) as Timestamp
 }
 
 /**
@@ -784,7 +784,7 @@ export function nowUTC(date = new Date()): Timestamp {
  * @returns {boolean} True if the date is today's date
  */
 export function isToday(date: string): boolean {
-  return date === today();
+  return date === today()
 }
 
 /**
@@ -798,7 +798,7 @@ export function isToday(date: string): boolean {
  * @returns {boolean} True when the date matches the UTC date.
  */
 export function isTodayUTC(date: string, now = new Date()): boolean {
-  return date === todayUTC(now);
+  return date === todayUTC(now)
 }
 
 /**
@@ -814,21 +814,21 @@ export function getStartOfWeek(
   weekdays: number[],
   today: Timestamp,
 ): Timestamp {
-  let start = cloneTimestamp(timestamp);
+  let start = cloneTimestamp(timestamp)
   if (!weekdays) {
-    return freezeTimestamp(start);
+    return freezeTimestamp(start)
   }
   if (start.day === 1 || start.weekday === 0) {
     while (!weekdays.includes(Number(start.weekday))) {
-      start = nextDay(start);
+      start = nextDay(start)
     }
   }
-  start = findWeekday(start, weekdays[0] as number, prevDay);
-  start = updateFormatted(start);
+  start = findWeekday(start, weekdays[0] as number, prevDay)
+  start = updateFormatted(start)
   if (today) {
-    start = updateRelative(start, today, start.hasTime);
+    start = updateRelative(start, today, start.hasTime)
   }
-  return start;
+  return start
 }
 
 /**
@@ -844,24 +844,24 @@ export function getEndOfWeek(
   weekdays: number[],
   today: Timestamp,
 ): Timestamp {
-  let end = cloneTimestamp(timestamp);
+  let end = cloneTimestamp(timestamp)
   if (!weekdays || !Array.isArray(weekdays)) {
-    return freezeTimestamp(end);
+    return freezeTimestamp(end)
   }
 
   // is last day of month?
-  const lastDay = daysInMonth(end.year, end.month);
+  const lastDay = daysInMonth(end.year, end.month)
   if (lastDay === end.day || end.weekday === weekdays[weekdays.length - 1]) {
     while (!weekdays.includes(Number(end.weekday))) {
-      end = prevDay(end);
+      end = prevDay(end)
     }
   }
-  end = findWeekday(end, weekdays[weekdays.length - 1]!, nextDay);
-  end = updateFormatted(end);
+  end = findWeekday(end, weekdays[weekdays.length - 1]!, nextDay)
+  end = updateFormatted(end)
   if (today) {
-    end = updateRelative(end, today, end.hasTime);
+    end = updateRelative(end, today, end.hasTime)
   }
-  return end;
+  return end
 }
 
 /**
@@ -870,10 +870,10 @@ export function getEndOfWeek(
  * @returns {Timestamp} A Timestamp of the start of the month
  */
 export function getStartOfMonth(timestamp: Timestamp): Timestamp {
-  let start = cloneTimestamp(timestamp);
-  start.day = DAY_MIN;
-  start = updateFormatted(start);
-  return start;
+  let start = cloneTimestamp(timestamp)
+  start.day = DAY_MIN
+  start = updateFormatted(start)
+  return start
 }
 
 /**
@@ -882,10 +882,10 @@ export function getStartOfMonth(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} A Timestamp of the end of the month
  */
 export function getEndOfMonth(timestamp: Timestamp): Timestamp {
-  let end = cloneTimestamp(timestamp);
-  end.day = daysInMonth(end.year, end.month);
-  end = updateFormatted(end);
-  return end;
+  let end = cloneTimestamp(timestamp)
+  end.day = daysInMonth(end.year, end.month)
+  end = updateFormatted(end)
+  return end
 }
 
 /**
@@ -900,35 +900,35 @@ export function getEndOfMonth(timestamp: Timestamp): Timestamp {
 export function parseTime(
   input: number | string | { hour: number; minute: number },
 ): number | false {
-  const type = Object.prototype.toString.call(input);
+  const type = Object.prototype.toString.call(input)
   switch (type) {
-    case "[object Number]":
+    case '[object Number]':
       // when a number is given, it's minutes since 12:00am
-      return input as number;
-    case "[object String]": {
+      return input as number
+    case '[object String]': {
       // when a string is given, it's a hh:mm:ss format where seconds are optional, but not used for minute math
-      const parts = PARSE_TIME.exec(input as string);
+      const parts = PARSE_TIME.exec(input as string)
       if (!parts) {
-        return false;
+        return false
       }
-      return parseInt(parts[1]!, 10) * 60 + parseInt(parts[2] || "0", 10);
+      return parseInt(parts[1]!, 10) * 60 + parseInt(parts[2] || '0', 10)
     }
-    case "[object Object]":
+    case '[object Object]':
       // when an object is given, it must have hour and minute
       if (
-        typeof input !== "object" ||
-        typeof input.hour !== "number" ||
-        typeof input.minute !== "number"
+        typeof input !== 'object' ||
+        typeof input.hour !== 'number' ||
+        typeof input.minute !== 'number'
       ) {
-        return false;
+        return false
       }
-      if (typeof input === "object" && "hour" in input && "minute" in input) {
-        return input.hour * 60 + input.minute;
+      if (typeof input === 'object' && 'hour' in input && 'minute' in input) {
+        return input.hour * 60 + input.minute
       }
-      return false;
+      return false
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -939,7 +939,7 @@ export function parseTime(
  * @returns {boolean} True when both timestamps match exactly.
  */
 export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
-  if (!ts1 || !ts2) return false;
+  if (!ts1 || !ts2) return false
 
   return (
     ts1.year === ts2.year &&
@@ -950,7 +950,7 @@ export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
     ts1.second === ts2.second &&
     ts1.millisecond === ts2.millisecond &&
     ts1.timezone === ts2.timezone
-  );
+  )
 }
 
 /**
@@ -961,7 +961,7 @@ export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
  * @returns {boolean} True when both dates are the same.
  */
 export function compareDate(ts1: Timestamp, ts2: Timestamp): boolean {
-  return getDate(ts1) === getDate(ts2);
+  return getDate(ts1) === getDate(ts2)
 }
 
 /**
@@ -972,7 +972,7 @@ export function compareDate(ts1: Timestamp, ts2: Timestamp): boolean {
  * @returns {boolean} True when both times are the same.
  */
 export function compareTime(ts1: Timestamp, ts2: Timestamp): boolean {
-  return getTime(ts1) === getTime(ts2);
+  return getTime(ts1) === getTime(ts2)
 }
 
 /**
@@ -983,7 +983,7 @@ export function compareTime(ts1: Timestamp, ts2: Timestamp): boolean {
  * @returns {boolean} True when both date-time values are the same.
  */
 export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
-  return getDateTime(ts1) === getDateTime(ts2);
+  return getDateTime(ts1) === getDateTime(ts2)
 }
 
 /**
@@ -997,16 +997,16 @@ export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
  * @returns {Timestamp} Formatted Timestamp object, or `null` when the input cannot be parsed.
  */
 export function parseTimestamp(input: string, now: Timestamp | null = null): Timestamp | null {
-  let timestamp = parsed(input);
-  if (!timestamp) return null;
+  let timestamp = parsed(input)
+  if (!timestamp) return null
 
-  timestamp = updateFormatted(timestamp as Timestamp);
+  timestamp = updateFormatted(timestamp as Timestamp)
 
   if (now) {
-    timestamp = updateRelative(timestamp as Timestamp, now, timestamp.hasTime);
+    timestamp = updateRelative(timestamp as Timestamp, now, timestamp.hasTime)
   }
 
-  return timestamp as Timestamp;
+  return timestamp as Timestamp
 }
 
 /**
@@ -1020,7 +1020,7 @@ export function getDayIdentifier(timestamp: Timestamp): number {
     (timestamp.year ?? 0) * 100000000 +
     (timestamp.month ?? 0) * 1000000 +
     (timestamp.day ?? 0) * 10000
-  );
+  )
 }
 
 /**
@@ -1030,7 +1030,7 @@ export function getDayIdentifier(timestamp: Timestamp): number {
  * @returns {number} Numeric time identifier.
  */
 export function getTimeIdentifier(timestamp: Timestamp): number {
-  return (timestamp.hour ?? 0) * 100 + (timestamp.minute ?? 0);
+  return (timestamp.hour ?? 0) * 100 + (timestamp.minute ?? 0)
 }
 
 function getTimeComparisonValue(timestamp: Timestamp): number {
@@ -1040,7 +1040,7 @@ function getTimeComparisonValue(timestamp: Timestamp): number {
       (timestamp.second ?? 0)) *
       TIME_CONSTANTS.MILLISECONDS_IN.SECOND +
     (timestamp.millisecond ?? 0)
-  );
+  )
 }
 
 /**
@@ -1050,7 +1050,7 @@ function getTimeComparisonValue(timestamp: Timestamp): number {
  * @returns {number} Numeric date-time identifier.
  */
 export function getDayTimeIdentifier(timestamp: Timestamp): number {
-  return getDayIdentifier(timestamp) + getTimeIdentifier(timestamp);
+  return getDayIdentifier(timestamp) + getTimeIdentifier(timestamp)
 }
 
 /**
@@ -1069,7 +1069,7 @@ export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): n
     ts1.minute ?? 0,
     ts1.second ?? 0,
     ts1.millisecond ?? 0,
-  );
+  )
   const utc2 = Date.UTC(
     ts2.year ?? 0,
     (ts2.month ?? 1) - 1,
@@ -1078,13 +1078,13 @@ export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): n
     ts2.minute ?? 0,
     ts2.second ?? 0,
     ts2.millisecond ?? 0,
-  );
+  )
   if (strict === true && utc2 < utc1) {
     // Not negative number
     // utc2 - utc1 < 0  -> utc2 < utc1 ->   NO: utc1 >= utc2
-    return 0;
+    return 0
   }
-  return utc2 - utc1;
+  return utc2 - utc1
 }
 
 /**
@@ -1100,23 +1100,23 @@ export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): n
  * @returns {Timestamp} New Timestamp object with relative flags.
  */
 export function updateRelative(timestamp: Timestamp, now: Timestamp, time = false): Timestamp {
-  const ts = cloneTimestamp(timestamp as Timestamp);
-  let a = getDayIdentifier(now);
-  let b = getDayIdentifier(ts);
-  let current = a === b;
+  const ts = cloneTimestamp(timestamp as Timestamp)
+  let a = getDayIdentifier(now)
+  let b = getDayIdentifier(ts)
+  let current = a === b
 
   if (ts.hasTime && time && current) {
-    a = getTimeComparisonValue(now);
-    b = getTimeComparisonValue(ts);
-    current = a === b;
+    a = getTimeComparisonValue(now)
+    b = getTimeComparisonValue(ts)
+    current = a === b
   }
 
-  ts.past = b < a;
-  ts.current = current;
-  ts.future = b > a;
-  ts.currentWeekday = ts.weekday === now.weekday;
+  ts.past = b < a
+  ts.current = current
+  ts.future = b > a
+  ts.currentWeekday = ts.weekday === now.weekday
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1135,18 +1135,18 @@ export function updateMinutes(
   minutes: number,
   now: Timestamp | null = null,
 ): Timestamp {
-  let ts = cloneTimestamp(timestamp);
-  ts.hasTime = true;
-  ts.hour = Math.floor(minutes / TIME_CONSTANTS.MINUTES_IN.HOUR);
-  ts.minute = minutes % TIME_CONSTANTS.MINUTES_IN.HOUR;
-  delete ts.second;
-  delete ts.millisecond;
-  ts.time = getTime(ts);
+  let ts = cloneTimestamp(timestamp)
+  ts.hasTime = true
+  ts.hour = Math.floor(minutes / TIME_CONSTANTS.MINUTES_IN.HOUR)
+  ts.minute = minutes % TIME_CONSTANTS.MINUTES_IN.HOUR
+  delete ts.second
+  delete ts.millisecond
+  ts.time = getTime(ts)
   if (now) {
-    return updateRelative(ts, now, true);
+    return updateRelative(ts, now, true)
   }
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1155,10 +1155,10 @@ export function updateMinutes(
  * @returns A new Timestamp
  */
 export function updateWeekday(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.weekday = getWeekday(ts);
+  const ts = cloneTimestamp(timestamp)
+  ts.weekday = getWeekday(ts)
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1167,10 +1167,10 @@ export function updateWeekday(timestamp: Timestamp): Timestamp {
  * @returns A new Timestamp
  */
 export function updateDayOfYear(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.doy = getDayOfYear(ts) || 0;
+  const ts = cloneTimestamp(timestamp)
+  ts.doy = getDayOfYear(ts) || 0
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1179,75 +1179,75 @@ export function updateDayOfYear(timestamp: Timestamp): Timestamp {
  * @returns A new Timestamp
  */
 export function updateWorkWeek(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.workweek = getWorkWeek(ts);
+  const ts = cloneTimestamp(timestamp)
+  ts.workweek = getWorkWeek(ts)
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 function isDisabledDayConfig(value: DisabledDay): value is DisabledDayConfig {
-  return typeof value === "object" && value !== null && Array.isArray(value) === false;
+  return typeof value === 'object' && value !== null && Array.isArray(value) === false
 }
 
 function applyDisabledDayConfig(
   timestamp: MutableTimestamp,
   config?: DisabledDayConfig,
 ): MutableTimestamp {
-  timestamp.disabled = true;
+  timestamp.disabled = true
 
   if (config !== undefined) {
-    timestamp.disabledColor = config.color;
-    timestamp.disabledTextColor = config.textColor;
-    timestamp.disabledClass = config.class;
-    timestamp.disabledStyle = config.style;
-    timestamp.disabledLabel = config.label;
+    timestamp.disabledColor = config.color
+    timestamp.disabledTextColor = config.textColor
+    timestamp.disabledClass = config.class
+    timestamp.disabledStyle = config.style
+    timestamp.disabledLabel = config.label
   }
 
-  return timestamp;
+  return timestamp
 }
 
 function isTimestampInDisabledDay(timestamp: Timestamp, day: DisabledDay): boolean {
-  const target = getDayIdentifier(timestamp);
+  const target = getDayIdentifier(timestamp)
 
   if (Array.isArray(day) === true) {
     if (day.length === 2 && day[0] && day[1]) {
-      const start = parsed(day[0]);
-      const end = parsed(day[1]);
+      const start = parsed(day[0])
+      const end = parsed(day[1])
 
-      return start !== null && end !== null && isBetweenDates(timestamp, start, end);
+      return start !== null && end !== null && isBetweenDates(timestamp, start, end)
     }
 
     return day.some((date) => {
-      const disabledDay = parseTimestamp(date);
+      const disabledDay = parseTimestamp(date)
 
-      return disabledDay !== null && getDayIdentifier(disabledDay) === target;
-    });
+      return disabledDay !== null && getDayIdentifier(disabledDay) === target
+    })
   }
 
   if (isDisabledDayConfig(day) === true) {
-    const date = day.date;
-    const startDate = day.from ?? day.start;
-    const endDate = day.to ?? day.end;
+    const date = day.date
+    const startDate = day.from ?? day.start
+    const endDate = day.to ?? day.end
 
     if (date !== undefined) {
-      const disabledDay = parseTimestamp(date);
+      const disabledDay = parseTimestamp(date)
 
-      return disabledDay !== null && getDayIdentifier(disabledDay) === target;
+      return disabledDay !== null && getDayIdentifier(disabledDay) === target
     }
 
     if (startDate !== undefined && endDate !== undefined) {
-      const start = parsed(startDate);
-      const end = parsed(endDate);
+      const start = parsed(startDate)
+      const end = parsed(endDate)
 
-      return start !== null && end !== null && isBetweenDates(timestamp, start, end);
+      return start !== null && end !== null && isBetweenDates(timestamp, start, end)
     }
 
-    return false;
+    return false
   }
 
-  const disabledDay = parseTimestamp(day);
+  const disabledDay = parseTimestamp(day)
 
-  return disabledDay !== null && getDayIdentifier(disabledDay) === target;
+  return disabledDay !== null && getDayIdentifier(disabledDay) === target
 }
 
 /**
@@ -1266,25 +1266,25 @@ export function updateDisabled(
   disabledWeekdays?: number[],
   disabledDays?: DisabledDays,
 ): Timestamp {
-  let ts = cloneTimestamp(timestamp);
-  const t = getDayIdentifier(ts);
+  let ts = cloneTimestamp(timestamp)
+  const t = getDayIdentifier(ts)
 
   if (disabledBefore !== undefined) {
-    const disabledDay = parsed(disabledBefore);
+    const disabledDay = parsed(disabledBefore)
     if (disabledDay) {
-      const before = getDayIdentifier(disabledDay);
+      const before = getDayIdentifier(disabledDay)
       if (t <= before) {
-        ts.disabled = true;
+        ts.disabled = true
       }
     }
   }
 
   if (ts.disabled !== true && disabledAfter !== undefined) {
-    const disabledDay = parsed(disabledAfter!);
+    const disabledDay = parsed(disabledAfter!)
     if (disabledDay) {
-      const after = getDayIdentifier(disabledDay);
+      const after = getDayIdentifier(disabledDay)
       if (t >= after) {
-        ts.disabled = true;
+        ts.disabled = true
       }
     }
   }
@@ -1292,8 +1292,8 @@ export function updateDisabled(
   if (ts.disabled !== true && Array.isArray(disabledWeekdays) && disabledWeekdays.length > 0) {
     for (const weekday in disabledWeekdays) {
       if (disabledWeekdays[weekday] === ts.weekday) {
-        ts.disabled = true;
-        break;
+        ts.disabled = true
+        break
       }
     }
   }
@@ -1301,13 +1301,13 @@ export function updateDisabled(
   if (ts.disabled !== true && Array.isArray(disabledDays) && disabledDays.length > 0) {
     for (const day of disabledDays) {
       if (isTimestampInDisabledDay(ts, day) === true) {
-        ts = applyDisabledDayConfig(ts, isDisabledDayConfig(day) === true ? day : undefined);
-        break;
+        ts = applyDisabledDayConfig(ts, isDisabledDayConfig(day) === true ? day : undefined)
+        break
       }
     }
   }
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1316,15 +1316,15 @@ export function updateDisabled(
  * @returns A new Timestamp
  */
 export function updateFormatted(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.hasTime = true;
-  ts.time = getTime(ts);
-  ts.date = getDate(ts);
-  ts.weekday = getWeekday(ts);
-  ts.doy = getDayOfYear(ts) || 0;
-  ts.workweek = getWorkWeek(ts);
+  const ts = cloneTimestamp(timestamp)
+  ts.hasTime = true
+  ts.time = getTime(ts)
+  ts.date = getDate(ts)
+  ts.weekday = getWeekday(ts)
+  ts.doy = getDayOfYear(ts) || 0
+  ts.workweek = getWorkWeek(ts)
 
-  return freezeTimestamp(ts);
+  return freezeTimestamp(ts)
 }
 
 /**
@@ -1333,7 +1333,7 @@ export function updateFormatted(timestamp: Timestamp): Timestamp {
  * @returns {number} The day of the year
  */
 export function getDayOfYear(timestamp: Timestamp): number | void {
-  if (timestamp.year === 0) return;
+  if (timestamp.year === 0) return
   return (
     (Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day) -
       Date.UTC(timestamp.year, 0, 0)) /
@@ -1341,7 +1341,7 @@ export function getDayOfYear(timestamp: Timestamp): number | void {
     60 /
     60 /
     1000
-  );
+  )
 }
 
 /**
@@ -1350,32 +1350,32 @@ export function getDayOfYear(timestamp: Timestamp): number | void {
  * @returns {number} The work week
  */
 export function getWorkWeek(timestamp: Timestamp): number {
-  let ts: Timestamp = timestamp;
+  let ts: Timestamp = timestamp
   if (ts.year === 0) {
-    const parsedToday = parseTimestamp(today());
+    const parsedToday = parseTimestamp(today())
     if (parsedToday) {
-      ts = parsedToday;
+      ts = parsedToday
     }
   }
 
   // Remove time components of date
-  const weekday = new Date(Date.UTC(ts.year, ts.month - 1, ts.day));
+  const weekday = new Date(Date.UTC(ts.year, ts.month - 1, ts.day))
 
   // Adjust the date to the correct day of the week
-  const dayAdjustment = 4; // thursday is 4
-  weekday.setUTCDate(weekday.getUTCDate() - ((weekday.getUTCDay() + 6) % 7) + dayAdjustment);
+  const dayAdjustment = 4 // thursday is 4
+  weekday.setUTCDate(weekday.getUTCDate() - ((weekday.getUTCDay() + 6) % 7) + dayAdjustment)
 
   // Set to nearest Thursday: current date + 4 - current day number
   // Make Sunday's day number 7
-  weekday.setUTCDate(weekday.getUTCDate() + dayAdjustment - (weekday.getUTCDay() || 7));
+  weekday.setUTCDate(weekday.getUTCDate() + dayAdjustment - (weekday.getUTCDay() || 7))
 
   // Get first day of year
-  var yearStart = new Date(Date.UTC(weekday.getUTCFullYear(), 0, 1));
+  var yearStart = new Date(Date.UTC(weekday.getUTCFullYear(), 0, 1))
 
   // Calculate full weeks to nearest Thursday
-  var weekNumber = Math.ceil(((weekday.valueOf() - yearStart.valueOf()) / 86400000 + 1) / 7);
+  var weekNumber = Math.ceil(((weekday.valueOf() - yearStart.valueOf()) / 86400000 + 1) / 7)
 
-  return weekNumber;
+  return weekNumber
 }
 
 /**
@@ -1384,13 +1384,13 @@ export function getWorkWeek(timestamp: Timestamp): number {
  * @returns {number} The weekday
  */
 export function getWeekday(timestamp: Timestamp): number {
-  let weekday = timestamp.weekday;
+  let weekday = timestamp.weekday
   if (timestamp.hasDay) {
-    const floor = Math.floor;
-    const day = timestamp.day;
-    const month = ((timestamp.month + 9) % MONTH_MAX) + 1;
-    const century = floor(timestamp.year / 100);
-    const year = (timestamp.year % 100) - (timestamp.month <= 2 ? 1 : 0);
+    const floor = Math.floor
+    const day = timestamp.day
+    const month = ((timestamp.month + 9) % MONTH_MAX) + 1
+    const century = floor(timestamp.year / 100)
+    const year = (timestamp.year % 100) - (timestamp.month <= 2 ? 1 : 0)
 
     weekday =
       (((day +
@@ -1401,10 +1401,10 @@ export function getWeekday(timestamp: Timestamp): number {
         floor(century / 4)) %
         7) +
         7) %
-      7;
+      7
   }
 
-  return weekday ?? 0;
+  return weekday ?? 0
 }
 
 /**
@@ -1414,7 +1414,7 @@ export function getWeekday(timestamp: Timestamp): number {
  * @returns {Timestamp} Frozen Timestamp copy.
  */
 export function copyTimestamp(timestamp: Timestamp): Timestamp {
-  return freezeTimestamp(timestamp);
+  return freezeTimestamp(timestamp)
 }
 
 function setTimeParts(
@@ -1424,24 +1424,24 @@ function setTimeParts(
   second?: number,
   millisecond?: number,
 ): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.hasTime = true;
-  ts.hour = hour;
-  ts.minute = minute;
+  const ts = cloneTimestamp(timestamp)
+  ts.hasTime = true
+  ts.hour = hour
+  ts.minute = minute
 
   if (second === undefined) {
-    delete ts.second;
+    delete ts.second
   } else {
-    ts.second = second;
+    ts.second = second
   }
 
   if (millisecond === undefined) {
-    delete ts.millisecond;
+    delete ts.millisecond
   } else {
-    ts.millisecond = millisecond;
+    ts.millisecond = millisecond
   }
 
-  return updateFormatted(ts);
+  return updateFormatted(ts)
 }
 
 /**
@@ -1451,7 +1451,7 @@ function setTimeParts(
  * @returns {Timestamp} New Timestamp at `00:00`.
  */
 export function getStartOfDay(timestamp: Timestamp): Timestamp {
-  return setTimeParts(timestamp, 0, 0);
+  return setTimeParts(timestamp, 0, 0)
 }
 
 /**
@@ -1461,7 +1461,7 @@ export function getStartOfDay(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} New Timestamp at `23:59:59.999`.
  */
 export function getEndOfDay(timestamp: Timestamp): Timestamp {
-  return setTimeParts(timestamp, 23, 59, 59, 999);
+  return setTimeParts(timestamp, 23, 59, 59, 999)
 }
 
 /**
@@ -1471,10 +1471,10 @@ export function getEndOfDay(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} New Timestamp for January 1 at `00:00`.
  */
 export function getStartOfYear(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.month = MONTH_MIN;
-  ts.day = DAY_MIN;
-  return getStartOfDay(updateFormatted(ts));
+  const ts = cloneTimestamp(timestamp)
+  ts.month = MONTH_MIN
+  ts.day = DAY_MIN
+  return getStartOfDay(updateFormatted(ts))
 }
 
 /**
@@ -1484,10 +1484,10 @@ export function getStartOfYear(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} New Timestamp for December 31 at `23:59:59.999`.
  */
 export function getEndOfYear(timestamp: Timestamp): Timestamp {
-  const ts = cloneTimestamp(timestamp);
-  ts.month = MONTH_MAX;
-  ts.day = daysInMonth(ts.year, MONTH_MAX);
-  return getEndOfDay(updateFormatted(ts));
+  const ts = cloneTimestamp(timestamp)
+  ts.month = MONTH_MAX
+  ts.day = daysInMonth(ts.year, MONTH_MAX)
+  return getEndOfDay(updateFormatted(ts))
 }
 
 /**
@@ -1497,11 +1497,11 @@ export function getEndOfYear(timestamp: Timestamp): Timestamp {
  * @returns {string} Date string such as `YYYY-MM-DD`.
  */
 export function getDate(timestamp: Timestamp): string {
-  let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`;
+  let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`
 
-  if (timestamp.hasDay) str += `-${padNumber(timestamp.day, 2)}`;
+  if (timestamp.hasDay) str += `-${padNumber(timestamp.day, 2)}`
 
-  return str;
+  return str
 }
 
 /**
@@ -1515,18 +1515,18 @@ export function getDate(timestamp: Timestamp): string {
  */
 export function getTime(timestamp: Timestamp): string {
   if (!timestamp.hasTime) {
-    return "";
+    return ''
   }
 
-  let time = `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
+  let time = `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`
   if (timestamp.second !== undefined || timestamp.millisecond !== undefined) {
-    time += `:${padNumber(timestamp.second ?? 0, 2)}`;
+    time += `:${padNumber(timestamp.second ?? 0, 2)}`
   }
   if (timestamp.millisecond !== undefined) {
-    time += `.${padNumber(timestamp.millisecond, 3)}`;
+    time += `.${padNumber(timestamp.millisecond, 3)}`
   }
 
-  return time;
+  return time
 }
 
 /**
@@ -1536,7 +1536,7 @@ export function getTime(timestamp: Timestamp): string {
  * @returns {string} Date-time string such as `YYYY-MM-DD HH:mm`.
  */
 export function getDateTime(timestamp: Timestamp): string {
-  return getDate(timestamp) + " " + (timestamp.hasTime ? getTime(timestamp) : "00:00");
+  return getDate(timestamp) + ' ' + (timestamp.hasTime ? getTime(timestamp) : '00:00')
 }
 
 /**
@@ -1553,7 +1553,7 @@ export function moveRelativeDays(
   days = 1,
   allowedWeekdays = [0, 1, 2, 3, 4, 5, 6],
 ): Timestamp {
-  return relativeDays(timestamp, mover, days, allowedWeekdays);
+  return relativeDays(timestamp, mover, days, allowedWeekdays)
 }
 
 /**
@@ -1570,18 +1570,18 @@ export function relativeDays(
   days = 1,
   allowedWeekdays = [0, 1, 2, 3, 4, 5, 6],
 ): Timestamp {
-  let ts: Timestamp = copyTimestamp(timestamp);
+  let ts: Timestamp = copyTimestamp(timestamp)
   if (!allowedWeekdays.includes(Number(ts.weekday)) && ts.weekday === 0 && mover === nextDay) {
-    ++days;
+    ++days
   }
   while (--days >= 0) {
-    ts = mover(ts);
+    ts = mover(ts)
     if (allowedWeekdays.length < 7 && !allowedWeekdays.includes(Number(ts.weekday))) {
-      ++days;
+      ++days
     }
   }
 
-  return ts;
+  return ts
 }
 
 /**
@@ -1598,9 +1598,9 @@ export function findWeekday(
   mover = nextDay,
   maxDays = 6,
 ): Timestamp {
-  let ts: Timestamp = copyTimestamp(timestamp);
-  while (ts.weekday !== weekday && --maxDays >= 0) ts = mover(ts);
-  return ts;
+  let ts: Timestamp = copyTimestamp(timestamp)
+  while (ts.weekday !== weekday && --maxDays >= 0) ts = mover(ts)
+  return ts
 }
 
 /**
@@ -1633,36 +1633,36 @@ export function createDayList(
   max = 42,
   min = 0,
 ): Timestamp[] {
-  const begin = getDayIdentifier(start);
-  const stop = getDayIdentifier(end);
-  const days: Timestamp[] = [];
-  let current: Timestamp = copyTimestamp(start);
-  let currentIdentifier = 0;
-  let stopped = currentIdentifier === stop;
+  const begin = getDayIdentifier(start)
+  const stop = getDayIdentifier(end)
+  const days: Timestamp[] = []
+  let current: Timestamp = copyTimestamp(start)
+  let currentIdentifier = 0
+  let stopped = currentIdentifier === stop
 
   if (stop < begin) {
-    return days;
+    return days
   }
 
   while ((!stopped || days.length < min) && days.length < max) {
-    currentIdentifier = getDayIdentifier(current);
-    stopped = stopped || (currentIdentifier > stop && days.length >= min);
+    currentIdentifier = getDayIdentifier(current)
+    stopped = stopped || (currentIdentifier > stop && days.length >= min)
     if (stopped) {
-      break;
+      break
     }
     if (!weekdays.includes(Number(current.weekday))) {
-      current = relativeDays(current, nextDay);
-      continue;
+      current = relativeDays(current, nextDay)
+      continue
     }
-    let day: Timestamp = copyTimestamp(current);
-    day = updateFormatted(day);
-    day = updateRelative(day, now);
-    day = updateDisabled(day, disabledBefore, disabledAfter, disabledWeekdays, disabledDays);
-    days.push(day);
-    current = relativeDays(current, nextDay);
+    let day: Timestamp = copyTimestamp(current)
+    day = updateFormatted(day)
+    day = updateRelative(day, now)
+    day = updateDisabled(day, disabledBefore, disabledAfter, disabledWeekdays, disabledDays)
+    days.push(day)
+    current = relativeDays(current, nextDay)
   }
 
-  return days;
+  return days
 }
 
 /**
@@ -1682,14 +1682,14 @@ export function createIntervalList(
   count: number,
   now: Timestamp,
 ): Timestamp[] {
-  const intervals: Timestamp[] = [];
+  const intervals: Timestamp[] = []
 
   for (let i = 0; i < count; ++i) {
-    const mins = (first + i) * minutes;
-    intervals.push(updateMinutes(timestamp, mins, now));
+    const mins = (first + i) * minutes
+    intervals.push(updateMinutes(timestamp, mins, now))
   }
 
-  return intervals;
+  return intervals
 }
 
 /**
@@ -1698,10 +1698,7 @@ export function createIntervalList(
  * Used by createNativeLocaleFormatter to let callers switch between
  * long and short formatting styles per timestamp.
  */
-export type LocaleFormatter = (
-  _timestamp: Timestamp,
-  _short: boolean,
-) => Intl.DateTimeFormatOptions;
+export type LocaleFormatter = (_timestamp: Timestamp, _short: boolean) => Intl.DateTimeFormatOptions
 
 /**
  * Function that formats a weekday key for a locale.
@@ -1710,12 +1707,12 @@ export type WeekdayFormatter = (
   _weekday: keyof typeof weekdayDateMap,
   _type: string,
   _locale?: string,
-) => string;
+) => string
 
 /**
  * Function that formats a zero-based month number for a locale.
  */
-export type MonthFormatter = (_month: number, _type?: string, _locale?: string) => string;
+export type MonthFormatter = (_month: number, _type?: string, _locale?: string) => string
 
 /**
  * @callback getOptions
@@ -1736,21 +1733,21 @@ function createNativeLocaleFormatterByMode(
   cb: LocaleFormatter,
   toDate: (timestamp: Timestamp) => Date,
 ): (_timestamp: Timestamp, _short: boolean) => string {
-  const emptyFormatter = (): string => "";
+  const emptyFormatter = (): string => ''
 
-  if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
-    return emptyFormatter;
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+    return emptyFormatter
   }
 
   return (timestamp: Timestamp, short: boolean): string => {
     try {
-      const intlFormatter = new Intl.DateTimeFormat(locale || undefined, cb(timestamp, short));
-      return intlFormatter.format(toDate(timestamp));
+      const intlFormatter = new Intl.DateTimeFormat(locale || undefined, cb(timestamp, short))
+      return intlFormatter.format(toDate(timestamp))
     } catch (e) {
-      console.error(`Intl.DateTimeFormat: ${(e as Error).message} -> ${getDateTime(timestamp)}`);
-      return "";
+      console.error(`Intl.DateTimeFormat: ${(e as Error).message} -> ${getDateTime(timestamp)}`)
+      return ''
     }
-  };
+  }
 }
 
 /**
@@ -1771,7 +1768,7 @@ export function createNativeLocaleFormatter(
   locale: string,
   cb: LocaleFormatter,
 ): (_timestamp: Timestamp, _short: boolean) => string {
-  return createNativeLocaleFormatterByMode(locale, cb, makeDateTime);
+  return createNativeLocaleFormatterByMode(locale, cb, makeDateTime)
 }
 
 /**
@@ -1789,7 +1786,7 @@ export function createNativeLocaleFormatterUTC(
   locale: string,
   cb: LocaleFormatter,
 ): (_timestamp: Timestamp, _short: boolean) => string {
-  return createNativeLocaleFormatterByMode(locale, cb, makeDateTimeUTC);
+  return createNativeLocaleFormatterByMode(locale, cb, makeDateTimeUTC)
 }
 
 /**
@@ -1799,7 +1796,7 @@ export function createNativeLocaleFormatterUTC(
  * @returns {Date} Host-local JavaScript Date object.
  */
 export function makeDate(timestamp: Timestamp): Date {
-  return new Date(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0);
+  return new Date(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0)
 }
 
 /**
@@ -1809,7 +1806,7 @@ export function makeDate(timestamp: Timestamp): Date {
  * @returns {Date} JavaScript Date object built with `Date.UTC()`.
  */
 export function makeDateUTC(timestamp: Timestamp): Date {
-  return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0));
+  return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0))
 }
 
 /**
@@ -1827,7 +1824,7 @@ export function makeDateTime(timestamp: Timestamp): Date {
     timestamp.minute,
     timestamp.second ?? 0,
     timestamp.millisecond ?? 0,
-  );
+  )
 }
 
 /**
@@ -1847,7 +1844,7 @@ export function makeDateTimeUTC(timestamp: Timestamp): Date {
       timestamp.second ?? 0,
       timestamp.millisecond ?? 0,
     ),
-  );
+  )
 }
 
 /**
@@ -1860,7 +1857,7 @@ export function makeDateTimeUTC(timestamp: Timestamp): Date {
  * @returns {number} Unix milliseconds.
  */
 export function toUnixMilliseconds(timestamp: Timestamp): number {
-  return makeDateTimeUTC(timestamp).getTime();
+  return makeDateTimeUTC(timestamp).getTime()
 }
 
 /**
@@ -1872,7 +1869,7 @@ export function toUnixMilliseconds(timestamp: Timestamp): number {
  * @returns {number} Unix seconds.
  */
 export function toUnixSeconds(timestamp: Timestamp): number {
-  return Math.floor(toUnixMilliseconds(timestamp) / MILLISECONDS_IN_SECOND);
+  return Math.floor(toUnixMilliseconds(timestamp) / MILLISECONDS_IN_SECOND)
 }
 
 /**
@@ -1882,7 +1879,7 @@ export function toUnixSeconds(timestamp: Timestamp): number {
  * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
  */
 export function fromUnixMilliseconds(milliseconds: number): Timestamp | null {
-  return parseDateUTC(new Date(milliseconds));
+  return parseDateUTC(new Date(milliseconds))
 }
 
 /**
@@ -1892,7 +1889,7 @@ export function fromUnixMilliseconds(milliseconds: number): Timestamp | null {
  * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
  */
 export function fromUnixSeconds(seconds: number): Timestamp | null {
-  return fromUnixMilliseconds(seconds * MILLISECONDS_IN_SECOND);
+  return fromUnixMilliseconds(seconds * MILLISECONDS_IN_SECOND)
 }
 
 /**
@@ -1904,7 +1901,7 @@ export function fromUnixSeconds(seconds: number): Timestamp | null {
  * @returns {Date} Local JavaScript Date object.
  */
 export function getDateObject(timestamp: Timestamp): Date {
-  return makeDateTime(timestamp);
+  return makeDateTime(timestamp)
 }
 
 /**
@@ -1915,7 +1912,7 @@ export function getDateObject(timestamp: Timestamp): Date {
  *          Returns true if the input is a finite number, false otherwise.
  */
 export function validateNumber(input: string | number): boolean {
-  return isFinite(Number(input));
+  return isFinite(Number(input))
 }
 
 /**
@@ -1926,10 +1923,10 @@ export function validateNumber(input: string | number): boolean {
  * @returns Latest Timestamp object.
  */
 export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
-  const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier;
+  const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier
   return timestamps.reduce((prev, cur) => {
-    return Math.max(func(prev), func(cur)) === func(prev) ? prev : cur;
-  });
+    return Math.max(func(prev), func(cur)) === func(prev) ? prev : cur
+  })
 }
 
 /**
@@ -1940,26 +1937,26 @@ export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestam
  * @returns Earliest Timestamp object.
  */
 export function minTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
-  const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier;
+  const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier
   return timestamps.reduce((prev, cur) => {
-    return Math.min(func(prev), func(cur)) === func(prev) ? prev : cur;
-  });
+    return Math.min(func(prev), func(cur)) === func(prev) ? prev : cur
+  })
 }
 
 function getTimestampSortValue(timestamp: Timestamp, useTime: boolean): number {
   if (useTime === true) {
-    return toUnixMilliseconds(timestamp);
+    return toUnixMilliseconds(timestamp)
   }
 
-  return Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day);
+  return Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day)
 }
 
 function compareTimestampOrder(first: Timestamp, second: Timestamp, useTime: boolean): number {
-  return getTimestampSortValue(first, useTime) - getTimestampSortValue(second, useTime);
+  return getTimestampSortValue(first, useTime) - getTimestampSortValue(second, useTime)
 }
 
 function createFrozenRange(start: Timestamp, end: Timestamp): TimestampRange {
-  return Object.freeze({ start: copyTimestamp(start), end: copyTimestamp(end) });
+  return Object.freeze({ start: copyTimestamp(start), end: copyTimestamp(end) })
 }
 
 function isRangeTouchingOrOverlapping(
@@ -1967,18 +1964,18 @@ function isRangeTouchingOrOverlapping(
   second: TimestampRange,
   useTime: boolean,
 ): boolean {
-  const step = useTime ? 1 : MILLISECONDS_IN_DAY;
+  const step = useTime ? 1 : MILLISECONDS_IN_DAY
   return (
     getTimestampSortValue(second.start, useTime) <= getTimestampSortValue(first.end, useTime) + step
-  );
+  )
 }
 
 function moveBoundary(timestamp: Timestamp, amount: number, useTime: boolean): Timestamp {
   if (useTime === true) {
-    return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + amount) as Timestamp;
+    return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + amount) as Timestamp
   }
 
-  return addToDate(timestamp, { day: amount });
+  return addToDate(timestamp, { day: amount })
 }
 
 /**
@@ -1995,10 +1992,10 @@ export function createTimestampRange(
   useTime = false,
 ): TimestampRange {
   if (compareTimestampOrder(start, end, useTime) <= 0) {
-    return createFrozenRange(start, end);
+    return createFrozenRange(start, end)
   }
 
-  return createFrozenRange(end, start);
+  return createFrozenRange(end, start)
 }
 
 /**
@@ -2014,7 +2011,7 @@ export function isTimestampInRange(
   range: TimestampRange,
   useTime = false,
 ): boolean {
-  return isBetweenDates(timestamp, range.start, range.end, useTime);
+  return isBetweenDates(timestamp, range.start, range.end, useTime)
 }
 
 /**
@@ -2030,14 +2027,14 @@ export function isRangeOverlapping(
   second: TimestampRange,
   useTime = false,
 ): boolean {
-  const firstRange = createTimestampRange(first.start, first.end, useTime);
-  const secondRange = createTimestampRange(second.start, second.end, useTime);
+  const firstRange = createTimestampRange(first.start, first.end, useTime)
+  const secondRange = createTimestampRange(second.start, second.end, useTime)
   return (
     getTimestampSortValue(firstRange.start, useTime) <=
       getTimestampSortValue(secondRange.end, useTime) &&
     getTimestampSortValue(secondRange.start, useTime) <=
       getTimestampSortValue(firstRange.end, useTime)
-  );
+  )
 }
 
 /**
@@ -2054,14 +2051,14 @@ export function intersectRanges(
   useTime = false,
 ): TimestampRange | null {
   if (isRangeOverlapping(first, second, useTime) === false) {
-    return null;
+    return null
   }
 
   const start =
-    compareTimestampOrder(first.start, second.start, useTime) >= 0 ? first.start : second.start;
-  const end = compareTimestampOrder(first.end, second.end, useTime) <= 0 ? first.end : second.end;
+    compareTimestampOrder(first.start, second.start, useTime) >= 0 ? first.start : second.start
+  const end = compareTimestampOrder(first.end, second.end, useTime) <= 0 ? first.end : second.end
 
-  return createTimestampRange(start, end, useTime);
+  return createTimestampRange(start, end, useTime)
 }
 
 /**
@@ -2078,23 +2075,23 @@ export function intersectRanges(
 export function mergeRanges(ranges: TimestampRange[], useTime = false): TimestampRange[] {
   const sorted = ranges
     .map((range) => createTimestampRange(range.start, range.end, useTime))
-    .sort((a, b) => compareTimestampOrder(a.start, b.start, useTime));
+    .sort((a, b) => compareTimestampOrder(a.start, b.start, useTime))
 
-  const merged: TimestampRange[] = [];
+  const merged: TimestampRange[] = []
 
   for (const range of sorted) {
-    const last = merged[merged.length - 1];
+    const last = merged[merged.length - 1]
 
     if (last === undefined || isRangeTouchingOrOverlapping(last, range, useTime) === false) {
-      merged.push(range);
-      continue;
+      merged.push(range)
+      continue
     }
 
-    const end = compareTimestampOrder(last.end, range.end, useTime) >= 0 ? last.end : range.end;
-    merged[merged.length - 1] = createFrozenRange(last.start, end);
+    const end = compareTimestampOrder(last.end, range.end, useTime) >= 0 ? last.end : range.end
+    merged[merged.length - 1] = createFrozenRange(last.start, end)
   }
 
-  return merged;
+  return merged
 }
 
 /**
@@ -2113,38 +2110,38 @@ export function subtractRanges(
   blocked: TimestampRange[],
   useTime = false,
 ): TimestampRange[] {
-  const normalizedSource = createTimestampRange(source.start, source.end, useTime);
-  const blockers = mergeRanges(blocked, useTime);
-  let available: TimestampRange[] = [normalizedSource];
+  const normalizedSource = createTimestampRange(source.start, source.end, useTime)
+  const blockers = mergeRanges(blocked, useTime)
+  let available: TimestampRange[] = [normalizedSource]
 
   for (const blocker of blockers) {
-    const nextAvailable: TimestampRange[] = [];
+    const nextAvailable: TimestampRange[] = []
 
     for (const range of available) {
-      const overlap = intersectRanges(range, blocker, useTime);
+      const overlap = intersectRanges(range, blocker, useTime)
 
       if (overlap === null) {
-        nextAvailable.push(range);
-        continue;
+        nextAvailable.push(range)
+        continue
       }
 
       if (compareTimestampOrder(range.start, overlap.start, useTime) < 0) {
         nextAvailable.push(
           createTimestampRange(range.start, moveBoundary(overlap.start, -1, useTime), useTime),
-        );
+        )
       }
 
       if (compareTimestampOrder(overlap.end, range.end, useTime) < 0) {
         nextAvailable.push(
           createTimestampRange(moveBoundary(overlap.end, 1, useTime), range.end, useTime),
-        );
+        )
       }
     }
 
-    available = nextAvailable;
+    available = nextAvailable
   }
 
-  return available;
+  return available
 }
 
 /**
@@ -2163,7 +2160,7 @@ export function findRangeGaps(
   occupied: TimestampRange[],
   useTime = false,
 ): TimestampRange[] {
-  return subtractRanges(source, occupied, useTime);
+  return subtractRanges(source, occupied, useTime)
 }
 
 /**
@@ -2181,13 +2178,13 @@ export function isBetweenDates(
   endTimestamp: Timestamp,
   useTime = false,
 ): boolean {
-  const cd = getDayIdentifier(timestamp) + (useTime === true ? getTimeIdentifier(timestamp) : 0);
+  const cd = getDayIdentifier(timestamp) + (useTime === true ? getTimeIdentifier(timestamp) : 0)
   const sd =
-    getDayIdentifier(startTimestamp) + (useTime === true ? getTimeIdentifier(startTimestamp) : 0);
+    getDayIdentifier(startTimestamp) + (useTime === true ? getTimeIdentifier(startTimestamp) : 0)
   const ed =
-    getDayIdentifier(endTimestamp) + (useTime === true ? getTimeIdentifier(endTimestamp) : 0);
+    getDayIdentifier(endTimestamp) + (useTime === true ? getTimeIdentifier(endTimestamp) : 0)
 
-  return cd >= sd && cd <= ed;
+  return cd >= sd && cd <= ed
 }
 
 /**
@@ -2205,15 +2202,15 @@ export function isOverlappingDates(
   firstTimestamp: Timestamp,
   lastTimestamp: Timestamp,
 ): boolean {
-  const start = getDayIdentifier(startTimestamp);
-  const end = getDayIdentifier(endTimestamp);
-  const first = getDayIdentifier(firstTimestamp);
-  const last = getDayIdentifier(lastTimestamp);
+  const start = getDayIdentifier(startTimestamp)
+  const end = getDayIdentifier(endTimestamp)
+  const first = getDayIdentifier(firstTimestamp)
+  const last = getDayIdentifier(lastTimestamp)
   return (
     (start >= first && start <= last) || // overlap left
     (end >= first && end <= last) || // overlap right
     (first >= start && end >= last) // surrounding
-  );
+  )
 }
 
 /**
@@ -2227,37 +2224,37 @@ export interface AddToDateOptions {
   /**
    * Number of years to add or subtract.
    */
-  year?: number;
+  year?: number
 
   /**
    * Number of months to add or subtract.
    */
-  month?: number;
+  month?: number
 
   /**
    * Number of days to add or subtract.
    */
-  day?: number;
+  day?: number
 
   /**
    * Number of hours to add or subtract.
    */
-  hour?: number;
+  hour?: number
 
   /**
    * Number of minutes to add or subtract.
    */
-  minute?: number;
+  minute?: number
 
   /**
    * Number of seconds to add or subtract.
    */
-  second?: number;
+  second?: number
 
   /**
    * Number of milliseconds to add or subtract.
    */
-  millisecond?: number;
+  millisecond?: number
 }
 
 /**
@@ -2279,17 +2276,17 @@ export interface AddToDateOptions {
  * @returns {Timestamp} New normalized Timestamp object.
  */
 export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
-  const ts = cloneTimestamp(timestamp);
+  const ts = cloneTimestamp(timestamp)
 
-  if (options.year) ts.year += options.year;
-  if (options.month) ts.month += options.month;
-  if (options.day) ts.day += options.day;
-  if (options.hour) ts.hour += options.hour;
-  if (options.minute) ts.minute += options.minute;
-  if (options.second) ts.second = (ts.second ?? 0) + options.second;
-  if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond;
+  if (options.year) ts.year += options.year
+  if (options.month) ts.month += options.month
+  if (options.day) ts.day += options.day
+  if (options.hour) ts.hour += options.hour
+  if (options.minute) ts.minute += options.minute
+  if (options.second) ts.second = (ts.second ?? 0) + options.second
+  if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond
 
-  return updateFormatted(normalizeTimestamp(ts));
+  return updateFormatted(normalizeTimestamp(ts))
 }
 
 /**
@@ -2316,25 +2313,25 @@ export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Time
  * @returns {Timestamp} New normalized Timestamp object.
  */
 export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
-  const ts = cloneTimestamp(timestamp);
+  const ts = cloneTimestamp(timestamp)
 
   if (options.year || options.month) {
     const target = normalizeYearMonth(
       ts.year + (options.year ?? 0),
       ts.month + (options.month ?? 0),
-    );
-    ts.year = target.year;
-    ts.month = target.month;
-    ts.day = Math.min(ts.day, daysInMonth(ts.year, ts.month));
+    )
+    ts.year = target.year
+    ts.month = target.month
+    ts.day = Math.min(ts.day, daysInMonth(ts.year, ts.month))
   }
 
-  if (options.day) ts.day += options.day;
-  if (options.hour) ts.hour += options.hour;
-  if (options.minute) ts.minute += options.minute;
-  if (options.second) ts.second = (ts.second ?? 0) + options.second;
-  if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond;
+  if (options.day) ts.day += options.day
+  if (options.hour) ts.hour += options.hour
+  if (options.minute) ts.minute += options.minute
+  if (options.second) ts.second = (ts.second ?? 0) + options.second
+  if (options.millisecond) ts.millisecond = (ts.millisecond ?? 0) + options.millisecond
 
-  return updateFormatted(normalizeTimestamp(ts));
+  return updateFormatted(normalizeTimestamp(ts))
 }
 
 /**
@@ -2342,12 +2339,12 @@ export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions
  * This lets clamped date math choose the final day explicitly instead of
  * letting JavaScript Date roll an overflowing day into the next month.
  */
-function normalizeYearMonth(year: number, month: number): Pick<Timestamp, "year" | "month"> {
-  const date = new Date(year, month - 1, 1);
+function normalizeYearMonth(year: number, month: number): Pick<Timestamp, 'year' | 'month'> {
+  const date = new Date(year, month - 1, 1)
   return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
-  };
+  }
 }
 
 /**
@@ -2373,7 +2370,7 @@ function normalizeTimestamp(ts: Timestamp): Timestamp {
     ts.minute,
     ts.second ?? 0,
     ts.millisecond ?? 0,
-  );
+  )
   const timestamp: MutableTimestamp = {
     ...ts,
     year: date.getFullYear(),
@@ -2381,16 +2378,16 @@ function normalizeTimestamp(ts: Timestamp): Timestamp {
     day: date.getDate(),
     hour: date.getHours(),
     minute: date.getMinutes(),
-  };
+  }
 
   if (ts.second !== undefined || date.getSeconds() !== 0) {
-    timestamp.second = date.getSeconds();
+    timestamp.second = date.getSeconds()
   }
   if (ts.millisecond !== undefined || date.getMilliseconds() !== 0) {
-    timestamp.millisecond = date.getMilliseconds();
+    timestamp.millisecond = date.getMilliseconds()
   }
 
-  return freezeTimestamp(timestamp);
+  return freezeTimestamp(timestamp)
 }
 
 /**
@@ -2400,8 +2397,8 @@ function normalizeTimestamp(ts: Timestamp): Timestamp {
  * @returns Number of days
  */
 export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
-  const diff = diffTimestamp(ts1, ts2, true);
-  return Math.floor(diff / TIME_CONSTANTS.MILLISECONDS_IN.DAY);
+  const diff = diffTimestamp(ts1, ts2, true)
+  return Math.floor(diff / TIME_CONSTANTS.MILLISECONDS_IN.DAY)
 }
 
 /**
@@ -2410,11 +2407,11 @@ export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
  * @param {Timestamp} ts2 The second Timestamp
  */
 export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
-  let t1: Timestamp = copyTimestamp(ts1);
-  let t2: Timestamp = copyTimestamp(ts2);
-  t1 = findWeekday(t1, 0);
-  t2 = findWeekday(t2, 6);
-  return Math.ceil(daysBetween(t1, t2) / TIME_CONSTANTS.DAYS_IN.WEEK);
+  let t1: Timestamp = copyTimestamp(ts1)
+  let t2: Timestamp = copyTimestamp(ts2)
+  t1 = findWeekday(t1, 0)
+  t2 = findWeekday(t2, 6)
+  return Math.ceil(daysBetween(t1, t2) / TIME_CONSTANTS.DAYS_IN.WEEK)
 }
 
 /**
@@ -2424,16 +2421,16 @@ export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
  * @returns {TimestampDuration} Frozen duration object.
  */
 export function createDuration(milliseconds: number): TimestampDuration {
-  const sign: -1 | 0 | 1 = milliseconds === 0 ? 0 : milliseconds < 0 ? -1 : 1;
-  let remaining = Math.abs(milliseconds);
-  const days = Math.floor(remaining / MILLISECONDS_IN_DAY);
-  remaining -= days * MILLISECONDS_IN_DAY;
-  const hours = Math.floor(remaining / MILLISECONDS_IN_HOUR);
-  remaining -= hours * MILLISECONDS_IN_HOUR;
-  const minutes = Math.floor(remaining / MILLISECONDS_IN_MINUTE);
-  remaining -= minutes * MILLISECONDS_IN_MINUTE;
-  const seconds = Math.floor(remaining / MILLISECONDS_IN_SECOND);
-  remaining -= seconds * MILLISECONDS_IN_SECOND;
+  const sign: -1 | 0 | 1 = milliseconds === 0 ? 0 : milliseconds < 0 ? -1 : 1
+  let remaining = Math.abs(milliseconds)
+  const days = Math.floor(remaining / MILLISECONDS_IN_DAY)
+  remaining -= days * MILLISECONDS_IN_DAY
+  const hours = Math.floor(remaining / MILLISECONDS_IN_HOUR)
+  remaining -= hours * MILLISECONDS_IN_HOUR
+  const minutes = Math.floor(remaining / MILLISECONDS_IN_MINUTE)
+  remaining -= minutes * MILLISECONDS_IN_MINUTE
+  const seconds = Math.floor(remaining / MILLISECONDS_IN_SECOND)
+  remaining -= seconds * MILLISECONDS_IN_SECOND
 
   return Object.freeze({
     totalMilliseconds: milliseconds,
@@ -2444,7 +2441,7 @@ export function createDuration(milliseconds: number): TimestampDuration {
     minutes,
     seconds,
     milliseconds: remaining,
-  });
+  })
 }
 
 /**
@@ -2458,7 +2455,7 @@ export function createDuration(milliseconds: number): TimestampDuration {
  * @returns {TimestampDuration} Frozen duration object.
  */
 export function durationBetween(start: Timestamp, end: Timestamp): TimestampDuration {
-  return createDuration(toUnixMilliseconds(end) - toUnixMilliseconds(start));
+  return createDuration(toUnixMilliseconds(end) - toUnixMilliseconds(start))
 }
 
 /**
@@ -2473,8 +2470,8 @@ export function durationBetween(start: Timestamp, end: Timestamp): TimestampDura
  * @returns {Timestamp} Offset Timestamp.
  */
 export function addDuration(timestamp: Timestamp, duration: TimestampDuration | number): Timestamp {
-  const milliseconds = typeof duration === "number" ? duration : duration.totalMilliseconds;
-  return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + milliseconds) as Timestamp;
+  const milliseconds = typeof duration === 'number' ? duration : duration.totalMilliseconds
+  return fromUnixMilliseconds(toUnixMilliseconds(timestamp) + milliseconds) as Timestamp
 }
 
 /**
@@ -2488,8 +2485,8 @@ export function subtractDuration(
   timestamp: Timestamp,
   duration: TimestampDuration | number,
 ): Timestamp {
-  const milliseconds = typeof duration === "number" ? duration : duration.totalMilliseconds;
-  return addDuration(timestamp, -milliseconds);
+  const milliseconds = typeof duration === 'number' ? duration : duration.totalMilliseconds
+  return addDuration(timestamp, -milliseconds)
 }
 
 /**
@@ -2505,16 +2502,16 @@ export function formatDuration(
   duration: TimestampDuration | number,
   options: FormatDurationOptions = {},
 ): string {
-  const value = typeof duration === "number" ? createDuration(duration) : duration;
-  const hours = value.days * HOURS_IN_DAY + value.hours;
-  const sign = options.signed === true && value.sign < 0 ? "-" : "";
-  let formatted = `${sign}${padNumber(hours, 2)}:${padNumber(value.minutes, 2)}:${padNumber(value.seconds, 2)}`;
+  const value = typeof duration === 'number' ? createDuration(duration) : duration
+  const hours = value.days * HOURS_IN_DAY + value.hours
+  const sign = options.signed === true && value.sign < 0 ? '-' : ''
+  let formatted = `${sign}${padNumber(hours, 2)}:${padNumber(value.minutes, 2)}:${padNumber(value.seconds, 2)}`
 
   if (options.milliseconds === true) {
-    formatted += `.${padNumber(value.milliseconds, 3)}`;
+    formatted += `.${padNumber(value.milliseconds, 3)}`
   }
 
-  return formatted;
+  return formatted
 }
 
 function roundTimestampToInterval(
@@ -2523,12 +2520,12 @@ function roundTimestampToInterval(
   rounder: (value: number) => number,
 ): Timestamp {
   if (minutes <= 0 || Number.isFinite(minutes) === false) {
-    return copyTimestamp(timestamp);
+    return copyTimestamp(timestamp)
   }
 
-  const interval = minutes * MILLISECONDS_IN_MINUTE;
-  const value = toUnixMilliseconds(timestamp);
-  return fromUnixMilliseconds(rounder(value / interval) * interval) as Timestamp;
+  const interval = minutes * MILLISECONDS_IN_MINUTE
+  const value = toUnixMilliseconds(timestamp)
+  return fromUnixMilliseconds(rounder(value / interval) * interval) as Timestamp
 }
 
 /**
@@ -2539,7 +2536,7 @@ function roundTimestampToInterval(
  * @returns {Timestamp} Rounded Timestamp.
  */
 export function floorToInterval(timestamp: Timestamp, minutes: number): Timestamp {
-  return roundTimestampToInterval(timestamp, minutes, Math.floor);
+  return roundTimestampToInterval(timestamp, minutes, Math.floor)
 }
 
 /**
@@ -2550,7 +2547,7 @@ export function floorToInterval(timestamp: Timestamp, minutes: number): Timestam
  * @returns {Timestamp} Rounded Timestamp.
  */
 export function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp {
-  return roundTimestampToInterval(timestamp, minutes, Math.ceil);
+  return roundTimestampToInterval(timestamp, minutes, Math.ceil)
 }
 
 /**
@@ -2561,31 +2558,31 @@ export function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp
  * @returns {Timestamp} Rounded Timestamp.
  */
 export function roundToInterval(timestamp: Timestamp, minutes: number): Timestamp {
-  return roundTimestampToInterval(timestamp, minutes, Math.round);
+  return roundTimestampToInterval(timestamp, minutes, Math.round)
 }
 
 // Known dates
 const weekdayDateMap = {
-  Sun: new Date("2020-01-05T00:00:00.000Z"),
-  Mon: new Date("2020-01-06T00:00:00.000Z"),
-  Tue: new Date("2020-01-07T00:00:00.000Z"),
-  Wed: new Date("2020-01-08T00:00:00.000Z"),
-  Thu: new Date("2020-01-09T00:00:00.000Z"),
-  Fri: new Date("2020-01-10T00:00:00.000Z"),
-  Sat: new Date("2020-01-11T00:00:00.000Z"),
-};
+  Sun: new Date('2020-01-05T00:00:00.000Z'),
+  Mon: new Date('2020-01-06T00:00:00.000Z'),
+  Tue: new Date('2020-01-07T00:00:00.000Z'),
+  Wed: new Date('2020-01-08T00:00:00.000Z'),
+  Thu: new Date('2020-01-09T00:00:00.000Z'),
+  Fri: new Date('2020-01-10T00:00:00.000Z'),
+  Sat: new Date('2020-01-11T00:00:00.000Z'),
+}
 
-type IntlNameFormat = "long" | "short" | "narrow";
+type IntlNameFormat = 'long' | 'short' | 'narrow'
 
 function resolveIntlNameFormat(
   options: Record<IntlNameFormat, Intl.DateTimeFormatOptions>,
   type?: string,
 ): Intl.DateTimeFormatOptions {
-  if (type === "long" || type === "short" || type === "narrow") {
-    return options[type];
+  if (type === 'long' || type === 'short' || type === 'narrow') {
+    return options[type]
   }
 
-  return options.long;
+  return options.long
 }
 
 /**
@@ -2606,15 +2603,15 @@ function resolveIntlNameFormat(
  * @returns {string} The formatted weekday.
  */
 export function getWeekdayFormatter(): WeekdayFormatter {
-  const emptyFormatter = (): string => "";
+  const emptyFormatter = (): string => ''
   const options: Record<IntlNameFormat, Intl.DateTimeFormatOptions> = {
-    long: { timeZone: "UTC", weekday: "long" },
-    short: { timeZone: "UTC", weekday: "short" },
-    narrow: { timeZone: "UTC", weekday: "narrow" },
-  };
+    long: { timeZone: 'UTC', weekday: 'long' },
+    short: { timeZone: 'UTC', weekday: 'short' },
+    narrow: { timeZone: 'UTC', weekday: 'narrow' },
+  }
 
-  if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
-    return emptyFormatter as WeekdayFormatter;
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+    return emptyFormatter as WeekdayFormatter
   }
 
   /**
@@ -2634,17 +2631,17 @@ export function getWeekdayFormatter(): WeekdayFormatter {
       const intlFormatter = new Intl.DateTimeFormat(
         locale || undefined,
         resolveIntlNameFormat(options, type),
-      );
-      return intlFormatter.format(weekdayDateMap[weekday]);
+      )
+      return intlFormatter.format(weekdayDateMap[weekday])
     } catch (e) {
       if (e instanceof Error) {
-        console.error(`Intl.DateTimeFormat: ${e.message} -> day of week: ${weekday}`);
+        console.error(`Intl.DateTimeFormat: ${e.message} -> day of week: ${weekday}`)
       }
-      return "";
+      return ''
     }
   }
 
-  return weekdayFormatter;
+  return weekdayFormatter
 }
 
 /**
@@ -2655,11 +2652,11 @@ export function getWeekdayFormatter(): WeekdayFormatter {
  * @returns {string[]} Localized weekday names in Sunday-first order.
  */
 export function getWeekdayNames(type: string, locale: string): string[] {
-  const shortWeekdays = Object.keys(weekdayDateMap);
-  const weekdayFormatter = getWeekdayFormatter();
+  const shortWeekdays = Object.keys(weekdayDateMap)
+  const weekdayFormatter = getWeekdayFormatter()
   return shortWeekdays.map((weekday) =>
     String(weekdayFormatter(weekday as keyof typeof weekdayDateMap, type, locale)),
-  );
+  )
 }
 
 /**
@@ -2675,15 +2672,15 @@ export function getWeekdayNames(type: string, locale: string): string[] {
  * @throws {Error} If Intl or Intl.DateTimeFormat is not supported in the environment.
  */
 export function getMonthFormatter(): MonthFormatter {
-  const emptyFormatter = (): string => "";
+  const emptyFormatter = (): string => ''
   const options: Record<IntlNameFormat, Intl.DateTimeFormatOptions> = {
-    long: { timeZone: "UTC", month: "long" },
-    short: { timeZone: "UTC", month: "short" },
-    narrow: { timeZone: "UTC", month: "narrow" },
-  };
+    long: { timeZone: 'UTC', month: 'long' },
+    short: { timeZone: 'UTC', month: 'short' },
+    narrow: { timeZone: 'UTC', month: 'narrow' },
+  }
 
-  if (typeof Intl === "undefined" || typeof Intl.DateTimeFormat === "undefined") {
-    return emptyFormatter;
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+    return emptyFormatter
   }
 
   /**
@@ -2694,25 +2691,25 @@ export function getMonthFormatter(): MonthFormatter {
    * @param {string} [locale] - The locale to use for formatting (defaults to the system locale if not provided).
    * @returns {string} The formatted month string.
    */
-  function monthFormatter(month: number, type = "long", locale?: string): string {
+  function monthFormatter(month: number, type = 'long', locale?: string): string {
     try {
       const intlFormatter = new Intl.DateTimeFormat(
         locale || undefined,
         resolveIntlNameFormat(options, type),
-      );
-      const date = new Date();
-      date.setDate(1);
-      date.setMonth(month);
-      return intlFormatter.format(date);
+      )
+      const date = new Date()
+      date.setDate(1)
+      date.setMonth(month)
+      return intlFormatter.format(date)
     } catch (e: unknown) {
       if (e instanceof Error) {
-        console.error(`Intl.DateTimeFormat: ${e.message} -> month: ${month}`);
+        console.error(`Intl.DateTimeFormat: ${e.message} -> month: ${month}`)
       }
-      return "";
+      return ''
     }
   }
 
-  return monthFormatter;
+  return monthFormatter
 }
 
 /**
@@ -2723,6 +2720,6 @@ export function getMonthFormatter(): MonthFormatter {
  * @returns {string[]} Localized month names in January-first order.
  */
 export function getMonthNames(type: string, locale: string): string[] {
-  const monthFormatter = getMonthFormatter();
-  return [...Array(12).keys()].map((month) => monthFormatter(month, type, locale));
+  const monthFormatter = getMonthFormatter()
+  return [...Array(12).keys()].map((month) => monthFormatter(month, type, locale))
 }

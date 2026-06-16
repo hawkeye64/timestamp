@@ -8,12 +8,12 @@ Timestamp currently treats parsed strings as calendar-style wall-clock values.
 That means a timezone suffix is preserved for caller awareness, but it does not trigger automatic conversion.
 
 ```ts [twoslash]
-import { parseTimestamp } from "@timestamp-js/core";
+import { parseTimestamp } from '@timestamp-js/core'
 
-const timestamp = parseTimestamp("2026-06-08T09:30:15.250-07:00");
+const timestamp = parseTimestamp('2026-06-08T09:30:15.250-07:00')
 
-timestamp?.hour; // 9
-timestamp?.timezone; // -07:00
+timestamp?.hour // 9
+timestamp?.timezone // -07:00
 ```
 
 ## Why no automatic conversion?

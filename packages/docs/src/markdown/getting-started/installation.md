@@ -19,10 +19,10 @@ npm install @timestamp-js/core
 The package is ESM, side-effect free, and designed for tree-shaking. Prefer named imports so bundlers can keep only the helpers your app actually uses.
 
 ```ts
-import { parseTimestamp, today, type Timestamp } from "@timestamp-js/core";
+import { parseTimestamp, today, type Timestamp } from '@timestamp-js/core'
 
-const model = today();
-const timestamp: Timestamp | null = parseTimestamp(model);
+const model = today()
+const timestamp: Timestamp | null = parseTimestamp(model)
 ```
 
 ## Runtime support
@@ -42,5 +42,5 @@ That makes it suitable for:
 Types are shipped with the package and are available from the main export:
 
 ```ts
-import type { Timestamp, TimeObject, DisabledDay } from "@timestamp-js/core";
+import type { Timestamp, TimeObject, DisabledDay } from '@timestamp-js/core'
 ```

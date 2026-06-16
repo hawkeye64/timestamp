@@ -29,17 +29,17 @@ Replace QCalendar-owned or source-path Timestamp imports with direct `@timestamp
 
 ```ts [rem=2-3 add=6]
 // Before: your app imported Timestamp helpers from a UI package or source utility path.
-import { parseTimestamp, today } from "@quasar/quasar-ui-qcalendar";
-import { parseTimestamp, today } from "@quasar/quasar-ui-qcalendar/src/utils/Timestamp";
+import { parseTimestamp, today } from '@quasar/quasar-ui-qcalendar'
+import { parseTimestamp, today } from '@quasar/quasar-ui-qcalendar/src/utils/Timestamp'
 
 // After: your app owns the dependency explicitly.
-import { parseTimestamp, today } from "@timestamp-js/core";
+import { parseTimestamp, today } from '@timestamp-js/core'
 ```
 
 Import types from the same package:
 
 ```ts
-import type { Timestamp, TimeObject, DisabledDay } from "@timestamp-js/core";
+import type { Timestamp, TimeObject, DisabledDay } from '@timestamp-js/core'
 ```
 
 ## Adjust For Immutability
@@ -49,24 +49,24 @@ The standalone package treats Timestamp objects as immutable values. Parsers and
 If older application code changed fields directly, switch to helper functions or create a copied value.
 
 ```ts
-import { addToDate, copyTimestamp, parseTimestamp } from "@timestamp-js/core";
+import { addToDate, copyTimestamp, parseTimestamp } from '@timestamp-js/core'
 
-const current = parseTimestamp("2026-06-08 09:30")!;
+const current = parseTimestamp('2026-06-08 09:30')!
 
 // Prefer date math helpers when changing calendar fields.
-const nextMonth = addToDate(current, { month: 1 });
+const nextMonth = addToDate(current, { month: 1 })
 
 // Use copyTimestamp() when you need a manual field replacement.
-const firstOfMonth = copyTimestamp({ ...current, day: 1 });
+const firstOfMonth = copyTimestamp({ ...current, day: 1 })
 ```
 
 Avoid mutation-style code:
 
 ```ts
-const current = parseTimestamp("2026-06-08")!;
+const current = parseTimestamp('2026-06-08')!
 
 // Avoid this. Timestamp objects are immutable.
-current.day = 1;
+current.day = 1
 ```
 
 ## Keep QCalendar Slot Values Separate
@@ -74,10 +74,10 @@ current.day = 1;
 QCalendar components still pass timestamp-shaped slot and event values where their component API documents them. Treat those objects as component data. If app-level code needs reusable date/time utilities, parse or copy values with `@timestamp-js/core` instead of importing Timestamp helpers from QCalendar.
 
 ```ts
-import { copyTimestamp, type Timestamp } from "@timestamp-js/core";
+import { copyTimestamp, type Timestamp } from '@timestamp-js/core'
 
 function useSlotTimestamp(timestamp: Timestamp): Timestamp {
-  return copyTimestamp(timestamp);
+  return copyTimestamp(timestamp)
 }
 ```
 

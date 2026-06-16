@@ -1,121 +1,121 @@
-import { fabGithub, fabXTwitter } from "@quasar/extras/fontawesome-v7";
-import { version, productName } from "../../package.json";
-import { slugify } from "../.q-press/components/markdown-utils";
+import { fabGithub, fabXTwitter } from '@quasar/extras/fontawesome-v7'
+import { version, productName } from '../../package.json'
+import { slugify } from '../.q-press/components/markdown-utils'
 
 export interface SocialLink {
-  name: string;
-  icon: string;
-  path: string;
-  external?: boolean;
+  name: string
+  icon: string
+  path: string
+  external?: boolean
 }
 
 export interface SiteMenuItem extends MenuItem {
-  about?: string;
-  expanded?: boolean;
-  external?: boolean;
-  children?: SiteMenuItem[];
-  separator?: boolean;
-  header?: string;
-  mq?: number;
-  extract?: string;
-  image?: string;
-  maxWidth?: string;
+  about?: string
+  expanded?: boolean
+  external?: boolean
+  children?: SiteMenuItem[]
+  separator?: boolean
+  header?: string
+  mq?: number
+  extract?: string
+  image?: string
+  maxWidth?: string
 }
 
 export interface LinksConfig {
-  primaryHeaderLinks: SiteMenuItem[];
-  secondaryHeaderLinks: SiteMenuItem[];
-  moreLinks: SiteMenuItem[];
-  footerLinks: SiteMenuItem[];
-  socialLinks: SocialLink[];
-  ecoSystemLinks?: SiteMenuItem[];
+  primaryHeaderLinks: SiteMenuItem[]
+  secondaryHeaderLinks: SiteMenuItem[]
+  moreLinks: SiteMenuItem[]
+  footerLinks: SiteMenuItem[]
+  socialLinks: SocialLink[]
+  ecoSystemLinks?: SiteMenuItem[]
 }
 
 export interface LogoConfig {
-  showLogo: boolean;
-  logoLight: string;
-  logoDark: string;
-  logoAlt: string;
+  showLogo: boolean
+  logoLight: string
+  logoDark: string
+  logoAlt: string
 }
 
 export interface VersionConfig {
-  showTitle: boolean;
-  showVersion: boolean;
-  showOnHeader: boolean;
-  showOnSidebar: boolean;
+  showTitle: boolean
+  showVersion: boolean
+  showOnHeader: boolean
+  showOnSidebar: boolean
 }
 
 export interface UIConfig {
-  usePrimaryHeader: boolean;
-  useSecondaryHeader: boolean;
-  headerHeightHint: number;
-  useMoreLinks: boolean;
-  useFooter: boolean;
-  useSidebar: boolean;
-  useToc: boolean;
+  usePrimaryHeader: boolean
+  useSecondaryHeader: boolean
+  headerHeightHint: number
+  useMoreLinks: boolean
+  useFooter: boolean
+  useSidebar: boolean
+  useToc: boolean
 }
 
 export interface CopyrightConfig {
-  line1: string;
-  line2: string;
+  line1: string
+  line2: string
 }
 
 export interface LicenseConfig {
-  label: string;
-  link: string;
+  label: string
+  link: string
 }
 
 export interface PrivacyConfig {
-  label: string;
-  link: string;
+  label: string
+  link: string
 }
 
 export interface CodepenGlobalPackage {
-  packageName: string;
-  globalName: string;
+  packageName: string
+  globalName: string
 }
 
 export interface CodepenModulePackage {
-  packageName: string;
-  importUrl: string;
+  packageName: string
+  importUrl: string
 }
 
 export interface CodepenConfig {
-  head?: string;
-  cssExternal?: string[];
-  jsExternal?: string[];
-  jsPreProcessor?: string;
-  titleSuffix?: string;
-  jsSetup?: string;
-  globalPackages?: CodepenGlobalPackage[];
-  modulePackages?: CodepenModulePackage[];
+  head?: string
+  cssExternal?: string[]
+  jsExternal?: string[]
+  jsPreProcessor?: string
+  titleSuffix?: string
+  jsSetup?: string
+  globalPackages?: CodepenGlobalPackage[]
+  modulePackages?: CodepenModulePackage[]
 }
 
 export interface SiteConfig {
-  lang: string;
-  title: string;
-  description: string;
-  theme: string;
-  version: string;
-  copyright: CopyrightConfig;
-  githubEditRootSrc: string;
-  githubSourceRootSrc?: string;
-  codepen?: CodepenConfig;
-  license: LicenseConfig;
-  privacy: PrivacyConfig;
-  logoConfig: LogoConfig;
-  versionConfig: VersionConfig;
-  config: UIConfig;
-  links: LinksConfig;
-  sidebar: MenuItem[];
+  lang: string
+  title: string
+  description: string
+  theme: string
+  version: string
+  copyright: CopyrightConfig
+  githubEditRootSrc: string
+  githubSourceRootSrc?: string
+  codepen?: CodepenConfig
+  license: LicenseConfig
+  privacy: PrivacyConfig
+  logoConfig: LogoConfig
+  versionConfig: VersionConfig
+  config: UIConfig
+  links: LinksConfig
+  sidebar: MenuItem[]
 }
 
-function processMenuItem(item: MenuItem, parentPath = ""): MenuItem {
-  const normalizedPath = item.path?.replace(/^\/+/, "") ?? slugify(item.name);
+function processMenuItem(item: MenuItem, parentPath = ''): MenuItem {
+  const normalizedPath = item.path?.replace(/^\/+/, '') ?? slugify(item.name)
   const relativePath =
-    parentPath !== "" && normalizedPath.startsWith(`${parentPath}/`)
+    parentPath !== '' && normalizedPath.startsWith(`${parentPath}/`)
       ? normalizedPath.slice(parentPath.length + 1)
-      : normalizedPath;
+      : normalizedPath
 
   return {
     name: item.name,
@@ -124,47 +124,47 @@ function processMenuItem(item: MenuItem, parentPath = ""): MenuItem {
     children: item.children
       ? item.children.map((child) => processMenuItem(child, normalizedPath))
       : undefined,
-  };
+  }
 }
 
 const socialLinks = {
-  name: "Social",
+  name: 'Social',
   mq: 1400,
   children: [
     {
-      name: "GitHub",
+      name: 'GitHub',
       icon: fabGithub,
-      path: "https://github.com/hawkeye64/timestamp",
+      path: 'https://github.com/hawkeye64/timestamp',
       external: true,
     },
     {
-      name: "X (Twitter)",
+      name: 'X (Twitter)',
       icon: fabXTwitter,
-      path: "https://twitter.com/jgalbraith64",
+      path: 'https://twitter.com/jgalbraith64',
       external: true,
     },
   ] as SocialLink[],
-};
+}
 
 const netlifyLink = {
-  path: "https://www.netlify.com",
+  path: 'https://www.netlify.com',
   external: true,
-  image: "https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg",
-  name: "Deploys by Netlify",
-  maxWidth: "120px",
-};
+  image: 'https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg',
+  name: 'Deploys by Netlify',
+  maxWidth: '120px',
+}
 
 const sponsorLink = {
-  path: "https://github.com/sponsors/hawkeye64",
+  path: 'https://github.com/sponsors/hawkeye64',
   external: true,
-  image: "https://github.com/hawkeye64.png?size=96",
-  name: "Sponsor Jeff",
-  maxWidth: "24px",
-};
+  image: 'https://github.com/hawkeye64.png?size=96',
+  name: 'Sponsor Jeff',
+  maxWidth: '24px',
+}
 
 const footerLinks = [
   {
-    name: "Sponsors",
+    name: 'Sponsors',
     children: [
       {
         name: netlifyLink.name,
@@ -186,100 +186,100 @@ const footerLinks = [
     name: socialLinks.name,
     children: [...socialLinks.children],
   },
-];
+]
 
 const gettingStartedMenu: SiteMenuItem = {
-  name: "Getting Started",
+  name: 'Getting Started',
   mq: 470,
   children: [
-    { name: "Introduction", path: "/getting-started/introduction" },
-    { name: "Installation", path: "/getting-started/installation" },
-    { name: "Parsing", path: "/getting-started/parsing" },
-    { name: "Immutability", path: "/getting-started/immutability" },
-    { name: "SSR", path: "/getting-started/ssr" },
+    { name: 'Introduction', path: '/getting-started/introduction' },
+    { name: 'Installation', path: '/getting-started/installation' },
+    { name: 'Parsing', path: '/getting-started/parsing' },
+    { name: 'Immutability', path: '/getting-started/immutability' },
+    { name: 'SSR', path: '/getting-started/ssr' },
   ],
-};
+}
 
 const apiMenu: SiteMenuItem = {
-  name: "API",
+  name: 'API',
   mq: 600,
   children: [
-    { name: "Timestamp API", path: "/api/timestamp-api" },
-    { name: "Timestamp Object", path: "/api/timestamp-object" },
-    { name: "Calendar Helpers", path: "/api/calendar-helpers" },
-    { name: "Comparisons", path: "/api/comparisons" },
+    { name: 'Timestamp API', path: '/api/timestamp-api' },
+    { name: 'Timestamp Object', path: '/api/timestamp-object' },
+    { name: 'Calendar Helpers', path: '/api/calendar-helpers' },
+    { name: 'Comparisons', path: '/api/comparisons' },
   ],
-};
+}
 
 const developingMenu: SiteMenuItem = {
-  name: "Developing",
+  name: 'Developing',
   mq: 780,
   children: [
-    { name: "Parsing + Formatting", path: "/developing/parsing-and-formatting" },
-    { name: "Validation + Boundaries", path: "/developing/validation-and-boundaries" },
-    { name: "Date Math", path: "/developing/date-math" },
-    { name: "Intervals + Lists", path: "/developing/intervals-and-lists" },
-    { name: "Comparisons + Ranges", path: "/developing/comparisons-and-ranges" },
-    { name: "SSR + Runtime", path: "/developing/ssr-and-runtime" },
-    { name: "Timezone Model", path: "/developing/timezone-model" },
+    { name: 'Parsing + Formatting', path: '/developing/parsing-and-formatting' },
+    { name: 'Validation + Boundaries', path: '/developing/validation-and-boundaries' },
+    { name: 'Date Math', path: '/developing/date-math' },
+    { name: 'Intervals + Lists', path: '/developing/intervals-and-lists' },
+    { name: 'Comparisons + Ranges', path: '/developing/comparisons-and-ranges' },
+    { name: 'SSR + Runtime', path: '/developing/ssr-and-runtime' },
+    { name: 'Timezone Model', path: '/developing/timezone-model' },
   ],
-};
+}
 
 const otherMenu: SiteMenuItem = {
-  name: "Other",
+  name: 'Other',
   mq: 910,
   children: [
-    { name: "Releases", path: "/other/releases" },
-    { name: "Upgrade Guide", path: "/other/upgrade-guide" },
-    { name: "FAQ", path: "/other/faq" },
-    { name: "Contact", path: "/other/contact" },
+    { name: 'Releases', path: '/other/releases' },
+    { name: 'Upgrade Guide', path: '/other/upgrade-guide' },
+    { name: 'FAQ', path: '/other/faq' },
+    { name: 'Contact', path: '/other/contact' },
     {
-      name: "Contributing",
+      name: 'Contributing',
       children: [
-        { name: "Overview", path: "/other/contributing/overview" },
+        { name: 'Overview', path: '/other/contributing/overview' },
         {
-          name: "Bugs and Feature Requests",
-          path: "/other/contributing/bugs-and-feature-requests",
+          name: 'Bugs and Feature Requests',
+          path: '/other/contributing/bugs-and-feature-requests',
         },
-        { name: "Documentation", path: "/other/contributing/documentation" },
-        { name: "Sponsor", path: "/other/contributing/sponsor" },
+        { name: 'Documentation', path: '/other/contributing/documentation' },
+        { name: 'Sponsor', path: '/other/contributing/sponsor' },
       ],
     },
   ],
-};
+}
 
 export const sidebar: MenuItem[] = [
   processMenuItem(gettingStartedMenu),
   processMenuItem(apiMenu),
   processMenuItem(developingMenu),
   processMenuItem(otherMenu),
-];
+]
 
 const siteConfig: SiteConfig = {
-  lang: "en-US",
+  lang: 'en-US',
   title: productName,
-  description: "Immutable date, time, interval, and range helpers for JavaScript and TypeScript.",
-  theme: "sunrise",
+  description: 'Immutable date, time, interval, and range helpers for JavaScript and TypeScript.',
+  theme: 'sunrise',
   version,
   copyright: {
-    line1: "MIT License",
-    line2: "Copyright (c) Jeff Galbraith",
+    line1: 'MIT License',
+    line2: 'Copyright (c) Jeff Galbraith',
   },
-  githubEditRootSrc: "https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src",
-  githubSourceRootSrc: "https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src",
+  githubEditRootSrc: 'https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src',
+  githubSourceRootSrc: 'https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src',
   license: {
-    label: "MIT",
-    link: "https://github.com/hawkeye64/timestamp/blob/master/LICENSE",
+    label: 'MIT',
+    link: 'https://github.com/hawkeye64/timestamp/blob/master/LICENSE',
   },
   privacy: {
-    label: "Privacy",
-    link: "/privacy-policy",
+    label: 'Privacy',
+    link: '/privacy-policy',
   },
   logoConfig: {
     showLogo: true,
-    logoLight: "/timestamp-logo.svg",
-    logoDark: "/timestamp-logo.svg",
-    logoAlt: "Timestamp",
+    logoLight: '/timestamp-logo.svg',
+    logoDark: '/timestamp-logo.svg',
+    logoAlt: 'Timestamp',
   },
   versionConfig: {
     showTitle: true,
@@ -301,7 +301,7 @@ const siteConfig: SiteConfig = {
     secondaryHeaderLinks: [gettingStartedMenu, apiMenu, developingMenu, otherMenu],
     moreLinks: [
       {
-        name: "More",
+        name: 'More',
         children: [gettingStartedMenu, apiMenu, developingMenu, otherMenu, socialLinks],
       },
     ],
@@ -309,6 +309,6 @@ const siteConfig: SiteConfig = {
     socialLinks: socialLinks.children,
   },
   sidebar,
-};
+}
 
-export default siteConfig;
+export default siteConfig
