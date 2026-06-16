@@ -7,13 +7,19 @@
     "code": {
       "type": "String",
       "desc": "Clean source code to copy. When omitted, the component falls back to reading the rendered code block.",
-      "examples": ["'const count = 1'"],
+      "examples": [
+        "'const count = 1'"
+      ],
       "category": "content"
     },
     "lang": {
       "type": "String",
       "desc": "Language of the code block to copy",
-      "examples": ["'js'", "'html'", "'css'"],
+      "examples": [
+        "'js'",
+        "'html'",
+        "'css'"
+      ],
       "category": "content"
     }
   },
