@@ -1,5 +1,6 @@
 import { defineConfig } from '@quasar/app-vite'
 import { viteMdPlugin, type MenuItem } from '@md-plugins/vite-md-plugin'
+import { viteSearchPlugin } from '@md-plugins/vite-search-plugin'
 import { viteSsgPlugin } from '@md-plugins/vite-ssg-plugin'
 import type { Plugin } from 'vite'
 
@@ -44,6 +45,12 @@ export default defineConfig(async (ctx) => {
             root: ctx.appPaths.srcDir + '/markdown',
           },
         }) as unknown as Plugin,
+        viteSearchPlugin({
+          markdown: {
+            root: ctx.appPaths.srcDir + '/markdown',
+            exclude: ['__*.md'],
+          },
+        }),
         [
           'vite-plugin-checker',
           {

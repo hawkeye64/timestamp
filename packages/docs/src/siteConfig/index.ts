@@ -190,7 +190,7 @@ const footerLinks = [
 
 const gettingStartedMenu: SiteMenuItem = {
   name: 'Getting Started',
-  mq: 470,
+  mq: 820,
   children: [
     { name: 'Introduction', path: '/getting-started/introduction' },
     { name: 'Installation', path: '/getting-started/installation' },
@@ -202,7 +202,7 @@ const gettingStartedMenu: SiteMenuItem = {
 
 const apiMenu: SiteMenuItem = {
   name: 'API',
-  mq: 600,
+  mq: 900,
   children: [
     { name: 'Timestamp API', path: '/api/timestamp-api' },
     { name: 'Timestamp Object', path: '/api/timestamp-object' },
@@ -213,7 +213,7 @@ const apiMenu: SiteMenuItem = {
 
 const developingMenu: SiteMenuItem = {
   name: 'Developing',
-  mq: 780,
+  mq: 1060,
   children: [
     { name: 'Parsing + Formatting', path: '/developing/parsing-and-formatting' },
     { name: 'Validation + Boundaries', path: '/developing/validation-and-boundaries' },
@@ -227,7 +227,7 @@ const developingMenu: SiteMenuItem = {
 
 const otherMenu: SiteMenuItem = {
   name: 'Other',
-  mq: 910,
+  mq: 1220,
   children: [
     { name: 'Releases', path: '/other/releases' },
     { name: 'Upgrade Guide', path: '/other/upgrade-guide' },
