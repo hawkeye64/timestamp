@@ -5,6 +5,12 @@ desc: Add Timestamp to a project
 
 Install the core package from npm:
 
+::: steps
+
+## Install the package
+
+Add `@timestamp-js/core` with your preferred package manager.
+
 ```tabs
 <<| bash pnpm |>>
 pnpm add @timestamp-js/core
@@ -16,6 +22,8 @@ yarn add @timestamp-js/core
 npm install @timestamp-js/core
 ```
 
+## Import only the helpers you need
+
 The package is ESM, side-effect free, and designed for tree-shaking. Prefer named imports so bundlers can keep only the helpers your app actually uses.
 
 ```ts
@@ -24,6 +32,11 @@ import { parseTimestamp, today, type Timestamp } from '@timestamp-js/core'
 const model = today()
 const timestamp: Timestamp | null = parseTimestamp(model)
 ```
+
+## Confirm the runtime target
+
+Timestamp uses standard JavaScript runtime APIs, so it is suitable for browser, Node.js, SSR, SSG, serverless, and edge-style environments.
+:::
 
 ## Runtime support
 
