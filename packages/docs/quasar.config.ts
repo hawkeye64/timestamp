@@ -1,4 +1,4 @@
-import { defineConfig } from '@quasar/app-vite'
+import { defineConfig } from '#q-app'
 import { viteMdPlugin, type MenuItem } from '@md-plugins/vite-md-plugin'
 import { viteSearchPlugin } from '@md-plugins/vite-search-plugin'
 import { viteSsgPlugin } from '@md-plugins/vite-ssg-plugin'
