@@ -39,10 +39,11 @@ minimumReleaseAgeExclude:
   - '@vue/runtime-dom@3.5.38'
   - '@vue/server-renderer@3.5.38'
   - '@vue/shared@3.5.38'
+  - npm-check-updates
   - 'oxfmt@0.53.0'
   - 'oxlint@1.68.0'
   - 'quasar@2.20.0'
-  - 'semver'
+  - semver
   - 'typescript@6.0.3'
   - 'vite-plugin-checker@0.14.4'
   - 'vitest@4.1.8'

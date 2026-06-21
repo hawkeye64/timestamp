@@ -51,7 +51,7 @@
     "prepack": "pnpm build"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
+    "@types/node": "26.0.0",
     "oxfmt": "0.55.0",
     "oxlint": "1.70.0",
     "typescript": "6.0.3",
@@ -61,5 +61,5 @@
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@11.7.0"
+  "packageManager": "pnpm@11.8.0"
 }
