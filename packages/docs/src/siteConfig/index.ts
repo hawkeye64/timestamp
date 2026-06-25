@@ -111,11 +111,18 @@ export interface SiteConfig {
 }
 
 function processMenuItem(item: MenuItem, parentPath = ''): MenuItem {
-  const normalizedPath = item.path?.replace(/^\/+/, '') ?? slugify(item.name)
-  const relativePath =
-    parentPath !== '' && normalizedPath.startsWith(`${parentPath}/`)
-      ? normalizedPath.slice(parentPath.length + 1)
-      : normalizedPath
+  const isPathlessGroup = item.path === ''
+  const normalizedPath = isPathlessGroup
+    ? parentPath
+    : (item.path?.replace(/^\/+/, '') ?? slugify(item.name))
+  let relativePath = ''
+
+  if (isPathlessGroup === false) {
+    relativePath =
+      parentPath !== '' && normalizedPath.startsWith(`${parentPath}/`)
+        ? normalizedPath.slice(parentPath.length + 1)
+        : normalizedPath
+  }
 
   return {
     name: item.name,
