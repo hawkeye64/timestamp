@@ -1,0 +1,31 @@
+{
+  "api": {
+    "entries": [
+      {
+        "docsUrl": "/api/timestamp-api",
+        "group": "functions",
+        "input": "packages/lib/src/index.ts",
+        "output": "packages/docs/src/api/Timestamp.json",
+        "type": "plugin"
+      },
+      {
+        "docsUrl": "/api/islamic-calendar-api",
+        "group": "functions",
+        "input": "packages/calendar-islamic/src/index.ts",
+        "output": "packages/docs/src/api/IslamicCalendar.json",
+        "type": "plugin"
+      },
+      {
+        "docsUrl": "/api/saka-calendar-api",
+        "group": "functions",
+        "input": "packages/calendar-saka/src/index.ts",
+        "output": "packages/docs/src/api/SakaCalendar.json",
+        "type": "plugin"
+      }
+    ]
+  },
+  "check": {
+    "apiDir": "api",
+    "srcDir": "packages/docs/src"
+  }
+}

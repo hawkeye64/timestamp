@@ -28,4 +28,6 @@ console.log(end ? getDateTime(end) : 'Invalid date')
 
 ## What Timestamp is not
 
-Timestamp is not trying to replace every date library. It does not currently provide full timezone conversion, duration formatting, relative phrase formatting, or non-Gregorian calendar systems.
+Timestamp is not trying to replace every date library. It does not currently provide full timezone
+conversion, duration phrase formatting, or relative phrase formatting. Non-Gregorian calendar
+support is available through optional adapter packages and is still being proven against QCalendar.

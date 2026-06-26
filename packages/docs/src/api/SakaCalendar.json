@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-06-26T17:50:46.165Z",
+  "type": "plugin",
+  "meta": {
+    "docsUrl": "/api/saka-calendar-api"
+  },
+  "functions": {
+    "isSakaLeapYear": {
+      "desc": "Returns true when the Saka year begins in a Gregorian leap year.",
+      "params": {
+        "year": {
+          "desc": "Saka year number.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        }
+      },
+      "tsSignature": "function isSakaLeapYear(year: number): boolean",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "True when Chaitra has 31 days.",
+        "type": "boolean",
+        "tsType": "boolean"
+      }
+    },
+    "sakaDaysInMonth": {
+      "desc": "Returns days in an Indian National Calendar (Saka) month.",
+      "params": {
+        "year": {
+          "desc": "Saka year number.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "month": {
+          "desc": "Saka month number, where Chaitra is `1`.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        }
+      },
+      "tsSignature": "function sakaDaysInMonth(year: number, month: number): number",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "Number of days in the month, or `0` for an invalid month number.",
+        "type": "number",
+        "tsType": "number"
+      }
+    }
+  }
+}
