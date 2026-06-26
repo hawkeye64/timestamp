@@ -1,0 +1,71 @@
+{
+  "name": "@timestamp-js/calendar-saka",
+  "version": "0.1.0-rc.0",
+  "description": "Indian National Calendar (Saka) adapter for Timestamp.",
+  "keywords": [
+    "calendar",
+    "date",
+    "indian",
+    "saka",
+    "timestamp",
+    "typescript"
+  ],
+  "homepage": "https://github.com/hawkeye64/timestamp#readme",
+  "bugs": {
+    "url": "https://github.com/hawkeye64/timestamp/issues"
+  },
+  "license": "MIT",
+  "author": "Jeff <galbraith64@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hawkeye64/timestamp.git"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rm -rf dist node_modules",
+    "prebuild": "pnpm --filter @timestamp-js/core build",
+    "build": "tsc -p tsconfig.build.json",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "pretest": "pnpm --filter @timestamp-js/core build",
+    "test": "vitest run",
+    "pretypecheck": "pnpm --filter @timestamp-js/core build",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@timestamp-js/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.0.0",
+    "oxfmt": "0.56.0",
+    "oxlint": "1.71.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.9"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.5.0"
+  },
+  "packageManager": "pnpm@11.8.0"
+}
