@@ -65,9 +65,11 @@
           type="button"
           class="timestamp-calendar-example__month-name"
           :class="{
-            'timestamp-calendar-example__month-name--selected': month.month === selectedMonth,
+            'timestamp-calendar-example__month-name--selected':
+              month.month === selectedMonthInfo.month,
           }"
-          @click="selectedMonth = month.month"
+          :aria-pressed="month.month === selectedMonthInfo.month"
+          @click="selectMonth(month.month)"
         >
           <span>{{ month.number }}</span>
           <strong>{{ month.label }}</strong>
@@ -75,7 +77,7 @@
         </button>
       </div>
 
-      <h4>Days in {{ selectedMonthLabel }}</h4>
+      <h4>Days in {{ selectedMonthInfo.number }} {{ selectedMonthInfo.label }}</h4>
       <div class="timestamp-calendar-example__month" dir="rtl" lang="ar">
         <div
           v-for="day in monthDays"
@@ -112,6 +114,13 @@ type LocaleWithWeekInfo = Intl.Locale & {
   }
 }
 
+interface CalendarMonthOption {
+  month: number
+  number: string
+  label: string
+  days: string
+}
+
 const calendar = islamicCivilCalendar
 const locale = 'ar-SA-u-ca-islamic-civil'
 const weekdays = getLocaleWeekdays(locale)
@@ -143,20 +152,15 @@ const monthEnd = computed(() => getCalendarEndOfMonth(monthAnchor.value, calenda
 const monthDays = computed(() =>
   createCalendarDayList(monthStart.value, monthEnd.value, visible, calendar),
 )
-const selectedMonthLabel = computed(() =>
-  getLocalizedMonthLabel({ year: visible.year, month: selectedMonth.value, day: 15 }),
-)
 const yearMonths = computed(() =>
-  Array.from({ length: calendar.monthsInYear(visible.year) }, (_value, index) => {
-    const month = index + 1
-
-    return {
-      month,
-      number: numberFormatter.format(month),
-      label: getLocalizedMonthLabel({ year: visible.year, month, day: 15 }),
-      days: dayCountFormatter.format(calendar.daysInMonth(visible.year, month)),
-    }
-  }),
+  Array.from({ length: calendar.monthsInYear(visible.year) }, (_value, index) =>
+    createMonthOption(index + 1),
+  ),
+)
+const selectedMonthInfo = computed<CalendarMonthOption>(
+  () =>
+    yearMonths.value.find((month) => month.month === selectedMonth.value) ??
+    createMonthOption(selectedMonth.value),
 )
 
 function parseRequired(value: string): Timestamp {
@@ -175,6 +179,19 @@ function toGregorianDate(timestamp: Timestamp): string {
 
 function getLocalizedMonthLabel(date: CalendarDateParts): string {
   return monthFormatter.format(new Date(calendar.toEpochDay(date) * 86400000))
+}
+
+function createMonthOption(month: number): CalendarMonthOption {
+  return {
+    month,
+    number: numberFormatter.format(month),
+    label: getLocalizedMonthLabel({ year: visible.year, month, day: 15 }),
+    days: dayCountFormatter.format(calendar.daysInMonth(visible.year, month)),
+  }
+}
+
+function selectMonth(month: number): void {
+  selectedMonth.value = month
 }
 
 function getWeekdayLabel(weekday: number | undefined): string {

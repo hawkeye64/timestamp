@@ -1,9 +1,9 @@
 # @timestamp-js/calendar-islamic
 
-Islamic calendar adapters for `@timestamp-js/core`.
+Islamic/Hijri calendar adapters for `@timestamp-js/core`.
 
-The initial adapter is `islamicCivilCalendar`, a deterministic tabular Islamic civil calendar. It
-does not model observational Hijri calendars or Umm al-Qura adjustments.
+The initial adapter is `islamicCivilCalendar`, a deterministic tabular Islamic civil/Hijri calendar.
+It does not model observational Hijri calendars or Umm al-Qura adjustments.
 
 ```ts
 import {

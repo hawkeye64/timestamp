@@ -231,7 +231,7 @@ const developingMenu: SiteMenuItem = {
       name: 'Calendar Systems',
       path: '/developing/calendar-systems',
       children: [
-        { name: 'Islamic Civil', path: '/developing/calendar-systems/islamic-civil' },
+        { name: 'Islamic Civil (Hijri)', path: '/developing/calendar-systems/islamic-civil' },
         { name: 'Saka', path: '/developing/calendar-systems/saka' },
       ],
     },

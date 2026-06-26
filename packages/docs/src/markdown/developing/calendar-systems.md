@@ -36,8 +36,8 @@ adapter packages for Islamic civil and Indian National/Saka dates. Optional adap
 `CalendarSystem` contract, which keeps the conversion surface small while letting each package own
 its calendar rules.
 
-- [Islamic Civil](/developing/calendar-systems/islamic-civil) documents the deterministic tabular
-  Islamic civil calendar, including Arabic labels, RTL presentation, and native week/month ranges.
+- [Islamic Civil (Hijri)](/developing/calendar-systems/islamic-civil) documents the deterministic
+  tabular Hijri calendar, including Arabic labels, RTL presentation, and native week/month ranges.
 - [Saka](/developing/calendar-systems/saka) documents the Indian National Calendar adapter,
   including locale-aware labels and native week/month ranges.
 
@@ -135,6 +135,18 @@ range comparisons.
 
 That means Islamic/Hijri, Hebrew, Chinese, Indian National/Saka, and similar calendars should be
 treated as first-class adapter work, not only as translated Gregorian dates.
+
+## Temporal
+
+Temporal is the right ecosystem direction to watch. `Temporal.PlainDate` carries calendar-system
+metadata, and Temporal is designed to replace the older JavaScript `Date` model. Timestamp is keeping
+its adapter contract small for now because Temporal is still not available in every target browser,
+and QCalendar-style views need deterministic adapter rules for range generation, list generation,
+and package-level tree shaking.
+
+The current adapter shape should stay easy to bridge later: adapters already convert their
+year/month/day fields through a stable serial day, which is the same boundary QCalendar needs when
+different calendar systems eventually share the same view code.
 
 ## Integration status
 

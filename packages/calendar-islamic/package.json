@@ -1,7 +1,7 @@
 {
   "name": "@timestamp-js/calendar-islamic",
   "version": "0.1.0-rc.1",
-  "description": "Islamic calendar adapters for Timestamp.",
+  "description": "Islamic/Hijri calendar adapters for Timestamp.",
   "keywords": [
     "calendar",
     "date",

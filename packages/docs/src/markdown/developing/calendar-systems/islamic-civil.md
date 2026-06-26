@@ -1,13 +1,13 @@
 ---
-title: Islamic Civil Calendar
-desc: Working with deterministic tabular Islamic civil dates
+title: Islamic Civil (Hijri) Calendar
+desc: Working with deterministic tabular Hijri dates
 keys: developing
 examples: CalendarSystems
 ---
 
 The `@timestamp-js/calendar-islamic` package exports `islamicCivilCalendar`, a deterministic
-tabular Islamic civil calendar. It is designed for repeatable date math, range generation, and UI
-views that need a Hijri-shaped calendar without depending on observation data.
+tabular Islamic civil/Hijri calendar. It is designed for repeatable date math, range generation, and
+UI views that need a Hijri-shaped calendar without depending on observation data.
 
 This adapter intentionally does not model observational Hijri calendars or Umm al-Qura adjustments.
 Those should be separate adapters because their rules and supported date ranges are different.
