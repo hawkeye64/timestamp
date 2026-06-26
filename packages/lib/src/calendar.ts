@@ -1,4 +1,6 @@
 const MILLISECONDS_IN_DAY = 86400000
+const GREGORIAN_DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+const GREGORIAN_DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 /**
  * Stable identifier for a calendar implementation.
@@ -154,7 +156,9 @@ export const gregorianCalendar: CalendarSystem = Object.freeze({
   },
 
   daysInMonth(year: number, month: number) {
-    return new Date(Date.UTC(year, month, 0)).getUTCDate()
+    return (
+      this.isLeapYear(year) ? GREGORIAN_DAYS_IN_MONTH_LEAP[month] : GREGORIAN_DAYS_IN_MONTH[month]
+    ) as number
   },
 
   toEpochDay(date: CalendarDateParts) {

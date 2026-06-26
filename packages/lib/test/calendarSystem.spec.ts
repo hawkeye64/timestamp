@@ -7,6 +7,7 @@ describe('[TIMESTAMP] calendar systems', () => {
     expect(gregorianCalendar.intlCalendar).toBe('gregory')
     expect(gregorianCalendar.monthsInYear(2026)).toBe(12)
     expect(gregorianCalendar.isLeapYear(2024)).toBe(true)
+    expect(gregorianCalendar.daysInMonth(2024, 0)).toBe(0)
     expect(gregorianCalendar.daysInMonth(2024, 2)).toBe(29)
     expect(gregorianCalendar.daysInMonth(2025, 2)).toBe(28)
   })
