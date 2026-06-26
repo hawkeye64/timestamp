@@ -1,3 +1,9 @@
+import { gregorianCalendar } from './calendar'
+import type { CalendarDateParts, CalendarSystem } from './calendar'
+
+export { formatCalendarDate, gregorianCalendar } from './calendar'
+export type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
+
 /**
  * Matches supported date and date-time input.
  *
@@ -513,6 +519,16 @@ function cloneTimestamp(timestamp: Timestamp): MutableTimestamp {
   return { ...timestamp }
 }
 
+function toCalendarDateParts(
+  timestamp: Pick<Timestamp, 'year' | 'month' | 'day'>,
+): CalendarDateParts {
+  return {
+    year: timestamp.year,
+    month: timestamp.month,
+    day: timestamp.day,
+  }
+}
+
 function parseMillisecond(value: string | undefined): number | undefined {
   return value === undefined ? undefined : parseInt(value.padEnd(3, '0'), 10)
 }
@@ -677,9 +693,7 @@ export function padNumber(x: number, length: number): string {
  * @returns {boolean} True if the year is a leap year
  */
 export function isLeapYear(year: number): boolean {
-  // A year is a Gregorian leap year if it is divisible by 4,
-  // but not by 100, unless it is also divisible by 400.
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+  return gregorianCalendar.isLeapYear(year)
 }
 
 /**
@@ -689,7 +703,7 @@ export function isLeapYear(year: number): boolean {
  * @returns {number} The number of days in the month (corrected for leap years)
  */
 export function daysInMonth(year: number, month: number): number {
-  return (isLeapYear(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month]) as number
+  return gregorianCalendar.daysInMonth(year, month)
 }
 
 /**
@@ -699,13 +713,13 @@ export function daysInMonth(year: number, month: number): number {
  * @returns {Timestamp} New Timestamp representing the next day.
  */
 export function nextDay(timestamp: Timestamp): Timestamp {
-  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day + 1)
+  const date = gregorianCalendar.nextDay(toCalendarDateParts(timestamp))
   return updateFormatted(
     normalizeTimestamp({
       ...timestamp,
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
+      year: date.year,
+      month: date.month,
+      day: date.day,
     }),
   )
 }
@@ -717,13 +731,13 @@ export function nextDay(timestamp: Timestamp): Timestamp {
  * @returns {Timestamp} New Timestamp representing the previous day.
  */
 export function prevDay(timestamp: Timestamp): Timestamp {
-  const date = new Date(timestamp.year, timestamp.month - 1, timestamp.day - 1)
+  const date = gregorianCalendar.prevDay(toCalendarDateParts(timestamp))
   return updateFormatted(
     normalizeTimestamp({
       ...timestamp,
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
+      year: date.year,
+      month: date.month,
+      day: date.day,
     }),
   )
 }
@@ -1021,6 +1035,24 @@ export function getDayIdentifier(timestamp: Timestamp): number {
     (timestamp.month ?? 0) * 1000000 +
     (timestamp.day ?? 0) * 10000
   )
+}
+
+/**
+ * Converts a Timestamp date into a stable serial day for a calendar system.
+ *
+ * The default Gregorian value is the number of UTC days since 1970-01-01.
+ * Alternate calendar adapters should map their year/month/day fields to the
+ * same serial day space so ranges and comparisons can be calendar-agnostic.
+ *
+ * @param {Timestamp} timestamp Timestamp object to read.
+ * @param {CalendarSystem=} calendar Calendar implementation to use.
+ * @returns {number} Stable serial day.
+ */
+export function getEpochDay(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): number {
+  return calendar.toEpochDay(toCalendarDateParts(timestamp))
 }
 
 /**
@@ -1334,14 +1366,7 @@ export function updateFormatted(timestamp: Timestamp): Timestamp {
  */
 export function getDayOfYear(timestamp: Timestamp): number | void {
   if (timestamp.year === 0) return
-  return (
-    (Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day) -
-      Date.UTC(timestamp.year, 0, 0)) /
-    24 /
-    60 /
-    60 /
-    1000
-  )
+  return gregorianCalendar.getDayOfYear(toCalendarDateParts(timestamp))
 }
 
 /**
@@ -1386,22 +1411,7 @@ export function getWorkWeek(timestamp: Timestamp): number {
 export function getWeekday(timestamp: Timestamp): number {
   let weekday = timestamp.weekday
   if (timestamp.hasDay) {
-    const floor = Math.floor
-    const day = timestamp.day
-    const month = ((timestamp.month + 9) % MONTH_MAX) + 1
-    const century = floor(timestamp.year / 100)
-    const year = (timestamp.year % 100) - (timestamp.month <= 2 ? 1 : 0)
-
-    weekday =
-      (((day +
-        floor(2.6 * month - 0.2) -
-        2 * century +
-        year +
-        floor(year / 4) +
-        floor(century / 4)) %
-        7) +
-        7) %
-      7
+    weekday = gregorianCalendar.getWeekday(toCalendarDateParts(timestamp))
   }
 
   return weekday ?? 0
@@ -1948,7 +1958,7 @@ function getTimestampSortValue(timestamp: Timestamp, useTime: boolean): number {
     return toUnixMilliseconds(timestamp)
   }
 
-  return Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day)
+  return getEpochDay(timestamp) * MILLISECONDS_IN_DAY
 }
 
 function compareTimestampOrder(first: Timestamp, second: Timestamp, useTime: boolean): number {
