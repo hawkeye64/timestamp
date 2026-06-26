@@ -29,6 +29,25 @@ Keep `@timestamp-js/core` small and predictable:
 
 This keeps existing users on one package while making advanced calendar support opt-in.
 
+## Islamic civil adapter
+
+The first optional adapter package is `@timestamp-js/calendar-islamic`. It exports
+`islamicCivilCalendar`, a deterministic tabular Islamic civil calendar:
+
+```ts
+import { gregorianCalendar } from '@timestamp-js/core'
+import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
+
+const ramadan = { year: 1445, month: 9, day: 1 }
+const gregorian = gregorianCalendar.fromEpochDay(islamicCivilCalendar.toEpochDay(ramadan))
+
+gregorian // { year: 2024, month: 3, day: 11 }
+```
+
+This adapter is intentionally arithmetic. It does not model observational Hijri calendars or
+Umm al-Qura adjustments. Those should be separate adapters because their rules and supported date
+ranges are different.
+
 ## Adapter contract
 
 A calendar adapter needs to answer questions that are calendar-specific:
@@ -90,7 +109,8 @@ treated as first-class adapter work, not only as translated Gregorian dates.
 
 ## Current limitation
 
-The current top-level helpers still assume Gregorian Timestamp fields. The adapter foundation is in
-place, but only the Gregorian adapter is wired through the existing helpers. Non-Gregorian support
-should be added incrementally with tests for parsing, month lengths, next/previous day movement,
-range comparison, disabled days, and list generation before a calendar package is considered stable.
+The current top-level helpers still assume Gregorian Timestamp fields. The adapter foundation and an
+Islamic civil adapter package are in place, but only the Gregorian adapter is wired through the
+existing helpers. Non-Gregorian support should be added incrementally with tests for parsing, month
+lengths, next/previous day movement, range comparison, disabled days, and list generation before a
+calendar package is considered stable.

@@ -225,6 +225,7 @@ const developingMenu: SiteMenuItem = {
     { name: 'Parsing + Formatting', path: '/developing/parsing-and-formatting' },
     { name: 'Validation + Boundaries', path: '/developing/validation-and-boundaries' },
     { name: 'Date Math', path: '/developing/date-math' },
+    { name: 'Calendar Systems', path: '/developing/calendar-systems' },
     { name: 'Intervals + Lists', path: '/developing/intervals-and-lists' },
     { name: 'Comparisons + Ranges', path: '/developing/comparisons-and-ranges' },
     { name: 'SSR + Runtime', path: '/developing/ssr-and-runtime' },
