@@ -1,0 +1,17 @@
+{
+  "api": {
+    "entries": [
+      {
+        "docsUrl": "/api/timestamp-api",
+        "group": "functions",
+        "input": "packages/lib/src/index.ts",
+        "output": "packages/docs/src/api/Timestamp.json",
+        "type": "plugin"
+      }
+    ]
+  },
+  "check": {
+    "apiDir": "api",
+    "srcDir": "packages/docs/src"
+  }
+}

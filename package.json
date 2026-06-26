@@ -23,7 +23,7 @@
     "typecheck": "pnpm --filter @timestamp-js/core build && pnpm --filter @timestamp-js/core typecheck && pnpm --filter @timestamp-js/calendar-islamic typecheck && pnpm --filter @timestamp-js/docs typecheck",
     "check:all": "pnpm verify",
     "verify": "pnpm verify:fast && pnpm verify:build",
-    "verify:fast": "pnpm format:check && pnpm lint && pnpm test && pnpm test:tz",
+    "verify:fast": "pnpm format:check && pnpm lint && pnpm --filter @timestamp-js/docs check:qpress && pnpm test && pnpm test:tz",
     "verify:build": "pnpm build && pnpm typecheck",
     "ci:publish": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master",
     "ci:publish:alpha": "pnpm --filter @timestamp-js/core publish --access public --publish-branch master --tag alpha",
