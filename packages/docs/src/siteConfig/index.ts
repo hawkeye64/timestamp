@@ -95,7 +95,6 @@ export interface SiteConfig {
   lang: string
   title: string
   description: string
-  theme: string
   version: string
   copyright: CopyrightConfig
   githubEditRootSrc: string
@@ -276,7 +275,6 @@ const siteConfig: SiteConfig = {
   lang: 'en-US',
   title: productName,
   description: 'Immutable date, time, interval, and range helpers for JavaScript and TypeScript.',
-  theme: 'sunrise',
   version,
   copyright: {
     line1: 'MIT License',
