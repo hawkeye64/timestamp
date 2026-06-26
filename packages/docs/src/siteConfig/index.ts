@@ -212,6 +212,8 @@ const apiMenu: SiteMenuItem = {
   mq: 900,
   children: [
     { name: 'Timestamp API', path: '/api/timestamp-api' },
+    { name: 'Islamic Calendar API', path: '/api/islamic-calendar-api' },
+    { name: 'Saka Calendar API', path: '/api/saka-calendar-api' },
     { name: 'Timestamp Object', path: '/api/timestamp-object' },
     { name: 'Calendar Helpers', path: '/api/calendar-helpers' },
     { name: 'Comparisons', path: '/api/comparisons' },

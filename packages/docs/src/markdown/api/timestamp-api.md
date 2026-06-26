@@ -12,6 +12,9 @@ The displayed JSON is generated from `packages/lib/src/index.ts` with Q-Press. U
 source JSDoc is ready. Generated review files are for comparison only and should be removed before
 committing unless you intentionally want to keep the diff artifact.
 
+Adapter packages have separate generated API pages so each published package has its own reference:
+[Islamic Calendar API](/api/islamic-calendar-api) and [Saka Calendar API](/api/saka-calendar-api).
+
 <script import>
 import TimestampApi from '@/api/Timestamp.json'
 </script>

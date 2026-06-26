@@ -21,6 +21,9 @@ function daysBeforeMonth(month: number): number {
 
 /**
  * Returns true when a tabular Islamic civil year is a leap year.
+ *
+ * @param year Islamic civil year number.
+ * @returns True when the year contains a leap day in Dhu al-Hijjah.
  */
 export function isIslamicCivilLeapYear(year: number): boolean {
   assertPositiveYear(year)
@@ -29,6 +32,10 @@ export function isIslamicCivilLeapYear(year: number): boolean {
 
 /**
  * Returns days in a tabular Islamic civil month.
+ *
+ * @param year Islamic civil year number.
+ * @param month Islamic civil month number, where Muharram is `1`.
+ * @returns Number of days in the month, or `0` for an invalid month number.
  */
 export function islamicCivilDaysInMonth(year: number, month: number): number {
   assertPositiveYear(year)
