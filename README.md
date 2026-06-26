@@ -20,6 +20,13 @@ The package is ESM, side-effect free, and designed for tree-shaking. Prefer name
 pnpm add @timestamp-js/core
 ```
 
+Optional calendar adapters are published as separate packages:
+
+```bash
+pnpm add @timestamp-js/calendar-islamic
+pnpm add @timestamp-js/calendar-saka
+```
+
 ## Basic Usage
 
 ```ts
@@ -71,6 +78,8 @@ For deterministic SSR output, prefer passing explicit timestamps into helpers in
 This is a pnpm workspace mono-repo. You cannot use npm for building.
 
 - [/lib](packages/lib) - standalone npm package (go here for more information)
+- [/calendar-islamic](packages/calendar-islamic) - optional Islamic civil calendar adapter
+- [/calendar-saka](packages/calendar-saka) - optional Indian National/Saka calendar adapter
 - [/docs](packages/docs) - Q-Press documentation site with docs, demos, and examples
 - [live demo](https://timestamp-js.netlify.app/) - **live Q-Press docs, demos, and examples**
 

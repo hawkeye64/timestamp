@@ -21,18 +21,25 @@ Keep `@timestamp-js/core` small and predictable:
 - Core owns shared types, immutable Timestamp objects, comparison/range primitives, time helpers,
   and the default Gregorian adapter.
 - Optional calendar packages own calendar-specific math and parsing, for example
-  `@timestamp-js/calendar-islamic`, `@timestamp-js/calendar-hebrew`,
-  `@timestamp-js/calendar-chinese`, or `@timestamp-js/calendar-saka`.
+  `@timestamp-js/calendar-islamic`, `@timestamp-js/calendar-saka`,
+  `@timestamp-js/calendar-hebrew`, or `@timestamp-js/calendar-chinese`.
 - The Gregorian adapter remains available from core first. A separate
   `@timestamp-js/calendar-gregorian` package can be added later if external adapter packages need a
   reusable reference implementation.
 
 This keeps existing users on one package while making advanced calendar support opt-in.
 
-## Islamic civil adapter
+## Current adapters
 
-The first optional adapter package is `@timestamp-js/calendar-islamic`. It exports
-`islamicCivilCalendar`, a deterministic tabular Islamic civil calendar:
+Timestamp currently ships the default Gregorian adapter from `@timestamp-js/core` and optional
+adapter packages for Islamic civil and Indian National/Saka dates. Optional adapters use the same
+`CalendarSystem` contract, which keeps the conversion surface small while letting each package own
+its calendar rules.
+
+### Islamic civil adapter
+
+The `@timestamp-js/calendar-islamic` package exports `islamicCivilCalendar`, a deterministic
+tabular Islamic civil calendar:
 
 ```ts
 import { gregorianCalendar } from '@timestamp-js/core'
@@ -47,6 +54,25 @@ gregorian // { year: 2024, month: 3, day: 11 }
 This adapter is intentionally arithmetic. It does not model observational Hijri calendars or
 Umm al-Qura adjustments. Those should be separate adapters because their rules and supported date
 ranges are different.
+
+### Indian National/Saka adapter
+
+The `@timestamp-js/calendar-saka` package exports `indianNationalCalendar`, with `sakaCalendar` as a
+convenience alias. It models the official Indian National Calendar using deterministic
+Gregorian-aligned leap-year rules:
+
+```ts
+import { gregorianCalendar } from '@timestamp-js/core'
+import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
+
+const sakaNewYear = { year: 1946, month: 1, day: 1 }
+const gregorian = gregorianCalendar.fromEpochDay(indianNationalCalendar.toEpochDay(sakaNewYear))
+
+gregorian // { year: 2024, month: 3, day: 21 }
+```
+
+Chaitra has 31 days when the corresponding Gregorian year is leap, and 30 days otherwise. Months
+2-6 have 31 days, and months 7-12 have 30 days.
 
 ## Adapter contract
 
@@ -107,10 +133,23 @@ range comparisons.
 That means Islamic/Hijri, Hebrew, Chinese, Indian National/Saka, and similar calendars should be
 treated as first-class adapter work, not only as translated Gregorian dates.
 
+## Publishing adapter packages
+
+The workspace publish scripts publish `@timestamp-js/core` and every public
+`packages/calendar-*` adapter package together:
+
+```bash
+pnpm ci:publish:latest
+```
+
+The docs package is private and is not included. New adapters should live under `packages/calendar-*`
+so `ci:publish`, `ci:publish:alpha`, `ci:publish:beta`, and `ci:publish:latest` pick them up without
+another hard-coded publish script change.
+
 ## Current limitation
 
-The current top-level helpers still assume Gregorian Timestamp fields. The adapter foundation and an
-Islamic civil adapter package are in place, but only the Gregorian adapter is wired through the
-existing helpers. Non-Gregorian support should be added incrementally with tests for parsing, month
-lengths, next/previous day movement, range comparison, disabled days, and list generation before a
-calendar package is considered stable.
+The current top-level helpers still assume Gregorian Timestamp fields. The adapter foundation plus
+Islamic civil and Saka adapter packages are in place, but only the Gregorian adapter is wired through
+the existing helpers. Non-Gregorian support should be added incrementally with tests for parsing,
+month lengths, next/previous day movement, range comparison, disabled days, and list generation
+before a calendar package is considered stable.
