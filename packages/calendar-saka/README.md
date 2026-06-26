@@ -9,6 +9,9 @@ official Indian National Calendar using deterministic Gregorian-aligned leap-yea
 import {
   createCalendarDayList,
   getCalendarEndOfMonth,
+  getCalendarEndOfWeek,
+  getCalendarStartOfMonth,
+  getCalendarStartOfWeek,
   gregorianCalendar,
   parseCalendarTimestamp,
 } from '@timestamp-js/core'
@@ -19,11 +22,24 @@ const gregorian = gregorianCalendar.fromEpochDay(indianNationalCalendar.toEpochD
 
 gregorian // { year: 2024, month: 3, day: 21 }
 
-const start = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)!
-const end = getCalendarEndOfMonth(start, indianNationalCalendar)
-const days = createCalendarDayList(start, end, start, indianNationalCalendar)
+const visible = parseCalendarTimestamp('1946-01-15', indianNationalCalendar)!
+const weekdays = [0, 1, 2, 3, 4, 5, 6]
 
-days[0].date // '1946-01-01'
+const weekStart = getCalendarStartOfWeek(visible, weekdays, indianNationalCalendar)
+const weekEnd = getCalendarEndOfWeek(visible, weekdays, indianNationalCalendar)
+const weekDays = createCalendarDayList(weekStart, weekEnd, visible, indianNationalCalendar)
+
+weekStart.date // '1946-01-11'
+weekEnd.date // '1946-01-17'
+weekDays.length // 7
+
+const monthStart = getCalendarStartOfMonth(visible, indianNationalCalendar)
+const monthEnd = getCalendarEndOfMonth(visible, indianNationalCalendar)
+const monthDays = createCalendarDayList(monthStart, monthEnd, visible, indianNationalCalendar)
+
+monthStart.date // '1946-01-01'
+monthEnd.date // '1946-01-31'
+monthDays.length // 31
 ```
 
 This package is early calendar-adapter work. Treat the adapter contract as release-candidate API

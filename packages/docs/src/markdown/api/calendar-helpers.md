@@ -41,16 +41,85 @@ the built-in Gregorian calendar.
 import {
   createCalendarDayList,
   getCalendarEndOfMonth,
+  getCalendarEndOfWeek,
   parseCalendarTimestamp,
+  getCalendarStartOfMonth,
+  getCalendarStartOfWeek,
 } from '@timestamp-js/core'
 import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
 
-const start = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)!
-const end = getCalendarEndOfMonth(start, indianNationalCalendar)
-const days = createCalendarDayList(start, end, start, indianNationalCalendar)
+const visible = parseCalendarTimestamp('1946-01-15', indianNationalCalendar)!
+const weekdays = [0, 1, 2, 3, 4, 5, 6]
 
-days[0].calendarId // 'saka'
-days[0].date // '1946-01-01'
+const weekStart = getCalendarStartOfWeek(visible, weekdays, indianNationalCalendar)
+const weekEnd = getCalendarEndOfWeek(visible, weekdays, indianNationalCalendar)
+const weekDays = createCalendarDayList(weekStart, weekEnd, visible, indianNationalCalendar)
+
+weekStart.date // '1946-01-11'
+weekEnd.date // '1946-01-17'
+weekDays.map((day) => day.date)
+// [
+//   '1946-01-11',
+//   '1946-01-12',
+//   '1946-01-13',
+//   '1946-01-14',
+//   '1946-01-15',
+//   '1946-01-16',
+//   '1946-01-17',
+// ]
+
+const monthStart = getCalendarStartOfMonth(visible, indianNationalCalendar)
+const monthEnd = getCalendarEndOfMonth(visible, indianNationalCalendar)
+const monthDays = createCalendarDayList(monthStart, monthEnd, visible, indianNationalCalendar)
+
+monthStart.date // '1946-01-01'
+monthEnd.date // '1946-01-31'
+monthDays.length // 31
+```
+
+### Islamic civil ranges
+
+The same helpers work with Islamic civil dates. The input and output dates stay in Islamic civil
+year/month/day fields, while the adapter supplies stable serial-day comparison under the hood.
+
+```ts
+import {
+  createCalendarDayList,
+  getCalendarEndOfMonth,
+  getCalendarEndOfWeek,
+  getCalendarStartOfMonth,
+  getCalendarStartOfWeek,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
+import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
+
+const visible = parseCalendarTimestamp('1445-09-15', islamicCivilCalendar)!
+const weekdays = [0, 1, 2, 3, 4, 5, 6]
+
+const weekStart = getCalendarStartOfWeek(visible, weekdays, islamicCivilCalendar)
+const weekEnd = getCalendarEndOfWeek(visible, weekdays, islamicCivilCalendar)
+const weekDays = createCalendarDayList(weekStart, weekEnd, visible, islamicCivilCalendar)
+
+weekStart.date // '1445-09-14'
+weekEnd.date // '1445-09-20'
+weekDays.map((day) => day.date)
+// [
+//   '1445-09-14',
+//   '1445-09-15',
+//   '1445-09-16',
+//   '1445-09-17',
+//   '1445-09-18',
+//   '1445-09-19',
+//   '1445-09-20',
+// ]
+
+const monthStart = getCalendarStartOfMonth(visible, islamicCivilCalendar)
+const monthEnd = getCalendarEndOfMonth(visible, islamicCivilCalendar)
+const monthDays = createCalendarDayList(monthStart, monthEnd, visible, islamicCivilCalendar)
+
+monthStart.date // '1445-09-01'
+monthEnd.date // '1445-09-30'
+monthDays.length // 30
 ```
 
 ## Labels

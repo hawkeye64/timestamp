@@ -1,4 +1,5 @@
 import { defineConfig } from '#q-app'
+import { viteExamplesPlugin } from '@md-plugins/vite-examples-plugin'
 import { viteMdPlugin, type MenuItem } from '@md-plugins/vite-md-plugin'
 import { viteSearchPlugin } from '@md-plugins/vite-search-plugin'
 import { viteSsgPlugin } from '@md-plugins/vite-ssg-plugin'
@@ -38,6 +39,13 @@ export default defineConfig(async (ctx) => {
           {
             path: ctx.appPaths.srcDir + '/markdown',
             menu: sidebar as MenuItem[],
+          },
+        ],
+        [
+          viteExamplesPlugin,
+          {
+            isProd: ctx.prod,
+            path: ctx.appPaths.srcDir + '/examples',
           },
         ],
         viteSsgPlugin({

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T15:39:48.608Z",
+  "generated_at": "2026-06-26T17:50:46.241Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/islamic-calendar-api"
@@ -17,6 +17,7 @@
       },
       "tsSignature": "function isIslamicCivilLeapYear(year: number): boolean",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "True when the year contains a leap day in Dhu al-Hijjah.",
         "type": "boolean",
@@ -41,6 +42,7 @@
       },
       "tsSignature": "function islamicCivilDaysInMonth(year: number, month: number): number",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "Number of days in the month, or `0` for an invalid month number.",
         "type": "number",

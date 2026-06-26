@@ -227,7 +227,14 @@ const developingMenu: SiteMenuItem = {
     { name: 'Parsing + Formatting', path: '/developing/parsing-and-formatting' },
     { name: 'Validation + Boundaries', path: '/developing/validation-and-boundaries' },
     { name: 'Date Math', path: '/developing/date-math' },
-    { name: 'Calendar Systems', path: '/developing/calendar-systems' },
+    {
+      name: 'Calendar Systems',
+      path: '/developing/calendar-systems',
+      children: [
+        { name: 'Islamic Civil', path: '/developing/calendar-systems/islamic-civil' },
+        { name: 'Saka', path: '/developing/calendar-systems/saka' },
+      ],
+    },
     { name: 'Intervals + Lists', path: '/developing/intervals-and-lists' },
     { name: 'Comparisons + Ranges', path: '/developing/comparisons-and-ranges' },
     { name: 'SSR + Runtime', path: '/developing/ssr-and-runtime' },
@@ -277,6 +284,24 @@ const siteConfig: SiteConfig = {
   },
   githubEditRootSrc: 'https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src',
   githubSourceRootSrc: 'https://github.com/hawkeye64/timestamp/tree/master/packages/docs/src',
+  codepen: {
+    jsPreProcessor: 'typescript',
+    titleSuffix: `Timestamp v${version}`,
+    modulePackages: [
+      {
+        packageName: '@timestamp-js/core',
+        importUrl: `https://esm.sh/@timestamp-js/core@${version}`,
+      },
+      {
+        packageName: '@timestamp-js/calendar-islamic',
+        importUrl: `https://esm.sh/@timestamp-js/calendar-islamic@${version}`,
+      },
+      {
+        packageName: '@timestamp-js/calendar-saka',
+        importUrl: `https://esm.sh/@timestamp-js/calendar-saka@${version}`,
+      },
+    ],
+  },
   license: {
     label: 'MIT',
     link: 'https://github.com/hawkeye64/timestamp/blob/master/LICENSE',

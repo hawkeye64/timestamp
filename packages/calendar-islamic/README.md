@@ -9,6 +9,9 @@ does not model observational Hijri calendars or Umm al-Qura adjustments.
 import {
   createCalendarDayList,
   getCalendarEndOfMonth,
+  getCalendarEndOfWeek,
+  getCalendarStartOfMonth,
+  getCalendarStartOfWeek,
   gregorianCalendar,
   parseCalendarTimestamp,
 } from '@timestamp-js/core'
@@ -19,11 +22,24 @@ const gregorian = gregorianCalendar.fromEpochDay(islamicCivilCalendar.toEpochDay
 
 gregorian // { year: 2024, month: 3, day: 11 }
 
-const start = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)!
-const end = getCalendarEndOfMonth(start, islamicCivilCalendar)
-const days = createCalendarDayList(start, end, start, islamicCivilCalendar)
+const visible = parseCalendarTimestamp('1445-09-15', islamicCivilCalendar)!
+const weekdays = [0, 1, 2, 3, 4, 5, 6]
 
-days[0].date // '1445-09-01'
+const weekStart = getCalendarStartOfWeek(visible, weekdays, islamicCivilCalendar)
+const weekEnd = getCalendarEndOfWeek(visible, weekdays, islamicCivilCalendar)
+const weekDays = createCalendarDayList(weekStart, weekEnd, visible, islamicCivilCalendar)
+
+weekStart.date // '1445-09-14'
+weekEnd.date // '1445-09-20'
+weekDays.length // 7
+
+const monthStart = getCalendarStartOfMonth(visible, islamicCivilCalendar)
+const monthEnd = getCalendarEndOfMonth(visible, islamicCivilCalendar)
+const monthDays = createCalendarDayList(monthStart, monthEnd, visible, islamicCivilCalendar)
+
+monthStart.date // '1445-09-01'
+monthEnd.date // '1445-09-30'
+monthDays.length // 30
 ```
 
 This package is early calendar-adapter work. Treat the adapter contract as release-candidate API

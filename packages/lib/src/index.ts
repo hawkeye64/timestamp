@@ -1,8 +1,8 @@
-import { formatCalendarDate, gregorianCalendar } from './calendar'
-import type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
+import { formatCalendarDate, gregorianCalendar } from './calendar.js'
+import type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar.js'
 
-export { formatCalendarDate, gregorianCalendar } from './calendar'
-export type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
+export { formatCalendarDate, gregorianCalendar } from './calendar.js'
+export type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar.js'
 
 /**
  * Matches supported date and date-time input.
@@ -615,6 +615,7 @@ function cloneTimestamp(timestamp: Timestamp): MutableTimestamp {
  *
  * @param timestamp Timestamp or timestamp-like object to read.
  * @returns Plain calendar date fields.
+ * @category calendar
  */
 export function toCalendarDateParts(
   timestamp: Pick<Timestamp, 'year' | 'month' | 'day'>,
@@ -651,6 +652,7 @@ function parseMillisecond(value: string | undefined): number | undefined {
  *
  * @param {string} input A string in the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm`, or a full ISO-like date time.
  * @returns {boolean} True if parseable
+ * @category validation
  */
 export function validateTimestamp(input: string): boolean {
   if (typeof input !== 'string') return false
@@ -666,6 +668,7 @@ export function validateTimestamp(input: string): boolean {
  *
  * @param {string} input In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.
  * @returns {Timestamp} Minimal Timestamp object, or `null` when the input cannot be parsed.
+ * @category parsing
  */
 export function parsed(input: string): Timestamp | null {
   if (typeof input !== 'string') return null
@@ -765,6 +768,7 @@ function parseDateByMode(date: Date, utc: boolean): Timestamp | null {
  *
  * @param {Date} date JavaScript Date to convert.
  * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
+ * @category parsing
  */
 export function parseDate(date: Date): Timestamp | null {
   return parseDateByMode(date, false)
@@ -778,6 +782,7 @@ export function parseDate(date: Date): Timestamp | null {
  *
  * @param {Date} date JavaScript Date to convert.
  * @returns {Timestamp} Formatted Timestamp object, or `null` for invalid input.
+ * @category parsing
  */
 export function parseDateUTC(date: Date): Timestamp | null {
   return parseDateByMode(date, true)
@@ -790,6 +795,7 @@ export function parseDateUTC(date: Date): Timestamp | null {
  * @param {number} x The number to pad
  * @param {number} length The length of the required number as a string
  * @returns {string} The padded number (as a string). (ie: 5 = '05')
+ * @category formatting
  */
 export function padNumber(x: number, length: number): string {
   let padded = String(x)
@@ -804,6 +810,7 @@ export function padNumber(x: number, length: number): string {
  * Returns if the passed year is a leap year
  * @param {number} year The year to check (ie: 1999, 2020)
  * @returns {boolean} True if the year is a leap year
+ * @category calendar
  */
 export function isLeapYear(year: number): boolean {
   return gregorianCalendar.isLeapYear(year)
@@ -814,6 +821,7 @@ export function isLeapYear(year: number): boolean {
  * @param {number} year The year (ie: 1999, 2020)
  * @param {number} month The Gregorian month number, where January is `1`
  * @returns {number} The number of days in the month (corrected for leap years)
+ * @category calendar
  */
 export function daysInMonth(year: number, month: number): number {
   return gregorianCalendar.daysInMonth(year, month)
@@ -824,6 +832,7 @@ export function daysInMonth(year: number, month: number): number {
  *
  * @param {Timestamp} timestamp Base Timestamp object.
  * @returns {Timestamp} New Timestamp representing the next day.
+ * @category arithmetic
  */
 export function nextDay(timestamp: Timestamp): Timestamp {
   const date = gregorianCalendar.nextDay(toCalendarDateParts(timestamp))
@@ -842,6 +851,7 @@ export function nextDay(timestamp: Timestamp): Timestamp {
  *
  * @param {Timestamp} timestamp Base Timestamp object.
  * @returns {Timestamp} New Timestamp representing the previous day.
+ * @category arithmetic
  */
 export function prevDay(timestamp: Timestamp): Timestamp {
   const date = gregorianCalendar.prevDay(toCalendarDateParts(timestamp))
@@ -863,6 +873,7 @@ export function prevDay(timestamp: Timestamp): Timestamp {
  * wants a stable UTC calendar date instead.
  *
  * @returns {string} Date string in the form `YYYY-MM-DD`
+ * @category state
  */
 export function today(): string {
   const d = new Date(),
@@ -882,6 +893,7 @@ export function today(): string {
  *
  * @param {Date} date Date source to read. Defaults to the current Date.
  * @returns {string} UTC date string in the form `YYYY-MM-DD`
+ * @category state
  */
 export function todayUTC(date = new Date()): string {
   return [
@@ -900,6 +912,7 @@ export function todayUTC(date = new Date()): string {
  *
  * @param {Date} date Date source to read. Defaults to the current Date.
  * @returns {Timestamp} Immutable Timestamp built from UTC fields.
+ * @category state
  */
 export function nowUTC(date = new Date()): Timestamp {
   return parseDateUTC(date) as Timestamp
@@ -909,6 +922,7 @@ export function nowUTC(date = new Date()): Timestamp {
  * Takes a date string ('YYYY-MM-DD') and validates if it is today's date
  * @param {string} date Date string in the form 'YYYY-MM-DD'
  * @returns {boolean} True if the date is today's date
+ * @category comparison
  */
 export function isToday(date: string): boolean {
   return date === today()
@@ -923,6 +937,7 @@ export function isToday(date: string): boolean {
  * @param {string} date Date string in the form `YYYY-MM-DD`.
  * @param {Date} now Date source to read. Defaults to the current Date.
  * @returns {boolean} True when the date matches the UTC date.
+ * @category comparison
  */
 export function isTodayUTC(date: string, now = new Date()): boolean {
   return date === todayUTC(now)
@@ -935,6 +950,7 @@ export function isTodayUTC(date: string, now = new Date()): boolean {
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
  * @param {Timestamp=} today Current timestamp used to update relative information
  * @returns {Timestamp} A new Timestamp representing the start of the week
+ * @category ranges
  */
 export function getStartOfWeek(
   timestamp: Timestamp,
@@ -965,6 +981,7 @@ export function getStartOfWeek(
  * @param {number[]} weekdays The array is [0,1,2,3,4,5,6] where 0=Sunday and 6=Saturday
  * @param {Timestamp=} today Current timestamp used to update relative information
  * @returns {Timestamp} A new Timestamp representing the end of the week
+ * @category ranges
  */
 export function getEndOfWeek(
   timestamp: Timestamp,
@@ -995,6 +1012,7 @@ export function getEndOfWeek(
  * Finds the start of the month based on the passed in Timestamp
  * @param {Timestamp} timestamp The Timestamp to use to find the start of the month
  * @returns {Timestamp} A Timestamp of the start of the month
+ * @category ranges
  */
 export function getStartOfMonth(timestamp: Timestamp): Timestamp {
   let start = cloneTimestamp(timestamp)
@@ -1007,6 +1025,7 @@ export function getStartOfMonth(timestamp: Timestamp): Timestamp {
  * Finds the end of the month based on the passed in Timestamp
  * @param {Timestamp} timestamp The Timestamp to use to find the end of the month
  * @returns {Timestamp} A Timestamp of the end of the month
+ * @category ranges
  */
 export function getEndOfMonth(timestamp: Timestamp): Timestamp {
   let end = cloneTimestamp(timestamp)
@@ -1023,6 +1042,7 @@ export function getEndOfMonth(timestamp: Timestamp): Timestamp {
  *
  * @param input - Minutes since midnight, a time string, or an object with hour and minute fields.
  * @returns Minutes since midnight, or `false` when the input cannot be parsed.
+ * @category parsing
  */
 export function parseTime(
   input: number | string | { hour: number; minute: number },
@@ -1064,6 +1084,7 @@ export function parseTime(
  * @param {Timestamp} ts1 First Timestamp object.
  * @param {Timestamp} ts2 Second Timestamp object.
  * @returns {boolean} True when both timestamps match exactly.
+ * @category comparison
  */
 export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
   if (!ts1 || !ts2) return false
@@ -1086,6 +1107,7 @@ export function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean {
  * @param {Timestamp} ts1 First Timestamp object.
  * @param {Timestamp} ts2 Second Timestamp object.
  * @returns {boolean} True when both dates are the same.
+ * @category comparison
  */
 export function compareDate(ts1: Timestamp, ts2: Timestamp): boolean {
   return getDate(ts1) === getDate(ts2)
@@ -1097,6 +1119,7 @@ export function compareDate(ts1: Timestamp, ts2: Timestamp): boolean {
  * @param {Timestamp} ts1 First Timestamp object.
  * @param {Timestamp} ts2 Second Timestamp object.
  * @returns {boolean} True when both times are the same.
+ * @category comparison
  */
 export function compareTime(ts1: Timestamp, ts2: Timestamp): boolean {
   return getTime(ts1) === getTime(ts2)
@@ -1108,6 +1131,7 @@ export function compareTime(ts1: Timestamp, ts2: Timestamp): boolean {
  * @param {Timestamp} ts1 First Timestamp object.
  * @param {Timestamp} ts2 Second Timestamp object.
  * @returns {boolean} True when both date-time values are the same.
+ * @category comparison
  */
 export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
   return getDateTime(ts1) === getDateTime(ts2)
@@ -1122,6 +1146,7 @@ export function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean {
  * @param {string} input Date or date-time string, such as `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like value with optional milliseconds and timezone suffix.
  * @param {Timestamp} now Optional Timestamp used to calculate relative flags.
  * @returns {Timestamp} Formatted Timestamp object, or `null` when the input cannot be parsed.
+ * @category parsing
  */
 export function parseTimestamp(input: string, now: Timestamp | null = null): Timestamp | null {
   let timestamp = parsed(input)
@@ -1141,6 +1166,7 @@ export function parseTimestamp(input: string, now: Timestamp | null = null): Tim
  *
  * @param {Timestamp} timestamp Timestamp object to read.
  * @returns {number} Numeric date identifier.
+ * @category conversion
  */
 export function getDayIdentifier(timestamp: Timestamp): number {
   return (
@@ -1160,6 +1186,7 @@ export function getDayIdentifier(timestamp: Timestamp): number {
  * @param {Timestamp} timestamp Timestamp object to read.
  * @param {CalendarSystem=} calendar Calendar implementation to use.
  * @returns {number} Stable serial day.
+ * @category conversion
  */
 export function getEpochDay(
   timestamp: Timestamp,
@@ -1177,6 +1204,7 @@ export function getEpochDay(
  * @param timestamp Timestamp object to read.
  * @param calendar Calendar implementation to use.
  * @returns Stable serial day.
+ * @category calendar
  */
 export function getCalendarDayIdentifier(
   timestamp: Timestamp,
@@ -1191,6 +1219,7 @@ export function getCalendarDayIdentifier(
  * @param date Calendar date fields to validate.
  * @param calendar Calendar implementation to use.
  * @returns True when year, month, and day can exist in the calendar.
+ * @category calendar
  */
 export function isValidCalendarDate(
   date: CalendarDateParts,
@@ -1211,6 +1240,7 @@ export function isValidCalendarDate(
  * @param calendar Calendar implementation to use.
  * @param options Optional time and relative comparison settings.
  * @returns Timestamp-shaped calendar value.
+ * @category calendar
  */
 export function createCalendarTimestamp(
   date: CalendarDateParts,
@@ -1264,6 +1294,7 @@ export function createCalendarTimestamp(
  * @param calendar Calendar implementation to use.
  * @param now Optional comparison timestamp from the same calendar system.
  * @returns Calendar timestamp, or `null` when the input cannot be parsed or validated.
+ * @category calendar
  */
 export function parseCalendarTimestamp(
   input: string,
@@ -1289,6 +1320,7 @@ export function parseCalendarTimestamp(
  * @param calendar Calendar implementation to use.
  * @param options Optional time and relative comparison settings.
  * @returns Timestamp-shaped calendar value.
+ * @category calendar
  */
 export function createCalendarTimestampFromEpochDay(
   epochDay: number,
@@ -1304,6 +1336,7 @@ export function createCalendarTimestampFromEpochDay(
  * @param timestamp Timestamp object to transform.
  * @param calendar Calendar implementation to use.
  * @returns Timestamp with adapter date formatting and metadata.
+ * @category calendar
  */
 export function updateCalendarFormatted(
   timestamp: Timestamp,
@@ -1324,6 +1357,7 @@ export function updateCalendarFormatted(
  * @param calendar Calendar implementation to use.
  * @param time Include time-of-day in the comparison when true.
  * @returns New Timestamp object with relative flags.
+ * @category calendar
  */
 export function updateCalendarRelative(
   timestamp: Timestamp,
@@ -1356,6 +1390,7 @@ export function updateCalendarRelative(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns New timestamp for the next adapter day.
+ * @category calendar
  */
 export function nextCalendarDay(
   timestamp: Timestamp,
@@ -1374,6 +1409,7 @@ export function nextCalendarDay(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns New timestamp for the previous adapter day.
+ * @category calendar
  */
 export function prevCalendarDay(
   timestamp: Timestamp,
@@ -1393,6 +1429,7 @@ export function prevCalendarDay(
  * @param amount Number of days to move.
  * @param calendar Calendar implementation to use.
  * @returns New timestamp after moving.
+ * @category calendar
  */
 export function addCalendarDays(
   timestamp: Timestamp,
@@ -1413,6 +1450,7 @@ export function addCalendarDays(
  * @param amount Number of calendar months to move.
  * @param calendar Calendar implementation to use.
  * @returns New timestamp after moving.
+ * @category calendar
  */
 export function addCalendarMonths(
   timestamp: Timestamp,
@@ -1455,6 +1493,7 @@ export function addCalendarMonths(
  * @param amount Number of calendar years to move.
  * @param calendar Calendar implementation to use.
  * @returns New timestamp after moving.
+ * @category calendar
  */
 export function addCalendarYears(
   timestamp: Timestamp,
@@ -1478,6 +1517,7 @@ export function addCalendarYears(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns First day of the adapter month.
+ * @category calendar
  */
 export function getCalendarStartOfMonth(
   timestamp: Timestamp,
@@ -1496,6 +1536,7 @@ export function getCalendarStartOfMonth(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns Last day of the adapter month.
+ * @category calendar
  */
 export function getCalendarEndOfMonth(
   timestamp: Timestamp,
@@ -1518,6 +1559,7 @@ export function getCalendarEndOfMonth(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns First day of the adapter year.
+ * @category calendar
  */
 export function getCalendarStartOfYear(
   timestamp: Timestamp,
@@ -1536,6 +1578,7 @@ export function getCalendarStartOfYear(
  * @param timestamp Base timestamp.
  * @param calendar Calendar implementation to use.
  * @returns Last day of the adapter year.
+ * @category calendar
  */
 export function getCalendarEndOfYear(
   timestamp: Timestamp,
@@ -1558,6 +1601,7 @@ export function getCalendarEndOfYear(
  * @param direction Direction to search.
  * @param maxDays Maximum days to inspect.
  * @returns Matching timestamp, or the last inspected timestamp.
+ * @category calendar
  */
 export function findCalendarWeekday(
   timestamp: Timestamp,
@@ -1584,6 +1628,7 @@ export function findCalendarWeekday(
  * @param calendar Calendar implementation to use.
  * @param now Optional comparison timestamp from the same calendar.
  * @returns Start of the adapter week.
+ * @category calendar
  */
 export function getCalendarStartOfWeek(
   timestamp: Timestamp,
@@ -1614,6 +1659,7 @@ export function getCalendarStartOfWeek(
  * @param calendar Calendar implementation to use.
  * @param now Optional comparison timestamp from the same calendar.
  * @returns End of the adapter week.
+ * @category calendar
  */
 export function getCalendarEndOfWeek(
   timestamp: Timestamp,
@@ -1646,6 +1692,7 @@ export function getCalendarEndOfWeek(
  * @param calendar Calendar implementation to use.
  * @param options Optional weekday, disabled, and size filters.
  * @returns Timestamp days for the adapter calendar.
+ * @category calendar
  */
 export function createCalendarDayList(
   start: Timestamp,
@@ -1699,6 +1746,7 @@ export function createCalendarDayList(
  *
  * @param {Timestamp} timestamp Timestamp object to read.
  * @returns {number} Numeric time identifier.
+ * @category conversion
  */
 export function getTimeIdentifier(timestamp: Timestamp): number {
   return (timestamp.hour ?? 0) * 100 + (timestamp.minute ?? 0)
@@ -1719,6 +1767,7 @@ function getTimeComparisonValue(timestamp: Timestamp): number {
  *
  * @param {Timestamp} timestamp Timestamp object to read.
  * @returns {number} Numeric date-time identifier.
+ * @category conversion
  */
 export function getDayTimeIdentifier(timestamp: Timestamp): number {
   return getDayIdentifier(timestamp) + getTimeIdentifier(timestamp)
@@ -1730,6 +1779,7 @@ export function getDayTimeIdentifier(timestamp: Timestamp): number {
  * @param {Timestamp} ts2 The second Timestamp
  * @param {boolean=} strict Optional flag to not to return negative numbers
  * @returns {number} The difference
+ * @category arithmetic
  */
 export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): number {
   const utc1 = Date.UTC(
@@ -1769,6 +1819,7 @@ export function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict = false): n
  * @param {Timestamp} now Timestamp representing the comparison point.
  * @param {boolean=} time Include time-of-day in the comparison when true.
  * @returns {Timestamp} New Timestamp object with relative flags.
+ * @category state
  */
 export function updateRelative(timestamp: Timestamp, now: Timestamp, time = false): Timestamp {
   const ts = cloneTimestamp(timestamp as Timestamp)
@@ -1800,6 +1851,7 @@ export function updateRelative(timestamp: Timestamp, now: Timestamp, time = fals
  * @param {number} minutes The number of minutes to set from midnight
  * @param {Timestamp=} now Optional Timestamp representing current date and time
  * @returns {Timestamp} A new Timestamp
+ * @category arithmetic
  */
 export function updateMinutes(
   timestamp: Timestamp,
@@ -1824,6 +1876,7 @@ export function updateMinutes(
  * Updates the Timestamp with the weekday
  * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
+ * @category formatting
  */
 export function updateWeekday(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -1836,6 +1889,7 @@ export function updateWeekday(timestamp: Timestamp): Timestamp {
  * Updates the Timestamp with the day of the year (doy)
  * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
+ * @category formatting
  */
 export function updateDayOfYear(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -1848,6 +1902,7 @@ export function updateDayOfYear(timestamp: Timestamp): Timestamp {
  * Updates the Timestamp with the workweek
  * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
+ * @category formatting
  */
 export function updateWorkWeek(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -1929,6 +1984,7 @@ function isTimestampInDisabledDay(timestamp: Timestamp, day: DisabledDay): boole
  * @param {number[]} [disabledWeekdays] An array of numbers representing weekdays [0 = Sun, ..., 6 = Sat]
  * @param {DisabledDays} [disabledDays] An array of days in 'YYYY-MM-DD' format. If an array with a pair of dates is in first array, then this is treated as a range. Object entries can include date/from/to plus color metadata.
  * @returns A new Timestamp
+ * @category state
  */
 export function updateDisabled(
   timestamp: Timestamp,
@@ -1985,6 +2041,7 @@ export function updateDisabled(
  * Updates the passed Timestamp with formatted data (time string, date string, weekday, day of year and workweek)
  * @param {Timestamp} timestamp The Timestamp to transform
  * @returns A new Timestamp
+ * @category formatting
  */
 export function updateFormatted(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -2002,6 +2059,7 @@ export function updateFormatted(timestamp: Timestamp): Timestamp {
  * Returns day of the year (doy) for the passed in Timestamp
  * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The day of the year
+ * @category formatting
  */
 export function getDayOfYear(timestamp: Timestamp): number | void {
   if (timestamp.year === 0) return
@@ -2012,6 +2070,7 @@ export function getDayOfYear(timestamp: Timestamp): number | void {
  * Returns workweek for the passed in Timestamp
  * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The work week
+ * @category formatting
  */
 export function getWorkWeek(timestamp: Timestamp): number {
   let ts: Timestamp = timestamp
@@ -2046,6 +2105,7 @@ export function getWorkWeek(timestamp: Timestamp): number {
  * Returns weekday for the passed in Timestamp
  * @param {Timestamp} timestamp The Timestamp to use
  * @returns {number} The weekday
+ * @category formatting
  */
 export function getWeekday(timestamp: Timestamp): number {
   let weekday = timestamp.weekday
@@ -2061,6 +2121,7 @@ export function getWeekday(timestamp: Timestamp): number {
  *
  * @param {Timestamp} timestamp Timestamp object to copy.
  * @returns {Timestamp} Frozen Timestamp copy.
+ * @category state
  */
 export function copyTimestamp(timestamp: Timestamp): Timestamp {
   return freezeTimestamp(timestamp)
@@ -2098,6 +2159,7 @@ function setTimeParts(
  *
  * @param {Timestamp} timestamp Timestamp object to transform.
  * @returns {Timestamp} New Timestamp at `00:00`.
+ * @category ranges
  */
 export function getStartOfDay(timestamp: Timestamp): Timestamp {
   return setTimeParts(timestamp, 0, 0)
@@ -2108,6 +2170,7 @@ export function getStartOfDay(timestamp: Timestamp): Timestamp {
  *
  * @param {Timestamp} timestamp Timestamp object to transform.
  * @returns {Timestamp} New Timestamp at `23:59:59.999`.
+ * @category ranges
  */
 export function getEndOfDay(timestamp: Timestamp): Timestamp {
   return setTimeParts(timestamp, 23, 59, 59, 999)
@@ -2118,6 +2181,7 @@ export function getEndOfDay(timestamp: Timestamp): Timestamp {
  *
  * @param {Timestamp} timestamp Timestamp object to transform.
  * @returns {Timestamp} New Timestamp for January 1 at `00:00`.
+ * @category ranges
  */
 export function getStartOfYear(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -2131,6 +2195,7 @@ export function getStartOfYear(timestamp: Timestamp): Timestamp {
  *
  * @param {Timestamp} timestamp Timestamp object to transform.
  * @returns {Timestamp} New Timestamp for December 31 at `23:59:59.999`.
+ * @category ranges
  */
 export function getEndOfYear(timestamp: Timestamp): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -2144,6 +2209,7 @@ export function getEndOfYear(timestamp: Timestamp): Timestamp {
  *
  * @param {Timestamp} timestamp Timestamp object to format.
  * @returns {string} Date string such as `YYYY-MM-DD`.
+ * @category conversion
  */
 export function getDate(timestamp: Timestamp): string {
   let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`
@@ -2161,6 +2227,7 @@ export function getDate(timestamp: Timestamp): string {
  *
  * @param {Timestamp} timestamp Timestamp object to format.
  * @returns {string} Time string, or an empty string when the timestamp has no time.
+ * @category conversion
  */
 export function getTime(timestamp: Timestamp): string {
   if (!timestamp.hasTime) {
@@ -2183,6 +2250,7 @@ export function getTime(timestamp: Timestamp): string {
  *
  * @param {Timestamp} timestamp Timestamp object to format.
  * @returns {string} Date-time string such as `YYYY-MM-DD HH:mm`.
+ * @category conversion
  */
 export function getDateTime(timestamp: Timestamp): string {
   return getDate(timestamp) + ' ' + (timestamp.hasTime ? getTime(timestamp) : '00:00')
@@ -2195,6 +2263,7 @@ export function getDateTime(timestamp: Timestamp): string {
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
  * @returns A new Timestamp
+ * @category ranges
  */
 export function moveRelativeDays(
   timestamp: Timestamp,
@@ -2212,6 +2281,7 @@ export function moveRelativeDays(
  * @param {number} [days=1] The number of days to move.
  * @param {number[]} [allowedWeekdays=[ 0, 1, 2, 3, 4, 5, 6 ]] An array of numbers representing the weekdays. ie: [0 = Sun, ..., 6 = Sat].
  * @returns A new Timestamp
+ * @category ranges
  */
 export function relativeDays(
   timestamp: Timestamp,
@@ -2240,6 +2310,7 @@ export function relativeDays(
  * @param {function} [mover=nextDay] The function to use ({prevDay} or {nextDay}).
  * @param {number} [maxDays=6] The number of days to look forward or back.
  * @returns A new Timestamp
+ * @category ranges
  */
 export function findWeekday(
   timestamp: Timestamp,
@@ -2269,6 +2340,7 @@ export function findWeekday(
  * @param {number} [max=42] Maximum number of days to return.
  * @param {number} [min=0] Minimum number of days to return.
  * @returns {Timestamp[]} Timestamp days.
+ * @category ranges
  */
 export function createDayList(
   start: Timestamp,
@@ -2323,6 +2395,7 @@ export function createDayList(
  * @param {number} count Number of intervals to create.
  * @param {Timestamp} now Timestamp used to calculate relative flags.
  * @returns {Timestamp[]} Interval Timestamp objects.
+ * @category ranges
  */
 export function createIntervalList(
   timestamp: Timestamp,
@@ -2412,6 +2485,7 @@ function createNativeLocaleFormatterByMode(
  * @param {string} locale The locale to use (ie: en-US)
  * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
  * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
+ * @category locale
  */
 export function createNativeLocaleFormatter(
   locale: string,
@@ -2430,6 +2504,7 @@ export function createNativeLocaleFormatter(
  * @param {string} locale The locale to use (ie: en-US)
  * @param {getOptions} cb The function to call for options. This function should return an Intl formatted object. The function is passed (timestamp, short).
  * @returns {formatter} The function has params (timestamp, short). The short is to use the short options.
+ * @category locale
  */
 export function createNativeLocaleFormatterUTC(
   locale: string,
@@ -2451,6 +2526,7 @@ export function createNativeLocaleFormatterUTC(
  * @param locale The locale to use.
  * @param cb Callback that returns Intl formatting options.
  * @returns Function that formats a calendar timestamp.
+ * @category calendar
  */
 export function createCalendarLocaleFormatterUTC(
   calendar: CalendarSystem,
@@ -2489,6 +2565,7 @@ export function createCalendarLocaleFormatterUTC(
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} Host-local JavaScript Date object.
+ * @category conversion
  */
 export function makeDate(timestamp: Timestamp): Date {
   return new Date(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0)
@@ -2499,6 +2576,7 @@ export function makeDate(timestamp: Timestamp): Date {
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} JavaScript Date object built with `Date.UTC()`.
+ * @category conversion
  */
 export function makeDateUTC(timestamp: Timestamp): Date {
   return new Date(Date.UTC(timestamp.year, timestamp.month - 1, timestamp.day, 0, 0))
@@ -2513,6 +2591,7 @@ export function makeDateUTC(timestamp: Timestamp): Date {
  * @param timestamp Calendar timestamp object to convert.
  * @param calendar Calendar implementation to use.
  * @returns JavaScript Date object built with `Date.UTC()`.
+ * @category calendar
  */
 export function makeCalendarDateUTC(
   timestamp: Timestamp,
@@ -2527,6 +2606,7 @@ export function makeCalendarDateUTC(
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} Host-local JavaScript Date object.
+ * @category conversion
  */
 export function makeDateTime(timestamp: Timestamp): Date {
   return new Date(
@@ -2546,6 +2626,7 @@ export function makeDateTime(timestamp: Timestamp): Date {
  * @param timestamp Calendar timestamp object to convert.
  * @param calendar Calendar implementation to use.
  * @returns JavaScript Date object built with `Date.UTC()`.
+ * @category calendar
  */
 export function makeCalendarDateTimeUTC(
   timestamp: Timestamp,
@@ -2570,6 +2651,7 @@ export function makeCalendarDateTimeUTC(
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} JavaScript Date object built with `Date.UTC()`.
+ * @category conversion
  */
 export function makeDateTimeUTC(timestamp: Timestamp): Date {
   return new Date(
@@ -2593,6 +2675,7 @@ export function makeDateTimeUTC(timestamp: Timestamp): Date {
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {number} Unix milliseconds.
+ * @category conversion
  */
 export function toUnixMilliseconds(timestamp: Timestamp): number {
   return makeDateTimeUTC(timestamp).getTime()
@@ -2605,6 +2688,7 @@ export function toUnixMilliseconds(timestamp: Timestamp): number {
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {number} Unix seconds.
+ * @category conversion
  */
 export function toUnixSeconds(timestamp: Timestamp): number {
   return Math.floor(toUnixMilliseconds(timestamp) / MILLISECONDS_IN_SECOND)
@@ -2615,6 +2699,7 @@ export function toUnixSeconds(timestamp: Timestamp): number {
  *
  * @param {number} milliseconds Unix milliseconds.
  * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
+ * @category conversion
  */
 export function fromUnixMilliseconds(milliseconds: number): Timestamp | null {
   return parseDateUTC(new Date(milliseconds))
@@ -2625,6 +2710,7 @@ export function fromUnixMilliseconds(milliseconds: number): Timestamp | null {
  *
  * @param {number} seconds Unix seconds.
  * @returns {Timestamp | null} Timestamp built from UTC fields, or `null` for invalid input.
+ * @category conversion
  */
 export function fromUnixSeconds(seconds: number): Timestamp | null {
   return fromUnixMilliseconds(seconds * MILLISECONDS_IN_SECOND)
@@ -2637,6 +2723,7 @@ export function fromUnixSeconds(seconds: number): Timestamp | null {
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
  * @returns {Date} Local JavaScript Date object.
+ * @category conversion
  */
 export function getDateObject(timestamp: Timestamp): Date {
   return makeDateTime(timestamp)
@@ -2648,6 +2735,7 @@ export function getDateObject(timestamp: Timestamp): Date {
  * @param input - The value to be validated. Can be a string or a number.
  * @returns A boolean indicating whether the input is a finite number.
  *          Returns true if the input is a finite number, false otherwise.
+ * @category validation
  */
 export function validateNumber(input: string | number): boolean {
   return isFinite(Number(input))
@@ -2659,6 +2747,7 @@ export function validateNumber(input: string | number): boolean {
  * @param {Timestamp[]} timestamps Timestamp objects to compare.
  * @param {boolean=} useTime Include time-of-day in the comparison when true.
  * @returns Latest Timestamp object.
+ * @category comparison
  */
 export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
   const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier
@@ -2673,6 +2762,7 @@ export function maxTimestamp(timestamps: Timestamp[], useTime = false): Timestam
  * @param {Timestamp[]} timestamps Timestamp objects to compare.
  * @param {boolean=} useTime Include time-of-day in the comparison when true.
  * @returns Earliest Timestamp object.
+ * @category comparison
  */
 export function minTimestamp(timestamps: Timestamp[], useTime = false): Timestamp {
   const func = useTime === true ? getDayTimeIdentifier : getDayIdentifier
@@ -2723,6 +2813,7 @@ function moveBoundary(timestamp: Timestamp, amount: number, useTime: boolean): T
  * @param {Timestamp} end Second boundary.
  * @param {boolean=} useTime Include time-of-day when ordering boundaries.
  * @returns {TimestampRange} Frozen inclusive Timestamp range.
+ * @category ranges
  */
 export function createTimestampRange(
   start: Timestamp,
@@ -2743,6 +2834,7 @@ export function createTimestampRange(
  * @param {TimestampRange} range Inclusive range to test against.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {boolean} True when the timestamp is inside the range.
+ * @category comparison
  */
 export function isTimestampInRange(
   timestamp: Timestamp,
@@ -2759,6 +2851,7 @@ export function isTimestampInRange(
  * @param {TimestampRange} second Second range.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {boolean} True when the ranges overlap.
+ * @category comparison
  */
 export function isRangeOverlapping(
   first: TimestampRange,
@@ -2782,6 +2875,7 @@ export function isRangeOverlapping(
  * @param {TimestampRange} second Second range.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {TimestampRange | null} Intersected range, or `null` when the ranges do not overlap.
+ * @category ranges
  */
 export function intersectRanges(
   first: TimestampRange,
@@ -2809,6 +2903,7 @@ export function intersectRanges(
  * @param {TimestampRange[]} ranges Ranges to merge.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {TimestampRange[]} Merged ranges sorted by start boundary.
+ * @category ranges
  */
 export function mergeRanges(ranges: TimestampRange[], useTime = false): TimestampRange[] {
   const sorted = ranges
@@ -2842,6 +2937,7 @@ export function mergeRanges(ranges: TimestampRange[], useTime = false): Timestam
  * @param {TimestampRange[]} blocked Ranges to remove from the source.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {TimestampRange[]} Remaining ranges.
+ * @category ranges
  */
 export function subtractRanges(
   source: TimestampRange,
@@ -2892,6 +2988,7 @@ export function subtractRanges(
  * @param {TimestampRange[]} occupied Ranges that are not available.
  * @param {boolean=} useTime Include time-of-day in the comparison.
  * @returns {TimestampRange[]} Gap ranges.
+ * @category ranges
  */
 export function findRangeGaps(
   source: TimestampRange,
@@ -2909,6 +3006,7 @@ export function findRangeGaps(
  * @param {Timestamp} endTimestamp Inclusive end boundary.
  * @param {boolean=} useTime Include time-of-day in the comparison when true.
  * @returns {boolean} True when the timestamp is inside the range.
+ * @category comparison
  */
 export function isBetweenDates(
   timestamp: Timestamp,
@@ -2933,6 +3031,7 @@ export function isBetweenDates(
  * @param {Timestamp} firstTimestamp Start of the second range.
  * @param {Timestamp} lastTimestamp End of the second range.
  * @returns {boolean} True when the ranges overlap.
+ * @category comparison
  */
 export function isOverlappingDates(
   startTimestamp: Timestamp,
@@ -3012,6 +3111,7 @@ export interface AddToDateOptions {
  * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
  * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
  * @returns {Timestamp} New normalized Timestamp object.
+ * @category arithmetic
  */
 export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -3049,6 +3149,7 @@ export function addToDate(timestamp: Timestamp, options: AddToDateOptions): Time
  * @param {number=} options.second If positive, adds seconds. If negative, removes seconds.
  * @param {number=} options.millisecond If positive, adds milliseconds. If negative, removes milliseconds.
  * @returns {Timestamp} New normalized Timestamp object.
+ * @category arithmetic
  */
 export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp {
   const ts = cloneTimestamp(timestamp)
@@ -3076,6 +3177,7 @@ export function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions
  * Normalizes a year/month pair while keeping the day out of the calculation.
  * This lets clamped date math choose the final day explicitly instead of
  * letting JavaScript Date roll an overflowing day into the next month.
+ * @category arithmetic
  */
 function normalizeYearMonth(year: number, month: number): Pick<Timestamp, 'year' | 'month'> {
   const date = new Date(year, month - 1, 1)
@@ -3133,6 +3235,7 @@ function normalizeTimestamp(ts: Timestamp): Timestamp {
  * @param {Timestamp} ts1 The first Timestamp
  * @param {Timestamp} ts2 The second Timestamp
  * @returns Number of days
+ * @category arithmetic
  */
 export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
   const diff = diffTimestamp(ts1, ts2, true)
@@ -3143,6 +3246,7 @@ export function daysBetween(ts1: Timestamp, ts2: Timestamp): number {
  * Returns number of weeks between two Timestamps
  * @param {Timestamp} ts1 The first Timestamp
  * @param {Timestamp} ts2 The second Timestamp
+ * @category arithmetic
  */
 export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
   let t1: Timestamp = copyTimestamp(ts1)
@@ -3157,6 +3261,7 @@ export function weeksBetween(ts1: Timestamp, ts2: Timestamp): number {
  *
  * @param {number} milliseconds Signed elapsed milliseconds.
  * @returns {TimestampDuration} Frozen duration object.
+ * @category duration
  */
 export function createDuration(milliseconds: number): TimestampDuration {
   const sign: -1 | 0 | 1 = milliseconds === 0 ? 0 : milliseconds < 0 ? -1 : 1
@@ -3191,6 +3296,7 @@ export function createDuration(milliseconds: number): TimestampDuration {
  * @param {Timestamp} start Start timestamp.
  * @param {Timestamp} end End timestamp.
  * @returns {TimestampDuration} Frozen duration object.
+ * @category duration
  */
 export function durationBetween(start: Timestamp, end: Timestamp): TimestampDuration {
   return createDuration(toUnixMilliseconds(end) - toUnixMilliseconds(start))
@@ -3206,6 +3312,7 @@ export function durationBetween(start: Timestamp, end: Timestamp): TimestampDura
  * @param {Timestamp} timestamp Timestamp object to offset.
  * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
  * @returns {Timestamp} Offset Timestamp.
+ * @category duration
  */
 export function addDuration(timestamp: Timestamp, duration: TimestampDuration | number): Timestamp {
   const milliseconds = typeof duration === 'number' ? duration : duration.totalMilliseconds
@@ -3218,6 +3325,7 @@ export function addDuration(timestamp: Timestamp, duration: TimestampDuration | 
  * @param {Timestamp} timestamp Timestamp object to offset.
  * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
  * @returns {Timestamp} Offset Timestamp.
+ * @category duration
  */
 export function subtractDuration(
   timestamp: Timestamp,
@@ -3235,6 +3343,7 @@ export function subtractDuration(
  * @param {TimestampDuration | number} duration Duration object or signed milliseconds.
  * @param {FormatDurationOptions=} options Formatting options.
  * @returns {string} Formatted duration.
+ * @category duration
  */
 export function formatDuration(
   duration: TimestampDuration | number,
@@ -3272,6 +3381,7 @@ function roundTimestampToInterval(
  * @param {Timestamp} timestamp Timestamp object to round.
  * @param {number} minutes Interval size in minutes.
  * @returns {Timestamp} Rounded Timestamp.
+ * @category arithmetic
  */
 export function floorToInterval(timestamp: Timestamp, minutes: number): Timestamp {
   return roundTimestampToInterval(timestamp, minutes, Math.floor)
@@ -3283,6 +3393,7 @@ export function floorToInterval(timestamp: Timestamp, minutes: number): Timestam
  * @param {Timestamp} timestamp Timestamp object to round.
  * @param {number} minutes Interval size in minutes.
  * @returns {Timestamp} Rounded Timestamp.
+ * @category arithmetic
  */
 export function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp {
   return roundTimestampToInterval(timestamp, minutes, Math.ceil)
@@ -3294,6 +3405,7 @@ export function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp
  * @param {Timestamp} timestamp Timestamp object to round.
  * @param {number} minutes Interval size in minutes.
  * @returns {Timestamp} Rounded Timestamp.
+ * @category arithmetic
  */
 export function roundToInterval(timestamp: Timestamp, minutes: number): Timestamp {
   return roundTimestampToInterval(timestamp, minutes, Math.round)
@@ -3339,6 +3451,7 @@ function resolveIntlNameFormat(
  * @param {string} [locale=''] - The locale to use for formatting.
  *
  * @returns {string} The formatted weekday.
+ * @category locale
  */
 export function getWeekdayFormatter(): WeekdayFormatter {
   const emptyFormatter = (): string => ''
@@ -3388,6 +3501,7 @@ export function getWeekdayFormatter(): WeekdayFormatter {
  * @param {string} type Format type: `narrow`, `short`, or `long`.
  * @param {string} locale Locale to use for formatting, such as `en-US`.
  * @returns {string[]} Localized weekday names in Sunday-first order.
+ * @category locale
  */
 export function getWeekdayNames(type: string, locale: string): string[] {
   const shortWeekdays = Object.keys(weekdayDateMap)
@@ -3408,6 +3522,7 @@ export function getWeekdayNames(type: string, locale: string): string[] {
  *   @returns {string} The formatted month name.
  *
  * @throws {Error} If Intl or Intl.DateTimeFormat is not supported in the environment.
+ * @category locale
  */
 export function getMonthFormatter(): MonthFormatter {
   const emptyFormatter = (): string => ''
@@ -3456,6 +3571,7 @@ export function getMonthFormatter(): MonthFormatter {
  * @param {string} type Format type: `narrow`, `short`, or `long`.
  * @param {string} locale Locale to use for formatting, such as `en-US`.
  * @returns {string[]} Localized month names in January-first order.
+ * @category locale
  */
 export function getMonthNames(type: string, locale: string): string[] {
   const monthFormatter = getMonthFormatter()

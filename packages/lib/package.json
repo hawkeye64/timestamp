@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/core",
-  "version": "0.1.0-rc.0",
+  "version": "0.1.0-rc.1",
   "description": "Framework-agnostic Timestamp utility.",
   "keywords": [
     "calendar",
@@ -51,7 +51,7 @@
     "prepack": "pnpm build"
   },
   "devDependencies": {
-    "@types/node": "26.0.0",
+    "@types/node": "26.0.1",
     "oxfmt": "0.56.0",
     "oxlint": "1.71.0",
     "typescript": "6.0.3",
@@ -61,5 +61,5 @@
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.9.0"
 }

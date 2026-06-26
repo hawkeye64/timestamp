@@ -36,43 +36,13 @@ adapter packages for Islamic civil and Indian National/Saka dates. Optional adap
 `CalendarSystem` contract, which keeps the conversion surface small while letting each package own
 its calendar rules.
 
-### Islamic civil adapter
+- [Islamic Civil](/developing/calendar-systems/islamic-civil) documents the deterministic tabular
+  Islamic civil calendar, including Arabic labels, RTL presentation, and native week/month ranges.
+- [Saka](/developing/calendar-systems/saka) documents the Indian National Calendar adapter,
+  including locale-aware labels and native week/month ranges.
 
-The `@timestamp-js/calendar-islamic` package exports `islamicCivilCalendar`, a deterministic
-tabular Islamic civil calendar:
-
-```ts
-import { gregorianCalendar } from '@timestamp-js/core'
-import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
-
-const ramadan = { year: 1445, month: 9, day: 1 }
-const gregorian = gregorianCalendar.fromEpochDay(islamicCivilCalendar.toEpochDay(ramadan))
-
-gregorian // { year: 2024, month: 3, day: 11 }
-```
-
-This adapter is intentionally arithmetic. It does not model observational Hijri calendars or
-Umm al-Qura adjustments. Those should be separate adapters because their rules and supported date
-ranges are different.
-
-### Indian National/Saka adapter
-
-The `@timestamp-js/calendar-saka` package exports `indianNationalCalendar`, with `sakaCalendar` as a
-convenience alias. It models the official Indian National Calendar using deterministic
-Gregorian-aligned leap-year rules:
-
-```ts
-import { gregorianCalendar } from '@timestamp-js/core'
-import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
-
-const sakaNewYear = { year: 1946, month: 1, day: 1 }
-const gregorian = gregorianCalendar.fromEpochDay(indianNationalCalendar.toEpochDay(sakaNewYear))
-
-gregorian // { year: 2024, month: 3, day: 21 }
-```
-
-Chaitra has 31 days when the corresponding Gregorian year is leap, and 30 days otherwise. Months
-2-6 have 31 days, and months 7-12 have 30 days.
+Additional calendar pages should be added under this section as new adapters prove their behavior
+against real QCalendar usage.
 
 ## Adapter contract
 
@@ -165,19 +135,6 @@ range comparisons.
 
 That means Islamic/Hijri, Hebrew, Chinese, Indian National/Saka, and similar calendars should be
 treated as first-class adapter work, not only as translated Gregorian dates.
-
-## Publishing adapter packages
-
-The workspace publish scripts publish `@timestamp-js/core` and every public
-`packages/calendar-*` adapter package together:
-
-```bash
-pnpm ci:publish:latest
-```
-
-The docs package is private and is not included. New adapters should live under `packages/calendar-*`
-so `ci:publish`, `ci:publish:alpha`, `ci:publish:beta`, and `ci:publish:latest` pick them up without
-another hard-coded publish script change.
 
 ## Integration status
 

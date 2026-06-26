@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T15:39:48.612Z",
+  "generated_at": "2026-06-26T17:50:46.184Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
@@ -17,25 +17,26 @@
       },
       "tsSignature": "function toCalendarDateParts(timestamp: Pick<Timestamp, 'year' | 'month' | 'day'>): CalendarDateParts",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "year": {
-            "desc": "Calendar year.",
+            "desc": "",
             "required": true,
-            "tsType": "number",
-            "type": "number"
+            "tsType": "timestamp.year",
+            "type": "timestamp.year"
           },
           "month": {
-            "desc": "Calendar month number. The first month is `1`.",
+            "desc": "",
             "required": true,
-            "tsType": "number",
-            "type": "number"
+            "tsType": "timestamp.month",
+            "type": "timestamp.month"
           },
           "day": {
-            "desc": "Day of the month. The first day is `1`.",
+            "desc": "",
             "required": true,
-            "tsType": "number",
-            "type": "number"
+            "tsType": "timestamp.day",
+            "type": "timestamp.day"
           }
         },
         "desc": "Plain calendar date fields.",
@@ -55,6 +56,7 @@
       },
       "tsSignature": "function validateTimestamp(input: string): boolean",
       "type": "Function",
+      "category": "validation",
       "returns": {
         "desc": "True if parseable",
         "type": "boolean",
@@ -73,6 +75,7 @@
       },
       "tsSignature": "function parsed(input: string): Timestamp | null",
       "type": "Function",
+      "category": "parsing",
       "returns": {
         "definition": {
           "calendarId": {
@@ -249,6 +252,7 @@
       },
       "tsSignature": "function parseDate(date: Date): Timestamp | null",
       "type": "Function",
+      "category": "parsing",
       "returns": {
         "definition": {
           "calendarId": {
@@ -425,6 +429,7 @@
       },
       "tsSignature": "function parseDateUTC(date: Date): Timestamp | null",
       "type": "Function",
+      "category": "parsing",
       "returns": {
         "definition": {
           "calendarId": {
@@ -607,6 +612,7 @@
       },
       "tsSignature": "function padNumber(x: number, length: number): string",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "desc": "The padded number (as a string). (ie: 5 = '05')",
         "type": "string",
@@ -625,6 +631,7 @@
       },
       "tsSignature": "function isLeapYear(year: number): boolean",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "True if the year is a leap year",
         "type": "boolean",
@@ -649,6 +656,7 @@
       },
       "tsSignature": "function daysInMonth(year: number, month: number): number",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "The number of days in the month (corrected for leap years)",
         "type": "number",
@@ -667,6 +675,7 @@
       },
       "tsSignature": "function nextDay(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -843,6 +852,7 @@
       },
       "tsSignature": "function prevDay(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1011,6 +1021,7 @@
       "desc": "Returns today's date using the host runtime timezone.\n\nFor SSR or static rendering, server and client runtimes can produce different\nvalues when they run in different timezones. Use todayUTC() when the app\nwants a stable UTC calendar date instead.",
       "tsSignature": "function today(): string",
       "type": "Function",
+      "category": "state",
       "returns": {
         "desc": "Date string in the form `YYYY-MM-DD`",
         "type": "string",
@@ -1029,6 +1040,7 @@
       },
       "tsSignature": "function todayUTC(date?: unknown): string",
       "type": "Function",
+      "category": "state",
       "returns": {
         "desc": "UTC date string in the form `YYYY-MM-DD`",
         "type": "string",
@@ -1047,6 +1059,7 @@
       },
       "tsSignature": "function nowUTC(date?: unknown): Timestamp",
       "type": "Function",
+      "category": "state",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1223,6 +1236,7 @@
       },
       "tsSignature": "function isToday(date: string): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True if the date is today's date",
         "type": "boolean",
@@ -1247,6 +1261,7 @@
       },
       "tsSignature": "function isTodayUTC(date: string, now?: unknown): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when the date matches the UTC date.",
         "type": "boolean",
@@ -1277,6 +1292,7 @@
       },
       "tsSignature": "function getStartOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1465,6 +1481,7 @@
       },
       "tsSignature": "function getEndOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1641,6 +1658,7 @@
       },
       "tsSignature": "function getStartOfMonth(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1817,6 +1835,7 @@
       },
       "tsSignature": "function getEndOfMonth(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -1993,6 +2012,7 @@
       },
       "tsSignature": "function parseTime(input: number | string | { hour: number; minute: number }): number | false",
       "type": "Function",
+      "category": "parsing",
       "returns": {
         "desc": "Minutes since midnight, or `false` when the input cannot be parsed.",
         "type": "number | false",
@@ -2017,6 +2037,7 @@
       },
       "tsSignature": "function compareTimestamps(ts1: Timestamp, ts2: Timestamp): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when both timestamps match exactly.",
         "type": "boolean",
@@ -2041,6 +2062,7 @@
       },
       "tsSignature": "function compareDate(ts1: Timestamp, ts2: Timestamp): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when both dates are the same.",
         "type": "boolean",
@@ -2065,6 +2087,7 @@
       },
       "tsSignature": "function compareTime(ts1: Timestamp, ts2: Timestamp): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when both times are the same.",
         "type": "boolean",
@@ -2089,6 +2112,7 @@
       },
       "tsSignature": "function compareDateTime(ts1: Timestamp, ts2: Timestamp): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when both date-time values are the same.",
         "type": "boolean",
@@ -2113,6 +2137,7 @@
       },
       "tsSignature": "function parseTimestamp(input: string, now?: Timestamp | null): Timestamp | null",
       "type": "Function",
+      "category": "parsing",
       "returns": {
         "definition": {
           "calendarId": {
@@ -2289,6 +2314,7 @@
       },
       "tsSignature": "function getDayIdentifier(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Numeric date identifier.",
         "type": "number",
@@ -2313,6 +2339,7 @@
       },
       "tsSignature": "function getEpochDay(timestamp: Timestamp, calendar?: CalendarSystem): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Stable serial day.",
         "type": "number",
@@ -2337,6 +2364,7 @@
       },
       "tsSignature": "function getCalendarDayIdentifier(timestamp: Timestamp, calendar?: CalendarSystem): number",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "Stable serial day.",
         "type": "number",
@@ -2361,6 +2389,7 @@
       },
       "tsSignature": "function isValidCalendarDate(date: CalendarDateParts, calendar?: CalendarSystem): boolean",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "True when year, month, and day can exist in the calendar.",
         "type": "boolean",
@@ -2391,6 +2420,7 @@
       },
       "tsSignature": "function createCalendarTimestamp(date: CalendarDateParts, calendar?: CalendarSystem, options?: CalendarTimestampOptions): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -2579,6 +2609,7 @@
       },
       "tsSignature": "function parseCalendarTimestamp(input: string, calendar?: CalendarSystem, now?: Timestamp | null): Timestamp | null",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -2767,6 +2798,7 @@
       },
       "tsSignature": "function createCalendarTimestampFromEpochDay(epochDay: number, calendar?: CalendarSystem, options?: CalendarTimestampOptions): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -2949,6 +2981,7 @@
       },
       "tsSignature": "function updateCalendarFormatted(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -3143,6 +3176,7 @@
       },
       "tsSignature": "function updateCalendarRelative(timestamp: Timestamp, now: Timestamp, calendar?: CalendarSystem, time?: unknown): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -3325,6 +3359,7 @@
       },
       "tsSignature": "function nextCalendarDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -3507,6 +3542,7 @@
       },
       "tsSignature": "function prevCalendarDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -3695,6 +3731,7 @@
       },
       "tsSignature": "function addCalendarDays(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -3883,6 +3920,7 @@
       },
       "tsSignature": "function addCalendarMonths(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4071,6 +4109,7 @@
       },
       "tsSignature": "function addCalendarYears(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4253,6 +4292,7 @@
       },
       "tsSignature": "function getCalendarStartOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4435,6 +4475,7 @@
       },
       "tsSignature": "function getCalendarEndOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4617,6 +4658,7 @@
       },
       "tsSignature": "function getCalendarStartOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4799,6 +4841,7 @@
       },
       "tsSignature": "function getCalendarEndOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -4999,6 +5042,7 @@
       },
       "tsSignature": "function findCalendarWeekday(timestamp: Timestamp, weekday: number, calendar?: CalendarSystem, direction?: 'next' | 'prev', maxDays?: unknown): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -5193,6 +5237,7 @@
       },
       "tsSignature": "function getCalendarStartOfWeek(timestamp: Timestamp, weekdays: number[], calendar?: CalendarSystem, now?: Timestamp | null): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -5387,6 +5432,7 @@
       },
       "tsSignature": "function getCalendarEndOfWeek(timestamp: Timestamp, weekdays: number[], calendar?: CalendarSystem, now?: Timestamp | null): Timestamp",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "definition": {
           "calendarId": {
@@ -5587,6 +5633,7 @@
       },
       "tsSignature": "function createCalendarDayList(start: Timestamp, end: Timestamp, now: Timestamp, calendar?: CalendarSystem, options?: CalendarDayListOptions): Timestamp[]",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "Timestamp days for the adapter calendar.",
         "type": "Timestamp[]",
@@ -5605,6 +5652,7 @@
       },
       "tsSignature": "function getTimeIdentifier(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Numeric time identifier.",
         "type": "number",
@@ -5623,6 +5671,7 @@
       },
       "tsSignature": "function getDayTimeIdentifier(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Numeric date-time identifier.",
         "type": "number",
@@ -5653,6 +5702,7 @@
       },
       "tsSignature": "function diffTimestamp(ts1: Timestamp, ts2: Timestamp, strict?: unknown): number",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "desc": "The difference",
         "type": "number",
@@ -5683,6 +5733,7 @@
       },
       "tsSignature": "function updateRelative(timestamp: Timestamp, now: Timestamp, time?: unknown): Timestamp",
       "type": "Function",
+      "category": "state",
       "returns": {
         "definition": {
           "calendarId": {
@@ -5871,6 +5922,7 @@
       },
       "tsSignature": "function updateMinutes(timestamp: Timestamp, minutes: number, now?: Timestamp | null): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6047,6 +6099,7 @@
       },
       "tsSignature": "function updateWeekday(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6223,6 +6276,7 @@
       },
       "tsSignature": "function updateDayOfYear(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6399,6 +6453,7 @@
       },
       "tsSignature": "function updateWorkWeek(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6599,6 +6654,7 @@
       },
       "tsSignature": "function updateDisabled(timestamp: Timestamp, disabledBefore?: string, disabledAfter?: string, disabledWeekdays?: number[], disabledDays?: DisabledDays): Timestamp",
       "type": "Function",
+      "category": "state",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6775,6 +6831,7 @@
       },
       "tsSignature": "function updateFormatted(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "definition": {
           "calendarId": {
@@ -6951,6 +7008,7 @@
       },
       "tsSignature": "function getDayOfYear(timestamp: Timestamp): number | void",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "desc": "The day of the year",
         "type": "number | void",
@@ -6969,6 +7027,7 @@
       },
       "tsSignature": "function getWorkWeek(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "desc": "The work week",
         "type": "number",
@@ -6987,6 +7046,7 @@
       },
       "tsSignature": "function getWeekday(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "formatting",
       "returns": {
         "desc": "The weekday",
         "type": "number",
@@ -7005,6 +7065,7 @@
       },
       "tsSignature": "function copyTimestamp(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "state",
       "returns": {
         "definition": {
           "calendarId": {
@@ -7181,6 +7242,7 @@
       },
       "tsSignature": "function getStartOfDay(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -7357,6 +7419,7 @@
       },
       "tsSignature": "function getEndOfDay(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -7533,6 +7596,7 @@
       },
       "tsSignature": "function getStartOfYear(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -7709,6 +7773,7 @@
       },
       "tsSignature": "function getEndOfYear(timestamp: Timestamp): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -7885,6 +7950,7 @@
       },
       "tsSignature": "function getDate(timestamp: Timestamp): string",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Date string such as `YYYY-MM-DD`.",
         "type": "string",
@@ -7903,6 +7969,7 @@
       },
       "tsSignature": "function getTime(timestamp: Timestamp): string",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Time string, or an empty string when the timestamp has no time.",
         "type": "string",
@@ -7921,6 +7988,7 @@
       },
       "tsSignature": "function getDateTime(timestamp: Timestamp): string",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Date-time string such as `YYYY-MM-DD HH:mm`.",
         "type": "string",
@@ -7957,6 +8025,7 @@
       },
       "tsSignature": "function moveRelativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -8151,6 +8220,7 @@
       },
       "tsSignature": "function relativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -8345,6 +8415,7 @@
       },
       "tsSignature": "function findWeekday(timestamp: Timestamp, weekday: number, mover?: unknown, maxDays?: unknown): Timestamp",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "calendarId": {
@@ -8575,6 +8646,7 @@
       },
       "tsSignature": "function createDayList(start: Timestamp, end: Timestamp, now: Timestamp, weekdays?: number[], disabledBefore?: string | undefined, disabledAfter?: string | undefined, disabledWeekdays?: number[], disabledDays?: DisabledDays, max?: unknown, min?: unknown): Timestamp[]",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "desc": "Timestamp days.",
         "type": "Timestamp[]",
@@ -8617,6 +8689,7 @@
       },
       "tsSignature": "function createIntervalList(timestamp: Timestamp, first: number, minutes: number, count: number, now: Timestamp): Timestamp[]",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "desc": "Interval Timestamp objects.",
         "type": "Timestamp[]",
@@ -8641,6 +8714,7 @@
       },
       "tsSignature": "function createNativeLocaleFormatter(locale: string, cb: LocaleFormatter): (_timestamp: Timestamp, _short: boolean) => string",
       "type": "Function",
+      "category": "locale",
       "returns": {
         "desc": "The function has params (timestamp, short). The short is to use the short options.",
         "type": "(_timestamp: Timestamp, _short: boolean) => string",
@@ -8665,6 +8739,7 @@
       },
       "tsSignature": "function createNativeLocaleFormatterUTC(locale: string, cb: LocaleFormatter): (_timestamp: Timestamp, _short: boolean) => string",
       "type": "Function",
+      "category": "locale",
       "returns": {
         "desc": "The function has params (timestamp, short). The short is to use the short options.",
         "type": "(_timestamp: Timestamp, _short: boolean) => string",
@@ -8695,6 +8770,7 @@
       },
       "tsSignature": "function createCalendarLocaleFormatterUTC(calendar: CalendarSystem, locale: string, cb: LocaleFormatter): (_timestamp: Timestamp, _short: boolean) => string",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "Function that formats a calendar timestamp.",
         "type": "(_timestamp: Timestamp, _short: boolean) => string",
@@ -8713,6 +8789,7 @@
       },
       "tsSignature": "function makeDate(timestamp: Timestamp): Date",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Host-local JavaScript Date object.",
         "type": "Date",
@@ -8731,6 +8808,7 @@
       },
       "tsSignature": "function makeDateUTC(timestamp: Timestamp): Date",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "JavaScript Date object built with `Date.UTC()`.",
         "type": "Date",
@@ -8755,6 +8833,7 @@
       },
       "tsSignature": "function makeCalendarDateUTC(timestamp: Timestamp, calendar?: CalendarSystem): Date",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "JavaScript Date object built with `Date.UTC()`.",
         "type": "Date",
@@ -8773,6 +8852,7 @@
       },
       "tsSignature": "function makeDateTime(timestamp: Timestamp): Date",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Host-local JavaScript Date object.",
         "type": "Date",
@@ -8797,6 +8877,7 @@
       },
       "tsSignature": "function makeCalendarDateTimeUTC(timestamp: Timestamp, calendar?: CalendarSystem): Date",
       "type": "Function",
+      "category": "calendar",
       "returns": {
         "desc": "JavaScript Date object built with `Date.UTC()`.",
         "type": "Date",
@@ -8815,6 +8896,7 @@
       },
       "tsSignature": "function makeDateTimeUTC(timestamp: Timestamp): Date",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "JavaScript Date object built with `Date.UTC()`.",
         "type": "Date",
@@ -8833,6 +8915,7 @@
       },
       "tsSignature": "function toUnixMilliseconds(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Unix milliseconds.",
         "type": "number",
@@ -8851,6 +8934,7 @@
       },
       "tsSignature": "function toUnixSeconds(timestamp: Timestamp): number",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Unix seconds.",
         "type": "number",
@@ -8869,6 +8953,7 @@
       },
       "tsSignature": "function fromUnixMilliseconds(milliseconds: number): Timestamp | null",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "definition": {
           "calendarId": {
@@ -9045,6 +9130,7 @@
       },
       "tsSignature": "function fromUnixSeconds(seconds: number): Timestamp | null",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "definition": {
           "calendarId": {
@@ -9221,6 +9307,7 @@
       },
       "tsSignature": "function getDateObject(timestamp: Timestamp): Date",
       "type": "Function",
+      "category": "conversion",
       "returns": {
         "desc": "Local JavaScript Date object.",
         "type": "Date",
@@ -9239,6 +9326,7 @@
       },
       "tsSignature": "function validateNumber(input: string | number): boolean",
       "type": "Function",
+      "category": "validation",
       "returns": {
         "desc": "A boolean indicating whether the input is a finite number.\nReturns true if the input is a finite number, false otherwise.",
         "type": "boolean",
@@ -9263,6 +9351,7 @@
       },
       "tsSignature": "function maxTimestamp(timestamps: Timestamp[], useTime?: unknown): Timestamp",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "definition": {
           "calendarId": {
@@ -9445,6 +9534,7 @@
       },
       "tsSignature": "function minTimestamp(timestamps: Timestamp[], useTime?: unknown): Timestamp",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "definition": {
           "calendarId": {
@@ -9633,6 +9723,7 @@
       },
       "tsSignature": "function createTimestampRange(start: Timestamp, end: Timestamp, useTime?: unknown): TimestampRange",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "start": {
@@ -9677,6 +9768,7 @@
       },
       "tsSignature": "function isTimestampInRange(timestamp: Timestamp, range: TimestampRange, useTime?: unknown): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when the timestamp is inside the range.",
         "type": "boolean",
@@ -9707,6 +9799,7 @@
       },
       "tsSignature": "function isRangeOverlapping(first: TimestampRange, second: TimestampRange, useTime?: unknown): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when the ranges overlap.",
         "type": "boolean",
@@ -9737,6 +9830,7 @@
       },
       "tsSignature": "function intersectRanges(first: TimestampRange, second: TimestampRange, useTime?: unknown): TimestampRange | null",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "definition": {
           "start": {
@@ -9775,6 +9869,7 @@
       },
       "tsSignature": "function mergeRanges(ranges: TimestampRange[], useTime?: unknown): TimestampRange[]",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "desc": "Merged ranges sorted by start boundary.",
         "type": "TimestampRange[]",
@@ -9805,6 +9900,7 @@
       },
       "tsSignature": "function subtractRanges(source: TimestampRange, blocked: TimestampRange[], useTime?: unknown): TimestampRange[]",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "desc": "Remaining ranges.",
         "type": "TimestampRange[]",
@@ -9835,6 +9931,7 @@
       },
       "tsSignature": "function findRangeGaps(source: TimestampRange, occupied: TimestampRange[], useTime?: unknown): TimestampRange[]",
       "type": "Function",
+      "category": "ranges",
       "returns": {
         "desc": "Gap ranges.",
         "type": "TimestampRange[]",
@@ -9871,6 +9968,7 @@
       },
       "tsSignature": "function isBetweenDates(timestamp: Timestamp, startTimestamp: Timestamp, endTimestamp: Timestamp, useTime?: unknown): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when the timestamp is inside the range.",
         "type": "boolean",
@@ -9907,6 +10005,7 @@
       },
       "tsSignature": "function isOverlappingDates(startTimestamp: Timestamp, endTimestamp: Timestamp, firstTimestamp: Timestamp, lastTimestamp: Timestamp): boolean",
       "type": "Function",
+      "category": "comparison",
       "returns": {
         "desc": "True when the ranges overlap.",
         "type": "boolean",
@@ -9931,6 +10030,7 @@
       },
       "tsSignature": "function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -10113,6 +10213,7 @@
       },
       "tsSignature": "function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -10295,6 +10396,7 @@
       },
       "tsSignature": "function daysBetween(ts1: Timestamp, ts2: Timestamp): number",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "desc": "Number of days",
         "type": "number",
@@ -10319,6 +10421,7 @@
       },
       "tsSignature": "function weeksBetween(ts1: Timestamp, ts2: Timestamp): number",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "desc": "",
         "type": "number",
@@ -10337,6 +10440,7 @@
       },
       "tsSignature": "function createDuration(milliseconds: number): TimestampDuration",
       "type": "Function",
+      "category": "duration",
       "returns": {
         "definition": {
           "totalMilliseconds": {
@@ -10411,6 +10515,7 @@
       },
       "tsSignature": "function durationBetween(start: Timestamp, end: Timestamp): TimestampDuration",
       "type": "Function",
+      "category": "duration",
       "returns": {
         "definition": {
           "totalMilliseconds": {
@@ -10485,6 +10590,7 @@
       },
       "tsSignature": "function addDuration(timestamp: Timestamp, duration: TimestampDuration | number): Timestamp",
       "type": "Function",
+      "category": "duration",
       "returns": {
         "definition": {
           "calendarId": {
@@ -10667,6 +10773,7 @@
       },
       "tsSignature": "function subtractDuration(timestamp: Timestamp, duration: TimestampDuration | number): Timestamp",
       "type": "Function",
+      "category": "duration",
       "returns": {
         "definition": {
           "calendarId": {
@@ -10849,6 +10956,7 @@
       },
       "tsSignature": "function formatDuration(duration: TimestampDuration | number, options?: FormatDurationOptions): string",
       "type": "Function",
+      "category": "duration",
       "returns": {
         "desc": "Formatted duration.",
         "type": "string",
@@ -10873,6 +10981,7 @@
       },
       "tsSignature": "function floorToInterval(timestamp: Timestamp, minutes: number): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -11055,6 +11164,7 @@
       },
       "tsSignature": "function ceilToInterval(timestamp: Timestamp, minutes: number): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -11237,6 +11347,7 @@
       },
       "tsSignature": "function roundToInterval(timestamp: Timestamp, minutes: number): Timestamp",
       "type": "Function",
+      "category": "arithmetic",
       "returns": {
         "definition": {
           "calendarId": {
@@ -11408,6 +11519,7 @@
       "examples": [
         "const formatWeekday = getWeekdayFormatter();\nconsole.log(formatWeekday('Mon', 'long', 'en-US')); // \"Monday\"\nconsole.log(formatWeekday('Mon', 'short', 'fr-FR')); // \"lun.\""
       ],
+      "category": "locale",
       "returns": {
         "desc": "The formatted weekday.",
         "type": "WeekdayFormatter",
@@ -11432,6 +11544,7 @@
       },
       "tsSignature": "function getWeekdayNames(type: string, locale: string): string[]",
       "type": "Function",
+      "category": "locale",
       "returns": {
         "desc": "Localized weekday names in Sunday-first order.",
         "type": "string[]",
@@ -11442,6 +11555,7 @@
       "desc": "Creates and returns a function for formatting month names based on locale and format type.",
       "tsSignature": "function getMonthFormatter(): MonthFormatter",
       "type": "Function",
+      "category": "locale",
       "returns": {
         "desc": "The formatted month name.",
         "type": "MonthFormatter",
@@ -11466,6 +11580,7 @@
       },
       "tsSignature": "function getMonthNames(type: string, locale: string): string[]",
       "type": "Function",
+      "category": "locale",
       "returns": {
         "desc": "Localized month names in January-first order.",
         "type": "string[]",

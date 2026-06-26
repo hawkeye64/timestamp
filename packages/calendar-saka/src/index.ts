@@ -41,6 +41,7 @@ function daysBeforeMonth(year: number, month: number): number {
  *
  * @param year Saka year number.
  * @returns True when Chaitra has 31 days.
+ * @category calendar
  */
 export function isSakaLeapYear(year: number): boolean {
   return gregorianCalendar.isLeapYear(getGregorianYearForSakaYear(year))
@@ -52,6 +53,7 @@ export function isSakaLeapYear(year: number): boolean {
  * @param year Saka year number.
  * @param month Saka month number, where Chaitra is `1`.
  * @returns Number of days in the month, or `0` for an invalid month number.
+ * @category calendar
  */
 export function sakaDaysInMonth(year: number, month: number): number {
   assertPositiveYear(year)
