@@ -1,5 +1,5 @@
 import { gregorianCalendar } from './calendar'
-import type { CalendarDateParts, CalendarSystem } from './calendar'
+import type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
 
 export { formatCalendarDate, gregorianCalendar } from './calendar'
 export type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
@@ -240,6 +240,13 @@ export type DisabledDays = DisabledDay[]
  * suffixes without converting the wall-clock values into another zone.
  */
 export interface Timestamp {
+  /**
+   * Optional calendar-system identifier for adapter-produced timestamps.
+   *
+   * Core Gregorian helpers omit this field for backwards compatibility.
+   */
+  readonly calendarId?: CalendarId
+
   /**
    * Date string in `YYYY-MM-DD` form when the timestamp has a day.
    */

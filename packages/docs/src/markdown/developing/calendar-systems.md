@@ -11,6 +11,8 @@ behavior for compatibility.
 The calendar-system work starts underneath that contract. Core exposes a `CalendarSystem` adapter
 shape and a built-in `gregorianCalendar` adapter so future calendar packages can plug into the same
 date math model instead of creating separate, incompatible helper APIs.
+Adapter-produced timestamps can use the optional `calendarId` field, but the current Gregorian core
+helpers leave it unset so existing object output remains stable.
 
 ## Recommended package shape
 
