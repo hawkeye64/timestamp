@@ -1,4 +1,4 @@
-import { gregorianCalendar } from './calendar'
+import { formatCalendarDate, gregorianCalendar } from './calendar'
 import type { CalendarDateParts, CalendarId, CalendarSystem } from './calendar'
 
 export { formatCalendarDate, gregorianCalendar } from './calendar'
@@ -236,8 +236,10 @@ export type DisabledDays = DisabledDay[]
 /**
  * Immutable timestamp data used by all parser, comparison, and date math helpers.
  *
- * Timestamps use Gregorian calendar fields and preserve optional ISO timezone
- * suffixes without converting the wall-clock values into another zone.
+ * Core parser helpers produce Gregorian calendar fields and preserve optional
+ * ISO timezone suffixes without converting the wall-clock values into another
+ * zone. Calendar adapter helpers can also produce timestamp-shaped values whose
+ * year/month/day fields belong to the adapter identified by `calendarId`.
  */
 export interface Timestamp {
   /**
@@ -258,17 +260,18 @@ export interface Timestamp {
   readonly hasDay: boolean
 
   /**
-   * Four-digit Gregorian year.
+   * Calendar year. Core parser helpers use Gregorian years.
    */
   readonly year: number
 
   /**
-   * Gregorian month number, where January is `1` and December is `12`.
+   * Calendar month number, where the first month is `1`. Core parser helpers
+   * use Gregorian month numbers.
    */
   readonly month: number
 
   /**
-   * Day of the month.
+   * Calendar day of the month.
    */
   readonly day: number
 
@@ -472,6 +475,87 @@ export interface TimestampDuration {
 }
 
 /**
+ * Options used when creating a Timestamp from calendar adapter fields.
+ */
+export interface CalendarTimestampOptions {
+  /**
+   * Include formatted time data when true. Defaults to true for compatibility
+   * with calendar-view workflows that expect `00:00` when no explicit time is supplied.
+   */
+  readonly hasTime?: boolean
+
+  /**
+   * Hour in 24-hour format.
+   */
+  readonly hour?: number
+
+  /**
+   * Minute of the hour.
+   */
+  readonly minute?: number
+
+  /**
+   * Optional second of the minute.
+   */
+  readonly second?: number
+
+  /**
+   * Optional millisecond of the second.
+   */
+  readonly millisecond?: number
+
+  /**
+   * Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.
+   */
+  readonly timezone?: string
+
+  /**
+   * Optional comparison timestamp from the same calendar system.
+   */
+  readonly now?: Timestamp | null
+}
+
+/**
+ * Options used when creating a calendar-aware day list.
+ */
+export interface CalendarDayListOptions {
+  /**
+   * Weekday numbers to include, from `0` Sunday to `6` Saturday.
+   */
+  readonly weekdays?: number[]
+
+  /**
+   * Disable days before this calendar date string.
+   */
+  readonly disabledBefore?: string
+
+  /**
+   * Disable days after this calendar date string.
+   */
+  readonly disabledAfter?: string
+
+  /**
+   * Weekday numbers to mark disabled.
+   */
+  readonly disabledWeekdays?: number[]
+
+  /**
+   * Specific dates or date ranges to mark disabled.
+   */
+  readonly disabledDays?: DisabledDays
+
+  /**
+   * Maximum number of days to return.
+   */
+  readonly max?: number
+
+  /**
+   * Minimum number of days to return.
+   */
+  readonly min?: number
+}
+
+/**
  * Options for formatting a TimestampDuration.
  */
 export interface FormatDurationOptions {
@@ -526,7 +610,13 @@ function cloneTimestamp(timestamp: Timestamp): MutableTimestamp {
   return { ...timestamp }
 }
 
-function toCalendarDateParts(
+/**
+ * Extracts calendar date fields from a timestamp-shaped value.
+ *
+ * @param timestamp Timestamp or timestamp-like object to read.
+ * @returns Plain calendar date fields.
+ */
+export function toCalendarDateParts(
   timestamp: Pick<Timestamp, 'year' | 'month' | 'day'>,
 ): CalendarDateParts {
   return {
@@ -534,6 +624,22 @@ function toCalendarDateParts(
     month: timestamp.month,
     day: timestamp.day,
   }
+}
+
+function getCalendarTimestampOptions(timestamp: Timestamp): CalendarTimestampOptions {
+  return {
+    hasTime: timestamp.hasTime,
+    hour: timestamp.hour,
+    minute: timestamp.minute,
+    second: timestamp.second,
+    millisecond: timestamp.millisecond,
+    timezone: timestamp.timezone,
+  }
+}
+
+function getCalendarWorkWeek(date: CalendarDateParts, calendar: CalendarSystem): number {
+  const firstWeekday = calendar.getWeekday({ year: date.year, month: 1, day: 1 })
+  return Math.floor((calendar.getDayOfYear(date) + firstWeekday - 1) / 7) + 1
 }
 
 function parseMillisecond(value: string | undefined): number | undefined {
@@ -1060,6 +1166,532 @@ export function getEpochDay(
   calendar: CalendarSystem = gregorianCalendar,
 ): number {
   return calendar.toEpochDay(toCalendarDateParts(timestamp))
+}
+
+/**
+ * Converts a Timestamp date into a stable serial-day identifier for a calendar system.
+ *
+ * This is an alias-friendly helper for calendar views that need sorted keys,
+ * range comparisons, or virtualized day rows across different calendar adapters.
+ *
+ * @param timestamp Timestamp object to read.
+ * @param calendar Calendar implementation to use.
+ * @returns Stable serial day.
+ */
+export function getCalendarDayIdentifier(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): number {
+  return getEpochDay(timestamp, calendar)
+}
+
+/**
+ * Returns true when calendar date fields are valid for a calendar system.
+ *
+ * @param date Calendar date fields to validate.
+ * @param calendar Calendar implementation to use.
+ * @returns True when year, month, and day can exist in the calendar.
+ */
+export function isValidCalendarDate(
+  date: CalendarDateParts,
+  calendar: CalendarSystem = gregorianCalendar,
+): boolean {
+  if (date.year < 1) return false
+  if (date.month < 1 || date.month > calendar.monthsInYear(date.year)) return false
+  return date.day >= 1 && date.day <= calendar.daysInMonth(date.year, date.month)
+}
+
+/**
+ * Creates an immutable Timestamp-shaped value from calendar adapter fields.
+ *
+ * The returned timestamp uses adapter year/month/day fields, is tagged with
+ * `calendarId`, and derives weekday/day-of-year values from the adapter.
+ *
+ * @param date Calendar date fields.
+ * @param calendar Calendar implementation to use.
+ * @param options Optional time and relative comparison settings.
+ * @returns Timestamp-shaped calendar value.
+ */
+export function createCalendarTimestamp(
+  date: CalendarDateParts,
+  calendar: CalendarSystem = gregorianCalendar,
+  options: CalendarTimestampOptions = {},
+): Timestamp {
+  const timestamp: MutableTimestamp = {
+    calendarId: calendar.id,
+    date: formatCalendarDate(date),
+    hasDay: true,
+    year: date.year,
+    month: date.month,
+    day: date.day,
+    hasTime: options.hasTime ?? true,
+    hour: options.hour ?? 0,
+    minute: options.minute ?? 0,
+    past: false,
+    current: false,
+    future: false,
+    disabled: false,
+    weekday: calendar.getWeekday(date),
+    doy: calendar.getDayOfYear(date),
+    workweek: getCalendarWorkWeek(date, calendar),
+  }
+
+  if (options.second !== undefined) {
+    timestamp.second = options.second
+  }
+  if (options.millisecond !== undefined) {
+    timestamp.millisecond = options.millisecond
+  }
+  if (options.timezone !== undefined) {
+    timestamp.timezone = options.timezone
+  }
+
+  timestamp.time = getTime(timestamp)
+
+  const formatted = freezeTimestamp(timestamp)
+  return options.now
+    ? updateCalendarRelative(formatted, options.now, calendar, formatted.hasTime)
+    : formatted
+}
+
+/**
+ * Parses a date or date-time string as calendar adapter fields.
+ *
+ * Unlike parseTimestamp(), this helper validates the date against the supplied
+ * calendar and derives weekday/day-of-year values through the adapter.
+ *
+ * @param input Date or date-time string.
+ * @param calendar Calendar implementation to use.
+ * @param now Optional comparison timestamp from the same calendar system.
+ * @returns Calendar timestamp, or `null` when the input cannot be parsed or validated.
+ */
+export function parseCalendarTimestamp(
+  input: string,
+  calendar: CalendarSystem = gregorianCalendar,
+  now: Timestamp | null = null,
+): Timestamp | null {
+  const timestamp = parsed(input)
+  if (timestamp === null) return null
+
+  const date = toCalendarDateParts(timestamp)
+  if (isValidCalendarDate(date, calendar) === false) return null
+
+  return createCalendarTimestamp(date, calendar, {
+    ...getCalendarTimestampOptions(timestamp),
+    now,
+  })
+}
+
+/**
+ * Creates a calendar timestamp from a stable serial day.
+ *
+ * @param epochDay Stable serial day.
+ * @param calendar Calendar implementation to use.
+ * @param options Optional time and relative comparison settings.
+ * @returns Timestamp-shaped calendar value.
+ */
+export function createCalendarTimestampFromEpochDay(
+  epochDay: number,
+  calendar: CalendarSystem = gregorianCalendar,
+  options: CalendarTimestampOptions = {},
+): Timestamp {
+  return createCalendarTimestamp(calendar.fromEpochDay(epochDay), calendar, options)
+}
+
+/**
+ * Updates formatted calendar metadata on a timestamp-shaped value.
+ *
+ * @param timestamp Timestamp object to transform.
+ * @param calendar Calendar implementation to use.
+ * @returns Timestamp with adapter date formatting and metadata.
+ */
+export function updateCalendarFormatted(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    toCalendarDateParts(timestamp),
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns a timestamp with relative flags compared through a calendar adapter.
+ *
+ * @param timestamp Timestamp object to update.
+ * @param now Timestamp representing the comparison point in the same calendar.
+ * @param calendar Calendar implementation to use.
+ * @param time Include time-of-day in the comparison when true.
+ * @returns New Timestamp object with relative flags.
+ */
+export function updateCalendarRelative(
+  timestamp: Timestamp,
+  now: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+  time = false,
+): Timestamp {
+  const ts = cloneTimestamp(timestamp)
+  let a = getCalendarDayIdentifier(now, calendar)
+  let b = getCalendarDayIdentifier(ts, calendar)
+  let current = a === b
+
+  if (ts.hasTime && time && current) {
+    a = getTimeComparisonValue(now)
+    b = getTimeComparisonValue(ts)
+    current = a === b
+  }
+
+  ts.past = b < a
+  ts.current = current
+  ts.future = b > a
+  ts.currentWeekday = ts.weekday === now.weekday
+
+  return freezeTimestamp(ts)
+}
+
+/**
+ * Returns a calendar timestamp for the next day.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp for the next adapter day.
+ */
+export function nextCalendarDay(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    calendar.nextDay(toCalendarDateParts(timestamp)),
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns a calendar timestamp for the previous day.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp for the previous adapter day.
+ */
+export function prevCalendarDay(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    calendar.prevDay(toCalendarDateParts(timestamp)),
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Adds a number of days through a calendar adapter.
+ *
+ * @param timestamp Base timestamp.
+ * @param amount Number of days to move.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp after moving.
+ */
+export function addCalendarDays(
+  timestamp: Timestamp,
+  amount: number,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    calendar.addDays(toCalendarDateParts(timestamp), amount),
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Adds a number of months through a calendar adapter and clamps invalid days.
+ *
+ * @param timestamp Base timestamp.
+ * @param amount Number of calendar months to move.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp after moving.
+ */
+export function addCalendarMonths(
+  timestamp: Timestamp,
+  amount: number,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  let { year, month, day } = toCalendarDateParts(timestamp)
+  let remaining = Math.trunc(amount)
+
+  while (remaining > 0) {
+    month += 1
+    if (month > calendar.monthsInYear(year)) {
+      year += 1
+      month = 1
+    }
+    remaining -= 1
+  }
+
+  while (remaining < 0) {
+    month -= 1
+    if (month < 1) {
+      year -= 1
+      month = calendar.monthsInYear(year)
+    }
+    remaining += 1
+  }
+
+  day = Math.min(day, calendar.daysInMonth(year, month))
+  return createCalendarTimestamp(
+    { year, month, day },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Adds a number of years through a calendar adapter and clamps invalid days.
+ *
+ * @param timestamp Base timestamp.
+ * @param amount Number of calendar years to move.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp after moving.
+ */
+export function addCalendarYears(
+  timestamp: Timestamp,
+  amount: number,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  let { year, month, day } = toCalendarDateParts(timestamp)
+  year += Math.trunc(amount)
+  month = Math.min(month, calendar.monthsInYear(year))
+  day = Math.min(day, calendar.daysInMonth(year, month))
+  return createCalendarTimestamp(
+    { year, month, day },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns the start of the calendar month for a timestamp.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns First day of the adapter month.
+ */
+export function getCalendarStartOfMonth(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    { ...toCalendarDateParts(timestamp), day: 1 },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns the end of the calendar month for a timestamp.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns Last day of the adapter month.
+ */
+export function getCalendarEndOfMonth(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  const date = toCalendarDateParts(timestamp)
+  return createCalendarTimestamp(
+    {
+      ...date,
+      day: calendar.daysInMonth(date.year, date.month),
+    },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns the start of the calendar year for a timestamp.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns First day of the adapter year.
+ */
+export function getCalendarStartOfYear(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  return createCalendarTimestamp(
+    { year: timestamp.year, month: 1, day: 1 },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Returns the end of the calendar year for a timestamp.
+ *
+ * @param timestamp Base timestamp.
+ * @param calendar Calendar implementation to use.
+ * @returns Last day of the adapter year.
+ */
+export function getCalendarEndOfYear(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  const month = calendar.monthsInYear(timestamp.year)
+  return createCalendarTimestamp(
+    { year: timestamp.year, month, day: calendar.daysInMonth(timestamp.year, month) },
+    calendar,
+    getCalendarTimestampOptions(timestamp),
+  )
+}
+
+/**
+ * Finds the nearest matching weekday through a calendar adapter.
+ *
+ * @param timestamp Base timestamp.
+ * @param weekday Weekday number to find.
+ * @param calendar Calendar implementation to use.
+ * @param direction Direction to search.
+ * @param maxDays Maximum days to inspect.
+ * @returns Matching timestamp, or the last inspected timestamp.
+ */
+export function findCalendarWeekday(
+  timestamp: Timestamp,
+  weekday: number,
+  calendar: CalendarSystem = gregorianCalendar,
+  direction: 'next' | 'prev' = 'next',
+  maxDays = 6,
+): Timestamp {
+  let ts: Timestamp = copyTimestamp(timestamp)
+  const mover = direction === 'next' ? nextCalendarDay : prevCalendarDay
+
+  while (ts.weekday !== weekday && --maxDays >= 0) {
+    ts = mover(ts, calendar)
+  }
+
+  return ts
+}
+
+/**
+ * Returns the start of a calendar week for a timestamp and weekday set.
+ *
+ * @param timestamp Base timestamp.
+ * @param weekdays Weekday numbers to include, from `0` Sunday to `6` Saturday.
+ * @param calendar Calendar implementation to use.
+ * @param now Optional comparison timestamp from the same calendar.
+ * @returns Start of the adapter week.
+ */
+export function getCalendarStartOfWeek(
+  timestamp: Timestamp,
+  weekdays: number[],
+  calendar: CalendarSystem = gregorianCalendar,
+  now: Timestamp | null = null,
+): Timestamp {
+  let start = updateCalendarFormatted(timestamp, calendar)
+  if (!weekdays || !Array.isArray(weekdays)) {
+    return start
+  }
+
+  if (start.day === 1 || start.weekday === 0) {
+    while (!weekdays.includes(Number(start.weekday))) {
+      start = nextCalendarDay(start, calendar)
+    }
+  }
+
+  start = findCalendarWeekday(start, weekdays[0] as number, calendar, 'prev')
+  return now ? updateCalendarRelative(start, now, calendar, start.hasTime) : start
+}
+
+/**
+ * Returns the end of a calendar week for a timestamp and weekday set.
+ *
+ * @param timestamp Base timestamp.
+ * @param weekdays Weekday numbers to include, from `0` Sunday to `6` Saturday.
+ * @param calendar Calendar implementation to use.
+ * @param now Optional comparison timestamp from the same calendar.
+ * @returns End of the adapter week.
+ */
+export function getCalendarEndOfWeek(
+  timestamp: Timestamp,
+  weekdays: number[],
+  calendar: CalendarSystem = gregorianCalendar,
+  now: Timestamp | null = null,
+): Timestamp {
+  let end = updateCalendarFormatted(timestamp, calendar)
+  if (!weekdays || !Array.isArray(weekdays)) {
+    return end
+  }
+
+  const lastDay = calendar.daysInMonth(end.year, end.month)
+  if (lastDay === end.day || end.weekday === weekdays[weekdays.length - 1]) {
+    while (!weekdays.includes(Number(end.weekday))) {
+      end = prevCalendarDay(end, calendar)
+    }
+  }
+
+  end = findCalendarWeekday(end, weekdays[weekdays.length - 1]!, calendar, 'next')
+  return now ? updateCalendarRelative(end, now, calendar, end.hasTime) : end
+}
+
+/**
+ * Creates an inclusive list of calendar adapter days between start and end.
+ *
+ * @param start First day in the list.
+ * @param end Last day boundary for the list.
+ * @param now Timestamp used to calculate relative flags.
+ * @param calendar Calendar implementation to use.
+ * @param options Optional weekday, disabled, and size filters.
+ * @returns Timestamp days for the adapter calendar.
+ */
+export function createCalendarDayList(
+  start: Timestamp,
+  end: Timestamp,
+  now: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+  options: CalendarDayListOptions = {},
+): Timestamp[] {
+  const {
+    weekdays = [0, 1, 2, 3, 4, 5, 6],
+    disabledBefore,
+    disabledAfter,
+    disabledWeekdays = [],
+    disabledDays = [],
+    max = 42,
+    min = 0,
+  } = options
+  const begin = getCalendarDayIdentifier(start, calendar)
+  const stop = getCalendarDayIdentifier(end, calendar)
+  const days: Timestamp[] = []
+  let current = updateCalendarFormatted(start, calendar)
+  let currentIdentifier = 0
+  let stopped = currentIdentifier === stop
+
+  if (stop < begin) {
+    return days
+  }
+
+  while ((!stopped || days.length < min) && days.length < max) {
+    currentIdentifier = getCalendarDayIdentifier(current, calendar)
+    stopped = stopped || (currentIdentifier > stop && days.length >= min)
+    if (stopped) {
+      break
+    }
+    if (!weekdays.includes(Number(current.weekday))) {
+      current = nextCalendarDay(current, calendar)
+      continue
+    }
+    let day = updateCalendarFormatted(current, calendar)
+    day = updateCalendarRelative(day, now, calendar)
+    day = updateDisabled(day, disabledBefore, disabledAfter, disabledWeekdays, disabledDays)
+    days.push(day)
+    current = nextCalendarDay(current, calendar)
+  }
+
+  return days
 }
 
 /**
@@ -1807,6 +2439,52 @@ export function createNativeLocaleFormatterUTC(
 }
 
 /**
+ * Returns a UTC locale formatter for a calendar adapter.
+ *
+ * The formatter converts adapter date fields through the adapter's serial day
+ * before constructing the native Date. When the adapter has an Intl calendar id,
+ * it is supplied to Intl.DateTimeFormat unless the caller already provided a
+ * `calendar` option. The helper supplies `timeZone: "UTC"` unless the caller
+ * provides a different timezone.
+ *
+ * @param calendar Calendar implementation to use.
+ * @param locale The locale to use.
+ * @param cb Callback that returns Intl formatting options.
+ * @returns Function that formats a calendar timestamp.
+ */
+export function createCalendarLocaleFormatterUTC(
+  calendar: CalendarSystem,
+  locale: string,
+  cb: LocaleFormatter,
+): (_timestamp: Timestamp, _short: boolean) => string {
+  return createNativeLocaleFormatterByMode(
+    locale,
+    (timestamp, short) => {
+      const options = cb(timestamp, short) as Intl.DateTimeFormatOptions & {
+        calendar?: string
+      }
+      const resolvedOptions =
+        options.timeZone === undefined
+          ? {
+              ...options,
+              timeZone: 'UTC',
+            }
+          : options
+
+      if (calendar.intlCalendar === undefined || resolvedOptions.calendar !== undefined) {
+        return resolvedOptions
+      }
+
+      return {
+        ...resolvedOptions,
+        calendar: calendar.intlCalendar,
+      }
+    },
+    (timestamp) => makeCalendarDateTimeUTC(timestamp, calendar),
+  )
+}
+
+/**
  * Converts a Timestamp date into a host-local JavaScript Date.
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
@@ -1827,6 +2505,24 @@ export function makeDateUTC(timestamp: Timestamp): Date {
 }
 
 /**
+ * Converts an adapter calendar timestamp date into a UTC JavaScript Date.
+ *
+ * The native Date always represents the equivalent Gregorian civil day so Intl
+ * can format the adapter date correctly when paired with a calendar option.
+ *
+ * @param timestamp Calendar timestamp object to convert.
+ * @param calendar Calendar implementation to use.
+ * @returns JavaScript Date object built with `Date.UTC()`.
+ */
+export function makeCalendarDateUTC(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Date {
+  const date = gregorianCalendar.fromEpochDay(getCalendarDayIdentifier(timestamp, calendar))
+  return new Date(Date.UTC(date.year, date.month - 1, date.day, 0, 0))
+}
+
+/**
  * Converts a Timestamp date and time into a host-local JavaScript Date.
  *
  * @param {Timestamp} timestamp Timestamp object to convert.
@@ -1841,6 +2537,31 @@ export function makeDateTime(timestamp: Timestamp): Date {
     timestamp.minute,
     timestamp.second ?? 0,
     timestamp.millisecond ?? 0,
+  )
+}
+
+/**
+ * Converts an adapter calendar timestamp date-time into a UTC JavaScript Date.
+ *
+ * @param timestamp Calendar timestamp object to convert.
+ * @param calendar Calendar implementation to use.
+ * @returns JavaScript Date object built with `Date.UTC()`.
+ */
+export function makeCalendarDateTimeUTC(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): Date {
+  const date = gregorianCalendar.fromEpochDay(getCalendarDayIdentifier(timestamp, calendar))
+  return new Date(
+    Date.UTC(
+      date.year,
+      date.month - 1,
+      date.day,
+      timestamp.hour,
+      timestamp.minute,
+      timestamp.second ?? 0,
+      timestamp.millisecond ?? 0,
+    ),
   )
 }
 

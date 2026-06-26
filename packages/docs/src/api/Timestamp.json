@@ -1,10 +1,48 @@
 {
-  "generated_at": "2026-06-26T15:22:03.992Z",
+  "generated_at": "2026-06-26T15:39:48.612Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
   },
   "functions": {
+    "toCalendarDateParts": {
+      "desc": "Extracts calendar date fields from a timestamp-shaped value.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp or timestamp-like object to read.",
+          "required": true,
+          "tsType": "Pick<Timestamp, 'year' | 'month' | 'day'>",
+          "type": "Pick<Timestamp, 'year' | 'month' | 'day'>"
+        }
+      },
+      "tsSignature": "function toCalendarDateParts(timestamp: Pick<Timestamp, 'year' | 'month' | 'day'>): CalendarDateParts",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "year": {
+            "desc": "Calendar year.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number. The first month is `1`.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Day of the month. The first day is `1`.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          }
+        },
+        "desc": "Plain calendar date fields.",
+        "type": "CalendarDateParts",
+        "tsType": "CalendarDateParts"
+      }
+    },
     "validateTimestamp": {
       "desc": "Validates whether an input string matches the supported timestamp grammar.",
       "params": {
@@ -56,19 +94,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -232,19 +270,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -408,19 +446,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -650,19 +688,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -826,19 +864,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1030,19 +1068,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1260,19 +1298,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1448,19 +1486,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1624,19 +1662,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1800,19 +1838,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2096,19 +2134,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2281,6 +2319,3280 @@
         "tsType": "number"
       }
     },
+    "getCalendarDayIdentifier": {
+      "desc": "Converts a Timestamp date into a stable serial-day identifier for a calendar system.\n\nThis is an alias-friendly helper for calendar views that need sorted keys,\nrange comparisons, or virtualized day rows across different calendar adapters.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp object to read.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarDayIdentifier(timestamp: Timestamp, calendar?: CalendarSystem): number",
+      "type": "Function",
+      "returns": {
+        "desc": "Stable serial day.",
+        "type": "number",
+        "tsType": "number"
+      }
+    },
+    "isValidCalendarDate": {
+      "desc": "Returns true when calendar date fields are valid for a calendar system.",
+      "params": {
+        "date": {
+          "desc": "Calendar date fields to validate.",
+          "required": true,
+          "tsType": "CalendarDateParts",
+          "type": "CalendarDateParts"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function isValidCalendarDate(date: CalendarDateParts, calendar?: CalendarSystem): boolean",
+      "type": "Function",
+      "returns": {
+        "desc": "True when year, month, and day can exist in the calendar.",
+        "type": "boolean",
+        "tsType": "boolean"
+      }
+    },
+    "createCalendarTimestamp": {
+      "desc": "Creates an immutable Timestamp-shaped value from calendar adapter fields.\n\nThe returned timestamp uses adapter year/month/day fields, is tagged with\n`calendarId`, and derives weekday/day-of-year values from the adapter.",
+      "params": {
+        "date": {
+          "desc": "Calendar date fields.",
+          "required": true,
+          "tsType": "CalendarDateParts",
+          "type": "CalendarDateParts"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "options": {
+          "desc": "Optional time and relative comparison settings.",
+          "required": false,
+          "tsType": "CalendarTimestampOptions",
+          "type": "CalendarTimestampOptions"
+        }
+      },
+      "tsSignature": "function createCalendarTimestamp(date: CalendarDateParts, calendar?: CalendarSystem, options?: CalendarTimestampOptions): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Timestamp-shaped calendar value.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "parseCalendarTimestamp": {
+      "desc": "Parses a date or date-time string as calendar adapter fields.\n\nUnlike parseTimestamp(), this helper validates the date against the supplied\ncalendar and derives weekday/day-of-year values through the adapter.",
+      "params": {
+        "input": {
+          "desc": "Date or date-time string.",
+          "required": true,
+          "tsType": "string",
+          "type": "string"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "now": {
+          "desc": "Optional comparison timestamp from the same calendar system.",
+          "required": false,
+          "tsType": "Timestamp | null",
+          "type": "Timestamp | null"
+        }
+      },
+      "tsSignature": "function parseCalendarTimestamp(input: string, calendar?: CalendarSystem, now?: Timestamp | null): Timestamp | null",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Calendar timestamp, or `null` when the input cannot be parsed or validated.",
+        "type": "Timestamp | null",
+        "tsType": "Timestamp | null"
+      }
+    },
+    "createCalendarTimestampFromEpochDay": {
+      "desc": "Creates a calendar timestamp from a stable serial day.",
+      "params": {
+        "epochDay": {
+          "desc": "Stable serial day.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "options": {
+          "desc": "Optional time and relative comparison settings.",
+          "required": false,
+          "tsType": "CalendarTimestampOptions",
+          "type": "CalendarTimestampOptions"
+        }
+      },
+      "tsSignature": "function createCalendarTimestampFromEpochDay(epochDay: number, calendar?: CalendarSystem, options?: CalendarTimestampOptions): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Timestamp-shaped calendar value.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "updateCalendarFormatted": {
+      "desc": "Updates formatted calendar metadata on a timestamp-shaped value.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp object to transform.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function updateCalendarFormatted(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Timestamp with adapter date formatting and metadata.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "updateCalendarRelative": {
+      "desc": "Returns a timestamp with relative flags compared through a calendar adapter.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp object to update.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "now": {
+          "desc": "Timestamp representing the comparison point in the same calendar.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "time": {
+          "desc": "Include time-of-day in the comparison when true.",
+          "required": false,
+          "tsType": "unknown",
+          "type": "unknown"
+        }
+      },
+      "tsSignature": "function updateCalendarRelative(timestamp: Timestamp, now: Timestamp, calendar?: CalendarSystem, time?: unknown): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New Timestamp object with relative flags.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "nextCalendarDay": {
+      "desc": "Returns a calendar timestamp for the next day.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function nextCalendarDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp for the next adapter day.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "prevCalendarDay": {
+      "desc": "Returns a calendar timestamp for the previous day.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function prevCalendarDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp for the previous adapter day.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "addCalendarDays": {
+      "desc": "Adds a number of days through a calendar adapter.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "amount": {
+          "desc": "Number of days to move.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function addCalendarDays(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp after moving.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "addCalendarMonths": {
+      "desc": "Adds a number of months through a calendar adapter and clamps invalid days.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "amount": {
+          "desc": "Number of calendar months to move.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function addCalendarMonths(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp after moving.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "addCalendarYears": {
+      "desc": "Adds a number of years through a calendar adapter and clamps invalid days.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "amount": {
+          "desc": "Number of calendar years to move.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function addCalendarYears(timestamp: Timestamp, amount: number, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp after moving.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarStartOfMonth": {
+      "desc": "Returns the start of the calendar month for a timestamp.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarStartOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "First day of the adapter month.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarEndOfMonth": {
+      "desc": "Returns the end of the calendar month for a timestamp.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarEndOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Last day of the adapter month.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarStartOfYear": {
+      "desc": "Returns the start of the calendar year for a timestamp.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarStartOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "First day of the adapter year.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarEndOfYear": {
+      "desc": "Returns the end of the calendar year for a timestamp.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarEndOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Last day of the adapter year.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "findCalendarWeekday": {
+      "desc": "Finds the nearest matching weekday through a calendar adapter.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "weekday": {
+          "desc": "Weekday number to find.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "direction": {
+          "desc": "Direction to search.",
+          "required": false,
+          "tsType": "'next' | 'prev'",
+          "type": "'next' | 'prev'"
+        },
+        "maxDays": {
+          "desc": "Maximum days to inspect.",
+          "required": false,
+          "tsType": "unknown",
+          "type": "unknown"
+        }
+      },
+      "tsSignature": "function findCalendarWeekday(timestamp: Timestamp, weekday: number, calendar?: CalendarSystem, direction?: 'next' | 'prev', maxDays?: unknown): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Matching timestamp, or the last inspected timestamp.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarStartOfWeek": {
+      "desc": "Returns the start of a calendar week for a timestamp and weekday set.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "weekdays": {
+          "desc": "Weekday numbers to include, from `0` Sunday to `6` Saturday.",
+          "required": true,
+          "tsType": "number[]",
+          "type": "number[]"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "now": {
+          "desc": "Optional comparison timestamp from the same calendar.",
+          "required": false,
+          "tsType": "Timestamp | null",
+          "type": "Timestamp | null"
+        }
+      },
+      "tsSignature": "function getCalendarStartOfWeek(timestamp: Timestamp, weekdays: number[], calendar?: CalendarSystem, now?: Timestamp | null): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Start of the adapter week.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarEndOfWeek": {
+      "desc": "Returns the end of a calendar week for a timestamp and weekday set.",
+      "params": {
+        "timestamp": {
+          "desc": "Base timestamp.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "weekdays": {
+          "desc": "Weekday numbers to include, from `0` Sunday to `6` Saturday.",
+          "required": true,
+          "tsType": "number[]",
+          "type": "number[]"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "now": {
+          "desc": "Optional comparison timestamp from the same calendar.",
+          "required": false,
+          "tsType": "Timestamp | null",
+          "type": "Timestamp | null"
+        }
+      },
+      "tsSignature": "function getCalendarEndOfWeek(timestamp: Timestamp, weekdays: number[], calendar?: CalendarSystem, now?: Timestamp | null): Timestamp",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "End of the adapter week.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "createCalendarDayList": {
+      "desc": "Creates an inclusive list of calendar adapter days between start and end.",
+      "params": {
+        "start": {
+          "desc": "First day in the list.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "end": {
+          "desc": "Last day boundary for the list.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "now": {
+          "desc": "Timestamp used to calculate relative flags.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "options": {
+          "desc": "Optional weekday, disabled, and size filters.",
+          "required": false,
+          "tsType": "CalendarDayListOptions",
+          "type": "CalendarDayListOptions"
+        }
+      },
+      "tsSignature": "function createCalendarDayList(start: Timestamp, end: Timestamp, now: Timestamp, calendar?: CalendarSystem, options?: CalendarDayListOptions): Timestamp[]",
+      "type": "Function",
+      "returns": {
+        "desc": "Timestamp days for the adapter calendar.",
+        "type": "Timestamp[]",
+        "tsType": "Timestamp[]"
+      }
+    },
     "getTimeIdentifier": {
       "desc": "Converts a Timestamp time into a sortable numeric identifier.",
       "params": {
@@ -2392,19 +5704,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2580,19 +5892,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2756,19 +6068,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2932,19 +6244,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3108,19 +6420,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3308,19 +6620,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3484,19 +6796,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3714,19 +7026,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3890,19 +7202,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4066,19 +7378,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4242,19 +7554,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4418,19 +7730,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4666,19 +7978,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4860,19 +8172,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5054,19 +8366,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5359,6 +8671,36 @@
         "tsType": "(_timestamp: Timestamp, _short: boolean) => string"
       }
     },
+    "createCalendarLocaleFormatterUTC": {
+      "desc": "Returns a UTC locale formatter for a calendar adapter.\n\nThe formatter converts adapter date fields through the adapter's serial day\nbefore constructing the native Date. When the adapter has an Intl calendar id,\nit is supplied to Intl.DateTimeFormat unless the caller already provided a\n`calendar` option. The helper supplies `timeZone: \"UTC\"` unless the caller\nprovides a different timezone.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": true,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "locale": {
+          "desc": "The locale to use.",
+          "required": true,
+          "tsType": "string",
+          "type": "string"
+        },
+        "cb": {
+          "desc": "Callback that returns Intl formatting options.",
+          "required": true,
+          "tsType": "LocaleFormatter",
+          "type": "LocaleFormatter"
+        }
+      },
+      "tsSignature": "function createCalendarLocaleFormatterUTC(calendar: CalendarSystem, locale: string, cb: LocaleFormatter): (_timestamp: Timestamp, _short: boolean) => string",
+      "type": "Function",
+      "returns": {
+        "desc": "Function that formats a calendar timestamp.",
+        "type": "(_timestamp: Timestamp, _short: boolean) => string",
+        "tsType": "(_timestamp: Timestamp, _short: boolean) => string"
+      }
+    },
     "makeDate": {
       "desc": "Converts a Timestamp date into a host-local JavaScript Date.",
       "params": {
@@ -5395,6 +8737,30 @@
         "tsType": "Date"
       }
     },
+    "makeCalendarDateUTC": {
+      "desc": "Converts an adapter calendar timestamp date into a UTC JavaScript Date.\n\nThe native Date always represents the equivalent Gregorian civil day so Intl\ncan format the adapter date correctly when paired with a calendar option.",
+      "params": {
+        "timestamp": {
+          "desc": "Calendar timestamp object to convert.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function makeCalendarDateUTC(timestamp: Timestamp, calendar?: CalendarSystem): Date",
+      "type": "Function",
+      "returns": {
+        "desc": "JavaScript Date object built with `Date.UTC()`.",
+        "type": "Date",
+        "tsType": "Date"
+      }
+    },
     "makeDateTime": {
       "desc": "Converts a Timestamp date and time into a host-local JavaScript Date.",
       "params": {
@@ -5409,6 +8775,30 @@
       "type": "Function",
       "returns": {
         "desc": "Host-local JavaScript Date object.",
+        "type": "Date",
+        "tsType": "Date"
+      }
+    },
+    "makeCalendarDateTimeUTC": {
+      "desc": "Converts an adapter calendar timestamp date-time into a UTC JavaScript Date.",
+      "params": {
+        "timestamp": {
+          "desc": "Calendar timestamp object to convert.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function makeCalendarDateTimeUTC(timestamp: Timestamp, calendar?: CalendarSystem): Date",
+      "type": "Function",
+      "returns": {
+        "desc": "JavaScript Date object built with `Date.UTC()`.",
         "type": "Date",
         "tsType": "Date"
       }
@@ -5500,19 +8890,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5676,19 +9066,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5894,19 +9284,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6076,19 +9466,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6562,19 +9952,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6744,19 +10134,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7116,19 +10506,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7298,19 +10688,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7504,19 +10894,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7686,19 +11076,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7868,19 +11258,19 @@
             "type": "boolean"
           },
           "year": {
-            "desc": "Four-digit Gregorian year.",
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "month": {
-            "desc": "Gregorian month number, where January is `1` and December is `12`.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
           },
           "day": {
-            "desc": "Day of the month.",
+            "desc": "Calendar day of the month.",
             "required": true,
             "tsType": "number",
             "type": "number"

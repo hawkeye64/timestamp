@@ -6,13 +6,24 @@ The initial adapter is `islamicCivilCalendar`, a deterministic tabular Islamic c
 does not model observational Hijri calendars or Umm al-Qura adjustments.
 
 ```ts
-import { gregorianCalendar } from '@timestamp-js/core'
+import {
+  createCalendarDayList,
+  getCalendarEndOfMonth,
+  gregorianCalendar,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
 import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
 
 const ramadan = { year: 1445, month: 9, day: 1 }
 const gregorian = gregorianCalendar.fromEpochDay(islamicCivilCalendar.toEpochDay(ramadan))
 
 gregorian // { year: 2024, month: 3, day: 11 }
+
+const start = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)!
+const end = getCalendarEndOfMonth(start, islamicCivilCalendar)
+const days = createCalendarDayList(start, end, start, islamicCivilCalendar)
+
+days[0].date // '1445-09-01'
 ```
 
 This package is early calendar-adapter work. Treat the adapter contract as release-candidate API

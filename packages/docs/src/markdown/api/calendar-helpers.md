@@ -32,6 +32,27 @@ const days = createDayList(start, end)
 const intervals = createIntervalList(start, 0, 60, 24, start)
 ```
 
+## Adapter calendar lists
+
+Use the calendar-aware helpers when date fields belong to an optional calendar adapter rather than
+the built-in Gregorian calendar.
+
+```ts
+import {
+  createCalendarDayList,
+  getCalendarEndOfMonth,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
+import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
+
+const start = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)!
+const end = getCalendarEndOfMonth(start, indianNationalCalendar)
+const days = createCalendarDayList(start, end, start, indianNationalCalendar)
+
+days[0].calendarId // 'saka'
+days[0].date // '1946-01-01'
+```
+
 ## Labels
 
 Use `Intl.DateTimeFormat`-backed helpers for month and weekday labels.
@@ -43,15 +64,34 @@ const weekdays = getWeekdayNames('en-US')
 const months = getMonthNames('en-US')
 ```
 
+For adapter calendar labels, convert through the adapter first so Intl receives the equivalent civil
+day instead of interpreting the adapter year/month/day as Gregorian fields.
+The helper supplies `timeZone: 'UTC'` by default.
+
+```ts
+import { createCalendarLocaleFormatterUTC } from '@timestamp-js/core'
+import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
+
+const formatMonth = createCalendarLocaleFormatterUTC(islamicCivilCalendar, 'en-US', () => ({
+  month: 'long',
+}))
+```
+
 ## Identifiers
 
 Identifiers give stable numeric comparisons without converting to native `Date` objects repeatedly.
 
 ```ts
-import { getDayIdentifier, getDayTimeIdentifier, parseTimestamp } from '@timestamp-js/core'
+import {
+  getCalendarDayIdentifier,
+  getDayIdentifier,
+  getDayTimeIdentifier,
+  parseTimestamp,
+} from '@timestamp-js/core'
 
 const timestamp = parseTimestamp('2026-06-08 09:30')!
 
 getDayIdentifier(timestamp)
 getDayTimeIdentifier(timestamp)
+getCalendarDayIdentifier(timestamp)
 ```

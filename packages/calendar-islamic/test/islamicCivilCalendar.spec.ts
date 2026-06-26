@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { gregorianCalendar } from '@timestamp-js/core'
+import {
+  createCalendarDayList,
+  getCalendarEndOfMonth,
+  getCalendarStartOfMonth,
+  gregorianCalendar,
+  makeCalendarDateUTC,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
 import { islamicCalendar, islamicCivilCalendar } from '../src'
 
 function toGregorian(date: { year: number; month: number; day: number }) {
@@ -65,5 +72,43 @@ describe('[TIMESTAMP] islamicCivilCalendar', () => {
       month: 12,
       day: 29,
     })
+  })
+
+  it('creates calendar timestamps for QCalendar-style day data', () => {
+    const ramadan = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)
+
+    expect(ramadan).toMatchObject({
+      calendarId: 'islamic-civil',
+      date: '1445-09-01',
+      year: 1445,
+      month: 9,
+      day: 1,
+      weekday: 1,
+      doy: 237,
+    })
+
+    expect(getCalendarStartOfMonth(ramadan!, islamicCivilCalendar).date).toBe('1445-09-01')
+    expect(getCalendarEndOfMonth(ramadan!, islamicCivilCalendar).date).toBe('1445-09-30')
+    expect(makeCalendarDateUTC(ramadan!, islamicCivilCalendar).toISOString()).toBe(
+      '2024-03-11T00:00:00.000Z',
+    )
+  })
+
+  it('builds Islamic civil day lists with relative state', () => {
+    const start = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)!
+    const end = parseCalendarTimestamp('1445-09-05', islamicCivilCalendar)!
+    const now = parseCalendarTimestamp('1445-09-03', islamicCivilCalendar)!
+    const days = createCalendarDayList(start, end, now, islamicCivilCalendar)
+
+    expect(days.map((day) => day.date)).toEqual([
+      '1445-09-01',
+      '1445-09-02',
+      '1445-09-03',
+      '1445-09-04',
+      '1445-09-05',
+    ])
+    expect(days[2]?.current).toBe(true)
+    expect(days[0]?.past).toBe(true)
+    expect(days[4]?.future).toBe(true)
   })
 })

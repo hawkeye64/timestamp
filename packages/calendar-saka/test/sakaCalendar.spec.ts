@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { gregorianCalendar } from '@timestamp-js/core'
+import {
+  addCalendarMonths,
+  createCalendarDayList,
+  getCalendarEndOfMonth,
+  getCalendarStartOfMonth,
+  gregorianCalendar,
+  makeCalendarDateUTC,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
 import { indianNationalCalendar, isSakaLeapYear, sakaCalendar, sakaDaysInMonth } from '../src'
 
 function toGregorian(date: { year: number; month: number; day: number }) {
@@ -78,5 +86,42 @@ describe('[TIMESTAMP] indianNationalCalendar', () => {
       month: 12,
       day: 30,
     })
+  })
+
+  it('creates calendar timestamps for QCalendar-style day data', () => {
+    const newYear = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)
+
+    expect(newYear).toMatchObject({
+      calendarId: 'saka',
+      date: '1946-01-01',
+      year: 1946,
+      month: 1,
+      day: 1,
+      weekday: 4,
+      doy: 1,
+    })
+
+    expect(getCalendarStartOfMonth(newYear!, indianNationalCalendar).date).toBe('1946-01-01')
+    expect(getCalendarEndOfMonth(newYear!, indianNationalCalendar).date).toBe('1946-01-31')
+    expect(addCalendarMonths(newYear!, 1, indianNationalCalendar).date).toBe('1946-02-01')
+    expect(makeCalendarDateUTC(newYear!, indianNationalCalendar).toISOString()).toBe(
+      '2024-03-21T00:00:00.000Z',
+    )
+  })
+
+  it('builds Saka day lists across year boundaries', () => {
+    const start = parseCalendarTimestamp('1945-12-29', indianNationalCalendar)!
+    const end = parseCalendarTimestamp('1946-01-03', indianNationalCalendar)!
+    const now = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)!
+    const days = createCalendarDayList(start, end, now, indianNationalCalendar)
+
+    expect(days.map((day) => day.date)).toEqual([
+      '1945-12-29',
+      '1945-12-30',
+      '1946-01-01',
+      '1946-01-02',
+      '1946-01-03',
+    ])
+    expect(days[2]?.current).toBe(true)
   })
 })

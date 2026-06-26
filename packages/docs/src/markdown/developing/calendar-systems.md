@@ -123,6 +123,39 @@ The important part is `epochDay`. Calendar `year/month/day` fields are not direc
 across calendar systems. An adapter maps its fields to a stable serial day so ranges, min/max,
 disabled dates, and list generation can eventually become calendar-agnostic.
 
+## Calendar-aware core helpers
+
+Core keeps the original Gregorian helpers stable and adds adapter-aware helpers beside them. Use
+these when a UI needs timestamp-shaped objects for a non-Gregorian calendar:
+
+```ts
+import {
+  createCalendarDayList,
+  createCalendarLocaleFormatterUTC,
+  getCalendarEndOfMonth,
+  parseCalendarTimestamp,
+} from '@timestamp-js/core'
+import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
+
+const visible = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)!
+const start = visible
+const end = getCalendarEndOfMonth(visible, islamicCivilCalendar)
+const days = createCalendarDayList(start, end, visible, islamicCivilCalendar)
+
+const monthLabel = createCalendarLocaleFormatterUTC(islamicCivilCalendar, 'en-US', () => ({
+  month: 'long',
+  timeZone: 'UTC',
+}))
+
+days[0].calendarId // 'islamic-civil'
+days[0].date // '1445-09-01'
+monthLabel(days[0], false) // localized adapter month label when supported by Intl
+```
+
+These helpers are the first bridge for QCalendar-style views: adapters own calendar math, and core
+turns adapter dates into immutable Timestamp objects with `weekday`, `doy`, `past`, `current`,
+`future`, and disabled-state metadata.
+
 ## First-class support vs. display-only support
 
 Locale labels and calendar math are different problems. `Intl.DateTimeFormat` can format labels with
@@ -146,10 +179,12 @@ The docs package is private and is not included. New adapters should live under 
 so `ci:publish`, `ci:publish:alpha`, `ci:publish:beta`, and `ci:publish:latest` pick them up without
 another hard-coded publish script change.
 
-## Current limitation
+## Integration status
 
-The current top-level helpers still assume Gregorian Timestamp fields. The adapter foundation plus
-Islamic civil and Saka adapter packages are in place, but only the Gregorian adapter is wired through
-the existing helpers. Non-Gregorian support should be added incrementally with tests for parsing,
-month lengths, next/previous day movement, range comparison, disabled days, and list generation
-before a calendar package is considered stable.
+The original top-level helpers such as `parseTimestamp()`, `nextDay()`, `createDayList()`, and
+`createNativeLocaleFormatterUTC()` remain Gregorian for compatibility. Calendar-aware equivalents
+such as `parseCalendarTimestamp()`, `nextCalendarDay()`, `createCalendarDayList()`, and
+`createCalendarLocaleFormatterUTC()` are available for adapter-based views.
+
+Islamic civil and Saka are the current proving adapters. Additional calendar packages should wait
+until these have been exercised by QCalendar and the adapter contract has proved useful.

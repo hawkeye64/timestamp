@@ -1,5 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { getEpochDay, gregorianCalendar, nextDay, parsed, prevDay, type Timestamp } from '../src'
+import {
+  addCalendarMonths,
+  createCalendarDayList,
+  createCalendarTimestamp,
+  getCalendarEndOfMonth,
+  getCalendarStartOfMonth,
+  getEpochDay,
+  gregorianCalendar,
+  isValidCalendarDate,
+  nextDay,
+  parseCalendarTimestamp,
+  parsed,
+  prevDay,
+  type Timestamp,
+} from '../src'
 
 describe('[TIMESTAMP] calendar systems', () => {
   it('exposes the Gregorian calendar adapter as the default calendar contract', () => {
@@ -38,5 +52,42 @@ describe('[TIMESTAMP] calendar systems', () => {
       month: 2,
       day: 29,
     })
+  })
+
+  it('creates timestamp-shaped values from calendar fields', () => {
+    const timestamp = createCalendarTimestamp({ year: 2026, month: 6, day: 26 }, gregorianCalendar)
+
+    expect(timestamp.calendarId).toBe('gregorian')
+    expect(timestamp.date).toBe('2026-06-26')
+    expect(timestamp.weekday).toBe(5)
+    expect(timestamp.doy).toBe(177)
+    expect(timestamp.current).toBe(false)
+  })
+
+  it('parses and validates date strings through a calendar adapter', () => {
+    expect(parseCalendarTimestamp('2024-02-29', gregorianCalendar)?.date).toBe('2024-02-29')
+    expect(parseCalendarTimestamp('2025-02-29', gregorianCalendar)).toBeNull()
+    expect(isValidCalendarDate({ year: 2024, month: 13, day: 1 }, gregorianCalendar)).toBe(false)
+  })
+
+  it('moves and clamps calendar months', () => {
+    const leapDay = createCalendarTimestamp({ year: 2024, month: 2, day: 29 }, gregorianCalendar)
+
+    expect(addCalendarMonths(leapDay, 12, gregorianCalendar).date).toBe('2025-02-28')
+    expect(addCalendarMonths(leapDay, -1, gregorianCalendar).date).toBe('2024-01-29')
+  })
+
+  it('creates adapter-aware day lists', () => {
+    const start = createCalendarTimestamp({ year: 2026, month: 6, day: 1 }, gregorianCalendar)
+    const end = createCalendarTimestamp({ year: 2026, month: 6, day: 7 }, gregorianCalendar)
+    const now = createCalendarTimestamp({ year: 2026, month: 6, day: 3 }, gregorianCalendar)
+    const days = createCalendarDayList(start, end, now, gregorianCalendar, {
+      weekdays: [1, 3, 5],
+    })
+
+    expect(days.map((day) => day.date)).toEqual(['2026-06-01', '2026-06-03', '2026-06-05'])
+    expect(days[1]?.current).toBe(true)
+    expect(getCalendarStartOfMonth(end, gregorianCalendar).date).toBe('2026-06-01')
+    expect(getCalendarEndOfMonth(start, gregorianCalendar).date).toBe('2026-06-30')
   })
 })
