@@ -15,15 +15,15 @@
     "api:review": "qpress api generate --root ../..",
     "api:generate": "qpress api generate --root ../.. --write-output",
     "api:check": "qpress api check --root ../..",
-    "check:qpress": "qpress check --root ../..",
+    "check:qpress": "qpress check",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "pnpm api:generate && pnpm run build:ssg",
     "build:spa": "quasar build",
-    "build:ssg": "quasar prepare && quasar build && qpress-ssg",
+    "build:ssg": "quasar prepare && quasar build && qpress ssg",
     "postinstall": "quasar prepare",
     "build:ssg:renderer": "quasar prepare && quasar build -m ssr",
-    "prerender:ssg": "qpress-ssg",
+    "prerender:ssg": "qpress ssg",
     "preview:ssg": "quasar serve dist/spa --history"
   },
   "dependencies": {
