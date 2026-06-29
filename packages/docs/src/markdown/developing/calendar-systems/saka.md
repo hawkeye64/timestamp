@@ -29,6 +29,14 @@ Chaitra has 31 days when the corresponding Gregorian year is leap, and 30 days o
 Week start is a locale concern, not an adapter rule. The example below uses `hi-IN-u-ca-indian`,
 reads the locale week start from `Intl.Locale#weekInfo` when available, and renders left-to-right.
 
+## QCalendar Integration
+
+When the adapter is used with QCalendar, keep QCalendar `model-value` dates Gregorian and pass the
+adapter as the calendar system for supported month views. The QCalendar adapter guide explains the
+integration boundary, outside-day behavior, and native month navigation:
+
+[Using Timestamp adapters with QCalendar](https://qcalendar.netlify.app/developing/calendar-adapters)
+
 ## Calendar Ranges
 
 Use the adapter-aware helpers when you need native Saka weeks or months:

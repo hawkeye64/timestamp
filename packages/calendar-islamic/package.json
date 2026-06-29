@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/calendar-islamic",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Islamic/Hijri calendar adapters for Timestamp.",
   "keywords": [
     "calendar",
@@ -29,6 +29,8 @@
   "sideEffects": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "unpkg": "./dist/index.global.min.js",
+  "jsdelivr": "./dist/index.global.min.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -41,7 +43,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "pnpm --filter @timestamp-js/core build",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/build-browser-globals.mjs @timestamp-js/calendar-islamic",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",

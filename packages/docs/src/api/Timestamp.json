@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T18:42:21.622Z",
+  "generated_at": "2026-06-29T18:14:14.019Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
@@ -64,7 +64,7 @@
       }
     },
     "parsed": {
-      "desc": "Fast low-level parser for date and date-time strings.\n\nThis parser fills numeric fields, but does not update formatted date,\nweekday, day-of-year, workweek, or relative flags. Use parseTimestamp()\nwhen those derived fields are needed.",
+      "desc": "Fast low-level parser for date and date-time strings.\n\nThis parser fills numeric fields, but does not update formatted date, weekday, day-of-year, workweek, or relative flags. Use parseTimestamp() when those derived fields are needed.",
       "params": {
         "input": {
           "desc": "In the form `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like date time with optional milliseconds and timezone suffix.",
@@ -103,7 +103,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -115,7 +115,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -151,7 +151,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -241,7 +241,7 @@
       }
     },
     "parseDate": {
-      "desc": "Converts a JavaScript Date into a formatted Timestamp using host-local fields.\n\nUse parseDateUTC() when the Date represents an instant that should be read\nwith UTC getters instead of host-local getters.",
+      "desc": "Converts a JavaScript Date into a formatted Timestamp using host-local fields.\n\nUse parseDateUTC() when the Date represents an instant that should be read with UTC getters instead of host-local getters.",
       "params": {
         "date": {
           "desc": "JavaScript Date to convert.",
@@ -280,7 +280,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -292,7 +292,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -328,7 +328,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -418,7 +418,7 @@
       }
     },
     "parseDateUTC": {
-      "desc": "Converts a JavaScript Date into a formatted Timestamp using UTC fields.\n\nUse this when server and client output should agree on the same UTC calendar\nand time fields for a native Date instant.",
+      "desc": "Converts a JavaScript Date into a formatted Timestamp using UTC fields.\n\nUse this when server and client output should agree on the same UTC calendar and time fields for a native Date instant.",
       "params": {
         "date": {
           "desc": "JavaScript Date to convert.",
@@ -457,7 +457,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -469,7 +469,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -505,7 +505,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -703,7 +703,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -715,7 +715,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -751,7 +751,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -880,7 +880,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -892,7 +892,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -928,7 +928,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1018,7 +1018,7 @@
       }
     },
     "today": {
-      "desc": "Returns today's date using the host runtime timezone.\n\nFor SSR or static rendering, server and client runtimes can produce different\nvalues when they run in different timezones. Use todayUTC() when the app\nwants a stable UTC calendar date instead.",
+      "desc": "Returns today's date using the host runtime timezone.\n\nFor SSR or static rendering, server and client runtimes can produce different values when they run in different timezones. Use todayUTC() when the app wants a stable UTC calendar date instead.",
       "tsSignature": "function today(): string",
       "type": "Function",
       "category": "state",
@@ -1029,7 +1029,7 @@
       }
     },
     "todayUTC": {
-      "desc": "Returns today's date using UTC calendar fields.\n\nPass a Date fixture to make SSR, tests, and hydration-sensitive render paths\ndeterministic. This helper reads UTC fields only; it does not convert an\nexisting Timestamp or timezone-suffixed string.",
+      "desc": "Returns today's date using UTC calendar fields.\n\nPass a Date fixture to make SSR, tests, and hydration-sensitive render paths deterministic. This helper reads UTC fields only; it does not convert an existing Timestamp or timezone-suffixed string.",
       "params": {
         "date": {
           "desc": "Date source to read. Defaults to the current Date.",
@@ -1048,7 +1048,7 @@
       }
     },
     "nowUTC": {
-      "desc": "Returns the current date-time as an immutable Timestamp using UTC fields.\n\nUse this when server and client output should agree on UTC calendar and time\nvalues. For fully deterministic SSR output, pass a Date captured by the\ncaller instead of allowing each runtime to create its own current Date.",
+      "desc": "Returns the current date-time as an immutable Timestamp using UTC fields.\n\nUse this when server and client output should agree on UTC calendar and time values. For fully deterministic SSR output, pass a Date captured by the caller instead of allowing each runtime to create its own current Date.",
       "params": {
         "date": {
           "desc": "Date source to read. Defaults to the current Date.",
@@ -1087,7 +1087,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1099,7 +1099,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1135,7 +1135,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1244,7 +1244,7 @@
       }
     },
     "isTodayUTC": {
-      "desc": "Checks whether a date string matches today's UTC date.\n\nPass a Date fixture when SSR, tests, or hydration-sensitive render paths need\ndeterministic behavior.",
+      "desc": "Checks whether a date string matches today's UTC date.\n\nPass a Date fixture when SSR, tests, or hydration-sensitive render paths need deterministic behavior.",
       "params": {
         "date": {
           "desc": "Date string in the form `YYYY-MM-DD`.",
@@ -1269,7 +1269,7 @@
       }
     },
     "getStartOfWeek": {
-      "desc": "Returns the start of the week for a Timestamp and weekday set.\nIf a current Timestamp is provided, the returned Timestamp includes updated relative information.",
+      "desc": "Returns the start of the week for a Timestamp and weekday set. If a current Timestamp is provided, the returned Timestamp includes updated relative information.",
       "params": {
         "timestamp": {
           "desc": "The Timestamp to use to find the start of the week",
@@ -1320,7 +1320,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1332,7 +1332,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1368,7 +1368,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1458,7 +1458,7 @@
       }
     },
     "getEndOfWeek": {
-      "desc": "Returns the end of the week for a Timestamp and weekday set.\nIf a current Timestamp is provided, the returned Timestamp includes updated relative information.",
+      "desc": "Returns the end of the week for a Timestamp and weekday set. If a current Timestamp is provided, the returned Timestamp includes updated relative information.",
       "params": {
         "timestamp": {
           "desc": "The Timestamp to use to find the end of the week",
@@ -1509,7 +1509,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1521,7 +1521,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1557,7 +1557,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1686,7 +1686,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1698,7 +1698,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1734,7 +1734,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1863,7 +1863,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -1875,7 +1875,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -1911,7 +1911,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2001,7 +2001,7 @@
       }
     },
     "parseTime": {
-      "desc": "Converts time input into minutes since midnight.\n\nStrings may include seconds or milliseconds, but sub-minute precision is\nignored for this minute-oriented helper.",
+      "desc": "Converts time input into minutes since midnight.\n\nStrings may include seconds or milliseconds, but sub-minute precision is ignored for this minute-oriented helper.",
       "params": {
         "input": {
           "desc": "Minutes since midnight, a time string, or an object with hour and minute fields.",
@@ -2120,7 +2120,7 @@
       }
     },
     "parseTimestamp": {
-      "desc": "Converts a supported date or date-time string into a formatted Timestamp object.\n\nIf `now` is supplied, the returned timestamp also includes relative flags\nsuch as `past`, `current`, `future`, and `currentWeekday`.",
+      "desc": "Converts a supported date or date-time string into a formatted Timestamp object.\n\nIf `now` is supplied, the returned timestamp also includes relative flags such as `past`, `current`, `future`, and `currentWeekday`.",
       "params": {
         "input": {
           "desc": "Date or date-time string, such as `YYYY-MM-DD`, `YYYY-MM-DD HH:mm:ss`, or an ISO-like value with optional milliseconds and timezone suffix.",
@@ -2165,7 +2165,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2177,7 +2177,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2213,7 +2213,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2322,7 +2322,7 @@
       }
     },
     "getEpochDay": {
-      "desc": "Converts a Timestamp date into a stable serial day for a calendar system.\n\nThe default Gregorian value is the number of UTC days since 1970-01-01.\nAlternate calendar adapters should map their year/month/day fields to the\nsame serial day space so ranges and comparisons can be calendar-agnostic.",
+      "desc": "Converts a Timestamp date into a stable serial day for a calendar system.\n\nThe default Gregorian value is the number of UTC days since 1970-01-01. Alternate calendar adapters should map their year/month/day fields to the same serial day space so ranges and comparisons can be calendar-agnostic.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to read.",
@@ -2347,7 +2347,7 @@
       }
     },
     "getCalendarDayIdentifier": {
-      "desc": "Converts a Timestamp date into a stable serial-day identifier for a calendar system.\n\nThis is an alias-friendly helper for calendar views that need sorted keys,\nrange comparisons, or virtualized day rows across different calendar adapters.",
+      "desc": "Converts a Timestamp date into a stable serial-day identifier for a calendar system.\n\nThis is an alias-friendly helper for calendar views that need sorted keys, range comparisons, or virtualized day rows across different calendar adapters.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to read.",
@@ -2397,7 +2397,7 @@
       }
     },
     "createCalendarTimestamp": {
-      "desc": "Creates an immutable Timestamp-shaped value from calendar adapter fields.\n\nThe returned timestamp uses adapter year/month/day fields, is tagged with\n`calendarId`, and derives weekday/day-of-year values from the adapter.",
+      "desc": "Creates an immutable Timestamp-shaped value from calendar adapter fields.\n\nThe returned timestamp uses adapter year/month/day fields, is tagged with `calendarId`, and derives weekday/day-of-year values from the adapter.",
       "params": {
         "date": {
           "desc": "Calendar date fields.",
@@ -2448,7 +2448,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2460,7 +2460,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2496,7 +2496,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2586,7 +2586,7 @@
       }
     },
     "parseCalendarTimestamp": {
-      "desc": "Parses a date or date-time string as calendar adapter fields.\n\nUnlike parseTimestamp(), this helper validates the date against the supplied\ncalendar and derives weekday/day-of-year values through the adapter.",
+      "desc": "Parses a date or date-time string as calendar adapter fields.\n\nUnlike parseTimestamp(), this helper validates the date against the supplied calendar and derives weekday/day-of-year values through the adapter.",
       "params": {
         "input": {
           "desc": "Date or date-time string.",
@@ -2637,7 +2637,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2649,7 +2649,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2685,7 +2685,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2826,7 +2826,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -2838,7 +2838,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -2874,7 +2874,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3009,7 +3009,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3021,7 +3021,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3057,7 +3057,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3204,7 +3204,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3216,7 +3216,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3252,7 +3252,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3387,7 +3387,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3399,7 +3399,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3435,7 +3435,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3570,7 +3570,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3582,7 +3582,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3618,7 +3618,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3759,7 +3759,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3771,7 +3771,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3807,7 +3807,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3948,7 +3948,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -3960,7 +3960,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -3996,7 +3996,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4137,7 +4137,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4149,7 +4149,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4185,7 +4185,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4320,7 +4320,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4332,7 +4332,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4368,7 +4368,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4503,7 +4503,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4515,7 +4515,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4551,7 +4551,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4686,7 +4686,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4698,7 +4698,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4734,7 +4734,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4869,7 +4869,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -4881,7 +4881,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -4917,7 +4917,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5070,7 +5070,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5082,7 +5082,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5118,7 +5118,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5265,7 +5265,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5277,7 +5277,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5313,7 +5313,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5460,7 +5460,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5472,7 +5472,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5508,7 +5508,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5710,7 +5710,7 @@
       }
     },
     "updateRelative": {
-      "desc": "Returns a Timestamp with relative flags compared to a supplied `now` value.\n\nThe returned object includes `past`, `current`, `future`, and\n`currentWeekday` flags. Pass `true` for `time` when both values should be\ncompared at time-of-day precision.",
+      "desc": "Returns a Timestamp with relative flags compared to a supplied `now` value.\n\nThe returned object includes `past`, `current`, `future`, and `currentWeekday` flags. Pass `true` for `time` when both values should be compared at time-of-day precision.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to update.",
@@ -5761,7 +5761,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5773,7 +5773,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5809,7 +5809,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5899,7 +5899,7 @@
       }
     },
     "updateMinutes": {
-      "desc": "Returns a timestamp set to a number of minutes past midnight.\n\nThe returned timestamp has updated hour/minute fields and clears second and\nmillisecond precision because this helper is minute-oriented.",
+      "desc": "Returns a timestamp set to a number of minutes past midnight.\n\nThe returned timestamp has updated hour/minute fields and clears second and millisecond precision because this helper is minute-oriented.",
       "params": {
         "timestamp": {
           "desc": "The Timestamp to transform",
@@ -5950,7 +5950,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -5962,7 +5962,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -5998,7 +5998,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6127,7 +6127,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6139,7 +6139,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6175,7 +6175,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6304,7 +6304,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6316,7 +6316,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6352,7 +6352,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6481,7 +6481,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6493,7 +6493,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6529,7 +6529,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6682,7 +6682,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6694,7 +6694,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6730,7 +6730,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6859,7 +6859,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -6871,7 +6871,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -6907,7 +6907,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7093,7 +7093,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7105,7 +7105,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7141,7 +7141,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7270,7 +7270,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7282,7 +7282,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7318,7 +7318,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7447,7 +7447,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7459,7 +7459,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7495,7 +7495,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7624,7 +7624,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7636,7 +7636,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7672,7 +7672,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7801,7 +7801,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -7813,7 +7813,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7849,7 +7849,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -7958,7 +7958,7 @@
       }
     },
     "getTime": {
-      "desc": "Formats the time portion of a Timestamp object.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+      "desc": "Formats the time portion of a Timestamp object.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to format.",
@@ -8053,7 +8053,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -8065,7 +8065,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8101,7 +8101,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8248,7 +8248,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -8260,7 +8260,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8296,7 +8296,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8443,7 +8443,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -8455,7 +8455,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8491,7 +8491,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -8581,7 +8581,7 @@
       }
     },
     "createDayList": {
-      "desc": "Creates an inclusive list of Timestamp days between start and end.\n\nThe returned days are formatted, marked with relative flags against `now`,\nand can include disabled metadata when disabled options are supplied.",
+      "desc": "Creates an inclusive list of Timestamp days between start and end.\n\nThe returned days are formatted, marked with relative flags against `now`, and can include disabled metadata when disabled options are supplied.",
       "params": {
         "start": {
           "desc": "First day in the list.",
@@ -8697,7 +8697,7 @@
       }
     },
     "createNativeLocaleFormatter": {
-      "desc": "Returns a host-local locale formatter backed by `Intl.DateTimeFormat`.\n\nThe helper is SSR-safe: if `Intl.DateTimeFormat` is unavailable in a target\nruntime, it returns a formatter that produces an empty string instead of\nthrowing during module load.\n\nUse `createNativeLocaleFormatterUTC()` when Timestamp values should be read\nas UTC fields before formatting.",
+      "desc": "Returns a host-local locale formatter backed by `Intl.DateTimeFormat`.\n\nThe helper is SSR-safe: if `Intl.DateTimeFormat` is unavailable in a target runtime, it returns a formatter that produces an empty string instead of throwing during module load.\n\nUse `createNativeLocaleFormatterUTC()` when Timestamp values should be read as UTC fields before formatting.",
       "params": {
         "locale": {
           "desc": "The locale to use (ie: en-US)",
@@ -8722,7 +8722,7 @@
       }
     },
     "createNativeLocaleFormatterUTC": {
-      "desc": "Returns a UTC locale formatter backed by `Intl.DateTimeFormat`.\n\nThis helper constructs the native `Date` with UTC fields before formatting.\nPair it with `timeZone: \"UTC\"` when calendar labels must remain pinned to\nthe Timestamp's UTC date instead of the viewer's local timezone.",
+      "desc": "Returns a UTC locale formatter backed by `Intl.DateTimeFormat`.\n\nThis helper constructs the native `Date` with UTC fields before formatting. Pair it with `timeZone: \"UTC\"` when calendar labels must remain pinned to the Timestamp's UTC date instead of the viewer's local timezone.",
       "params": {
         "locale": {
           "desc": "The locale to use (ie: en-US)",
@@ -8747,7 +8747,7 @@
       }
     },
     "createCalendarLocaleFormatterUTC": {
-      "desc": "Returns a UTC locale formatter for a calendar adapter.\n\nThe formatter converts adapter date fields through the adapter's serial day\nbefore constructing the native Date. When the adapter has an Intl calendar id,\nit is supplied to Intl.DateTimeFormat unless the caller already provided a\n`calendar` option. The helper supplies `timeZone: \"UTC\"` unless the caller\nprovides a different timezone.",
+      "desc": "Returns a UTC locale formatter for a calendar adapter.\n\nThe formatter converts adapter date fields through the adapter's serial day before constructing the native Date. When the adapter has an Intl calendar id, it is supplied to Intl.DateTimeFormat unless the caller already provided a `calendar` option. The helper supplies `timeZone: \"UTC\"` unless the caller provides a different timezone.",
       "params": {
         "calendar": {
           "desc": "Calendar implementation to use.",
@@ -8816,7 +8816,7 @@
       }
     },
     "makeCalendarDateUTC": {
-      "desc": "Converts an adapter calendar timestamp date into a UTC JavaScript Date.\n\nThe native Date always represents the equivalent Gregorian civil day so Intl\ncan format the adapter date correctly when paired with a calendar option.",
+      "desc": "Converts an adapter calendar timestamp date into a UTC JavaScript Date.\n\nThe native Date always represents the equivalent Gregorian civil day so Intl can format the adapter date correctly when paired with a calendar option.",
       "params": {
         "timestamp": {
           "desc": "Calendar timestamp object to convert.",
@@ -8904,7 +8904,7 @@
       }
     },
     "toUnixMilliseconds": {
-      "desc": "Converts a Timestamp into Unix milliseconds by reading its fields as UTC.\n\nThis is deterministic across server and client runtimes. It does not read or\nconvert the optional `timezone` suffix stored on the Timestamp.",
+      "desc": "Converts a Timestamp into Unix milliseconds by reading its fields as UTC.\n\nThis is deterministic across server and client runtimes. It does not read or convert the optional `timezone` suffix stored on the Timestamp.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to convert.",
@@ -8981,7 +8981,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -8993,7 +8993,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9029,7 +9029,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9158,7 +9158,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -9170,7 +9170,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9206,7 +9206,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9328,7 +9328,7 @@
       "type": "Function",
       "category": "validation",
       "returns": {
-        "desc": "A boolean indicating whether the input is a finite number.\nReturns true if the input is a finite number, false otherwise.",
+        "desc": "A boolean indicating whether the input is a finite number. Returns true if the input is a finite number, false otherwise.",
         "type": "boolean",
         "tsType": "boolean"
       }
@@ -9379,7 +9379,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -9391,7 +9391,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9427,7 +9427,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9562,7 +9562,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -9574,7 +9574,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9610,7 +9610,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -9852,7 +9852,7 @@
       }
     },
     "mergeRanges": {
-      "desc": "Merges overlapping or touching TimestampRange values.\n\nDate-only ranges touch when the next range starts on the next calendar day.\nTime-aware ranges touch when the next range starts one millisecond after the\nprevious range ends.",
+      "desc": "Merges overlapping or touching TimestampRange values.\n\nDate-only ranges touch when the next range starts on the next calendar day. Time-aware ranges touch when the next range starts one millisecond after the previous range ends.",
       "params": {
         "ranges": {
           "desc": "Ranges to merge.",
@@ -9877,7 +9877,7 @@
       }
     },
     "subtractRanges": {
-      "desc": "Subtracts blocked ranges from a source range.\n\nThe result is useful for availability windows because it returns the pieces\nof the source range that remain after each blocked range is removed.",
+      "desc": "Subtracts blocked ranges from a source range.\n\nThe result is useful for availability windows because it returns the pieces of the source range that remain after each blocked range is removed.",
       "params": {
         "source": {
           "desc": "Source range.",
@@ -9908,7 +9908,7 @@
       }
     },
     "findRangeGaps": {
-      "desc": "Finds open gaps inside a source range after occupied ranges are removed.\n\nThis is an alias for subtractRanges() with naming that reads naturally in\nbooking, resource, and availability workflows.",
+      "desc": "Finds open gaps inside a source range after occupied ranges are removed.\n\nThis is an alias for subtractRanges() with naming that reads naturally in booking, resource, and availability workflows.",
       "params": {
         "source": {
           "desc": "Source range.",
@@ -10013,7 +10013,7 @@
       }
     },
     "addToDate": {
-      "desc": "Adds or subtracts date/time units from a timestamp.\n\nThis function returns a new frozen Timestamp; it does not mutate the\ntimestamp passed in. Invalid target dates are normalized through JavaScript\nDate rules, so month overflow can roll into the following month.",
+      "desc": "Adds or subtracts date/time units from a timestamp.\n\nThis function returns a new frozen Timestamp; it does not mutate the timestamp passed in. Invalid target dates are normalized through JavaScript Date rules, so month overflow can roll into the following month.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to offset.",
@@ -10058,7 +10058,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -10070,7 +10070,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10106,7 +10106,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10196,7 +10196,7 @@
       }
     },
     "addToDateClamped": {
-      "desc": "Adds or subtracts date/time units from a timestamp while clamping invalid\ntarget month days to the last valid day in the target month.\n\nThis helper is useful for calendar and billing workflows where adding one\nmonth to January 31 should produce February 28/29 instead of rolling into\nMarch. Day and time offsets still use normal JavaScript Date normalization\nafter the year/month clamp is applied.\n\nThis function returns a new frozen Timestamp; it does not mutate the\ntimestamp passed in.",
+      "desc": "Adds or subtracts date/time units from a timestamp while clamping invalid target month days to the last valid day in the target month.\n\nThis helper is useful for calendar and billing workflows where adding one month to January 31 should produce February 28/29 instead of rolling into March. Day and time offsets still use normal JavaScript Date normalization after the year/month clamp is applied.\n\nThis function returns a new frozen Timestamp; it does not mutate the timestamp passed in.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to offset.",
@@ -10241,7 +10241,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -10253,7 +10253,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10289,7 +10289,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10498,7 +10498,7 @@
       }
     },
     "durationBetween": {
-      "desc": "Measures the elapsed duration between two Timestamp values.\n\nTimestamp fields are read as UTC so the result is deterministic across\nserver and client runtimes.",
+      "desc": "Measures the elapsed duration between two Timestamp values.\n\nTimestamp fields are read as UTC so the result is deterministic across server and client runtimes.",
       "params": {
         "start": {
           "desc": "Start timestamp.",
@@ -10573,7 +10573,7 @@
       }
     },
     "addDuration": {
-      "desc": "Adds an elapsed duration to a Timestamp.\n\nThis helper treats the Timestamp fields as UTC and returns a Timestamp built\nfrom UTC fields. Use addToDate() for calendar-unit arithmetic such as\n\"one month from now\".",
+      "desc": "Adds an elapsed duration to a Timestamp.\n\nThis helper treats the Timestamp fields as UTC and returns a Timestamp built from UTC fields. Use addToDate() for calendar-unit arithmetic such as \"one month from now\".",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to offset.",
@@ -10618,7 +10618,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -10630,7 +10630,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10666,7 +10666,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10801,7 +10801,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -10813,7 +10813,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -10849,7 +10849,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11009,7 +11009,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -11021,7 +11021,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11057,7 +11057,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11192,7 +11192,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -11204,7 +11204,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11240,7 +11240,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11375,7 +11375,7 @@
             "type": "number"
           },
           "month": {
-            "desc": "Calendar month number, where the first month is `1`. Core parser helpers\nuse Gregorian month numbers.",
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
             "required": true,
             "tsType": "number",
             "type": "number"
@@ -11387,7 +11387,7 @@
             "type": "number"
           },
           "time": {
-            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`;\nmillisecond precision as `HH:mm:ss.SSS`.",
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
             "required": false,
             "tsType": "string",
             "type": "string"
@@ -11423,7 +11423,7 @@
             "type": "number"
           },
           "timezone": {
-            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the\nwall-clock values into another timezone.",
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
             "required": false,
             "tsType": "string",
             "type": "string"

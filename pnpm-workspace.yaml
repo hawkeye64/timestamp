@@ -23,6 +23,7 @@ minimumReleaseAgeExclude:
   - '@md-plugins/quasar-app-extension-q-press'
   - '@md-plugins/search-ui'
   - '@md-plugins/shared'
+  - '@md-plugins/vite-examples-plugin'
   - '@md-plugins/vite-md-plugin'
   - '@md-plugins/vite-search-plugin'
   - '@md-plugins/vite-ssg-plugin'

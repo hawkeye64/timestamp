@@ -33,6 +33,14 @@ Week start is a locale concern, not an adapter rule. The example below uses
 `ar-SA-u-ca-islamic-civil`, reads the locale week start from `Intl.Locale#weekInfo` when available,
 and renders the week/month panels right-to-left.
 
+## QCalendar Integration
+
+When the adapter is used with QCalendar, keep QCalendar `model-value` dates Gregorian and pass the
+adapter as the calendar system for supported month views. The QCalendar adapter guide explains the
+integration boundary, outside-day behavior, and native month navigation:
+
+[Using Timestamp adapters with QCalendar](https://qcalendar.netlify.app/developing/calendar-adapters)
+
 ## Calendar Ranges
 
 Use the adapter-aware helpers when you need native Islamic civil weeks or months:
