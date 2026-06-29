@@ -43,7 +43,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "pnpm --filter @timestamp-js/core build",
-    "build": "tsc -p tsconfig.build.json && node ../../scripts/build-browser-globals.mjs @timestamp-js/calendar-saka",
+    "build": "node ../../scripts/build-browser-globals.mjs @timestamp-js/calendar-saka && tsc -p tsconfig.build.json",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",

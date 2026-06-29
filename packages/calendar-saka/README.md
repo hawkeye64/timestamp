@@ -42,5 +42,22 @@ monthEnd.date // '1946-01-31'
 monthDays.length // 31
 ```
 
+## Browser Globals
+
+For CDN or CodePen usage, load `@timestamp-js/core` before the adapter package:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script>
+  const visible = TimestampJsCore.parseCalendarTimestamp(
+    '1946-01-15',
+    TimestampJsCalendarSaka.indianNationalCalendar,
+  )
+
+  console.log(visible?.calendarId)
+</script>
+```
+
 This package is early calendar-adapter work. Treat the adapter contract as release-candidate API
 until `@timestamp-js/core` reaches a stable `1.0.0`.

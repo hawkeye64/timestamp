@@ -40,6 +40,24 @@ console.log(end ? getDateTime(end) : 'Invalid date') // 2026-06-10 10:15:15.250
 console.log(billingDate ? getDateTime(billingDate) : 'Invalid date') // 2026-07-08 09:30:15.250
 ```
 
+## Browser Globals
+
+Timestamp also ships browser-global IIFE bundles for CDN and CodePen-style usage. Load the core package first, then any optional calendar adapters.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script>
+  const visible = TimestampJsCore.parseCalendarTimestamp(
+    '1445-09-15',
+    TimestampJsCalendarIslamic.islamicCivilCalendar,
+  )
+
+  console.log(visible?.calendarId)
+</script>
+```
+
 ## Timestamp Values
 
 Timestamp objects are immutable. Parsers and update helpers return frozen objects, and functions that change date/time fields return a new Timestamp instead of mutating the original.
@@ -105,6 +123,8 @@ pnpm docs:build
 pnpm install
 pnpm verify
 ```
+
+Package builds emit ESM and TypeScript declarations with `tsc`, plus browser-global IIFE bundles with `obuild`.
 
 ## Support
 

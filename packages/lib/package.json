@@ -41,7 +41,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "build": "tsc -p tsconfig.build.json && node ../../scripts/build-browser-globals.mjs @timestamp-js/core",
+    "build": "node ../../scripts/build-browser-globals.mjs @timestamp-js/core && tsc -p tsconfig.build.json",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",

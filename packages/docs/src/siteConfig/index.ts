@@ -285,18 +285,23 @@ const siteConfig: SiteConfig = {
   codepen: {
     jsPreProcessor: 'typescript',
     titleSuffix: `Timestamp v${version}`,
-    modulePackages: [
+    jsExternal: [
+      `https://cdn.jsdelivr.net/npm/@timestamp-js/core@${version}/dist/index.global.min.js`,
+      `https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@${version}/dist/index.global.min.js`,
+      `https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@${version}/dist/index.global.min.js`,
+    ],
+    globalPackages: [
       {
         packageName: '@timestamp-js/core',
-        importUrl: `https://esm.sh/@timestamp-js/core@${version}`,
+        globalName: '(globalThis as any).TimestampJsCore',
       },
       {
         packageName: '@timestamp-js/calendar-islamic',
-        importUrl: `https://esm.sh/@timestamp-js/calendar-islamic@${version}`,
+        globalName: '(globalThis as any).TimestampJsCalendarIslamic',
       },
       {
         packageName: '@timestamp-js/calendar-saka',
-        importUrl: `https://esm.sh/@timestamp-js/calendar-saka@${version}`,
+        globalName: '(globalThis as any).TimestampJsCalendarSaka',
       },
     ],
   },

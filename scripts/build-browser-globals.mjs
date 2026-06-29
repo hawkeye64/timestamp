@@ -1,4 +1,4 @@
-import { build } from 'esbuild'
+import { build } from 'obuild'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -36,27 +36,42 @@ for (const pkg of selectedPackages) {
   const packageDir = join(rootDir, pkg.directory)
 
   await build({
-    entryPoints: [join(packageDir, 'src/index.ts')],
-    outfile: join(packageDir, 'dist/index.global.js'),
-    bundle: true,
-    format: 'iife',
-    globalName: pkg.globalName,
-    platform: 'browser',
-    target: ['es2020'],
-    sourcemap: true,
-    logLevel: 'info',
-  })
+    cwd: packageDir,
+    entries: [
+      {
+        type: 'bundle',
+        input: './src/index.ts',
+        outDir: './dist',
+        minify: false,
+        dts: false,
+        license: false,
+      },
+      {
+        type: 'bundle',
+        input: './src/index.ts',
+        outDir: './dist',
+        minify: true,
+        dts: false,
+        license: false,
+      },
+    ],
+    hooks: {
+      rolldownConfig(config) {
+        config.external = []
+        config.platform = 'browser'
+      },
+      rolldownOutput(config) {
+        const minified = config.minify === true
 
-  await build({
-    entryPoints: [join(packageDir, 'src/index.ts')],
-    outfile: join(packageDir, 'dist/index.global.min.js'),
-    bundle: true,
-    format: 'iife',
-    globalName: pkg.globalName,
-    platform: 'browser',
-    target: ['es2020'],
-    minify: true,
-    legalComments: 'none',
-    logLevel: 'info',
+        config.format = 'iife'
+        config.name = pkg.globalName
+        config.entryFileNames = minified ? 'index.global.min.js' : 'index.global.js'
+        config.chunkFileNames = minified
+          ? '_chunks/[name].global.min.js'
+          : '_chunks/[name].global.js'
+        config.sourcemap = false
+        config.codeSplitting = false
+      },
+    },
   })
 }

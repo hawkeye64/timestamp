@@ -25,6 +25,20 @@ console.log(end ? getDateTime(end) : 'Invalid date')
 console.log(billingDate ? getDateTime(billingDate) : 'Invalid date')
 ```
 
+## Browser Globals
+
+The package also ships a browser-global IIFE build for CDN and CodePen-style usage:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script>
+  const today = TimestampJsCore.today()
+  const parsed = TimestampJsCore.parseTimestamp(today)
+
+  console.log(parsed?.date)
+</script>
+```
+
 ## Timestamp Values
 
 Timestamp objects are immutable. Parsers and update helpers return frozen objects, and functions that change date/time fields return a new Timestamp instead of mutating the original.
@@ -83,7 +97,7 @@ The publishable package lives in `packages/lib` so the repository follows the sa
 
 ## Future Scope
 
-The package is intentionally not trying to become a full general-purpose date library on day one. Planned evaluations include Temporal support, explicit timezone behavior, more alternate calendar systems, compact formatting masks, and a script-tag/browser build if CodePen-style demos need it.
+The package is intentionally not trying to become a full general-purpose date library on day one. Planned evaluations include Temporal support, explicit timezone behavior, more alternate calendar systems, and compact formatting masks.
 
 ## Development
 
@@ -91,3 +105,5 @@ The package is intentionally not trying to become a full general-purpose date li
 pnpm install
 pnpm verify
 ```
+
+Package builds emit ESM and TypeScript declarations with `tsc`, plus browser-global IIFE bundles with `obuild`.

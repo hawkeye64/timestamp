@@ -38,6 +38,26 @@ const timestamp: Timestamp | null = parseTimestamp(model)
 Timestamp uses standard JavaScript runtime APIs, so it is suitable for browser, Node.js, SSR, SSG, serverless, and edge-style environments.
 :::
 
+## Browser globals
+
+Timestamp ships browser-global IIFE bundles for CDN and CodePen-style usage. Load `@timestamp-js/core` first, then any optional calendar adapters.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script>
+  const visible = TimestampJsCore.parseCalendarTimestamp(
+    '1445-09-15',
+    TimestampJsCalendarIslamic.islamicCivilCalendar,
+  )
+
+  console.log(visible?.calendarId)
+</script>
+```
+
+The globals are `TimestampJsCore`, `TimestampJsCalendarIslamic`, and `TimestampJsCalendarSaka`.
+
 ## Runtime support
 
 Timestamp targets modern JavaScript runtimes. It uses standard APIs such as `Date` and `Intl.DateTimeFormat`, and it avoids browser-only globals.
