@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
   createCalendarDayList,
+  createCalendarMonthView,
   getCalendarDateIdentity,
+  getCalendarSelectionState,
   getCalendarEndOfMonth,
   getCalendarMonthFormatter,
   getCalendarMonthNames,
@@ -9,6 +11,8 @@ import {
   gregorianCalendar,
   makeCalendarDateUTC,
   parseCalendarTimestamp,
+  updateCalendarDisabled,
+  validateCalendarTimestamp,
 } from '@timestamp-js/core'
 import { islamicCalendar, islamicCivilCalendar } from '../src'
 
@@ -95,6 +99,8 @@ describe('[TIMESTAMP] islamicCivilCalendar', () => {
     expect(makeCalendarDateUTC(ramadan!, islamicCivilCalendar).toISOString()).toBe(
       '2024-03-11T00:00:00.000Z',
     )
+    expect(validateCalendarTimestamp('1445-09-30', islamicCivilCalendar)).toBe(true)
+    expect(validateCalendarTimestamp('1445-09-31', islamicCivilCalendar)).toBe(false)
   })
 
   it('exposes labels and identity data for adapter-native component APIs', () => {
@@ -128,5 +134,53 @@ describe('[TIMESTAMP] islamicCivilCalendar', () => {
     expect(days[2]?.current).toBe(true)
     expect(days[0]?.past).toBe(true)
     expect(days[4]?.future).toBe(true)
+  })
+
+  it('treats disabled and selected strings as native adapter dates', () => {
+    const day = parseCalendarTimestamp('1445-10-01', islamicCivilCalendar)!
+    const disabled = updateCalendarDisabled(
+      day,
+      undefined,
+      undefined,
+      [],
+      [{ date: '1445-10-01', label: 'Follow-up' }],
+      islamicCivilCalendar,
+    )
+    const selection = getCalendarSelectionState(
+      day,
+      {
+        selectedDates: ['1445-10-01'],
+        selectedStartEndDates: ['1445-09-29', '1445-10-03'],
+      },
+      islamicCivilCalendar,
+    )
+
+    expect(disabled.disabled).toBe(true)
+    expect(disabled.disabledLabel).toBe('Follow-up')
+    expect(selection).toMatchObject({
+      selectedDate: true,
+      range: true,
+      selected: true,
+    })
+  })
+
+  it('creates Islamic civil month views with native outside state', () => {
+    const reference = parseCalendarTimestamp('1445-09-15', islamicCivilCalendar)!
+    const now = parseCalendarTimestamp('1445-09-29', islamicCivilCalendar)!
+    const view = createCalendarMonthView(reference, now, islamicCivilCalendar, {
+      weekdays: [6, 0, 1, 2, 3, 4, 5],
+      selectedDates: ['1445-09-29'],
+      disabledDays: ['1445-10-01'],
+    })
+    const selected = view.days.find((day) => day.timestamp.date === '1445-09-29')
+    const outside = view.days.find((day) => day.timestamp.date === '1445-10-01')
+
+    expect(view.start.date).toBe('1445-09-01')
+    expect(view.end.date).toBe('1445-09-30')
+    expect(view.days).toHaveLength(42)
+    expect(selected?.selected).toBe(true)
+    expect(selected?.identity.gregorianDate).toBe('2024-04-08')
+    expect(outside?.outside).toBe(true)
+    expect(outside?.disabled).toBe(true)
   })
 })

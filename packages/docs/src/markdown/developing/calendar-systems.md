@@ -91,7 +91,8 @@ export const myCalendar: CalendarSystem = {
 
 The important part is `epochDay`. Calendar `year/month/day` fields are not directly comparable
 across calendar systems. An adapter maps its fields to a stable serial day so ranges, min/max,
-disabled dates, and list generation can eventually become calendar-agnostic.
+disabled dates, selected dates, and list generation can stay calendar-agnostic internally while
+public component APIs remain adapter-native.
 
 ## Calendar-aware core helpers
 
@@ -101,10 +102,13 @@ these when a UI needs timestamp-shaped objects for a non-Gregorian calendar:
 ```ts
 import {
   createCalendarDayList,
+  createCalendarMonthView,
   getCalendarDateIdentity,
   getCalendarEndOfMonth,
   getCalendarMonthFormatter,
+  getCalendarSelectionState,
   parseCalendarTimestamp,
+  updateCalendarDisabled,
 } from '@timestamp-js/core'
 import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
 
@@ -115,6 +119,23 @@ const days = createCalendarDayList(start, end, visible, islamicCivilCalendar)
 
 const monthLabel = getCalendarMonthFormatter(islamicCivilCalendar)
 const identity = getCalendarDateIdentity(days[0], islamicCivilCalendar)
+const disabled = updateCalendarDisabled(
+  days[0],
+  undefined,
+  undefined,
+  [],
+  ['1445-09-01'],
+  islamicCivilCalendar,
+)
+const selection = getCalendarSelectionState(
+  days[0],
+  { selectedStartEndDates: ['1445-09-01', '1445-09-05'] },
+  islamicCivilCalendar,
+)
+const monthView = createCalendarMonthView(visible, visible, islamicCivilCalendar, {
+  selectedDates: ['1445-09-03'],
+  disabledDays: ['1445-09-04'],
+})
 
 days[0].calendarId // 'islamic-civil'
 days[0].date // '1445-09-01'
@@ -122,13 +143,22 @@ monthLabel(days[0].month, 'long', 'en-US', days[0].year) // 'Ramadan'
 identity.nativeDate // '1445-09-01'
 identity.gregorianDate // '2024-03-11'
 identity.epochDay // stable cross-calendar sort/range key
+disabled.disabled // true
+selection.rangeFirst // true
+monthView.days[0].timestamp.date // adapter-native YYYY-MM-DD
+monthView.days[0].identity.gregorianDate // Gregorian interop metadata
 ```
 
-These helpers are the first bridge for QCalendar-style views: adapters own calendar math, and core
-turns adapter dates into immutable Timestamp objects with `weekday`, `doy`, `past`, `current`,
-`future`, and disabled-state metadata. For component APIs that need to feel adapter-native, expose
-the native fields while keeping `gregorianDate` and `epochDay` available as deterministic interop
-keys.
+These helpers are the bridge for QCalendar-style views: adapters own calendar math, and core turns
+adapter dates into immutable Timestamp objects with `weekday`, `doy`, `past`, `current`, `future`,
+disabled state, selection/range state, outside-month state, and identity metadata. For component APIs
+that need to feel adapter-native, expose the native fields while keeping `gregorianDate` and
+`epochDay` available as deterministic interop keys.
+
+When a component accepts a calendar adapter, `YYYY-MM-DD` values at that component boundary should be
+treated as native to that adapter. For example, `selected-dates`, `disabled-days`, and `model-value`
+should all use Hijri strings when the Islamic civil adapter is active. Timestamp helpers keep
+comparisons stable by converting those native strings to `epochDay` internally.
 
 ## First-class support vs. display-only support
 
@@ -157,7 +187,9 @@ different calendar systems eventually share the same view code.
 The original top-level helpers such as `parseTimestamp()`, `nextDay()`, `createDayList()`, and
 `createNativeLocaleFormatterUTC()` remain Gregorian for compatibility. Calendar-aware equivalents
 such as `parseCalendarTimestamp()`, `nextCalendarDay()`, `createCalendarDayList()`, and
-`createCalendarLocaleFormatterUTC()` are available for adapter-based views.
+`createCalendarLocaleFormatterUTC()` are available for adapter-based views. New component-facing code
+should prefer the calendar-aware helpers whenever a `CalendarSystem` can be supplied, even when the
+calendar is Gregorian, so behavior remains consistent as adapters are introduced.
 
 Islamic civil and Saka are the current proving adapters. Additional calendar packages should wait
 until these have been exercised by QCalendar and the adapter contract has proved useful.

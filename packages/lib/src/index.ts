@@ -556,6 +556,178 @@ export interface CalendarDayListOptions {
 }
 
 /**
+ * Calendar-aware disabled-day options.
+ */
+export interface CalendarDisabledOptions {
+  /**
+   * Disable days before this calendar date string.
+   */
+  readonly disabledBefore?: string
+
+  /**
+   * Disable days after this calendar date string.
+   */
+  readonly disabledAfter?: string
+
+  /**
+   * Weekday numbers to mark disabled.
+   */
+  readonly disabledWeekdays?: number[]
+
+  /**
+   * Specific dates or date ranges to mark disabled.
+   */
+  readonly disabledDays?: DisabledDays
+}
+
+/**
+ * Collection of adapter-native date strings.
+ */
+export type CalendarDateCollection = string[] | Set<string>
+
+/**
+ * Calendar-aware selected-date options.
+ */
+export interface CalendarSelectionOptions {
+  /**
+   * Adapter-native date strings to mark as selected.
+   */
+  readonly selectedDates?: CalendarDateCollection
+
+  /**
+   * Two adapter-native date strings marking an inclusive selected range.
+   */
+  readonly selectedStartEndDates?: string[]
+}
+
+/**
+ * Selection state for one calendar date.
+ */
+export interface CalendarSelectionState {
+  /**
+   * True when the date is explicitly selected.
+   */
+  readonly selectedDate: boolean
+
+  /**
+   * True when the date is the selected range start.
+   */
+  readonly rangeFirst: boolean
+
+  /**
+   * True when the date is inside, but not at either edge of, the selected range.
+   */
+  readonly range: boolean
+
+  /**
+   * True when the date is the selected range end.
+   */
+  readonly rangeLast: boolean
+
+  /**
+   * True when any selected-date or selected-range state applies.
+   */
+  readonly selected: boolean
+}
+
+/**
+ * Fully resolved state for one calendar date in a view.
+ */
+export interface CalendarDateState extends CalendarSelectionState {
+  /**
+   * Adapter-native timestamp for the rendered date.
+   */
+  readonly timestamp: Timestamp
+
+  /**
+   * Stable native/Gregorian identity for the rendered date.
+   */
+  readonly identity: CalendarDateIdentity
+
+  /**
+   * True when the date is outside the reference adapter month.
+   */
+  readonly outside: boolean
+
+  /**
+   * True when the date is disabled by calendar-aware disabled options.
+   */
+  readonly disabled: boolean
+}
+
+/**
+ * Options used when resolving one calendar date's state.
+ */
+export interface CalendarDateStateOptions
+  extends CalendarDisabledOptions, CalendarSelectionOptions {
+  /**
+   * Explicit outside-month state. When omitted, referenceMonth is used.
+   */
+  readonly outside?: boolean
+
+  /**
+   * Reference date whose adapter month defines outside-month state.
+   */
+  readonly referenceMonth?: Timestamp
+}
+
+/**
+ * Options used when creating a calendar month view.
+ */
+export interface CalendarMonthViewOptions
+  extends CalendarDisabledOptions, CalendarSelectionOptions {
+  /**
+   * Weekday numbers to include, from `0` Sunday to `6` Saturday.
+   */
+  readonly weekdays?: number[]
+
+  /**
+   * Maximum number of days to return.
+   */
+  readonly max?: number
+
+  /**
+   * Minimum number of days to return.
+   */
+  readonly min?: number
+}
+
+/**
+ * Resolved calendar month view data.
+ */
+export interface CalendarMonthView {
+  /**
+   * Reference timestamp normalized through the calendar adapter.
+   */
+  readonly reference: Timestamp
+
+  /**
+   * First date of the reference adapter month.
+   */
+  readonly start: Timestamp
+
+  /**
+   * Last date of the reference adapter month.
+   */
+  readonly end: Timestamp
+
+  /**
+   * First rendered date in the month grid.
+   */
+  readonly visibleStart: Timestamp
+
+  /**
+   * Last rendered date in the month grid.
+   */
+  readonly visibleEnd: Timestamp
+
+  /**
+   * Rendered adapter-native day states.
+   */
+  readonly days: CalendarDateState[]
+}
+
+/**
  * Stable native and interop identity for a calendar date.
  *
  * Calendar-native APIs can use `nativeDate`, `native`, and `calendarId` while
@@ -1383,6 +1555,25 @@ export function parseCalendarTimestamp(
 }
 
 /**
+ * Validates whether an input string can be parsed as a calendar adapter timestamp.
+ *
+ * The default Gregorian calendar preserves existing Timestamp semantics. When
+ * an alternate calendar is supplied, `YYYY-MM-DD` is interpreted as native to
+ * that adapter.
+ *
+ * @param input Date or date-time string.
+ * @param calendar Calendar implementation to use.
+ * @returns True when the string can be parsed and exists in the calendar.
+ * @category calendar
+ */
+export function validateCalendarTimestamp(
+  input: string,
+  calendar: CalendarSystem = gregorianCalendar,
+): boolean {
+  return parseCalendarTimestamp(input, calendar) !== null
+}
+
+/**
  * Creates a calendar timestamp from a stable serial day.
  *
  * @param epochDay Stable serial day.
@@ -1802,12 +1993,43 @@ export function createCalendarDayList(
     }
     let day = updateCalendarFormatted(current, calendar)
     day = updateCalendarRelative(day, now, calendar)
-    day = updateDisabled(day, disabledBefore, disabledAfter, disabledWeekdays, disabledDays)
+    day = updateCalendarDisabled(
+      day,
+      disabledBefore,
+      disabledAfter,
+      disabledWeekdays,
+      disabledDays,
+      calendar,
+    )
     days.push(day)
     current = nextCalendarDay(current, calendar)
   }
 
   return days
+}
+
+/**
+ * Returns true when a timestamp falls outside the reference timestamp's adapter month.
+ *
+ * @param timestamp Timestamp to test.
+ * @param reference Timestamp whose month defines the inside range.
+ * @param calendar Calendar implementation to use.
+ * @returns True when timestamp is outside reference's calendar month.
+ * @category calendar
+ */
+export function isOutsideCalendarMonth(
+  timestamp: Timestamp,
+  reference: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): boolean {
+  const start = getCalendarStartOfMonth(reference, calendar)
+  const end = getCalendarEndOfMonth(reference, calendar)
+  const targetIdentifier = getCalendarDayIdentifier(timestamp, calendar)
+
+  return (
+    targetIdentifier < getCalendarDayIdentifier(start, calendar) ||
+    targetIdentifier > getCalendarDayIdentifier(end, calendar)
+  )
 }
 
 /**
@@ -2045,6 +2267,61 @@ function isTimestampInDisabledDay(timestamp: Timestamp, day: DisabledDay): boole
   return disabledDay !== null && getDayIdentifier(disabledDay) === target
 }
 
+function parseCalendarDateIdentifier(value: string, calendar: CalendarSystem): number | null {
+  const timestamp = parseCalendarTimestamp(value, calendar)
+  return timestamp === null ? null : getCalendarDayIdentifier(timestamp, calendar)
+}
+
+function isTimestampInCalendarDisabledDay(
+  timestamp: Timestamp,
+  day: DisabledDay,
+  calendar: CalendarSystem,
+): boolean {
+  const target = getCalendarDayIdentifier(timestamp, calendar)
+
+  if (Array.isArray(day) === true) {
+    if (day.length === 2 && day[0] && day[1]) {
+      const start = parseCalendarDateIdentifier(day[0], calendar)
+      const end = parseCalendarDateIdentifier(day[1], calendar)
+
+      return (
+        start !== null &&
+        end !== null &&
+        target >= Math.min(start, end) &&
+        target <= Math.max(start, end)
+      )
+    }
+
+    return day.some((date) => parseCalendarDateIdentifier(date, calendar) === target)
+  }
+
+  if (isDisabledDayConfig(day) === true) {
+    const date = day.date
+    const startDate = day.from ?? day.start
+    const endDate = day.to ?? day.end
+
+    if (date !== undefined) {
+      return parseCalendarDateIdentifier(date, calendar) === target
+    }
+
+    if (startDate !== undefined && endDate !== undefined) {
+      const start = parseCalendarDateIdentifier(startDate, calendar)
+      const end = parseCalendarDateIdentifier(endDate, calendar)
+
+      return (
+        start !== null &&
+        end !== null &&
+        target >= Math.min(start, end) &&
+        target <= Math.max(start, end)
+      )
+    }
+
+    return false
+  }
+
+  return parseCalendarDateIdentifier(day, calendar) === target
+}
+
 /**
  * Updates the passed Timestamp with disabled, if needed
  * @param {Timestamp} timestamp The Timestamp to transform
@@ -2104,6 +2381,231 @@ export function updateDisabled(
   }
 
   return freezeTimestamp(ts)
+}
+
+/**
+ * Updates a timestamp with disabled state using calendar-native date strings.
+ *
+ * The default Gregorian calendar preserves existing Timestamp behavior. When
+ * an alternate calendar is supplied, `disabledBefore`, `disabledAfter`, and
+ * `disabledDays` are parsed as native dates for that adapter.
+ *
+ * @param timestamp Timestamp to transform.
+ * @param disabledBefore Disable days on or before this adapter date.
+ * @param disabledAfter Disable days on or after this adapter date.
+ * @param disabledWeekdays Weekday numbers to mark disabled.
+ * @param disabledDays Specific adapter dates or date ranges to mark disabled.
+ * @param calendar Calendar implementation to use.
+ * @returns New timestamp with disabled metadata applied.
+ * @category calendar
+ */
+export function updateCalendarDisabled(
+  timestamp: Timestamp,
+  disabledBefore?: string,
+  disabledAfter?: string,
+  disabledWeekdays?: number[],
+  disabledDays?: DisabledDays,
+  calendar: CalendarSystem = gregorianCalendar,
+): Timestamp {
+  let ts = cloneTimestamp(timestamp)
+  const target = getCalendarDayIdentifier(ts, calendar)
+
+  if (disabledBefore !== undefined) {
+    const before = parseCalendarDateIdentifier(disabledBefore, calendar)
+    if (before !== null && target <= before) {
+      ts.disabled = true
+    }
+  }
+
+  if (ts.disabled !== true && disabledAfter !== undefined) {
+    const after = parseCalendarDateIdentifier(disabledAfter, calendar)
+    if (after !== null && target >= after) {
+      ts.disabled = true
+    }
+  }
+
+  if (ts.disabled !== true && Array.isArray(disabledWeekdays) && disabledWeekdays.length > 0) {
+    for (const weekday of disabledWeekdays) {
+      if (weekday === ts.weekday) {
+        ts.disabled = true
+        break
+      }
+    }
+  }
+
+  if (ts.disabled !== true && Array.isArray(disabledDays) && disabledDays.length > 0) {
+    for (const day of disabledDays) {
+      if (isTimestampInCalendarDisabledDay(ts, day, calendar) === true) {
+        ts = applyDisabledDayConfig(ts, isDisabledDayConfig(day) === true ? day : undefined)
+        break
+      }
+    }
+  }
+
+  return freezeTimestamp(ts)
+}
+
+function isTimestampInCalendarDateCollection(
+  timestamp: Timestamp,
+  dates: CalendarDateCollection | undefined,
+  calendar: CalendarSystem,
+): boolean {
+  if (dates === undefined) {
+    return false
+  }
+
+  const target = getCalendarDayIdentifier(timestamp, calendar)
+  for (const date of dates) {
+    if (parseCalendarDateIdentifier(date, calendar) === target) {
+      return true
+    }
+  }
+
+  return false
+}
+
+/**
+ * Resolves selected-date and selected-range state for a calendar timestamp.
+ *
+ * The default Gregorian calendar preserves existing Timestamp behavior. When
+ * an alternate calendar is supplied, selected date strings are parsed as native
+ * adapter dates.
+ *
+ * @param timestamp Timestamp to inspect.
+ * @param options Selected dates and selected start/end dates.
+ * @param calendar Calendar implementation to use.
+ * @returns Selected-date state for the timestamp.
+ * @category calendar
+ */
+export function getCalendarSelectionState(
+  timestamp: Timestamp,
+  options: CalendarSelectionOptions = {},
+  calendar: CalendarSystem = gregorianCalendar,
+): CalendarSelectionState {
+  const selectedDate = isTimestampInCalendarDateCollection(
+    timestamp,
+    options.selectedDates,
+    calendar,
+  )
+  const target = getCalendarDayIdentifier(timestamp, calendar)
+  const rangeBoundaryDates = options.selectedStartEndDates ?? []
+  let rangeFirst = false
+  let range = false
+  let rangeLast = false
+
+  if (rangeBoundaryDates.length === 2 && rangeBoundaryDates[0] && rangeBoundaryDates[1]) {
+    const first = parseCalendarDateIdentifier(rangeBoundaryDates[0], calendar)
+    const last = parseCalendarDateIdentifier(rangeBoundaryDates[1], calendar)
+
+    if (first !== null && last !== null) {
+      const start = Math.min(first, last)
+      const end = Math.max(first, last)
+
+      rangeFirst = target === start
+      rangeLast = target === end
+      range = target > start && target < end
+    }
+  }
+
+  return Object.freeze({
+    selectedDate,
+    rangeFirst,
+    range,
+    rangeLast,
+    selected: selectedDate || rangeFirst || range || rangeLast,
+  })
+}
+
+/**
+ * Resolves disabled, selected, identity, and outside-month state for one date.
+ *
+ * @param timestamp Timestamp to resolve.
+ * @param options Calendar-aware disabled, selection, and outside-month options.
+ * @param calendar Calendar implementation to use.
+ * @returns Calendar date state suitable for component scopes.
+ * @category calendar
+ */
+export function getCalendarDateState(
+  timestamp: Timestamp,
+  options: CalendarDateStateOptions = {},
+  calendar: CalendarSystem = gregorianCalendar,
+): CalendarDateState {
+  const disabledTimestamp = updateCalendarDisabled(
+    timestamp,
+    options.disabledBefore,
+    options.disabledAfter,
+    options.disabledWeekdays,
+    options.disabledDays,
+    calendar,
+  )
+  const selection = getCalendarSelectionState(disabledTimestamp, options, calendar)
+  const outside =
+    options.outside ??
+    (options.referenceMonth === undefined
+      ? false
+      : isOutsideCalendarMonth(disabledTimestamp, options.referenceMonth, calendar))
+
+  return Object.freeze({
+    timestamp: disabledTimestamp,
+    identity: getCalendarDateIdentity(disabledTimestamp, calendar),
+    outside,
+    disabled: disabledTimestamp.disabled === true,
+    ...selection,
+  })
+}
+
+/**
+ * Creates native calendar month view state for component rendering.
+ *
+ * The returned `days` use adapter-native `YYYY-MM-DD` values, while each
+ * state's identity also includes Gregorian interop metadata.
+ *
+ * @param timestamp Reference timestamp in the adapter calendar.
+ * @param now Timestamp used to calculate relative flags.
+ * @param calendar Calendar implementation to use.
+ * @param options Calendar-aware disabled, selection, weekday, and size options.
+ * @returns Calendar month view state.
+ * @category calendar
+ */
+export function createCalendarMonthView(
+  timestamp: Timestamp,
+  now: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+  options: CalendarMonthViewOptions = {},
+): CalendarMonthView {
+  const weekdays = options.weekdays ?? [0, 1, 2, 3, 4, 5, 6]
+  const reference = updateCalendarFormatted(timestamp, calendar)
+  const start = getCalendarStartOfMonth(reference, calendar)
+  const end = getCalendarEndOfMonth(reference, calendar)
+  const visibleStart = getCalendarStartOfWeek(start, weekdays, calendar, now)
+  const visibleEnd = getCalendarEndOfWeek(end, weekdays, calendar, now)
+  const days = createCalendarDayList(visibleStart, visibleEnd, now, calendar, {
+    weekdays,
+    disabledBefore: options.disabledBefore,
+    disabledAfter: options.disabledAfter,
+    disabledWeekdays: options.disabledWeekdays,
+    disabledDays: options.disabledDays,
+    max: options.max ?? weekdays.length * 6,
+    min: options.min ?? weekdays.length * 6,
+  }).map((day) =>
+    getCalendarDateState(
+      day,
+      {
+        ...options,
+        referenceMonth: reference,
+      },
+      calendar,
+    ),
+  )
+
+  return Object.freeze({
+    reference,
+    start,
+    end,
+    visibleStart,
+    visibleEnd,
+    days,
+  })
 }
 
 /**

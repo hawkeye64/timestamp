@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T20:39:24.488Z",
+  "generated_at": "2026-06-29T20:50:52.021Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
@@ -2835,6 +2835,31 @@
         "desc": "Calendar timestamp, or `null` when the input cannot be parsed or validated.",
         "type": "Timestamp | null",
         "tsType": "Timestamp | null"
+      }
+    },
+    "validateCalendarTimestamp": {
+      "desc": "Validates whether an input string can be parsed as a calendar adapter timestamp.\n\nThe default Gregorian calendar preserves existing Timestamp semantics. When an alternate calendar is supplied, `YYYY-MM-DD` is interpreted as native to that adapter.",
+      "params": {
+        "input": {
+          "desc": "Date or date-time string.",
+          "required": true,
+          "tsType": "string",
+          "type": "string"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function validateCalendarTimestamp(input: string, calendar?: CalendarSystem): boolean",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "True when the string can be parsed and exists in the calendar.",
+        "type": "boolean",
+        "tsType": "boolean"
       }
     },
     "createCalendarTimestampFromEpochDay": {
@@ -5703,6 +5728,37 @@
         "tsType": "Timestamp[]"
       }
     },
+    "isOutsideCalendarMonth": {
+      "desc": "Returns true when a timestamp falls outside the reference timestamp's adapter month.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp to test.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "reference": {
+          "desc": "Timestamp whose month defines the inside range.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function isOutsideCalendarMonth(timestamp: Timestamp, reference: Timestamp, calendar?: CalendarSystem): boolean",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "True when timestamp is outside reference's calendar month.",
+        "type": "boolean",
+        "tsType": "boolean"
+      }
+    },
     "getTimeIdentifier": {
       "desc": "Converts a Timestamp time into a sortable numeric identifier.",
       "params": {
@@ -6880,6 +6936,408 @@
         "desc": "A new Timestamp",
         "type": "Timestamp",
         "tsType": "Timestamp"
+      }
+    },
+    "updateCalendarDisabled": {
+      "desc": "Updates a timestamp with disabled state using calendar-native date strings.\n\nThe default Gregorian calendar preserves existing Timestamp behavior. When an alternate calendar is supplied, `disabledBefore`, `disabledAfter`, and `disabledDays` are parsed as native dates for that adapter.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp to transform.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "disabledBefore": {
+          "desc": "Disable days on or before this adapter date.",
+          "required": false,
+          "tsType": "string",
+          "type": "string"
+        },
+        "disabledAfter": {
+          "desc": "Disable days on or after this adapter date.",
+          "required": false,
+          "tsType": "string",
+          "type": "string"
+        },
+        "disabledWeekdays": {
+          "desc": "Weekday numbers to mark disabled.",
+          "required": false,
+          "tsType": "number[]",
+          "type": "number[]"
+        },
+        "disabledDays": {
+          "desc": "Specific adapter dates or date ranges to mark disabled.",
+          "required": false,
+          "tsType": "DisabledDays",
+          "type": "DisabledDays"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function updateCalendarDisabled(timestamp: Timestamp, disabledBefore?: string, disabledAfter?: string, disabledWeekdays?: number[], disabledDays?: DisabledDays, calendar?: CalendarSystem): Timestamp",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Optional calendar-system identifier for adapter-produced timestamps.\n\nCore Gregorian helpers omit this field for backwards compatibility.",
+            "required": false,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "date": {
+            "desc": "Date string in `YYYY-MM-DD` form when the timestamp has a day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasDay": {
+            "desc": "True when the timestamp includes a meaningful date/day value.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "year": {
+            "desc": "Calendar year. Core parser helpers use Gregorian years.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "month": {
+            "desc": "Calendar month number, where the first month is `1`. Core parser helpers use Gregorian month numbers.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "day": {
+            "desc": "Calendar day of the month.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "time": {
+            "desc": "Formatted time string.\n\nMinute precision is formatted as `HH:mm`; second precision as `HH:mm:ss`; millisecond precision as `HH:mm:ss.SSS`.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "hasTime": {
+            "desc": "True when the timestamp includes time fields.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "hour": {
+            "desc": "Hour in 24-hour format.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "minute": {
+            "desc": "Minute of the hour.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          },
+          "second": {
+            "desc": "Optional second of the minute.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "millisecond": {
+            "desc": "Optional millisecond of the second.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "timezone": {
+            "desc": "Optional parsed ISO timezone suffix such as `Z`, `+06:00`, or `-0700`.\n\nThe suffix is preserved for callers, but parsing does not convert the wall-clock values into another timezone.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "weekday": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "doy": {
+            "desc": "Day of the year.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "workweek": {
+            "desc": "ISO-style workweek number.",
+            "required": false,
+            "tsType": "number",
+            "type": "number"
+          },
+          "past": {
+            "desc": "True when the timestamp is before a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "current": {
+            "desc": "True when the timestamp matches a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "future": {
+            "desc": "True when the timestamp is after a comparison timestamp.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when this timestamp represents a disabled date.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabledColor": {
+            "desc": "Optional background color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledTextColor": {
+            "desc": "Optional text color metadata for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "disabledClass": {
+            "desc": "Optional class metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampClass",
+            "type": "TimestampClass"
+          },
+          "disabledStyle": {
+            "desc": "Optional inline style metadata for a disabled date.",
+            "required": false,
+            "tsType": "TimestampStyle",
+            "type": "TimestampStyle"
+          },
+          "disabledLabel": {
+            "desc": "Optional human-readable label for a disabled date.",
+            "required": false,
+            "tsType": "string",
+            "type": "string"
+          },
+          "currentWeekday": {
+            "desc": "True when this timestamp's weekday matches a comparison timestamp's weekday.",
+            "required": false,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "New timestamp with disabled metadata applied.",
+        "type": "Timestamp",
+        "tsType": "Timestamp"
+      }
+    },
+    "getCalendarSelectionState": {
+      "desc": "Resolves selected-date and selected-range state for a calendar timestamp.\n\nThe default Gregorian calendar preserves existing Timestamp behavior. When an alternate calendar is supplied, selected date strings are parsed as native adapter dates.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp to inspect.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "options": {
+          "desc": "Selected dates and selected start/end dates.",
+          "required": false,
+          "tsType": "CalendarSelectionOptions",
+          "type": "CalendarSelectionOptions"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarSelectionState(timestamp: Timestamp, options?: CalendarSelectionOptions, calendar?: CalendarSystem): CalendarSelectionState",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "definition": {
+          "selectedDate": {
+            "desc": "True when the date is explicitly selected.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "rangeFirst": {
+            "desc": "True when the date is the selected range start.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "range": {
+            "desc": "True when the date is inside, but not at either edge of, the selected range.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "rangeLast": {
+            "desc": "True when the date is the selected range end.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "selected": {
+            "desc": "True when any selected-date or selected-range state applies.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Selected-date state for the timestamp.",
+        "type": "CalendarSelectionState",
+        "tsType": "CalendarSelectionState"
+      }
+    },
+    "getCalendarDateState": {
+      "desc": "Resolves disabled, selected, identity, and outside-month state for one date.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp to resolve.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "options": {
+          "desc": "Calendar-aware disabled, selection, and outside-month options.",
+          "required": false,
+          "tsType": "CalendarDateStateOptions",
+          "type": "CalendarDateStateOptions"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarDateState(timestamp: Timestamp, options?: CalendarDateStateOptions, calendar?: CalendarSystem): CalendarDateState",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "definition": {
+          "timestamp": {
+            "desc": "Adapter-native timestamp for the rendered date.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "identity": {
+            "desc": "Stable native/Gregorian identity for the rendered date.",
+            "required": true,
+            "tsType": "CalendarDateIdentity",
+            "type": "CalendarDateIdentity"
+          },
+          "outside": {
+            "desc": "True when the date is outside the reference adapter month.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          },
+          "disabled": {
+            "desc": "True when the date is disabled by calendar-aware disabled options.",
+            "required": true,
+            "tsType": "boolean",
+            "type": "boolean"
+          }
+        },
+        "desc": "Calendar date state suitable for component scopes.",
+        "type": "CalendarDateState",
+        "tsType": "CalendarDateState"
+      }
+    },
+    "createCalendarMonthView": {
+      "desc": "Creates native calendar month view state for component rendering.\n\nThe returned `days` use adapter-native `YYYY-MM-DD` values, while each state's identity also includes Gregorian interop metadata.",
+      "params": {
+        "timestamp": {
+          "desc": "Reference timestamp in the adapter calendar.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "now": {
+          "desc": "Timestamp used to calculate relative flags.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "options": {
+          "desc": "Calendar-aware disabled, selection, weekday, and size options.",
+          "required": false,
+          "tsType": "CalendarMonthViewOptions",
+          "type": "CalendarMonthViewOptions"
+        }
+      },
+      "tsSignature": "function createCalendarMonthView(timestamp: Timestamp, now: Timestamp, calendar?: CalendarSystem, options?: CalendarMonthViewOptions): CalendarMonthView",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "definition": {
+          "reference": {
+            "desc": "Reference timestamp normalized through the calendar adapter.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "start": {
+            "desc": "First date of the reference adapter month.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "end": {
+            "desc": "Last date of the reference adapter month.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "visibleStart": {
+            "desc": "First rendered date in the month grid.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "visibleEnd": {
+            "desc": "Last rendered date in the month grid.",
+            "required": true,
+            "tsType": "Timestamp",
+            "type": "Timestamp"
+          },
+          "days": {
+            "desc": "Rendered adapter-native day states.",
+            "required": true,
+            "tsType": "CalendarDateState[]",
+            "type": "CalendarDateState[]"
+          }
+        },
+        "desc": "Calendar month view state.",
+        "type": "CalendarMonthView",
+        "tsType": "CalendarMonthView"
       }
     },
     "updateFormatted": {

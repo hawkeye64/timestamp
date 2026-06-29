@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest'
 import {
   addCalendarMonths,
   createCalendarDayList,
+  createCalendarMonthView,
   getCalendarDateIdentity,
+  getCalendarDateState,
+  getCalendarSelectionState,
   createCalendarTimestamp,
   getCalendarEndOfMonth,
   getCalendarMonthNames,
@@ -14,6 +17,8 @@ import {
   parseCalendarTimestamp,
   parsed,
   prevDay,
+  updateCalendarDisabled,
+  validateCalendarTimestamp,
   type Timestamp,
 } from '../src'
 
@@ -84,6 +89,8 @@ describe('[TIMESTAMP] calendar systems', () => {
   it('parses and validates date strings through a calendar adapter', () => {
     expect(parseCalendarTimestamp('2024-02-29', gregorianCalendar)?.date).toBe('2024-02-29')
     expect(parseCalendarTimestamp('2025-02-29', gregorianCalendar)).toBeNull()
+    expect(validateCalendarTimestamp('2024-02-29', gregorianCalendar)).toBe(true)
+    expect(validateCalendarTimestamp('2025-02-29', gregorianCalendar)).toBe(false)
     expect(isValidCalendarDate({ year: 2024, month: 13, day: 1 }, gregorianCalendar)).toBe(false)
   })
 
@@ -106,6 +113,64 @@ describe('[TIMESTAMP] calendar systems', () => {
     expect(days[1]?.current).toBe(true)
     expect(getCalendarStartOfMonth(end, gregorianCalendar).date).toBe('2026-06-01')
     expect(getCalendarEndOfMonth(start, gregorianCalendar).date).toBe('2026-06-30')
+  })
+
+  it('applies disabled and selected state through the calendar helpers', () => {
+    const day = createCalendarTimestamp({ year: 2026, month: 6, day: 3 }, gregorianCalendar)
+    const disabled = updateCalendarDisabled(
+      day,
+      undefined,
+      undefined,
+      [],
+      [{ date: '2026-06-03', label: 'Holiday' }],
+      gregorianCalendar,
+    )
+    const selection = getCalendarSelectionState(
+      day,
+      {
+        selectedDates: new Set(['2026-06-03']),
+        selectedStartEndDates: ['2026-06-01', '2026-06-05'],
+      },
+      gregorianCalendar,
+    )
+    const state = getCalendarDateState(
+      day,
+      {
+        selectedStartEndDates: ['2026-06-01', '2026-06-05'],
+        referenceMonth: createCalendarTimestamp(
+          { year: 2026, month: 7, day: 1 },
+          gregorianCalendar,
+        ),
+      },
+      gregorianCalendar,
+    )
+
+    expect(disabled.disabled).toBe(true)
+    expect(disabled.disabledLabel).toBe('Holiday')
+    expect(selection).toMatchObject({
+      selectedDate: true,
+      range: true,
+      selected: true,
+    })
+    expect(state.outside).toBe(true)
+    expect(state.range).toBe(true)
+    expect(state.identity.gregorianDate).toBe('2026-06-03')
+  })
+
+  it('creates native month view state', () => {
+    const reference = createCalendarTimestamp({ year: 2026, month: 6, day: 15 }, gregorianCalendar)
+    const now = createCalendarTimestamp({ year: 2026, month: 6, day: 3 }, gregorianCalendar)
+    const view = createCalendarMonthView(reference, now, gregorianCalendar, {
+      selectedDates: ['2026-06-03'],
+      disabledDays: ['2026-06-04'],
+    })
+
+    expect(view.start.date).toBe('2026-06-01')
+    expect(view.end.date).toBe('2026-06-30')
+    expect(view.days).toHaveLength(42)
+    expect(view.days.find((day) => day.timestamp.date === '2026-06-03')?.selected).toBe(true)
+    expect(view.days.find((day) => day.timestamp.date === '2026-06-04')?.disabled).toBe(true)
+    expect(view.days.some((day) => day.outside)).toBe(true)
   })
 
   it('formats Gregorian month names through the calendar month helpers', () => {
