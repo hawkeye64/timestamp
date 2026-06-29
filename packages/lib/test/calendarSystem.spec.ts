@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest'
 import {
   addCalendarMonths,
   createCalendarDayList,
+  getCalendarDateIdentity,
   createCalendarTimestamp,
   getCalendarEndOfMonth,
+  getCalendarMonthNames,
   getCalendarStartOfMonth,
   getEpochDay,
   gregorianCalendar,
@@ -34,6 +36,21 @@ describe('[TIMESTAMP] calendar systems', () => {
     expect(getEpochDay(epoch)).toBe(0)
     expect(getEpochDay(next)).toBe(1)
     expect(getEpochDay(previous)).toBe(-1)
+  })
+
+  it('creates native and Gregorian identity data for calendar dates', () => {
+    const timestamp = createCalendarTimestamp({ year: 2026, month: 6, day: 29 }, gregorianCalendar)
+    const identity = getCalendarDateIdentity(timestamp, gregorianCalendar)
+
+    expect(identity).toEqual({
+      calendarId: 'gregorian',
+      nativeDate: '2026-06-29',
+      native: { year: 2026, month: 6, day: 29 },
+      gregorianDate: '2026-06-29',
+      gregorian: { year: 2026, month: 6, day: 29 },
+      epochDay: getEpochDay(timestamp),
+    })
+    expect(Object.isFrozen(identity)).toBe(true)
   })
 
   it('keeps existing nextDay and prevDay behavior on top of the Gregorian adapter', () => {
@@ -89,5 +106,13 @@ describe('[TIMESTAMP] calendar systems', () => {
     expect(days[1]?.current).toBe(true)
     expect(getCalendarStartOfMonth(end, gregorianCalendar).date).toBe('2026-06-01')
     expect(getCalendarEndOfMonth(start, gregorianCalendar).date).toBe('2026-06-30')
+  })
+
+  it('formats Gregorian month names through the calendar month helpers', () => {
+    expect(getCalendarMonthNames(gregorianCalendar, 'short', 'en-US', 2026).slice(0, 3)).toEqual([
+      'Jan',
+      'Feb',
+      'Mar',
+    ])
   })
 })

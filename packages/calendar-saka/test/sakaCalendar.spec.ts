@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest'
 import {
   addCalendarMonths,
   createCalendarDayList,
+  getCalendarDateIdentity,
   getCalendarEndOfMonth,
+  getCalendarMonthFormatter,
+  getCalendarMonthNames,
   getCalendarStartOfMonth,
   gregorianCalendar,
   makeCalendarDateUTC,
@@ -107,6 +110,21 @@ describe('[TIMESTAMP] indianNationalCalendar', () => {
     expect(makeCalendarDateUTC(newYear!, indianNationalCalendar).toISOString()).toBe(
       '2024-03-21T00:00:00.000Z',
     )
+  })
+
+  it('exposes labels and identity data for adapter-native component APIs', () => {
+    const newYear = parseCalendarTimestamp('1946-01-01', indianNationalCalendar)!
+    const identity = getCalendarDateIdentity(newYear, indianNationalCalendar)
+    const monthFormatter = getCalendarMonthFormatter(indianNationalCalendar)
+
+    expect(identity).toMatchObject({
+      calendarId: 'saka',
+      nativeDate: '1946-01-01',
+      native: { year: 1946, month: 1, day: 1 },
+      gregorianDate: '2024-03-21',
+    })
+    expect(monthFormatter(1, 'long', 'en-US', 1946)).toBe('Chaitra')
+    expect(getCalendarMonthNames(indianNationalCalendar, 'long', 'en-US', 1946)[0]).toBe('Chaitra')
   })
 
   it('builds Saka day lists across year boundaries', () => {

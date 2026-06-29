@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   createCalendarDayList,
+  getCalendarDateIdentity,
   getCalendarEndOfMonth,
+  getCalendarMonthFormatter,
+  getCalendarMonthNames,
   getCalendarStartOfMonth,
   gregorianCalendar,
   makeCalendarDateUTC,
@@ -92,6 +95,21 @@ describe('[TIMESTAMP] islamicCivilCalendar', () => {
     expect(makeCalendarDateUTC(ramadan!, islamicCivilCalendar).toISOString()).toBe(
       '2024-03-11T00:00:00.000Z',
     )
+  })
+
+  it('exposes labels and identity data for adapter-native component APIs', () => {
+    const ramadan = parseCalendarTimestamp('1445-09-01', islamicCivilCalendar)!
+    const identity = getCalendarDateIdentity(ramadan, islamicCivilCalendar)
+    const monthFormatter = getCalendarMonthFormatter(islamicCivilCalendar)
+
+    expect(identity).toMatchObject({
+      calendarId: 'islamic-civil',
+      nativeDate: '1445-09-01',
+      native: { year: 1445, month: 9, day: 1 },
+      gregorianDate: '2024-03-11',
+    })
+    expect(monthFormatter(9, 'long', 'en-US', 1445)).toBe('Ramadan')
+    expect(getCalendarMonthNames(islamicCivilCalendar, 'long', 'en-US', 1445)[8]).toBe('Ramadan')
   })
 
   it('builds Islamic civil day lists with relative state', () => {

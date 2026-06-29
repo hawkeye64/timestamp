@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T18:25:13.499Z",
+  "generated_at": "2026-06-29T20:39:24.488Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
@@ -2369,6 +2369,69 @@
         "desc": "Stable serial day.",
         "type": "number",
         "tsType": "number"
+      }
+    },
+    "getCalendarDateIdentity": {
+      "desc": "Creates stable native and Gregorian identities for a calendar timestamp.\n\nUse this when component APIs need to expose adapter-native values while also preserving a canonical Gregorian key for storage, comparisons, or interop with existing data.",
+      "params": {
+        "timestamp": {
+          "desc": "Timestamp object to identify.",
+          "required": true,
+          "tsType": "Timestamp",
+          "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarDateIdentity(timestamp: Timestamp, calendar?: CalendarSystem): CalendarDateIdentity",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "definition": {
+          "calendarId": {
+            "desc": "Calendar id for the native date fields.",
+            "required": true,
+            "tsType": "CalendarId",
+            "type": "CalendarId"
+          },
+          "nativeDate": {
+            "desc": "Native calendar date string in `YYYY-MM-DD` form.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "native": {
+            "desc": "Native calendar date fields.",
+            "required": true,
+            "tsType": "CalendarDateParts",
+            "type": "CalendarDateParts"
+          },
+          "gregorianDate": {
+            "desc": "Canonical Gregorian date string for the same serial day.",
+            "required": true,
+            "tsType": "string",
+            "type": "string"
+          },
+          "gregorian": {
+            "desc": "Canonical Gregorian date fields for the same serial day.",
+            "required": true,
+            "tsType": "CalendarDateParts",
+            "type": "CalendarDateParts"
+          },
+          "epochDay": {
+            "desc": "Stable serial day shared across calendar systems.",
+            "required": true,
+            "tsType": "number",
+            "type": "number"
+          }
+        },
+        "desc": "Calendar-native date, Gregorian interop date, and shared epoch day.",
+        "type": "CalendarDateIdentity",
+        "tsType": "CalendarDateIdentity"
       }
     },
     "isValidCalendarDate": {
@@ -11562,6 +11625,25 @@
         "tsType": "MonthFormatter"
       }
     },
+    "getCalendarMonthFormatter": {
+      "desc": "Returns a function that formats one-based calendar adapter month numbers.\n\nThis is the calendar-aware counterpart to getMonthFormatter(). It converts adapter fields through the adapter's epoch-day mapping, then asks Intl to format the equivalent Gregorian Date with the adapter's Intl calendar id when one is available.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarMonthFormatter(calendar?: CalendarSystem): CalendarMonthFormatter",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "Function that formats one-based month numbers for the adapter.",
+        "type": "CalendarMonthFormatter",
+        "tsType": "CalendarMonthFormatter"
+      }
+    },
     "getMonthNames": {
       "desc": "Retrieves localized month names.",
       "params": {
@@ -11583,6 +11665,43 @@
       "category": "locale",
       "returns": {
         "desc": "Localized month names in January-first order.",
+        "type": "string[]",
+        "tsType": "string[]"
+      }
+    },
+    "getCalendarMonthNames": {
+      "desc": "Retrieves localized month names for a calendar adapter.\n\nMonth numbers are generated from `1` through `calendar.monthsInYear(year)`. Pass a year when the calendar can have leap months or year-specific month naming rules.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar implementation to use.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        },
+        "type": {
+          "desc": "Format type: `narrow`, `short`, or `long`.",
+          "required": false,
+          "tsType": "string",
+          "type": "string"
+        },
+        "locale": {
+          "desc": "Locale to use for formatting, such as `en-US`.",
+          "required": false,
+          "tsType": "string",
+          "type": "string"
+        },
+        "year": {
+          "desc": "Calendar year to sample. Defaults to `1`.",
+          "required": false,
+          "tsType": "number",
+          "type": "number"
+        }
+      },
+      "tsSignature": "function getCalendarMonthNames(calendar?: CalendarSystem, type?: string, locale?: string, year?: number): string[]",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "Localized month names in calendar-native order.",
         "type": "string[]",
         "tsType": "string[]"
       }

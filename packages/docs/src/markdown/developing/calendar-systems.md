@@ -101,8 +101,9 @@ these when a UI needs timestamp-shaped objects for a non-Gregorian calendar:
 ```ts
 import {
   createCalendarDayList,
-  createCalendarLocaleFormatterUTC,
+  getCalendarDateIdentity,
   getCalendarEndOfMonth,
+  getCalendarMonthFormatter,
   parseCalendarTimestamp,
 } from '@timestamp-js/core'
 import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
@@ -112,19 +113,22 @@ const start = visible
 const end = getCalendarEndOfMonth(visible, islamicCivilCalendar)
 const days = createCalendarDayList(start, end, visible, islamicCivilCalendar)
 
-const monthLabel = createCalendarLocaleFormatterUTC(islamicCivilCalendar, 'en-US', () => ({
-  month: 'long',
-  timeZone: 'UTC',
-}))
+const monthLabel = getCalendarMonthFormatter(islamicCivilCalendar)
+const identity = getCalendarDateIdentity(days[0], islamicCivilCalendar)
 
 days[0].calendarId // 'islamic-civil'
 days[0].date // '1445-09-01'
-monthLabel(days[0], false) // localized adapter month label when supported by Intl
+monthLabel(days[0].month, 'long', 'en-US', days[0].year) // 'Ramadan'
+identity.nativeDate // '1445-09-01'
+identity.gregorianDate // '2024-03-11'
+identity.epochDay // stable cross-calendar sort/range key
 ```
 
 These helpers are the first bridge for QCalendar-style views: adapters own calendar math, and core
 turns adapter dates into immutable Timestamp objects with `weekday`, `doy`, `past`, `current`,
-`future`, and disabled-state metadata.
+`future`, and disabled-state metadata. For component APIs that need to feel adapter-native, expose
+the native fields while keeping `gregorianDate` and `epochDay` available as deterministic interop
+keys.
 
 ## First-class support vs. display-only support
 

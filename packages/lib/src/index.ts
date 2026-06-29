@@ -556,6 +556,45 @@ export interface CalendarDayListOptions {
 }
 
 /**
+ * Stable native and interop identity for a calendar date.
+ *
+ * Calendar-native APIs can use `nativeDate`, `native`, and `calendarId` while
+ * storage, sorting, cross-calendar joins, and legacy interop can use
+ * `epochDay` and `gregorianDate`.
+ */
+export interface CalendarDateIdentity {
+  /**
+   * Calendar id for the native date fields.
+   */
+  readonly calendarId: CalendarId
+
+  /**
+   * Native calendar date string in `YYYY-MM-DD` form.
+   */
+  readonly nativeDate: string
+
+  /**
+   * Native calendar date fields.
+   */
+  readonly native: CalendarDateParts
+
+  /**
+   * Canonical Gregorian date string for the same serial day.
+   */
+  readonly gregorianDate: string
+
+  /**
+   * Canonical Gregorian date fields for the same serial day.
+   */
+  readonly gregorian: CalendarDateParts
+
+  /**
+   * Stable serial day shared across calendar systems.
+   */
+  readonly epochDay: number
+}
+
+/**
  * Options for formatting a TimestampDuration.
  */
 export interface FormatDurationOptions {
@@ -1211,6 +1250,36 @@ export function getCalendarDayIdentifier(
   calendar: CalendarSystem = gregorianCalendar,
 ): number {
   return getEpochDay(timestamp, calendar)
+}
+
+/**
+ * Creates stable native and Gregorian identities for a calendar timestamp.
+ *
+ * Use this when component APIs need to expose adapter-native values while also
+ * preserving a canonical Gregorian key for storage, comparisons, or interop
+ * with existing data.
+ *
+ * @param timestamp Timestamp object to identify.
+ * @param calendar Calendar implementation to use.
+ * @returns Calendar-native date, Gregorian interop date, and shared epoch day.
+ * @category calendar
+ */
+export function getCalendarDateIdentity(
+  timestamp: Timestamp,
+  calendar: CalendarSystem = gregorianCalendar,
+): CalendarDateIdentity {
+  const native = toCalendarDateParts(timestamp)
+  const epochDay = calendar.toEpochDay(native)
+  const gregorian = gregorianCalendar.fromEpochDay(epochDay)
+
+  return Object.freeze({
+    calendarId: calendar.id,
+    nativeDate: formatCalendarDate(native),
+    native,
+    gregorianDate: formatCalendarDate(gregorian),
+    gregorian,
+    epochDay,
+  })
 }
 
 /**
@@ -2437,6 +2506,16 @@ export type WeekdayFormatter = (
 export type MonthFormatter = (_month: number, _type?: string, _locale?: string) => string
 
 /**
+ * Function that formats a one-based calendar adapter month number for a locale.
+ */
+export type CalendarMonthFormatter = (
+  _month: number,
+  _type?: string,
+  _locale?: string,
+  _year?: number,
+) => string
+
+/**
  * @callback getOptions
  * @param {Timestamp} timestamp A Timestamp object
  * @param {boolean} short True if using short options
@@ -3566,6 +3645,76 @@ export function getMonthFormatter(): MonthFormatter {
 }
 
 /**
+ * Returns a function that formats one-based calendar adapter month numbers.
+ *
+ * This is the calendar-aware counterpart to getMonthFormatter(). It converts
+ * adapter fields through the adapter's epoch-day mapping, then asks Intl to
+ * format the equivalent Gregorian Date with the adapter's Intl calendar id
+ * when one is available.
+ *
+ * @param calendar Calendar implementation to use.
+ * @returns Function that formats one-based month numbers for the adapter.
+ * @category calendar
+ */
+export function getCalendarMonthFormatter(
+  calendar: CalendarSystem = gregorianCalendar,
+): CalendarMonthFormatter {
+  const options: Record<IntlNameFormat, Intl.DateTimeFormatOptions> = {
+    long: { timeZone: 'UTC', month: 'long' },
+    short: { timeZone: 'UTC', month: 'short' },
+    narrow: { timeZone: 'UTC', month: 'narrow' },
+  }
+  const fallbackFormatter = (month: number): string =>
+    Number.isFinite(month) && month >= 1 ? `Month ${month}` : ''
+
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+    return fallbackFormatter
+  }
+
+  return (month: number, type = 'long', locale?: string, year = 1): string => {
+    const calendarMonth = Math.trunc(month)
+    const calendarYear = Math.trunc(year)
+    const date = {
+      year: calendarYear,
+      month: calendarMonth,
+      day: 1,
+    }
+
+    if (
+      Number.isFinite(calendarMonth) === false ||
+      Number.isFinite(calendarYear) === false ||
+      isValidCalendarDate(date, calendar) === false
+    ) {
+      return ''
+    }
+
+    try {
+      const resolvedOptions = resolveIntlNameFormat(options, type) as Intl.DateTimeFormatOptions & {
+        calendar?: string
+      }
+      const formatterOptions =
+        calendar.intlCalendar === undefined || resolvedOptions.calendar !== undefined
+          ? resolvedOptions
+          : {
+              ...resolvedOptions,
+              calendar: calendar.intlCalendar,
+            }
+      const gregorianDate = gregorianCalendar.fromEpochDay(calendar.toEpochDay(date))
+      const nativeDate = new Date(
+        Date.UTC(gregorianDate.year, gregorianDate.month - 1, gregorianDate.day),
+      )
+
+      return new Intl.DateTimeFormat(locale || undefined, formatterOptions).format(nativeDate)
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.error(`Intl.DateTimeFormat: ${e.message} -> calendar month: ${calendarMonth}`)
+      }
+      return fallbackFormatter(calendarMonth)
+    }
+  }
+}
+
+/**
  * Retrieves localized month names.
  *
  * @param {string} type Format type: `narrow`, `short`, or `long`.
@@ -3576,4 +3725,30 @@ export function getMonthFormatter(): MonthFormatter {
 export function getMonthNames(type: string, locale: string): string[] {
   const monthFormatter = getMonthFormatter()
   return [...Array(12).keys()].map((month) => monthFormatter(month, type, locale))
+}
+
+/**
+ * Retrieves localized month names for a calendar adapter.
+ *
+ * Month numbers are generated from `1` through `calendar.monthsInYear(year)`.
+ * Pass a year when the calendar can have leap months or year-specific month
+ * naming rules.
+ *
+ * @param calendar Calendar implementation to use.
+ * @param type Format type: `narrow`, `short`, or `long`.
+ * @param locale Locale to use for formatting, such as `en-US`.
+ * @param year Calendar year to sample. Defaults to `1`.
+ * @returns Localized month names in calendar-native order.
+ * @category calendar
+ */
+export function getCalendarMonthNames(
+  calendar: CalendarSystem = gregorianCalendar,
+  type: string = 'long',
+  locale?: string,
+  year: number = 1,
+): string[] {
+  const monthFormatter = getCalendarMonthFormatter(calendar)
+  return [...Array(calendar.monthsInYear(year)).keys()].map((month) =>
+    monthFormatter(month + 1, type, locale, year),
+  )
 }
