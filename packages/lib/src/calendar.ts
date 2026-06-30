@@ -11,6 +11,11 @@ const GREGORIAN_DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31,
 export type CalendarId = 'gregorian' | (string & {})
 
 /**
+ * Recommended text direction for calendar presentation.
+ */
+export type CalendarDirection = 'ltr' | 'rtl'
+
+/**
  * Plain calendar date fields.
  */
 export interface CalendarDateParts {
@@ -52,6 +57,23 @@ export interface CalendarSystem {
    * Human-readable calendar name.
    */
   readonly label: string
+
+  /**
+   * Recommended BCP 47 locale for presentation when the caller does not provide one.
+   */
+  readonly defaultLocale?: string
+
+  /**
+   * Recommended text direction for presentation when the caller does not provide one.
+   */
+  readonly defaultDirection?: CalendarDirection
+
+  /**
+   * Recommended visible weekday order when the caller does not provide one.
+   *
+   * Weekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.
+   */
+  readonly defaultWeekdays?: readonly number[]
 
   /**
    * Number of months in a calendar year.
@@ -146,6 +168,9 @@ export const gregorianCalendar: CalendarSystem = Object.freeze({
   id: 'gregorian',
   intlCalendar: 'gregory',
   label: 'Gregorian',
+  defaultLocale: 'en-US',
+  defaultDirection: 'ltr',
+  defaultWeekdays: Object.freeze([0, 1, 2, 3, 4, 5, 6]),
 
   monthsInYear() {
     return 12
@@ -190,3 +215,49 @@ export const gregorianCalendar: CalendarSystem = Object.freeze({
     return toGregorianUtcDate(date).getUTCDay()
   },
 })
+
+/**
+ * Returns the recommended locale for a calendar system.
+ *
+ * @param calendar Calendar implementation to read.
+ * @returns BCP 47 locale, defaulting to `en-US`.
+ * @category calendar
+ */
+export function getCalendarLocale(calendar: CalendarSystem = gregorianCalendar): string {
+  return calendar.defaultLocale ?? gregorianCalendar.defaultLocale ?? 'en-US'
+}
+
+/**
+ * Returns the recommended text direction for a calendar system.
+ *
+ * @param calendar Calendar implementation to read.
+ * @returns `ltr` or `rtl`, defaulting to `ltr`.
+ * @category calendar
+ */
+export function getCalendarDirection(
+  calendar: CalendarSystem = gregorianCalendar,
+): CalendarDirection {
+  return calendar.defaultDirection ?? gregorianCalendar.defaultDirection ?? 'ltr'
+}
+
+/**
+ * Returns true when a calendar system recommends right-to-left presentation.
+ *
+ * @param calendar Calendar implementation to read.
+ * @returns True when the recommended direction is `rtl`.
+ * @category calendar
+ */
+export function isCalendarRTL(calendar: CalendarSystem = gregorianCalendar): boolean {
+  return getCalendarDirection(calendar) === 'rtl'
+}
+
+/**
+ * Returns the recommended visible weekday order for a calendar system.
+ *
+ * @param calendar Calendar implementation to read.
+ * @returns Weekday numbers where Sunday is `0` and Saturday is `6`.
+ * @category calendar
+ */
+export function getCalendarWeekdays(calendar: CalendarSystem = gregorianCalendar): number[] {
+  return [...(calendar.defaultWeekdays ?? gregorianCalendar.defaultWeekdays ?? [0, 1, 2, 3, 4, 5, 6])]
+}

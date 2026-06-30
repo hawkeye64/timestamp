@@ -26,13 +26,16 @@ Seconds, milliseconds, and timezone suffixes are optional.
 
 ## Parser choices
 
-| Helper                  | Use it when                                                                  |
-| ----------------------- | ---------------------------------------------------------------------------- |
-| `parseTimestamp(value)` | You need a complete Timestamp with formatted and calendar metadata.          |
-| `parsed(value)`         | You need a faster, minimal Timestamp and do not need derived fields.         |
-| `parseDate(date)`       | You already have a JavaScript `Date` and want host-local Timestamp fields.   |
-| `parseDateUTC(date)`    | You already have a JavaScript `Date` and want UTC Timestamp fields.          |
-| `parseTime(value)`      | You need a time-only object from `HH`, `HH:mm`, `HH:mm:ss`, or milliseconds. |
+| Helper                         | Use it when                                                                  |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| `parseTimestamp(value)`        | You need a complete Timestamp with formatted and calendar metadata.          |
+| `parsed(value)`                | You need a faster, minimal Timestamp and do not need derived fields.         |
+| `parseDate(date, calendar)`    | You already have a JavaScript `Date` and want host-local Timestamp fields.   |
+| `parseDateUTC(date, calendar)` | You already have a JavaScript `Date` and want UTC Timestamp fields.          |
+| `parseTime(value)`             | You need a time-only object from `HH`, `HH:mm`, `HH:mm:ss`, or milliseconds. |
+
+Omit `calendar` for Gregorian fields, or pass a `CalendarSystem` when the returned timestamp
+should use adapter-native date fields.
 
 ## Timezone suffixes
 

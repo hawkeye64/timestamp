@@ -1,10 +1,315 @@
 {
-  "generated_at": "2026-06-29T20:50:52.021Z",
+  "generated_at": "2026-06-30T13:07:04.047Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/timestamp-api"
   },
   "functions": {
+    "formatCalendarDate": {
+      "desc": "Formats calendar fields using Timestamp's fixed `YYYY-MM-DD` date format.",
+      "params": {
+        "date": {
+          "desc": "Plain calendar date fields.",
+          "required": true,
+          "tsType": "CalendarDateParts",
+          "type": "CalendarDateParts"
+        }
+      },
+      "tsSignature": "function formatCalendarDate(date: CalendarDateParts): string",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "Date string in `YYYY-MM-DD` form.",
+        "type": "string",
+        "tsType": "string"
+      }
+    },
+    "getCalendarLocale": {
+      "desc": "Returns the recommended locale for a calendar system.\n\nCalendar adapters can use this to publish their normal display locale. Callers can still pass an explicit locale when an application needs a different language or numbering presentation.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar system to read. Defaults to Gregorian.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarLocale(calendar?: CalendarSystem): string",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "BCP 47 locale, defaulting to `en-US`.",
+        "type": "string",
+        "tsType": "string"
+      }
+    },
+    "getCalendarDirection": {
+      "desc": "Returns the recommended text direction for a calendar system.\n\nCalendar adapters can use this to publish their normal left-to-right or right-to-left presentation. Callers can still pass an explicit direction when an application needs one.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar system to read. Defaults to Gregorian.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarDirection(calendar?: CalendarSystem): CalendarDirection",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "`ltr` or `rtl`, defaulting to `ltr`.",
+        "type": "CalendarDirection",
+        "tsType": "CalendarDirection"
+      }
+    },
+    "isCalendarRTL": {
+      "desc": "Returns true when a calendar system recommends right-to-left presentation.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar system to read. Defaults to Gregorian.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function isCalendarRTL(calendar?: CalendarSystem): boolean",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "True when the recommended direction is `rtl`.",
+        "type": "boolean",
+        "tsType": "boolean"
+      }
+    },
+    "getCalendarWeekdays": {
+      "desc": "Returns the recommended visible weekday order for a calendar system.\n\nCalendar adapters can use this to publish their normal visible week. Callers can still pass an explicit weekday list for application-specific layouts such as a five-day work week.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar system to read. Defaults to Gregorian.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function getCalendarWeekdays(calendar?: CalendarSystem): number[]",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "Weekday numbers where Sunday is `0` and Saturday is `6`.",
+        "type": "number[]",
+        "tsType": "number[]"
+      }
+    },
+    "PARSE_DATETIME": {
+      "desc": "Matches supported date and date-time input.\n\nAccepts `YYYY-MM`, `YYYY-MM-DD`, space-separated date/time strings, ISO-style `T` separators, optional seconds, optional milliseconds, and optional timezone suffixes such as `Z`, `+06:00`, or `-0700`.",
+      "tsSignature": "const PARSE_DATETIME: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "PARSE_DATE": {
+      "desc": "Matches the date portion of a timestamp string.",
+      "tsSignature": "const PARSE_DATE: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "PARSE_TIME": {
+      "desc": "Matches `HH`, `HH:mm`, `HH:mm:ss`, or `HH:mm:ss.SSS` time strings.",
+      "tsSignature": "const PARSE_TIME: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "DAYS_IN_MONTH": {
+      "desc": "Month lengths for a non-leap Gregorian year.\n\nIndex `0` is intentionally unused so month numbers can be used directly.",
+      "tsSignature": "const DAYS_IN_MONTH: Array",
+      "tsType": "Array",
+      "type": "Constant"
+    },
+    "DAYS_IN_MONTH_LEAP": {
+      "desc": "Month lengths for a leap Gregorian year.\n\nIndex `0` is intentionally unused so month numbers can be used directly.",
+      "tsSignature": "const DAYS_IN_MONTH_LEAP: Array",
+      "tsType": "Array",
+      "type": "Constant"
+    },
+    "TIME_CONSTANTS": {
+      "desc": "Shared conversion constants for milliseconds, seconds, minutes, hours, and days.",
+      "tsSignature": "const TIME_CONSTANTS: Object",
+      "tsType": "Object",
+      "type": "Constant",
+      "definition": {
+        "MILLISECONDS_IN": {
+          "tsType": "Object",
+          "type": "Object",
+          "desc": "",
+          "required": true
+        },
+        "SECONDS_IN": {
+          "tsType": "Object",
+          "type": "Object",
+          "desc": "",
+          "required": true
+        },
+        "MINUTES_IN": {
+          "tsType": "Object",
+          "type": "Object",
+          "desc": "",
+          "required": true
+        },
+        "HOURS_IN": {
+          "tsType": "Object",
+          "type": "Object",
+          "desc": "",
+          "required": true
+        },
+        "DAYS_IN": {
+          "tsType": "Object",
+          "type": "Object",
+          "desc": "",
+          "required": true
+        }
+      }
+    },
+    "DAYS_IN_MONTH_MIN": {
+      "desc": "Minimum number of days found in any Gregorian month.",
+      "tsSignature": "const DAYS_IN_MONTH_MIN: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "DAYS_IN_MONTH_MAX": {
+      "desc": "Maximum number of days found in any Gregorian month.",
+      "tsSignature": "const DAYS_IN_MONTH_MAX: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "MONTH_MAX": {
+      "desc": "Maximum Gregorian month number.",
+      "tsSignature": "const MONTH_MAX: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "MONTH_MIN": {
+      "desc": "Minimum Gregorian month number.",
+      "tsSignature": "const MONTH_MIN: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "DAY_MIN": {
+      "desc": "Minimum day-of-month number.",
+      "tsSignature": "const DAY_MIN: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "FIRST_HOUR": {
+      "desc": "First hour in a 24-hour day.",
+      "tsSignature": "const FIRST_HOUR: number",
+      "tsType": "number",
+      "type": "Constant"
+    },
+    "DAYS_IN_WEEK": {
+      "desc": "Number of days in a week.",
+      "tsSignature": "const DAYS_IN_WEEK: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MINUTES_IN_HOUR": {
+      "desc": "Number of minutes in an hour.",
+      "tsSignature": "const MINUTES_IN_HOUR: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "HOURS_IN_DAY": {
+      "desc": "Number of hours in a day.",
+      "tsSignature": "const HOURS_IN_DAY: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MILLISECONDS_IN_MINUTE": {
+      "desc": "Number of milliseconds in one minute.",
+      "tsSignature": "const MILLISECONDS_IN_MINUTE: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MILLISECONDS_IN_SECOND": {
+      "desc": "Number of milliseconds in one second.",
+      "tsSignature": "const MILLISECONDS_IN_SECOND: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MILLISECONDS_IN_HOUR": {
+      "desc": "Number of milliseconds in one hour.",
+      "tsSignature": "const MILLISECONDS_IN_HOUR: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MILLISECONDS_IN_DAY": {
+      "desc": "Number of milliseconds in one day.",
+      "tsSignature": "const MILLISECONDS_IN_DAY: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "MILLISECONDS_IN_WEEK": {
+      "desc": "Number of milliseconds in one week.",
+      "tsSignature": "const MILLISECONDS_IN_WEEK: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "SECONDS_IN_MINUTE": {
+      "desc": "Number of seconds in one minute.",
+      "tsSignature": "const SECONDS_IN_MINUTE: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "SECONDS_IN_HOUR": {
+      "desc": "Number of seconds in one hour.",
+      "tsSignature": "const SECONDS_IN_HOUR: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "SECONDS_IN_DAY": {
+      "desc": "Number of seconds in one day.",
+      "tsSignature": "const SECONDS_IN_DAY: unknown",
+      "tsType": "unknown",
+      "type": "Constant"
+    },
+    "Timestamp": {
+      "desc": "Frozen empty timestamp template.\n\nUse copyTimestamp or parser helpers to create new timestamp objects instead of mutating this shared default.",
+      "tsSignature": "const Timestamp: Timestamp",
+      "tsType": "Timestamp",
+      "type": "Constant"
+    },
+    "TimeObject": {
+      "desc": "Frozen empty time-object template.",
+      "tsSignature": "const TimeObject: TimeObject",
+      "tsType": "TimeObject",
+      "type": "Constant",
+      "definition": {
+        "hour": {
+          "tsType": "number",
+          "type": "Number",
+          "default": "0",
+          "desc": "Hour in 24-hour format.",
+          "required": true
+        },
+        "minute": {
+          "tsType": "number",
+          "type": "Number",
+          "default": "0",
+          "desc": "Minute of the hour.",
+          "required": true
+        },
+        "second": {
+          "desc": "Optional second of the minute.",
+          "required": false,
+          "tsType": "number",
+          "type": "number"
+        },
+        "millisecond": {
+          "desc": "Optional millisecond of the second.",
+          "required": false,
+          "tsType": "number",
+          "type": "number"
+        }
+      }
+    },
     "toCalendarDateParts": {
       "desc": "Extracts calendar date fields from a timestamp-shaped value.",
       "params": {
@@ -21,22 +326,22 @@
       "returns": {
         "definition": {
           "year": {
-            "desc": "",
+            "desc": "Calendar year.",
             "required": true,
-            "tsType": "timestamp.year",
-            "type": "timestamp.year"
+            "tsType": "number",
+            "type": "number"
           },
           "month": {
-            "desc": "",
+            "desc": "Calendar month number. The first month is `1`.",
             "required": true,
-            "tsType": "timestamp.month",
-            "type": "timestamp.month"
+            "tsType": "number",
+            "type": "number"
           },
           "day": {
-            "desc": "",
+            "desc": "Day of the month. The first day is `1`.",
             "required": true,
-            "tsType": "timestamp.day",
-            "type": "timestamp.day"
+            "tsType": "number",
+            "type": "number"
           }
         },
         "desc": "Plain calendar date fields.",
@@ -248,9 +553,15 @@
           "required": true,
           "tsType": "Date",
           "type": "Date"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function parseDate(date: Date): Timestamp | null",
+      "tsSignature": "function parseDate(date: Date, calendar?: CalendarSystem): Timestamp | null",
       "type": "Function",
       "category": "parsing",
       "returns": {
@@ -425,9 +736,15 @@
           "required": true,
           "tsType": "Date",
           "type": "Date"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function parseDateUTC(date: Date): Timestamp | null",
+      "tsSignature": "function parseDateUTC(date: Date, calendar?: CalendarSystem): Timestamp | null",
       "type": "Function",
       "category": "parsing",
       "returns": {
@@ -627,9 +944,15 @@
           "required": true,
           "tsType": "number",
           "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function isLeapYear(year: number): boolean",
+      "tsSignature": "function isLeapYear(year: number, calendar?: CalendarSystem): boolean",
       "type": "Function",
       "category": "calendar",
       "returns": {
@@ -648,13 +971,19 @@
           "type": "number"
         },
         "month": {
-          "desc": "The Gregorian month number, where January is `1`",
+          "desc": "The month number in the selected calendar, where January is `1` for Gregorian.",
           "required": true,
           "tsType": "number",
           "type": "number"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function daysInMonth(year: number, month: number): number",
+      "tsSignature": "function daysInMonth(year: number, month: number, calendar?: CalendarSystem): number",
       "type": "Function",
       "category": "calendar",
       "returns": {
@@ -671,9 +1000,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function nextDay(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function nextDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "arithmetic",
       "returns": {
@@ -848,9 +1183,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function prevDay(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function prevDay(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "arithmetic",
       "returns": {
@@ -1018,8 +1359,16 @@
       }
     },
     "today": {
-      "desc": "Returns today's date using the host runtime timezone.\n\nFor SSR or static rendering, server and client runtimes can produce different values when they run in different timezones. Use todayUTC() when the app wants a stable UTC calendar date instead.",
-      "tsSignature": "function today(): string",
+      "desc": "Returns today's date using the host runtime timezone.\n\nFor SSR or static rendering, server and client runtimes can produce different values when they run in different timezones. Use todayUTC() when the app wants a stable UTC calendar date instead. Pass a calendar system to return today's date in that calendar's native `YYYY-MM-DD` fields.",
+      "params": {
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
+        }
+      },
+      "tsSignature": "function today(calendar?: CalendarSystem): string",
       "type": "Function",
       "category": "state",
       "returns": {
@@ -1029,16 +1378,22 @@
       }
     },
     "todayUTC": {
-      "desc": "Returns today's date using UTC calendar fields.\n\nPass a Date fixture to make SSR, tests, and hydration-sensitive render paths deterministic. This helper reads UTC fields only; it does not convert an existing Timestamp or timezone-suffixed string.",
+      "desc": "Returns today's date using UTC calendar fields.\n\nPass a Date fixture to make SSR, tests, and hydration-sensitive render paths deterministic. This helper reads UTC fields only; it does not convert an existing Timestamp or timezone-suffixed string. Pass a calendar system to return today's UTC date in that calendar's native `YYYY-MM-DD` fields.",
       "params": {
         "date": {
           "desc": "Date source to read. Defaults to the current Date.",
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function todayUTC(date?: unknown): string",
+      "tsSignature": "function todayUTC(date?: unknown, calendar?: CalendarSystem): string",
       "type": "Function",
       "category": "state",
       "returns": {
@@ -1055,9 +1410,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function nowUTC(date?: unknown): Timestamp",
+      "tsSignature": "function nowUTC(date?: unknown, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "state",
       "returns": {
@@ -1232,9 +1593,15 @@
           "required": true,
           "tsType": "string",
           "type": "string"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function isToday(date: string): boolean",
+      "tsSignature": "function isToday(date: string, calendar?: CalendarSystem): boolean",
       "type": "Function",
       "category": "comparison",
       "returns": {
@@ -1257,9 +1624,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function isTodayUTC(date: string, now?: unknown): boolean",
+      "tsSignature": "function isTodayUTC(date: string, now?: unknown, calendar?: CalendarSystem): boolean",
       "type": "Function",
       "category": "comparison",
       "returns": {
@@ -1288,9 +1661,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getStartOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp): Timestamp",
+      "tsSignature": "function getStartOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -1477,9 +1856,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getEndOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp): Timestamp",
+      "tsSignature": "function getEndOfWeek(timestamp: Timestamp, weekdays: number[], today: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -1654,9 +2039,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getStartOfMonth(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function getStartOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -1831,9 +2222,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getEndOfMonth(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function getEndOfMonth(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -2331,7 +2728,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2356,7 +2753,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2381,7 +2778,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2444,7 +2841,7 @@
           "type": "CalendarDateParts"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2469,7 +2866,7 @@
           "type": "CalendarDateParts"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2658,7 +3055,7 @@
           "type": "string"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2847,7 +3244,7 @@
           "type": "string"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -2872,7 +3269,7 @@
           "type": "number"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -3061,7 +3458,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -3250,7 +3647,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -3439,7 +3836,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -3622,7 +4019,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -3811,7 +4208,7 @@
           "type": "number"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4000,7 +4397,7 @@
           "type": "number"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4189,7 +4586,7 @@
           "type": "number"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4372,7 +4769,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4555,7 +4952,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4738,7 +5135,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -4921,7 +5318,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5110,7 +5507,7 @@
           "type": "number"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5311,7 +5708,7 @@
           "type": "number[]"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5506,7 +5903,7 @@
           "type": "number[]"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5707,7 +6104,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5744,7 +6141,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -5848,9 +6245,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateRelative(timestamp: Timestamp, now: Timestamp, time?: unknown): Timestamp",
+      "tsSignature": "function updateRelative(timestamp: Timestamp, now: Timestamp, time?: unknown, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "state",
       "returns": {
@@ -6037,9 +6440,15 @@
           "required": false,
           "tsType": "Timestamp | null",
           "type": "Timestamp | null"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateMinutes(timestamp: Timestamp, minutes: number, now?: Timestamp | null): Timestamp",
+      "tsSignature": "function updateMinutes(timestamp: Timestamp, minutes: number, now?: Timestamp | null, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "arithmetic",
       "returns": {
@@ -6214,9 +6623,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateWeekday(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function updateWeekday(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -6391,9 +6806,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateDayOfYear(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function updateDayOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -6568,9 +6989,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateWorkWeek(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function updateWorkWeek(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -6972,7 +7399,7 @@
           "type": "DisabledDays"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -7161,7 +7588,7 @@
           "type": "CalendarSelectionOptions"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -7224,7 +7651,7 @@
           "type": "CalendarDateStateOptions"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -7281,7 +7708,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -7348,9 +7775,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function updateFormatted(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function updateFormatted(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -7525,9 +7958,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getDayOfYear(timestamp: Timestamp): number | void",
+      "tsSignature": "function getDayOfYear(timestamp: Timestamp, calendar?: CalendarSystem): number | void",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -7544,9 +7983,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getWorkWeek(timestamp: Timestamp): number",
+      "tsSignature": "function getWorkWeek(timestamp: Timestamp, calendar?: CalendarSystem): number",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -7563,9 +8008,15 @@
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getWeekday(timestamp: Timestamp): number",
+      "tsSignature": "function getWeekday(timestamp: Timestamp, calendar?: CalendarSystem): number",
       "type": "Function",
       "category": "formatting",
       "returns": {
@@ -8106,16 +8557,22 @@
       }
     },
     "getStartOfYear": {
-      "desc": "Returns a Timestamp at the start of the same Gregorian year.",
+      "desc": "Returns a Timestamp at the start of the same calendar year.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to transform.",
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getStartOfYear(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function getStartOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -8277,22 +8734,28 @@
             "type": "boolean"
           }
         },
-        "desc": "New Timestamp for January 1 at `00:00`.",
+        "desc": "New Timestamp for the first calendar day of the year at `00:00`.",
         "type": "Timestamp",
         "tsType": "Timestamp"
       }
     },
     "getEndOfYear": {
-      "desc": "Returns a Timestamp at the end of the same Gregorian year.",
+      "desc": "Returns a Timestamp at the end of the same calendar year.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to transform.",
           "required": true,
           "tsType": "Timestamp",
           "type": "Timestamp"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function getEndOfYear(timestamp: Timestamp): Timestamp",
+      "tsSignature": "function getEndOfYear(timestamp: Timestamp, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -8454,7 +8917,7 @@
             "type": "boolean"
           }
         },
-        "desc": "New Timestamp for December 31 at `23:59:59.999`.",
+        "desc": "New Timestamp for the last calendar day of the year at `23:59:59.999`.",
         "type": "Timestamp",
         "tsType": "Timestamp"
       }
@@ -8542,9 +9005,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function moveRelativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown): Timestamp",
+      "tsSignature": "function moveRelativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -8737,9 +9206,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function relativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown): Timestamp",
+      "tsSignature": "function relativeDays(timestamp: Timestamp, mover?: unknown, days?: unknown, allowedWeekdays?: unknown, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -8932,9 +9407,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function findWeekday(timestamp: Timestamp, weekday: number, mover?: unknown, maxDays?: unknown): Timestamp",
+      "tsSignature": "function findWeekday(timestamp: Timestamp, weekday: number, mover?: unknown, maxDays?: unknown, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -9163,9 +9644,15 @@
           "required": false,
           "tsType": "unknown",
           "type": "unknown"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function createDayList(start: Timestamp, end: Timestamp, now: Timestamp, weekdays?: number[], disabledBefore?: string | undefined, disabledAfter?: string | undefined, disabledWeekdays?: number[], disabledDays?: DisabledDays, max?: unknown, min?: unknown): Timestamp[]",
+      "tsSignature": "function createDayList(start: Timestamp, end: Timestamp, now: Timestamp, weekdays?: number[], disabledBefore?: string | undefined, disabledAfter?: string | undefined, disabledWeekdays?: number[], disabledDays?: DisabledDays, max?: unknown, min?: unknown, calendar?: CalendarSystem): Timestamp[]",
       "type": "Function",
       "category": "ranges",
       "returns": {
@@ -9271,7 +9758,7 @@
       "desc": "Returns a UTC locale formatter for a calendar adapter.\n\nThe formatter converts adapter date fields through the adapter's serial day before constructing the native Date. When the adapter has an Intl calendar id, it is supplied to Intl.DateTimeFormat unless the caller already provided a `calendar` option. The helper supplies `timeZone: \"UTC\"` unless the caller provides a different timezone.",
       "params": {
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": true,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -9346,7 +9833,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -9390,7 +9877,7 @@
           "type": "Timestamp"
         },
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -10534,7 +11021,7 @@
       }
     },
     "addToDate": {
-      "desc": "Adds or subtracts date/time units from a timestamp.\n\nThis function returns a new frozen Timestamp; it does not mutate the timestamp passed in. Invalid target dates are normalized through JavaScript Date rules, so month overflow can roll into the following month.",
+      "desc": "Adds or subtracts date/time units from a timestamp.\n\nThis function returns a new frozen Timestamp; it does not mutate the timestamp passed in. Gregorian dates are normalized through JavaScript Date rules. Adapter-native dates use the supplied calendar system for year, month, and day math.",
       "params": {
         "timestamp": {
           "desc": "Timestamp object to offset.",
@@ -10547,9 +11034,15 @@
           "required": true,
           "tsType": "AddToDateOptions",
           "type": "AddToDateOptions"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function addToDate(timestamp: Timestamp, options: AddToDateOptions): Timestamp",
+      "tsSignature": "function addToDate(timestamp: Timestamp, options: AddToDateOptions, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "arithmetic",
       "returns": {
@@ -10730,9 +11223,15 @@
           "required": true,
           "tsType": "AddToDateOptions",
           "type": "AddToDateOptions"
+        },
+        "calendar": {
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
+          "required": false,
+          "tsType": "CalendarSystem",
+          "type": "CalendarSystem"
         }
       },
-      "tsSignature": "function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions): Timestamp",
+      "tsSignature": "function addToDateClamped(timestamp: Timestamp, options: AddToDateOptions, calendar?: CalendarSystem): Timestamp",
       "type": "Function",
       "category": "arithmetic",
       "returns": {
@@ -12087,7 +12586,7 @@
       "desc": "Returns a function that formats one-based calendar adapter month numbers.\n\nThis is the calendar-aware counterpart to getMonthFormatter(). It converts adapter fields through the adapter's epoch-day mapping, then asks Intl to format the equivalent Gregorian Date with the adapter's Intl calendar id when one is available.",
       "params": {
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"
@@ -12131,7 +12630,7 @@
       "desc": "Retrieves localized month names for a calendar adapter.\n\nMonth numbers are generated from `1` through `calendar.monthsInYear(year)`. Pass a year when the calendar can have leap months or year-specific month naming rules.",
       "params": {
         "calendar": {
-          "desc": "Calendar implementation to use.",
+          "desc": "Calendar system to use. Defaults to Gregorian; pass an adapter such as islamicCivilCalendar for native calendar fields.",
           "required": false,
           "tsType": "CalendarSystem",
           "type": "CalendarSystem"

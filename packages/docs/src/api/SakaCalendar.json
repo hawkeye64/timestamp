@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T20:50:52.016Z",
+  "generated_at": "2026-06-30T13:07:04.186Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/saka-calendar-api"
@@ -48,6 +48,346 @@
         "type": "number",
         "tsType": "number"
       }
+    },
+    "indianNationalCalendar": {
+      "desc": "Deterministic Indian National Calendar (Saka) adapter.\n\nSaka year `1` begins in Gregorian year `79`. A Saka year starts on March 21 when the corresponding Gregorian year is leap, and March 22 otherwise.",
+      "tsSignature": "const indianNationalCalendar: CalendarSystem",
+      "tsType": "CalendarSystem",
+      "type": "Constant",
+      "definition": {
+        "id": {
+          "tsType": "CalendarId",
+          "type": "CalendarId",
+          "default": "saka",
+          "desc": "Package-facing id for the Saka adapter.",
+          "required": true
+        },
+        "intlCalendar": {
+          "tsType": "string",
+          "type": "String",
+          "default": "indian",
+          "desc": "Intl calendar id for the Indian National Calendar.",
+          "required": true
+        },
+        "label": {
+          "tsType": "string",
+          "type": "String",
+          "default": "Indian National (Saka)",
+          "desc": "Human-readable adapter name.",
+          "required": true
+        },
+        "defaultLocale": {
+          "tsType": "string",
+          "type": "String",
+          "default": "hi-IN",
+          "desc": "Default locale used for Indian National Calendar presentation.",
+          "required": true
+        },
+        "defaultDirection": {
+          "tsType": "CalendarDirection",
+          "type": "CalendarDirection",
+          "default": "ltr",
+          "desc": "Default text direction for Saka presentation.",
+          "required": true
+        },
+        "defaultWeekdays": {
+          "tsType": "readonly number[]",
+          "type": "Array",
+          "default": "[0, 1, 2, 3, 4, 5, 6]",
+          "desc": "Default visible week order for Saka presentation: Sunday through Saturday.\n\nWeekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.",
+          "required": true
+        },
+        "monthsInYear": {
+          "desc": "Returns the number of months in a Saka year.",
+          "tsSignature": "function monthsInYear(year: number): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Number of months in the year.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(year: number) => number"
+        },
+        "isLeapYear": {
+          "desc": "Returns true when the Saka year begins in a Gregorian leap year.",
+          "params": {
+            "year": {
+              "desc": "Saka year number.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function isLeapYear(year: number): boolean",
+          "type": "Function",
+          "returns": {
+            "desc": "True when Chaitra has 31 days.",
+            "type": "Boolean",
+            "tsType": "boolean"
+          },
+          "required": true,
+          "tsType": "(year: number) => boolean"
+        },
+        "daysInMonth": {
+          "desc": "Returns the number of days in a Saka month.",
+          "params": {
+            "year": {
+              "desc": "Saka year number.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            },
+            "month": {
+              "desc": "Saka month number, where Chaitra is `1`.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function daysInMonth(year: number, month: number): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Number of days in the month, or `0` for an invalid month number.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(year: number, month: number) => number"
+        },
+        "toEpochDay": {
+          "desc": "Converts a Saka date into the equivalent epoch day.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function toEpochDay(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Epoch day for the equivalent civil instant.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        },
+        "fromEpochDay": {
+          "desc": "Converts an epoch day into Saka date fields.",
+          "params": {
+            "epochDay": {
+              "desc": "Epoch day to convert.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function fromEpochDay(epochDay: number): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Saka date fields.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(epochDay: number) => CalendarDateParts"
+        },
+        "addDays": {
+          "desc": "Moves a Saka date by a whole number of days.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            },
+            "amount": {
+              "desc": "Number of days to add. Negative values move backward.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function addDays(date: CalendarDateParts, amount: number): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Shifted Saka date fields.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts, amount: number) => CalendarDateParts"
+        },
+        "nextDay": {
+          "desc": "Returns the next Saka date.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function nextDay(date: CalendarDateParts): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Date fields for the following day.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => CalendarDateParts"
+        },
+        "prevDay": {
+          "desc": "Returns the previous Saka date.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function prevDay(date: CalendarDateParts): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Date fields for the previous day.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => CalendarDateParts"
+        },
+        "getDayOfYear": {
+          "desc": "Returns the one-based day-of-year for a Saka date.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function getDayOfYear(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "One-based day-of-year.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        },
+        "getWeekday": {
+          "desc": "Returns the weekday for a Saka date using JavaScript weekday numbering.",
+          "params": {
+            "date": {
+              "desc": "Saka date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function getWeekday(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        }
+      }
+    },
+    "sakaCalendar": {
+      "desc": "Alias for the default Saka adapter exported by this package.",
+      "tsSignature": "const sakaCalendar: typeof indianNationalCalendar",
+      "tsType": "typeof indianNationalCalendar",
+      "type": "Constant"
     }
   }
 }

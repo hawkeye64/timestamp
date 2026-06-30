@@ -20,6 +20,11 @@ const monthEnd = parseTimestamp('2026-01-31')!
 const billingDate = addToDateClamped(monthEnd, { month: 1 }) // 2026-02-28
 ```
 
+These helpers default to Gregorian. When date fields belong to another calendar, pass that
+calendar as the final argument where the helper accepts one, for example
+`nextDay(timestamp, calendar)`, `addToDate(timestamp, { month: 1 }, calendar)`, or
+`getEndOfMonth(timestamp, calendar)`.
+
 ## Lists
 
 ```ts
@@ -31,6 +36,9 @@ const end = parseTimestamp('2026-06-07')!
 const days = createDayList(start, end)
 const intervals = createIntervalList(start, 0, 60, 24, start)
 ```
+
+`createDayList()` also accepts a `CalendarSystem` as its final argument for adapter-native day
+generation. The `createCalendarDayList()` helper below is often clearer in adapter-specific code.
 
 ## Adapter calendar lists
 

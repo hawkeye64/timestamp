@@ -37,7 +37,7 @@ timestamp.timezone // "-07:00"
 
 ## Convert native Date values explicitly
 
-Use `parseDate()` when the input is already a JavaScript `Date` and you want host-local fields. Use `parseDateUTC()` when the Date represents an instant and you want UTC fields.
+Use `parseDate(date, calendar)` when the input is already a JavaScript `Date` and you want host-local fields. Use `parseDateUTC(date, calendar)` when the Date represents an instant and you want UTC fields. Omit `calendar` for Gregorian output, or pass a `CalendarSystem` for adapter-native date fields.
 
 ```ts [twoslash]
 import { getDateTime, parseDate, parseDateUTC } from '@timestamp-js/core'
@@ -79,7 +79,7 @@ getDateTime(timestamp) // "2036-06-08 09:30:15.250"
 
 ## Refresh formatted fields after custom transforms
 
-Most helpers already return formatted timestamps. Reach for `updateFormatted()` only when you intentionally build or alter a timestamp-like object yourself.
+Most helpers already return formatted timestamps. Reach for `updateFormatted(timestamp, calendar)` only when you intentionally build or alter a timestamp-like object yourself. Pass the calendar when the timestamp fields belong to an adapter.
 
 ```ts [twoslash]
 import { copyTimestamp, parseTimestamp, updateFormatted } from '@timestamp-js/core'

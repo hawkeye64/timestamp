@@ -60,30 +60,88 @@ export function islamicCivilDaysInMonth(year: number, month: number): number {
  * does not model observational calendars or Umm al-Qura adjustments.
  */
 export const islamicCivilCalendar: CalendarSystem = Object.freeze({
+  /**
+   * Package-facing id for the Islamic civil adapter.
+   */
   id: 'islamic-civil',
+
+  /**
+   * Intl calendar id for the arithmetic Islamic civil calendar.
+   */
   intlCalendar: 'islamic-civil',
+
+  /**
+   * Human-readable adapter name.
+   */
   label: 'Islamic Civil',
 
-  monthsInYear() {
+  /**
+   * Default locale used for Islamic civil presentation.
+   */
+  defaultLocale: 'ar',
+
+  /**
+   * Default text direction for Arabic Hijri presentation.
+   */
+  defaultDirection: 'rtl',
+
+  /**
+   * Default visible week order for Hijri presentation: Saturday through Friday.
+   *
+   * Weekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.
+   */
+  defaultWeekdays: Object.freeze([6, 0, 1, 2, 3, 4, 5]),
+
+  /**
+   * Returns the number of months in an Islamic civil year.
+   *
+   * @returns Number of months in the year.
+   */
+  monthsInYear(): number {
     return MONTHS_IN_YEAR
   },
 
-  isLeapYear(year: number) {
+  /**
+   * Returns true when the Islamic civil year contains a leap day.
+   *
+   * @param year Islamic civil year number.
+   * @returns True when the year contains a leap day in Dhu al-Hijjah.
+   */
+  isLeapYear(year: number): boolean {
     return isIslamicCivilLeapYear(year)
   },
 
-  daysInMonth(year: number, month: number) {
+  /**
+   * Returns the number of days in an Islamic civil month.
+   *
+   * @param year Islamic civil year number.
+   * @param month Islamic civil month number, where Muharram is `1`.
+   * @returns Number of days in the month, or `0` for an invalid month number.
+   */
+  daysInMonth(year: number, month: number): number {
     return islamicCivilDaysInMonth(year, month)
   },
 
-  toEpochDay(date: CalendarDateParts) {
+  /**
+   * Converts an Islamic civil date into the equivalent epoch day.
+   *
+   * @param date Islamic civil date fields.
+   * @returns Epoch day for the equivalent civil instant.
+   */
+  toEpochDay(date: CalendarDateParts): number {
     assertPositiveYear(date.year)
     return (
       ISLAMIC_EPOCH_DAY + daysBeforeYear(date.year) + daysBeforeMonth(date.month) + date.day - 1
     )
   },
 
-  fromEpochDay(epochDay: number) {
+  /**
+   * Converts an epoch day into Islamic civil date fields.
+   *
+   * @param epochDay Epoch day to convert.
+   * @returns Islamic civil date fields.
+   */
+  fromEpochDay(epochDay: number): CalendarDateParts {
     const days = epochDay - ISLAMIC_EPOCH_DAY
     let year = Math.floor((30 * days + 10646) / 10631)
 
@@ -114,23 +172,54 @@ export const islamicCivilCalendar: CalendarSystem = Object.freeze({
     }
   },
 
-  addDays(date: CalendarDateParts, amount: number) {
+  /**
+   * Moves an Islamic civil date by a whole number of days.
+   *
+   * @param date Islamic civil date fields.
+   * @param amount Number of days to add. Negative values move backward.
+   * @returns Shifted Islamic civil date fields.
+   */
+  addDays(date: CalendarDateParts, amount: number): CalendarDateParts {
     return this.fromEpochDay(this.toEpochDay(date) + amount)
   },
 
-  nextDay(date: CalendarDateParts) {
+  /**
+   * Returns the next Islamic civil date.
+   *
+   * @param date Islamic civil date fields.
+   * @returns Date fields for the following day.
+   */
+  nextDay(date: CalendarDateParts): CalendarDateParts {
     return this.addDays(date, 1)
   },
 
-  prevDay(date: CalendarDateParts) {
+  /**
+   * Returns the previous Islamic civil date.
+   *
+   * @param date Islamic civil date fields.
+   * @returns Date fields for the previous day.
+   */
+  prevDay(date: CalendarDateParts): CalendarDateParts {
     return this.addDays(date, -1)
   },
 
-  getDayOfYear(date: CalendarDateParts) {
+  /**
+   * Returns the one-based day-of-year for an Islamic civil date.
+   *
+   * @param date Islamic civil date fields.
+   * @returns One-based day-of-year.
+   */
+  getDayOfYear(date: CalendarDateParts): number {
     return this.toEpochDay(date) - this.toEpochDay({ year: date.year, month: 1, day: 1 }) + 1
   },
 
-  getWeekday(date: CalendarDateParts) {
+  /**
+   * Returns the weekday for an Islamic civil date using JavaScript weekday numbering.
+   *
+   * @param date Islamic civil date fields.
+   * @returns Weekday number where Sunday is `0` and Saturday is `6`.
+   */
+  getWeekday(date: CalendarDateParts): number {
     return gregorianCalendar.getWeekday(gregorianCalendar.fromEpochDay(this.toEpochDay(date)))
   },
 })

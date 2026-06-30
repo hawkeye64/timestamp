@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T20:50:51.995Z",
+  "generated_at": "2026-06-30T13:07:04.151Z",
   "type": "plugin",
   "meta": {
     "docsUrl": "/api/islamic-calendar-api"
@@ -48,6 +48,346 @@
         "type": "number",
         "tsType": "number"
       }
+    },
+    "islamicCivilCalendar": {
+      "desc": "Deterministic tabular Islamic civil calendar.\n\nThis adapter intentionally models the arithmetic/civil Hijri calendar. It does not model observational calendars or Umm al-Qura adjustments.",
+      "tsSignature": "const islamicCivilCalendar: CalendarSystem",
+      "tsType": "CalendarSystem",
+      "type": "Constant",
+      "definition": {
+        "id": {
+          "tsType": "CalendarId",
+          "type": "CalendarId",
+          "default": "islamic-civil",
+          "desc": "Package-facing id for the Islamic civil adapter.",
+          "required": true
+        },
+        "intlCalendar": {
+          "tsType": "string",
+          "type": "String",
+          "default": "islamic-civil",
+          "desc": "Intl calendar id for the arithmetic Islamic civil calendar.",
+          "required": true
+        },
+        "label": {
+          "tsType": "string",
+          "type": "String",
+          "default": "Islamic Civil",
+          "desc": "Human-readable adapter name.",
+          "required": true
+        },
+        "defaultLocale": {
+          "tsType": "string",
+          "type": "String",
+          "default": "ar",
+          "desc": "Default locale used for Islamic civil presentation.",
+          "required": true
+        },
+        "defaultDirection": {
+          "tsType": "CalendarDirection",
+          "type": "CalendarDirection",
+          "default": "rtl",
+          "desc": "Default text direction for Arabic Hijri presentation.",
+          "required": true
+        },
+        "defaultWeekdays": {
+          "tsType": "readonly number[]",
+          "type": "Array",
+          "default": "[6, 0, 1, 2, 3, 4, 5]",
+          "desc": "Default visible week order for Hijri presentation: Saturday through Friday.\n\nWeekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.",
+          "required": true
+        },
+        "monthsInYear": {
+          "desc": "Returns the number of months in an Islamic civil year.",
+          "tsSignature": "function monthsInYear(year: number): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Number of months in the year.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(year: number) => number"
+        },
+        "isLeapYear": {
+          "desc": "Returns true when the Islamic civil year contains a leap day.",
+          "params": {
+            "year": {
+              "desc": "Islamic civil year number.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function isLeapYear(year: number): boolean",
+          "type": "Function",
+          "returns": {
+            "desc": "True when the year contains a leap day in Dhu al-Hijjah.",
+            "type": "Boolean",
+            "tsType": "boolean"
+          },
+          "required": true,
+          "tsType": "(year: number) => boolean"
+        },
+        "daysInMonth": {
+          "desc": "Returns the number of days in an Islamic civil month.",
+          "params": {
+            "year": {
+              "desc": "Islamic civil year number.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            },
+            "month": {
+              "desc": "Islamic civil month number, where Muharram is `1`.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function daysInMonth(year: number, month: number): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Number of days in the month, or `0` for an invalid month number.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(year: number, month: number) => number"
+        },
+        "toEpochDay": {
+          "desc": "Converts an Islamic civil date into the equivalent epoch day.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function toEpochDay(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Epoch day for the equivalent civil instant.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        },
+        "fromEpochDay": {
+          "desc": "Converts an epoch day into Islamic civil date fields.",
+          "params": {
+            "epochDay": {
+              "desc": "Epoch day to convert.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function fromEpochDay(epochDay: number): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Islamic civil date fields.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(epochDay: number) => CalendarDateParts"
+        },
+        "addDays": {
+          "desc": "Moves an Islamic civil date by a whole number of days.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            },
+            "amount": {
+              "desc": "Number of days to add. Negative values move backward.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
+          "tsSignature": "function addDays(date: CalendarDateParts, amount: number): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Shifted Islamic civil date fields.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts, amount: number) => CalendarDateParts"
+        },
+        "nextDay": {
+          "desc": "Returns the next Islamic civil date.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function nextDay(date: CalendarDateParts): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Date fields for the following day.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => CalendarDateParts"
+        },
+        "prevDay": {
+          "desc": "Returns the previous Islamic civil date.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function prevDay(date: CalendarDateParts): CalendarDateParts",
+          "type": "Function",
+          "returns": {
+            "definition": {
+              "year": {
+                "desc": "Calendar year.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "month": {
+                "desc": "Calendar month number. The first month is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              },
+              "day": {
+                "desc": "Day of the month. The first day is `1`.",
+                "required": true,
+                "tsType": "number",
+                "type": "number"
+              }
+            },
+            "desc": "Date fields for the previous day.",
+            "type": "CalendarDateParts",
+            "tsType": "CalendarDateParts"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => CalendarDateParts"
+        },
+        "getDayOfYear": {
+          "desc": "Returns the one-based day-of-year for an Islamic civil date.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function getDayOfYear(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "One-based day-of-year.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        },
+        "getWeekday": {
+          "desc": "Returns the weekday for an Islamic civil date using JavaScript weekday numbering.",
+          "params": {
+            "date": {
+              "desc": "Islamic civil date fields.",
+              "required": true,
+              "tsType": "CalendarDateParts",
+              "type": "CalendarDateParts"
+            }
+          },
+          "tsSignature": "function getWeekday(date: CalendarDateParts): number",
+          "type": "Function",
+          "returns": {
+            "desc": "Weekday number where Sunday is `0` and Saturday is `6`.",
+            "type": "Number",
+            "tsType": "number"
+          },
+          "required": true,
+          "tsType": "(date: CalendarDateParts) => number"
+        }
+      }
+    },
+    "islamicCalendar": {
+      "desc": "Alias for the default Islamic adapter exported by this package.",
+      "tsSignature": "const islamicCalendar: typeof islamicCivilCalendar",
+      "tsType": "typeof islamicCivilCalendar",
+      "type": "Constant"
     }
   }
 }

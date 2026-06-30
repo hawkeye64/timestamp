@@ -76,30 +76,88 @@ export function sakaDaysInMonth(year: number, month: number): number {
  * when the corresponding Gregorian year is leap, and March 22 otherwise.
  */
 export const indianNationalCalendar: CalendarSystem = Object.freeze({
+  /**
+   * Package-facing id for the Saka adapter.
+   */
   id: 'saka',
+
+  /**
+   * Intl calendar id for the Indian National Calendar.
+   */
   intlCalendar: 'indian',
+
+  /**
+   * Human-readable adapter name.
+   */
   label: 'Indian National (Saka)',
 
-  monthsInYear() {
+  /**
+   * Default locale used for Indian National Calendar presentation.
+   */
+  defaultLocale: 'hi-IN',
+
+  /**
+   * Default text direction for Saka presentation.
+   */
+  defaultDirection: 'ltr',
+
+  /**
+   * Default visible week order for Saka presentation: Sunday through Saturday.
+   *
+   * Weekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.
+   */
+  defaultWeekdays: Object.freeze([0, 1, 2, 3, 4, 5, 6]),
+
+  /**
+   * Returns the number of months in a Saka year.
+   *
+   * @returns Number of months in the year.
+   */
+  monthsInYear(): number {
     return MONTHS_IN_YEAR
   },
 
-  isLeapYear(year: number) {
+  /**
+   * Returns true when the Saka year begins in a Gregorian leap year.
+   *
+   * @param year Saka year number.
+   * @returns True when Chaitra has 31 days.
+   */
+  isLeapYear(year: number): boolean {
     return isSakaLeapYear(year)
   },
 
-  daysInMonth(year: number, month: number) {
+  /**
+   * Returns the number of days in a Saka month.
+   *
+   * @param year Saka year number.
+   * @param month Saka month number, where Chaitra is `1`.
+   * @returns Number of days in the month, or `0` for an invalid month number.
+   */
+  daysInMonth(year: number, month: number): number {
     return sakaDaysInMonth(year, month)
   },
 
-  toEpochDay(date: CalendarDateParts) {
+  /**
+   * Converts a Saka date into the equivalent epoch day.
+   *
+   * @param date Saka date fields.
+   * @returns Epoch day for the equivalent civil instant.
+   */
+  toEpochDay(date: CalendarDateParts): number {
     assertPositiveYear(date.year)
     return (
       getSakaYearStartEpochDay(date.year) + daysBeforeMonth(date.year, date.month) + date.day - 1
     )
   },
 
-  fromEpochDay(epochDay: number) {
+  /**
+   * Converts an epoch day into Saka date fields.
+   *
+   * @param epochDay Epoch day to convert.
+   * @returns Saka date fields.
+   */
+  fromEpochDay(epochDay: number): CalendarDateParts {
     const gregorianDate = gregorianCalendar.fromEpochDay(epochDay)
     let year = gregorianDate.year - GREGORIAN_YEAR_OFFSET
     let yearStart = getSakaYearStartEpochDay(year)
@@ -128,23 +186,54 @@ export const indianNationalCalendar: CalendarSystem = Object.freeze({
     }
   },
 
-  addDays(date: CalendarDateParts, amount: number) {
+  /**
+   * Moves a Saka date by a whole number of days.
+   *
+   * @param date Saka date fields.
+   * @param amount Number of days to add. Negative values move backward.
+   * @returns Shifted Saka date fields.
+   */
+  addDays(date: CalendarDateParts, amount: number): CalendarDateParts {
     return this.fromEpochDay(this.toEpochDay(date) + amount)
   },
 
-  nextDay(date: CalendarDateParts) {
+  /**
+   * Returns the next Saka date.
+   *
+   * @param date Saka date fields.
+   * @returns Date fields for the following day.
+   */
+  nextDay(date: CalendarDateParts): CalendarDateParts {
     return this.addDays(date, 1)
   },
 
-  prevDay(date: CalendarDateParts) {
+  /**
+   * Returns the previous Saka date.
+   *
+   * @param date Saka date fields.
+   * @returns Date fields for the previous day.
+   */
+  prevDay(date: CalendarDateParts): CalendarDateParts {
     return this.addDays(date, -1)
   },
 
-  getDayOfYear(date: CalendarDateParts) {
+  /**
+   * Returns the one-based day-of-year for a Saka date.
+   *
+   * @param date Saka date fields.
+   * @returns One-based day-of-year.
+   */
+  getDayOfYear(date: CalendarDateParts): number {
     return this.toEpochDay(date) - this.toEpochDay({ year: date.year, month: 1, day: 1 }) + 1
   },
 
-  getWeekday(date: CalendarDateParts) {
+  /**
+   * Returns the weekday for a Saka date using JavaScript weekday numbering.
+   *
+   * @param date Saka date fields.
+   * @returns Weekday number where Sunday is `0` and Saturday is `6`.
+   */
+  getWeekday(date: CalendarDateParts): number {
     return gregorianCalendar.getWeekday(gregorianCalendar.fromEpochDay(this.toEpochDay(date)))
   },
 })

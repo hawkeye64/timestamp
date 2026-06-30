@@ -35,9 +35,10 @@ and renders the week/month panels right-to-left.
 
 ## QCalendar Integration
 
-When the adapter is used with QCalendar, keep QCalendar `model-value` dates Gregorian and pass the
-adapter as the calendar system for supported month views. The QCalendar adapter guide explains the
-integration boundary, outside-day behavior, and native month navigation:
+When the adapter is used with QCalendar, pass it as the calendar system for views that should behave
+as native Hijri calendars. Date-bearing values are Hijri when the adapter is active, while QCalendar
+also exposes Gregorian interop metadata for storage, export, and debugging boundaries. The QCalendar
+adapter guide explains the integration boundary, outside-day behavior, and native month navigation:
 
 [Using Timestamp adapters with QCalendar](https://qcalendar.netlify.app/developing/calendar-adapters)
 

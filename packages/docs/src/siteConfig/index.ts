@@ -200,6 +200,7 @@ const gettingStartedMenu: SiteMenuItem = {
   children: [
     { name: 'Introduction', path: '/getting-started/introduction' },
     { name: 'Installation', path: '/getting-started/installation' },
+    { name: 'Quick Start', path: '/getting-started/quick-start' },
     { name: 'Parsing', path: '/getting-started/parsing' },
     { name: 'Immutability', path: '/getting-started/immutability' },
     { name: 'SSR', path: '/getting-started/ssr' },
@@ -230,6 +231,7 @@ const developingMenu: SiteMenuItem = {
       name: 'Calendar Systems',
       path: '/developing/calendar-systems',
       children: [
+        { name: 'Create an Adapter', path: '/developing/calendar-systems/create-adapter' },
         { name: 'Islamic Civil (Hijri)', path: '/developing/calendar-systems/islamic-civil' },
         { name: 'Saka', path: '/developing/calendar-systems/saka' },
       ],

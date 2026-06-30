@@ -1,5 +1,40 @@
 import { describe, it, expect } from 'vitest'
 import * as timestamp from '../src'
+import type { CalendarDateParts, CalendarSystem } from '../src'
+
+const offsetGregorianCalendar: CalendarSystem = {
+  id: 'offset-gregorian',
+  label: 'Offset Gregorian',
+  monthsInYear: timestamp.gregorianCalendar.monthsInYear,
+  isLeapYear(year: number) {
+    return timestamp.gregorianCalendar.isLeapYear(year - 1000)
+  },
+  daysInMonth(year: number, month: number) {
+    return timestamp.gregorianCalendar.daysInMonth(year - 1000, month)
+  },
+  toEpochDay(date: CalendarDateParts) {
+    return timestamp.gregorianCalendar.toEpochDay({ ...date, year: date.year - 1000 })
+  },
+  fromEpochDay(epochDay: number) {
+    const date = timestamp.gregorianCalendar.fromEpochDay(epochDay)
+    return { ...date, year: date.year + 1000 }
+  },
+  addDays(date: CalendarDateParts, amount: number) {
+    return this.fromEpochDay(this.toEpochDay(date) + amount)
+  },
+  nextDay(date: CalendarDateParts) {
+    return this.addDays(date, 1)
+  },
+  prevDay(date: CalendarDateParts) {
+    return this.addDays(date, -1)
+  },
+  getDayOfYear(date: CalendarDateParts) {
+    return timestamp.gregorianCalendar.getDayOfYear({ ...date, year: date.year - 1000 })
+  },
+  getWeekday(date: CalendarDateParts) {
+    return timestamp.gregorianCalendar.getWeekday({ ...date, year: date.year - 1000 })
+  },
+}
 
 describe('today', () => {
   it('today', async () => {
@@ -21,6 +56,16 @@ describe('today', () => {
     const date = new Date('2036-01-01T01:30:00.000Z')
 
     expect(timestamp.todayUTC(date)).toBe('2036-01-01')
+  })
+
+  it('todayUTC reads UTC fields through a calendar adapter', () => {
+    const date = new Date('2036-01-01T01:30:00.000Z')
+
+    expect(timestamp.todayUTC(date, offsetGregorianCalendar)).toBe('3036-01-01')
+    expect(timestamp.parseDateUTC(date, offsetGregorianCalendar)?.date).toBe('3036-01-01')
+    expect(timestamp.nowUTC(date, offsetGregorianCalendar).date).toBe('3036-01-01')
+    expect(timestamp.isTodayUTC('3036-01-01', date, offsetGregorianCalendar)).toBe(true)
+    expect(timestamp.isTodayUTC('2036-01-01', date, offsetGregorianCalendar)).toBe(false)
   })
 
   it('isTodayUTC checks against UTC calendar fields', () => {

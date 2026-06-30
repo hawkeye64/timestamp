@@ -19,6 +19,7 @@ For deterministic SSR output:
 - Use caller-provided `now` values for relative comparisons.
 - Use `todayUTC()` or `nowUTC()` when the application wants server and client to agree on UTC calendar fields.
 - Use `parseDateUTC()` when converting native `Date` instances that represent instants.
+- Pass a `CalendarSystem` to `todayUTC()`, `nowUTC()`, `parseDateUTC()`, or `updateRelative()` when the rendered date fields should be native to an adapter.
 
 ```ts
 import { nowUTC, parseTimestamp, updateRelative } from '@timestamp-js/core'
@@ -29,11 +30,11 @@ const target = parseTimestamp('2036-06-09')!
 const stable = updateRelative(target, now)
 ```
 
-If the render needs to be stable even when time passes between server render and client hydration, capture the date once in app code and pass it to `nowUTC(date)` or `todayUTC(date)`.
+If the render needs to be stable even when time passes between server render and client hydration, capture the date once in app code and pass it to `nowUTC(date)` or `todayUTC(date)`. Adapter code can pass the calendar as the second argument.
 
 ## Date objects
 
-`parseDateUTC(date)` reads a native `Date` using UTC fields. `parseDate(date)` reads host-local fields.
+`parseDateUTC(date, calendar)` reads a native `Date` using UTC fields and returns fields for the requested calendar. `parseDate(date, calendar)` reads host-local fields.
 
 ```ts
 import { nowUTC, parseDate, parseDateUTC, todayUTC } from '@timestamp-js/core'
