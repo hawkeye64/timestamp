@@ -6,10 +6,20 @@ import {
   gregorianCalendar,
   isCalendarRTL as isCalendarRTLImpl,
 } from './calendar.js'
-import type { CalendarDateParts, CalendarDirection, CalendarId, CalendarSystem } from './calendar.js'
+import type {
+  CalendarDateParts,
+  CalendarDirection,
+  CalendarId,
+  CalendarSystem,
+} from './calendar.js'
 
 export { gregorianCalendar } from './calendar.js'
-export type { CalendarDateParts, CalendarDirection, CalendarId, CalendarSystem } from './calendar.js'
+export type {
+  CalendarDateParts,
+  CalendarDirection,
+  CalendarId,
+  CalendarSystem,
+} from './calendar.js'
 
 /**
  * Formats calendar fields using Timestamp's fixed `YYYY-MM-DD` date format.

@@ -30,7 +30,7 @@ console.log(billingDate ? getDateTime(billingDate) : 'Invalid date')
 The package also ships a browser-global IIFE build for CDN and CodePen-style usage:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.3/dist/index.global.min.js"></script>
 <script>
   const today = TimestampJsCore.today()
   const parsed = TimestampJsCore.parseTimestamp(today)

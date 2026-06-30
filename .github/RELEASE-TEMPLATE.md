@@ -58,5 +58,5 @@ https://github.com/hawkeye64/timestamp/compare/PREVIOUS_TAG...CURRENT_TAG
 
 If Timestamp JS is useful in your workflow and you want to support ongoing maintenance:
 
-- GitHub Sponsors: https://github.com/sponsors/hawkeye64
-- PayPal: https://paypal.me/hawkeye64
+GitHub Sponsors: https://github.com/sponsors/hawkeye64
+PayPal: https://paypal.me/hawkeye64

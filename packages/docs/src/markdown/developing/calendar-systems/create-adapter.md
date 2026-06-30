@@ -138,11 +138,11 @@ and get the normal language, direction, and visible week for that calendar.
 
 Use these fields when your adapter has an obvious native presentation:
 
-| Field              | Type          | Purpose                                                        |
-| ------------------ | ------------- | -------------------------------------------------------------- |
-| `defaultLocale`    | String        | BCP 47 locale used for labels when the caller omits `locale`   |
-| `defaultDirection` | `ltr` / `rtl` | Text direction used when the caller omits `dir`                |
-| `defaultWeekdays`  | Number array  | Visible weekday order used when the caller omits `weekdays`    |
+| Field              | Type          | Purpose                                                      |
+| ------------------ | ------------- | ------------------------------------------------------------ |
+| `defaultLocale`    | String        | BCP 47 locale used for labels when the caller omits `locale` |
+| `defaultDirection` | `ltr` / `rtl` | Text direction used when the caller omits `dir`              |
+| `defaultWeekdays`  | Number array  | Visible weekday order used when the caller omits `weekdays`  |
 
 For example:
 

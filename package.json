@@ -1,6 +1,6 @@
 {
   "name": "timestamp-workspace",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0-rc.3",
   "private": true,
   "description": "Timestamp workspace.",
   "license": "MIT",
@@ -35,8 +35,8 @@
     "@types/node": "26.0.1",
     "npm-check-updates": "22.2.9",
     "obuild": "^0.4.37",
-    "oxfmt": "0.56.0",
-    "oxlint": "1.71.0",
+    "oxfmt": "0.57.0",
+    "oxlint": "1.72.0",
     "typescript": "6.0.3",
     "vitest": "4.1.9"
   },

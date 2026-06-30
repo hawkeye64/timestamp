@@ -259,5 +259,7 @@ export function isCalendarRTL(calendar: CalendarSystem = gregorianCalendar): boo
  * @category calendar
  */
 export function getCalendarWeekdays(calendar: CalendarSystem = gregorianCalendar): number[] {
-  return [...(calendar.defaultWeekdays ?? gregorianCalendar.defaultWeekdays ?? [0, 1, 2, 3, 4, 5, 6])]
+  return [
+    ...(calendar.defaultWeekdays ?? gregorianCalendar.defaultWeekdays ?? [0, 1, 2, 3, 4, 5, 6]),
+  ]
 }

@@ -193,7 +193,7 @@ days.length // 7
 For CodePen-style usage, load the IIFE bundle and read helpers from the global object.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.3/dist/index.global.min.js"></script>
 <script>
   const timestamp = TimestampJsCore.parseTimestamp('2026-06-08')
 

@@ -45,9 +45,9 @@ console.log(billingDate ? getDateTime(billingDate) : 'Invalid date') // 2026-07-
 Timestamp also ships browser-global IIFE bundles for CDN and CodePen-style usage. Load the core package first, then any optional calendar adapters.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.2/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.2/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.2/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.3/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.3/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.3/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',

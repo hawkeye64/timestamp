@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/docs",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0-rc.3",
   "private": true,
   "description": "Q-Press documentation site for @timestamp-js/core.",
   "author": "Jeff <galbraith64@gmail.com>",
@@ -37,12 +37,12 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.18",
-    "@md-plugins/search-ui": "0.1.0-rc.18",
-    "@md-plugins/vite-examples-plugin": "0.1.0-rc.18",
-    "@md-plugins/vite-md-plugin": "0.1.0-rc.18",
-    "@md-plugins/vite-search-plugin": "0.1.0-rc.18",
-    "@md-plugins/vite-ssg-plugin": "0.1.0-rc.18",
+    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.19",
+    "@md-plugins/search-ui": "0.1.0-rc.19",
+    "@md-plugins/vite-examples-plugin": "0.1.0-rc.19",
+    "@md-plugins/vite-md-plugin": "0.1.0-rc.19",
+    "@md-plugins/vite-search-plugin": "0.1.0-rc.19",
+    "@md-plugins/vite-ssg-plugin": "0.1.0-rc.19",
     "@quasar/app-vite": "3.0.0-rc.3",
     "@types/node": "^26.0.1",
     "@vue/server-renderer": "^3.5.39",
@@ -51,7 +51,7 @@
     "sass-embedded": "^1.100.0",
     "shiki": "^4.3.0",
     "typescript": "~6.0.3",
-    "vite": "^8.1.0",
+    "vite": "^8.1.1",
     "vite-plugin-checker": "^0.14.4",
     "vue-tsc": "^3.3.5"
   },
