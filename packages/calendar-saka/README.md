@@ -1,5 +1,16 @@
 # @timestamp-js/calendar-saka
 
+[![npm version](https://img.shields.io/npm/v/@timestamp-js/calendar-saka?label=%40timestamp-js%2Fcalendar-saka)](https://www.npmjs.com/package/@timestamp-js/calendar-saka)
+[![npm downloads](https://img.shields.io/npm/dt/@timestamp-js/calendar-saka)](https://www.npmjs.com/package/@timestamp-js/calendar-saka)
+[![npm monthly downloads](https://img.shields.io/npm/dm/@timestamp-js/calendar-saka)](https://www.npmjs.com/package/@timestamp-js/calendar-saka)
+[![license](https://img.shields.io/npm/l/@timestamp-js/calendar-saka)](https://www.npmjs.com/package/@timestamp-js/calendar-saka)
+
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+
+[![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
+[![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
 Indian National Calendar (Saka) adapter for `@timestamp-js/core`.
 
 The adapter is `indianNationalCalendar`, with `sakaCalendar` as a convenience alias. It models the
@@ -47,8 +58,8 @@ monthDays.length // 31
 For CDN or CodePen usage, load `@timestamp-js/core` before the adapter package:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@latest/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1946-01-15',

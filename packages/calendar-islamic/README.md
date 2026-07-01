@@ -1,5 +1,16 @@
 # @timestamp-js/calendar-islamic
 
+[![npm version](https://img.shields.io/npm/v/@timestamp-js/calendar-islamic?label=%40timestamp-js%2Fcalendar-islamic)](https://www.npmjs.com/package/@timestamp-js/calendar-islamic)
+[![npm downloads](https://img.shields.io/npm/dt/@timestamp-js/calendar-islamic)](https://www.npmjs.com/package/@timestamp-js/calendar-islamic)
+[![npm monthly downloads](https://img.shields.io/npm/dm/@timestamp-js/calendar-islamic)](https://www.npmjs.com/package/@timestamp-js/calendar-islamic)
+[![license](https://img.shields.io/npm/l/@timestamp-js/calendar-islamic)](https://www.npmjs.com/package/@timestamp-js/calendar-islamic)
+
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+
+[![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
+[![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
 Islamic/Hijri calendar adapters for `@timestamp-js/core`.
 
 The initial adapter is `islamicCivilCalendar`, a deterministic tabular Islamic civil/Hijri calendar.
@@ -47,8 +58,8 @@ monthDays.length // 30
 For CDN or CodePen usage, load `@timestamp-js/core` before the adapter package:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@latest/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',

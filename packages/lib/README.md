@@ -1,5 +1,16 @@
 # Timestamp
 
+[![npm version](https://img.shields.io/npm/v/@timestamp-js/core?label=%40timestamp-js%2Fcore)](https://www.npmjs.com/package/@timestamp-js/core)
+[![npm downloads](https://img.shields.io/npm/dt/@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
+[![npm monthly downloads](https://img.shields.io/npm/dm/@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
+[![license](https://img.shields.io/npm/l/@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
+
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+
+[![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
+[![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
 Framework-agnostic TypeScript utilities for date-only, time-only, date-time, interval, and range workflows in browsers, Node.js, and modern JavaScript runtimes.
 
 Timestamp focuses on immutable plain objects and small utility functions. It is intentionally independent of any UI framework, backend framework, or application platform.
@@ -27,10 +38,10 @@ console.log(billingDate ? getDateTime(billingDate) : 'Invalid date')
 
 ## Browser Globals
 
-The package also ships a browser-global IIFE build for CDN and CodePen-style usage:
+The package also ships a browser-global IIFE build for CDN and CodePen-style usage. Use the current package version or a dist tag that matches your release policy:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@latest/dist/index.global.min.js"></script>
 <script>
   const today = TimestampJsCore.today()
   const parsed = TimestampJsCore.parseTimestamp(today)
@@ -90,8 +101,8 @@ The publishable package lives in `packages/lib` so the repository follows the sa
 - Parse date strings and ISO-like date-time strings into Timestamp objects.
 - Convert native `Date` objects into Timestamp objects.
 - Compare dates, times, date-times, and timestamp ranges, including optional second and millisecond precision.
-- Generate day and interval lists for calendar-style views.
-- Generate adapter-aware calendar timestamps and day lists for optional calendar packages.
+- Generate day, interval, month, and range lists for calendar-style views.
+- Generate adapter-aware calendar timestamps, boundaries, month names, day lists, and date identities for optional calendar packages.
 - Format weekday and month names through `Intl.DateTimeFormat`.
 - Keep the public surface small, typed, immutable, and runtime-agnostic while the package stabilizes.
 

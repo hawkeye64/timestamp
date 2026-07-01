@@ -40,13 +40,13 @@ Timestamp uses standard JavaScript runtime APIs, so it is suitable for browser, 
 
 ## Browser globals
 
-Timestamp ships browser-global IIFE bundles for CDN and CodePen-style usage. Load `@timestamp-js/core` first, then any optional calendar adapters.
+Timestamp ships browser-global IIFE bundles for CDN and CodePen-style usage. Load `@timestamp-js/core` first, then any optional calendar adapters. Use the current package version or a dist tag that matches your release policy.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@latest/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',
