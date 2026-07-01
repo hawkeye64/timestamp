@@ -44,7 +44,7 @@
     "@md-plugins/vite-md-plugin": "0.1.0-rc.19",
     "@md-plugins/vite-search-plugin": "0.1.0-rc.19",
     "@md-plugins/vite-ssg-plugin": "0.1.0-rc.19",
-    "@quasar/app-vite": "3.0.0-rc.3",
+    "@quasar/app-vite": "3.0.0-rc.4",
     "@types/node": "^26.0.1",
     "@vue/server-renderer": "^3.5.39",
     "autoprefixer": "^10.5.2",
