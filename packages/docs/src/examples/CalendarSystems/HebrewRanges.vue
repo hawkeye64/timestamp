@@ -2,11 +2,11 @@
   <div class="timestamp-calendar-example">
     <section class="timestamp-calendar-example__summary">
       <div class="timestamp-calendar-example__summary-copy">
-        <div class="text-overline text-primary">Indian National Calendar</div>
+        <div class="text-overline text-primary">Hebrew calendar</div>
         <h3>{{ calendar.label }}</h3>
         <p>
-          Saka dates use the same adapter-aware range helpers, so view code can stay calendar
-          agnostic once the adapter is selected.
+          Hebrew dates use civil month numbering, so Tishrei starts the year and leap years insert
+          Adar II before Nisan.
         </p>
       </div>
 
@@ -31,7 +31,7 @@
 
     <section class="timestamp-calendar-example__panel">
       <h4>Week containing {{ visible.date }}</h4>
-      <div class="timestamp-calendar-example__week">
+      <div class="timestamp-calendar-example__week" dir="rtl" lang="he">
         <div
           v-for="day in weekDays"
           :key="`week-${day.date}`"
@@ -47,7 +47,7 @@
 
     <section class="timestamp-calendar-example__panel">
       <h4>Months in {{ visible.year }}</h4>
-      <div class="timestamp-calendar-example__year">
+      <div class="timestamp-calendar-example__year" dir="rtl" lang="he">
         <button
           v-for="month in yearMonths"
           :key="`month-${month.month}`"
@@ -67,7 +67,7 @@
       </div>
 
       <h4>Days in {{ selectedMonthInfo.number }} {{ selectedMonthInfo.label }}</h4>
-      <div class="timestamp-calendar-example__month">
+      <div class="timestamp-calendar-example__month" dir="rtl" lang="he">
         <div
           v-for="day in monthDays"
           :key="`month-${day.date}`"
@@ -95,7 +95,7 @@ import {
   type CalendarDateParts,
   type Timestamp,
 } from '@timestamp-js/core'
-import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
+import { hebrewCalendar } from '@timestamp-js/calendar-hebrew'
 
 type LocaleWithWeekInfo = Intl.Locale & {
   weekInfo?: {
@@ -110,8 +110,8 @@ interface CalendarMonthOption {
   days: string
 }
 
-const calendar = indianNationalCalendar
-const locale = 'hi-IN-u-ca-indian'
+const calendar = hebrewCalendar
+const locale = 'he-IL-u-ca-hebrew'
 const weekdays = getLocaleWeekdays(locale)
 const weekdayLabels = getLocalizedWeekdayLabels(locale)
 const monthFormatter = new Intl.DateTimeFormat(locale, {
@@ -125,7 +125,7 @@ const dayCountFormatter = new Intl.NumberFormat(locale, {
   unit: 'day',
   unitDisplay: 'long',
 })
-const visible = parseRequired('1946-01-15')
+const visible = parseRequired('5785-01-15')
 const selectedMonth = ref(visible.month)
 
 const weekStart = computed(() => getCalendarStartOfWeek(visible, weekdays, calendar))
@@ -216,178 +216,169 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
   width: min(100%, 960px);
   margin: 0 auto;
   padding: 2rem;
+}
 
-  &__summary {
-    display: grid;
-    gap: 1.25rem;
-  }
+.timestamp-calendar-example__summary {
+  display: grid;
+  gap: 1.25rem;
+}
 
-  &__summary-copy {
-    display: grid;
-    gap: 0.75rem;
-  }
+.timestamp-calendar-example__summary-copy {
+  display: grid;
+  gap: 0.75rem;
+}
 
-  &__summary h3,
-  &__panel h4 {
-    margin: 0;
-    font-weight: 600;
-    line-height: 1.2;
-  }
+.timestamp-calendar-example__summary h3,
+.timestamp-calendar-example__panel h4 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
 
-  &__summary h3 {
-    font-size: 2.25rem;
-  }
+.timestamp-calendar-example__summary h3 {
+  font-size: 2.25rem;
+}
 
-  &__summary p {
-    max-width: 70ch;
-    margin: 0;
-    line-height: 1.6;
-  }
+.timestamp-calendar-example__summary p {
+  max-width: 70ch;
+  margin: 0;
+  line-height: 1.6;
+}
 
-  &__stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-  }
+.timestamp-calendar-example__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
 
-  &__stat {
-    display: grid;
-    gap: 0.25rem;
-    min-width: 0;
-    padding: 0.875rem 1rem;
-    border-radius: 6px;
-  }
+.timestamp-calendar-example__stat,
+.timestamp-calendar-example__day,
+.timestamp-calendar-example__month-day,
+.timestamp-calendar-example__month-name {
+  border: 1px solid rgba(125, 125, 125, 0.35);
+  background: rgba(125, 125, 125, 0.08);
+}
 
-  &__panel {
-    display: grid;
-    gap: 1rem;
+.timestamp-calendar-example__stat {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0.875rem 1rem;
+  border-radius: 6px;
+}
 
-    h4 {
-      font-size: 1.5rem;
-    }
-  }
+.timestamp-calendar-example__stat span,
+.timestamp-calendar-example__stat small,
+.timestamp-calendar-example__day small,
+.timestamp-calendar-example__month-name small {
+  opacity: 0.72;
+}
 
-  &__week {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 0.5rem;
-  }
+.timestamp-calendar-example__stat strong,
+.timestamp-calendar-example__day strong,
+.timestamp-calendar-example__month-name strong {
+  overflow-wrap: anywhere;
+}
 
-  &__stat,
-  &__day,
-  &__month-day,
-  &__month-name {
-    border: 1px solid rgba(125, 125, 125, 0.35);
-    border-radius: 6px;
-    background: rgba(125, 125, 125, 0.08);
-  }
+.timestamp-calendar-example__panel {
+  display: grid;
+  gap: 1rem;
+}
 
-  &__day {
-    display: grid;
-    gap: 0.35rem;
-    min-width: 0;
-    min-height: 7.5rem;
-    padding: 0.75rem;
-    text-align: start;
+.timestamp-calendar-example__panel h4 {
+  font-size: 1.5rem;
+}
 
-    span,
-    small {
-      opacity: 0.72;
-    }
+.timestamp-calendar-example__week,
+.timestamp-calendar-example__year,
+.timestamp-calendar-example__month {
+  display: grid;
+  gap: 0.5rem;
+}
 
-    span {
-      font-size: 1rem;
-      font-weight: 700;
-    }
+.timestamp-calendar-example__week {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
 
-    strong {
-      font-weight: 600;
-      overflow-wrap: anywhere;
-    }
+.timestamp-calendar-example__day {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  min-height: 7.5rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: start;
+}
 
-    &--selected {
-      border-color: currentColor;
-      background: rgba(25, 118, 210, 0.16);
-    }
-  }
+.timestamp-calendar-example__day span {
+  font-size: 1rem;
+  font-weight: 700;
+}
 
-  &__month {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(2.5rem, 1fr));
-    gap: 0.5rem;
-  }
+.timestamp-calendar-example__day--selected,
+.timestamp-calendar-example__month-day--selected {
+  border-color: currentColor;
+  background: rgba(25, 118, 210, 0.16);
+}
 
-  &__year {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-    gap: 0.5rem;
-  }
+.timestamp-calendar-example__year {
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+}
 
-  &__month-day {
-    display: grid;
-    min-height: 2.75rem;
-    place-items: center;
-    font-weight: 600;
+.timestamp-calendar-example__month-name {
+  appearance: none;
+  display: grid;
+  gap: 0.3rem;
+  min-height: 6rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
 
-    &--selected {
-      border-color: currentColor;
-      background: rgba(25, 118, 210, 0.16);
-      font-weight: 700;
-    }
-  }
+.timestamp-calendar-example__month-name:hover,
+.timestamp-calendar-example__month-name--selected {
+  border-color: currentColor;
+  background: rgba(25, 118, 210, 0.16);
+}
 
-  &__month-name {
-    appearance: none;
-    display: grid;
-    gap: 0.3rem;
-    min-height: 6rem;
-    padding: 0.75rem;
-    color: inherit;
-    font: inherit;
-    text-align: inherit;
-    cursor: pointer;
+.timestamp-calendar-example__month-name:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
 
-    span,
-    small {
-      opacity: 0.72;
-    }
+.timestamp-calendar-example__month {
+  grid-template-columns: repeat(7, minmax(2.5rem, 1fr));
+}
 
-    &--selected {
-      border-color: currentColor;
-      background: rgba(25, 118, 210, 0.16);
-    }
-
-    strong {
-      overflow-wrap: anywhere;
-    }
-
-    &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 2px;
-    }
-  }
+.timestamp-calendar-example__month-day {
+  display: grid;
+  min-height: 2.75rem;
+  place-items: center;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 @media (max-width: 780px) {
   .timestamp-calendar-example {
     padding: 1rem;
+  }
 
-    &__stats {
-      grid-template-columns: 1fr;
-    }
+  .timestamp-calendar-example__stats {
+    grid-template-columns: 1fr;
+  }
 
-    &__week {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .timestamp-calendar-example__week {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
-  .timestamp-calendar-example {
-    &__week,
-    &__year {
-      grid-template-columns: 1fr;
-    }
+  .timestamp-calendar-example__week,
+  .timestamp-calendar-example__year {
+    grid-template-columns: 1fr;
   }
 }
 </style>

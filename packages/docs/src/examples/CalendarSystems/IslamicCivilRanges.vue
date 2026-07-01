@@ -1,7 +1,7 @@
 <template>
   <div class="timestamp-calendar-example">
     <section class="timestamp-calendar-example__summary">
-      <div>
+      <div class="timestamp-calendar-example__summary-copy">
         <div class="text-overline text-primary">Islamic civil calendar</div>
         <h3>{{ calendar.label }}</h3>
         <p>
@@ -10,34 +10,23 @@
         </p>
       </div>
 
-      <q-list dense bordered separator class="rounded-borders">
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>Visible date</q-item-label>
-            <q-item-label
-              >{{ visible.date }} ({{ toGregorianDate(visible) }} Gregorian)</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>Week range</q-item-label>
-            <q-item-label>{{ weekStart.date }} to {{ weekEnd.date }}</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>Locale week start</q-item-label>
-            <q-item-label>{{ getWeekdayLabel(weekdays[0]) }}</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label caption>Month range</q-item-label>
-            <q-item-label>{{ monthStart.date }} to {{ monthEnd.date }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <div class="timestamp-calendar-example__stats">
+        <div class="timestamp-calendar-example__stat">
+          <span>Visible date</span>
+          <strong>{{ visible.date }}</strong>
+          <small>{{ toGregorianDate(visible) }} Gregorian</small>
+        </div>
+        <div class="timestamp-calendar-example__stat">
+          <span>Week range</span>
+          <strong>{{ weekStart.date }} to {{ weekEnd.date }}</strong>
+          <small>Starts on {{ getWeekdayLabel(weekdays[0]) }}</small>
+        </div>
+        <div class="timestamp-calendar-example__stat">
+          <span>Month range</span>
+          <strong>{{ monthStart.date }} to {{ monthEnd.date }}</strong>
+          <small>{{ selectedMonthInfo.label }}</small>
+        </div>
+      </div>
     </section>
 
     <section class="timestamp-calendar-example__panel">
@@ -220,36 +209,71 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .timestamp-calendar-example {
   display: grid;
-  gap: 24px;
-  padding: 24px;
+  gap: 2rem;
+  width: min(100%, 960px);
+  margin: 0 auto;
+  padding: 2rem;
 
   &__summary {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-    gap: 24px;
-    align-items: start;
+    gap: 1.25rem;
+  }
+
+  &__summary-copy {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  &__summary h3,
+  &__panel h4 {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  &__summary h3 {
+    font-size: 2.25rem;
+  }
+
+  &__summary p {
+    max-width: 70ch;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__stat {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    border-radius: 6px;
   }
 
   &__panel {
     display: grid;
-    gap: 14px;
+    gap: 1rem;
 
     h4 {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.5rem;
     }
   }
 
   &__week {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem;
   }
 
+  &__stat,
   &__day,
   &__month-day,
   &__month-name {
@@ -260,18 +284,25 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
 
   &__day {
     display: grid;
-    flex: 1 1 0;
-    gap: 4px;
-    padding: 10px;
+    gap: 0.35rem;
     min-width: 0;
+    min-height: 7.5rem;
+    padding: 0.75rem;
+    text-align: start;
 
     span,
     small {
       opacity: 0.72;
     }
 
+    span {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
     strong {
       font-weight: 600;
+      overflow-wrap: anywhere;
     }
 
     &--selected {
@@ -281,22 +312,22 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
   }
 
   &__month {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(2.5rem, 1fr));
+    gap: 0.5rem;
   }
 
   &__year {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 0.5rem;
   }
 
   &__month-day {
     display: grid;
-    flex: 1 0 44px;
-    min-height: 40px;
+    min-height: 2.75rem;
     place-items: center;
+    font-weight: 600;
 
     &--selected {
       border-color: currentColor;
@@ -308,9 +339,9 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
   &__month-name {
     appearance: none;
     display: grid;
-    flex: 1 1 150px;
-    gap: 4px;
-    padding: 10px;
+    gap: 0.3rem;
+    min-height: 6rem;
+    padding: 0.75rem;
     color: inherit;
     font: inherit;
     text-align: inherit;
@@ -326,6 +357,10 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
       background: rgba(25, 118, 210, 0.16);
     }
 
+    strong {
+      overflow-wrap: anywhere;
+    }
+
     &:focus-visible {
       outline: 2px solid currentColor;
       outline-offset: 2px;
@@ -333,16 +368,24 @@ function getLocalizedWeekdayLabels(localeName: string): string[] {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
   .timestamp-calendar-example {
-    padding: 16px;
+    padding: 1rem;
 
-    &__summary,
-    &__week {
-      flex-direction: column;
+    &__stats {
+      grid-template-columns: 1fr;
     }
 
-    &__summary {
+    &__week {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .timestamp-calendar-example {
+    &__week,
+    &__year {
       grid-template-columns: 1fr;
     }
   }

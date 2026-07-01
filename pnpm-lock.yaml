@@ -30,6 +30,28 @@ importers:
         specifier: 4.1.9
         version: 4.1.9(@types/node@26.0.1)(vite@8.1.1(@types/node@26.0.1)(esbuild@0.28.1)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.48.0)(yaml@2.9.0))
 
+  packages/calendar-hebrew:
+    dependencies:
+      '@timestamp-js/core':
+        specifier: workspace:*
+        version: link:../lib
+    devDependencies:
+      '@types/node':
+        specifier: 26.0.1
+        version: 26.0.1
+      oxfmt:
+        specifier: 0.57.0
+        version: 0.57.0
+      oxlint:
+        specifier: 1.72.0
+        version: 1.72.0
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.9
+        version: 4.1.9(@types/node@26.0.1)(vite@8.1.1(@types/node@26.0.1)(esbuild@0.28.1)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.48.0)(yaml@2.9.0))
+
   packages/calendar-islamic:
     dependencies:
       '@timestamp-js/core':
@@ -79,6 +101,9 @@ importers:
       '@quasar/extras':
         specifier: 2.0.1
         version: 2.0.1
+      '@timestamp-js/calendar-hebrew':
+        specifier: workspace:*
+        version: link:../calendar-hebrew
       '@timestamp-js/calendar-islamic':
         specifier: workspace:*
         version: link:../calendar-islamic

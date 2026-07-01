@@ -20,9 +20,10 @@ Keep `@timestamp-js/core` small and predictable:
 
 - Core owns shared types, immutable Timestamp objects, comparison/range primitives, time helpers,
   and the default Gregorian adapter.
-- Optional calendar packages own calendar-specific math and parsing, for example
-  `@timestamp-js/calendar-islamic`, `@timestamp-js/calendar-saka`,
-  `@timestamp-js/calendar-hebrew`, or `@timestamp-js/calendar-chinese`.
+- Optional calendar packages own calendar-specific math and parsing. Timestamp currently publishes
+  `@timestamp-js/calendar-islamic`, `@timestamp-js/calendar-saka`, and
+  `@timestamp-js/calendar-hebrew`; future adapters can add other systems without changing the core
+  package.
 - The Gregorian adapter remains available from core first. A separate
   `@timestamp-js/calendar-gregorian` package can be added later if external adapter packages need a
   reusable reference implementation.
@@ -32,14 +33,16 @@ This keeps existing users on one package while making advanced calendar support 
 ## Current adapters
 
 Timestamp currently ships the default Gregorian adapter from `@timestamp-js/core` and optional
-adapter packages for Islamic civil and Indian National/Saka dates. Optional adapters use the same
-`CalendarSystem` contract, which keeps the conversion surface small while letting each package own
-its calendar rules.
+adapter packages for Islamic civil, Indian National/Saka, and Hebrew dates. Optional adapters use
+the same `CalendarSystem` contract, which keeps the conversion surface small while letting each
+package own its calendar rules.
 
 - [Islamic Civil (Hijri)](/developing/calendar-systems/islamic-civil) documents the deterministic
   tabular Hijri calendar, including Arabic labels, RTL presentation, and native week/month ranges.
 - [Saka](/developing/calendar-systems/saka) documents the Indian National Calendar adapter,
   including locale-aware labels and native week/month ranges.
+- [Hebrew](/developing/calendar-systems/hebrew) documents the arithmetic Hebrew calendar adapter,
+  including civil/CLDR month numbering, RTL presentation, and native week/month ranges.
 
 Additional calendar pages should be added under this section as new adapters prove their behavior
 against real QCalendar usage.
@@ -238,5 +241,6 @@ Use `parseCalendarTimestamp()` for adapter-native `YYYY-MM-DD` strings. Use help
 `updateRelative(timestamp, now, time, calendar)` when working with timestamp objects that already
 belong to a calendar. Use the `*Calendar*` helper names when that makes the call site clearer.
 
-Islamic civil and Saka are the current proving adapters. Additional calendar packages should wait
-until these have been exercised by QCalendar and the adapter contract has proved useful.
+Islamic civil, Saka, and Hebrew are the current proving adapters. Chinese/lunisolar support is the
+next adapter design pressure point because leap months need an explicit model representation before
+Timestamp can expose unambiguous native `YYYY-MM-DD` strings for that calendar.

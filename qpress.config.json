@@ -21,6 +21,13 @@
         "input": "packages/calendar-saka/src/index.ts",
         "output": "packages/docs/src/api/SakaCalendar.json",
         "type": "plugin"
+      },
+      {
+        "docsUrl": "/api/hebrew-calendar-api",
+        "group": "functions",
+        "input": "packages/calendar-hebrew/src/index.ts",
+        "output": "packages/docs/src/api/HebrewCalendar.json",
+        "type": "plugin"
       }
     ]
   },

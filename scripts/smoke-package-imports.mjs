@@ -22,6 +22,11 @@ try {
     join(scopeDir, 'calendar-saka'),
     'dir',
   )
+  await symlink(
+    await realpath(join(rootDir, 'packages/calendar-hebrew')),
+    join(scopeDir, 'calendar-hebrew'),
+    'dir',
+  )
 
   const consumerPath = join(tempDir, 'consumer.mjs')
   await writeFile(
@@ -35,9 +40,11 @@ try {
       } from '@timestamp-js/core'
       import { islamicCivilCalendar } from '@timestamp-js/calendar-islamic'
       import { indianNationalCalendar } from '@timestamp-js/calendar-saka'
+      import { hebrewCalendar } from '@timestamp-js/calendar-hebrew'
 
       export const islamicVisible = parseCalendarTimestamp('1445-09-15', islamicCivilCalendar)
       export const sakaVisible = parseCalendarTimestamp('1946-01-15', indianNationalCalendar)
+      export const hebrewVisible = parseCalendarTimestamp('5785-01-15', hebrewCalendar)
 
       export const islamicMonth = createCalendarDayList(
         getCalendarStartOfMonth(islamicVisible, islamicCivilCalendar),
@@ -51,6 +58,12 @@ try {
         sakaVisible,
         indianNationalCalendar,
       )
+      export const hebrewMonth = createCalendarDayList(
+        getCalendarStartOfMonth(hebrewVisible, hebrewCalendar),
+        getCalendarEndOfMonth(hebrewVisible, hebrewCalendar),
+        hebrewVisible,
+        hebrewCalendar,
+      )
     `,
     'utf8',
   )
@@ -59,12 +72,16 @@ try {
 
   assert.notEqual(result.islamicVisible, null)
   assert.notEqual(result.sakaVisible, null)
+  assert.notEqual(result.hebrewVisible, null)
   assert.equal(result.islamicMonth[0]?.calendarId, 'islamic-civil')
   assert.equal(result.islamicMonth[0]?.date, '1445-09-01')
   assert.equal(result.islamicMonth.at(-1)?.date, '1445-09-30')
   assert.equal(result.sakaMonth[0]?.calendarId, 'saka')
   assert.equal(result.sakaMonth[0]?.date, '1946-01-01')
   assert.equal(result.sakaMonth.at(-1)?.date, '1946-01-31')
+  assert.equal(result.hebrewMonth[0]?.calendarId, 'hebrew')
+  assert.equal(result.hebrewMonth[0]?.date, '5785-01-01')
+  assert.equal(result.hebrewMonth.at(-1)?.date, '5785-01-30')
 
   const sandbox = {}
   runInNewContext(
@@ -79,10 +96,15 @@ try {
     await readFile(join(rootDir, 'packages/calendar-saka/dist/index.global.js'), 'utf8'),
     sandbox,
   )
+  runInNewContext(
+    await readFile(join(rootDir, 'packages/calendar-hebrew/dist/index.global.js'), 'utf8'),
+    sandbox,
+  )
 
   assert.equal(typeof sandbox.TimestampJsCore?.parseCalendarTimestamp, 'function')
   assert.equal(sandbox.TimestampJsCalendarIslamic?.islamicCivilCalendar?.id, 'islamic-civil')
   assert.equal(sandbox.TimestampJsCalendarSaka?.indianNationalCalendar?.id, 'saka')
+  assert.equal(sandbox.TimestampJsCalendarHebrew?.hebrewCalendar?.id, 'hebrew')
 
   const globalIslamicVisible = sandbox.TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',
@@ -92,9 +114,14 @@ try {
     '1946-01-15',
     sandbox.TimestampJsCalendarSaka.indianNationalCalendar,
   )
+  const globalHebrewVisible = sandbox.TimestampJsCore.parseCalendarTimestamp(
+    '5785-01-15',
+    sandbox.TimestampJsCalendarHebrew.hebrewCalendar,
+  )
 
   assert.equal(globalIslamicVisible.calendarId, 'islamic-civil')
   assert.equal(globalSakaVisible.calendarId, 'saka')
+  assert.equal(globalHebrewVisible.calendarId, 'hebrew')
 
   console.log('Package import smoke test passed.')
 } finally {

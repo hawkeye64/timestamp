@@ -1,6 +1,6 @@
 {
   "name": "@timestamp-js/docs",
-  "version": "0.1.0-rc.3",
+  "version": "0.1.0-rc.4",
   "private": true,
   "description": "Q-Press documentation site for @timestamp-js/core.",
   "author": "Jeff <galbraith64@gmail.com>",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@quasar/extras": "2.0.1",
+    "@timestamp-js/calendar-hebrew": "workspace:*",
     "@timestamp-js/calendar-islamic": "workspace:*",
     "@timestamp-js/calendar-saka": "workspace:*",
     "@timestamp-js/core": "workspace:*",

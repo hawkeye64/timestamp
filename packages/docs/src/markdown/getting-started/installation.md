@@ -43,9 +43,10 @@ Timestamp uses standard JavaScript runtime APIs, so it is suitable for browser, 
 Timestamp ships browser-global IIFE bundles for CDN and CodePen-style usage. Load `@timestamp-js/core` first, then any optional calendar adapters.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.3/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.3/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.3/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@0.1.0-rc.4/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',
@@ -56,7 +57,8 @@ Timestamp ships browser-global IIFE bundles for CDN and CodePen-style usage. Loa
 </script>
 ```
 
-The globals are `TimestampJsCore`, `TimestampJsCalendarIslamic`, and `TimestampJsCalendarSaka`.
+The globals are `TimestampJsCore`, `TimestampJsCalendarIslamic`, `TimestampJsCalendarSaka`, and
+`TimestampJsCalendarHebrew`.
 
 ## Runtime support
 

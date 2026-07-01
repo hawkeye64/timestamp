@@ -214,6 +214,7 @@ const apiMenu: SiteMenuItem = {
     { name: 'Timestamp API', path: '/api/timestamp-api' },
     { name: 'Islamic Calendar API', path: '/api/islamic-calendar-api' },
     { name: 'Saka Calendar API', path: '/api/saka-calendar-api' },
+    { name: 'Hebrew Calendar API', path: '/api/hebrew-calendar-api' },
     { name: 'Timestamp Object', path: '/api/timestamp-object' },
     { name: 'Calendar Helpers', path: '/api/calendar-helpers' },
     { name: 'Comparisons', path: '/api/comparisons' },
@@ -234,6 +235,7 @@ const developingMenu: SiteMenuItem = {
         { name: 'Create an Adapter', path: '/developing/calendar-systems/create-adapter' },
         { name: 'Islamic Civil (Hijri)', path: '/developing/calendar-systems/islamic-civil' },
         { name: 'Saka', path: '/developing/calendar-systems/saka' },
+        { name: 'Hebrew', path: '/developing/calendar-systems/hebrew' },
       ],
     },
     { name: 'Intervals + Lists', path: '/developing/intervals-and-lists' },
@@ -291,6 +293,7 @@ const siteConfig: SiteConfig = {
       `https://cdn.jsdelivr.net/npm/@timestamp-js/core@${version}/dist/index.global.min.js`,
       `https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@${version}/dist/index.global.min.js`,
       `https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@${version}/dist/index.global.min.js`,
+      `https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@${version}/dist/index.global.min.js`,
     ],
     globalPackages: [
       {
@@ -304,6 +307,10 @@ const siteConfig: SiteConfig = {
       {
         packageName: '@timestamp-js/calendar-saka',
         globalName: '(globalThis as any).TimestampJsCalendarSaka',
+      },
+      {
+        packageName: '@timestamp-js/calendar-hebrew',
+        globalName: '(globalThis as any).TimestampJsCalendarHebrew',
       },
     ],
   },

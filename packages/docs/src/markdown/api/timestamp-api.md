@@ -13,7 +13,8 @@ source JSDoc is ready. Generated review files are for comparison only and should
 committing unless you intentionally want to keep the diff artifact.
 
 Adapter packages have separate generated API pages so each published package has its own reference:
-[Islamic Calendar API](/api/islamic-calendar-api) and [Saka Calendar API](/api/saka-calendar-api).
+[Islamic Calendar API](/api/islamic-calendar-api), [Saka Calendar API](/api/saka-calendar-api),
+and [Hebrew Calendar API](/api/hebrew-calendar-api).
 
 <script import>
 import TimestampApi from '@/api/Timestamp.json'

@@ -1,46 +1,46 @@
 {
-  "generated_at": "2026-06-30T21:34:38.900Z",
+  "generated_at": "2026-06-30T21:34:38.976Z",
   "type": "plugin",
   "meta": {
-    "docsUrl": "/api/saka-calendar-api"
+    "docsUrl": "/api/hebrew-calendar-api"
   },
   "functions": {
-    "isSakaLeapYear": {
-      "desc": "Returns true when the Saka year begins in a Gregorian leap year.",
+    "isHebrewLeapYear": {
+      "desc": "Returns true when a Hebrew year contains Adar I and Adar II.",
       "params": {
         "year": {
-          "desc": "Saka year number.",
+          "desc": "Hebrew year number.",
           "required": true,
           "tsType": "number",
           "type": "number"
         }
       },
-      "tsSignature": "function isSakaLeapYear(year: number): boolean",
+      "tsSignature": "function isHebrewLeapYear(year: number): boolean",
       "type": "Function",
       "category": "calendar",
       "returns": {
-        "desc": "True when Chaitra has 31 days.",
+        "desc": "True when the year has 13 months.",
         "type": "boolean",
         "tsType": "boolean"
       }
     },
-    "sakaDaysInMonth": {
-      "desc": "Returns days in an Indian National Calendar (Saka) month.",
+    "hebrewDaysInMonth": {
+      "desc": "Returns days in a Hebrew civil month.\n\nTimestamp uses civil/CLDR month numbering for Hebrew model dates: Tishrei is month `1`, Shevat is month `5`, Adar is month `6` in common years, and leap years insert Adar II as month `7` before Nisan.",
       "params": {
         "year": {
-          "desc": "Saka year number.",
+          "desc": "Hebrew year number.",
           "required": true,
           "tsType": "number",
           "type": "number"
         },
         "month": {
-          "desc": "Saka month number, where Chaitra is `1`.",
+          "desc": "Hebrew civil month number.",
           "required": true,
           "tsType": "number",
           "type": "number"
         }
       },
-      "tsSignature": "function sakaDaysInMonth(year: number, month: number): number",
+      "tsSignature": "function hebrewDaysInMonth(year: number, month: number): number",
       "type": "Function",
       "category": "calendar",
       "returns": {
@@ -49,56 +49,83 @@
         "tsType": "number"
       }
     },
-    "indianNationalCalendar": {
-      "desc": "Deterministic Indian National Calendar (Saka) adapter.\n\nSaka year `1` begins in Gregorian year `79`. A Saka year starts on March 21 when the corresponding Gregorian year is leap, and March 22 otherwise.",
-      "tsSignature": "const indianNationalCalendar: CalendarSystem",
+    "hebrewMonthsInYear": {
+      "desc": "Returns the number of months in a Hebrew year.",
+      "params": {
+        "year": {
+          "desc": "Hebrew year number.",
+          "required": true,
+          "tsType": "number",
+          "type": "number"
+        }
+      },
+      "tsSignature": "function hebrewMonthsInYear(year: number): number",
+      "type": "Function",
+      "category": "calendar",
+      "returns": {
+        "desc": "`13` for leap years, otherwise `12`.",
+        "type": "number",
+        "tsType": "number"
+      }
+    },
+    "hebrewCalendar": {
+      "desc": "Deterministic arithmetic Hebrew calendar adapter.\n\nModel dates use civil/CLDR month numbering, where Tishrei is month `1`. Biblical/festival numbering that starts with Nisan is a naming convention, not the native model numbering used by this adapter.",
+      "tsSignature": "const hebrewCalendar: CalendarSystem",
       "tsType": "CalendarSystem",
       "type": "Constant",
       "definition": {
         "id": {
           "tsType": "CalendarId",
           "type": "CalendarId",
-          "default": "saka",
-          "desc": "Package-facing id for the Saka adapter.",
+          "default": "hebrew",
+          "desc": "Package-facing id for the Hebrew calendar adapter.",
           "required": true
         },
         "intlCalendar": {
           "tsType": "string",
           "type": "String",
-          "default": "indian",
-          "desc": "Intl calendar id for the Indian National Calendar.",
+          "default": "hebrew",
+          "desc": "Intl calendar id for Hebrew calendar formatting.",
           "required": true
         },
         "label": {
           "tsType": "string",
           "type": "String",
-          "default": "Indian National (Saka)",
+          "default": "Hebrew",
           "desc": "Human-readable adapter name.",
           "required": true
         },
         "defaultLocale": {
           "tsType": "string",
           "type": "String",
-          "default": "hi-IN",
-          "desc": "Default locale used for Indian National Calendar presentation.",
+          "default": "he-IL",
+          "desc": "Default locale used for Hebrew calendar presentation.",
           "required": true
         },
         "defaultDirection": {
           "tsType": "CalendarDirection",
           "type": "CalendarDirection",
-          "default": "ltr",
-          "desc": "Default text direction for Saka presentation.",
+          "default": "rtl",
+          "desc": "Default text direction for Hebrew calendar presentation.",
           "required": true
         },
         "defaultWeekdays": {
           "tsType": "readonly number[]",
           "type": "Array",
           "default": "[0, 1, 2, 3, 4, 5, 6]",
-          "desc": "Default visible week order for Saka presentation: Sunday through Saturday.\n\nWeekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.",
+          "desc": "Default visible week order for Hebrew calendar presentation: Sunday through Saturday.\n\nWeekdays use JavaScript numbering, where Sunday is `0` and Saturday is `6`.",
           "required": true
         },
         "monthsInYear": {
-          "desc": "Returns the number of months in a Saka year.",
+          "desc": "Returns the number of months in a Hebrew year.",
+          "params": {
+            "year": {
+              "desc": "Hebrew year number.",
+              "required": true,
+              "tsType": "number",
+              "type": "number"
+            }
+          },
           "tsSignature": "function monthsInYear(year: number): number",
           "type": "Function",
           "returns": {
@@ -110,10 +137,10 @@
           "tsType": "(year: number) => number"
         },
         "isLeapYear": {
-          "desc": "Returns true when the Saka year begins in a Gregorian leap year.",
+          "desc": "Returns true when the Hebrew year contains Adar I and Adar II.",
           "params": {
             "year": {
-              "desc": "Saka year number.",
+              "desc": "Hebrew year number.",
               "required": true,
               "tsType": "number",
               "type": "number"
@@ -122,7 +149,7 @@
           "tsSignature": "function isLeapYear(year: number): boolean",
           "type": "Function",
           "returns": {
-            "desc": "True when Chaitra has 31 days.",
+            "desc": "True when the year has 13 months.",
             "type": "Boolean",
             "tsType": "boolean"
           },
@@ -130,16 +157,16 @@
           "tsType": "(year: number) => boolean"
         },
         "daysInMonth": {
-          "desc": "Returns the number of days in a Saka month.",
+          "desc": "Returns the number of days in a Hebrew civil month.",
           "params": {
             "year": {
-              "desc": "Saka year number.",
+              "desc": "Hebrew year number.",
               "required": true,
               "tsType": "number",
               "type": "number"
             },
             "month": {
-              "desc": "Saka month number, where Chaitra is `1`.",
+              "desc": "Hebrew civil month number, where Tishrei is `1`.",
               "required": true,
               "tsType": "number",
               "type": "number"
@@ -156,10 +183,10 @@
           "tsType": "(year: number, month: number) => number"
         },
         "toEpochDay": {
-          "desc": "Converts a Saka date into the equivalent epoch day.",
+          "desc": "Converts a Hebrew civil date into the equivalent epoch day.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -176,7 +203,7 @@
           "tsType": "(date: CalendarDateParts) => number"
         },
         "fromEpochDay": {
-          "desc": "Converts an epoch day into Saka date fields.",
+          "desc": "Converts an epoch day into Hebrew civil date fields.",
           "params": {
             "epochDay": {
               "desc": "Epoch day to convert.",
@@ -208,7 +235,7 @@
                 "type": "number"
               }
             },
-            "desc": "Saka date fields.",
+            "desc": "Hebrew civil date fields.",
             "type": "CalendarDateParts",
             "tsType": "CalendarDateParts"
           },
@@ -216,10 +243,10 @@
           "tsType": "(epochDay: number) => CalendarDateParts"
         },
         "addDays": {
-          "desc": "Moves a Saka date by a whole number of days.",
+          "desc": "Moves a Hebrew civil date by a whole number of days.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -254,7 +281,7 @@
                 "type": "number"
               }
             },
-            "desc": "Shifted Saka date fields.",
+            "desc": "Shifted Hebrew civil date fields.",
             "type": "CalendarDateParts",
             "tsType": "CalendarDateParts"
           },
@@ -262,10 +289,10 @@
           "tsType": "(date: CalendarDateParts, amount: number) => CalendarDateParts"
         },
         "nextDay": {
-          "desc": "Returns the next Saka date.",
+          "desc": "Returns the next Hebrew civil date.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -302,10 +329,10 @@
           "tsType": "(date: CalendarDateParts) => CalendarDateParts"
         },
         "prevDay": {
-          "desc": "Returns the previous Saka date.",
+          "desc": "Returns the previous Hebrew civil date.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -342,10 +369,10 @@
           "tsType": "(date: CalendarDateParts) => CalendarDateParts"
         },
         "getDayOfYear": {
-          "desc": "Returns the one-based day-of-year for a Saka date.",
+          "desc": "Returns the one-based day-of-year for a Hebrew civil date.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -362,10 +389,10 @@
           "tsType": "(date: CalendarDateParts) => number"
         },
         "getWeekday": {
-          "desc": "Returns the weekday for a Saka date using JavaScript weekday numbering.",
+          "desc": "Returns the weekday for a Hebrew civil date using JavaScript weekday numbering.",
           "params": {
             "date": {
-              "desc": "Saka date fields.",
+              "desc": "Hebrew civil date fields.",
               "required": true,
               "tsType": "CalendarDateParts",
               "type": "CalendarDateParts"
@@ -383,10 +410,10 @@
         }
       }
     },
-    "sakaCalendar": {
-      "desc": "Alias for the default Saka adapter exported by this package.",
-      "tsSignature": "const sakaCalendar: typeof indianNationalCalendar",
-      "tsType": "typeof indianNationalCalendar",
+    "jewishCalendar": {
+      "desc": "Alias for the default Hebrew calendar adapter exported by this package.",
+      "tsSignature": "const jewishCalendar: typeof hebrewCalendar",
+      "tsType": "typeof hebrewCalendar",
       "type": "Constant"
     }
   }

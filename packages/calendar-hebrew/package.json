@@ -1,11 +1,12 @@
 {
-  "name": "@timestamp-js/core",
+  "name": "@timestamp-js/calendar-hebrew",
   "version": "0.1.0-rc.4",
-  "description": "Framework-agnostic Timestamp utility.",
+  "description": "Hebrew calendar adapter for Timestamp.",
   "keywords": [
     "calendar",
     "date",
-    "time",
+    "hebrew",
+    "jewish",
     "timestamp",
     "typescript"
   ],
@@ -41,16 +42,21 @@
   },
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "build": "node ../../scripts/build-browser-globals.mjs @timestamp-js/core && tsc -p tsconfig.build.json",
+    "prebuild": "pnpm --filter @timestamp-js/core build",
+    "build": "node ../../scripts/build-browser-globals.mjs @timestamp-js/calendar-hebrew && tsc -p tsconfig.build.json",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
+    "pretest": "pnpm --filter @timestamp-js/core build",
     "test": "vitest run",
-    "test:tz": "TZ=UTC vitest run test/timezoneMatrix.spec.ts && TZ=America/Edmonton vitest run test/timezoneMatrix.spec.ts && TZ=Asia/Kathmandu vitest run test/timezoneMatrix.spec.ts",
+    "pretypecheck": "pnpm --filter @timestamp-js/core build",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@timestamp-js/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "26.0.1",

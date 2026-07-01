@@ -20,6 +20,11 @@ const packages = [
     directory: 'packages/calendar-saka',
     globalName: 'TimestampJsCalendarSaka',
   },
+  {
+    packageName: '@timestamp-js/calendar-hebrew',
+    directory: 'packages/calendar-hebrew',
+    globalName: 'TimestampJsCalendarHebrew',
+  },
 ]
 
 const requestedPackages = new Set(process.argv.slice(2))

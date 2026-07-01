@@ -5,7 +5,7 @@ keys: developing
 ---
 
 Timestamp calendar adapters let an application make date math native to its users without forking
-Timestamp or QCalendar. Gregorian is the built-in default, Islamic Civil and Saka are published
+Timestamp or QCalendar. Gregorian is the built-in default, Islamic Civil, Saka, and Hebrew are published
 adapter packages, and a custom adapter can model another calendar such as Persian, Hebrew, Chinese,
 or a project-specific business calendar.
 
@@ -122,7 +122,7 @@ must agree with each other.
 
 `id` and `intlCalendar` are separate on purpose. `id` is Timestamp's package-facing adapter
 identifier. `intlCalendar` is the calendar identifier used by `Intl`, when one exists. For example,
-Gregorian uses `gregory`, Islamic civil uses `islamic-civil`, and Saka uses `indian`. Omit
+Gregorian uses `gregory`, Islamic civil uses `islamic-civil`, Saka uses `indian`, and Hebrew uses `hebrew`. Omit
 `intlCalendar` when you are building a project-specific calendar or a calendar that `Intl` does not
 recognize.
 

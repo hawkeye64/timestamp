@@ -25,6 +25,7 @@ Optional calendar adapters are published as separate packages:
 ```bash
 pnpm add @timestamp-js/calendar-islamic
 pnpm add @timestamp-js/calendar-saka
+pnpm add @timestamp-js/calendar-hebrew
 ```
 
 ## Basic Usage
@@ -45,9 +46,10 @@ console.log(billingDate ? getDateTime(billingDate) : 'Invalid date') // 2026-07-
 Timestamp also ships browser-global IIFE bundles for CDN and CodePen-style usage. Load the core package first, then any optional calendar adapters.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.3/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.3/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.3/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@0.1.0-rc.4/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',
@@ -98,6 +100,7 @@ This is a pnpm workspace mono-repo. You cannot use npm for building.
 - [/lib](packages/lib) - standalone npm package (go here for more information)
 - [/calendar-islamic](packages/calendar-islamic) - optional Islamic civil calendar adapter
 - [/calendar-saka](packages/calendar-saka) - optional Indian National/Saka calendar adapter
+- [/calendar-hebrew](packages/calendar-hebrew) - optional Hebrew calendar adapter
 - [/docs](packages/docs) - Q-Press documentation site with docs, demos, and examples
 - [live demo](https://timestamp-js.netlify.app/) - **live Q-Press docs, demos, and examples**
 
