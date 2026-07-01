@@ -6,8 +6,8 @@ keys: developing
 
 Timestamp calendar adapters let an application make date math native to its users without forking
 Timestamp or QCalendar. Gregorian is the built-in default, Islamic Civil, Saka, and Hebrew are published
-adapter packages, and a custom adapter can model another calendar such as Persian, Hebrew, Chinese,
-or a project-specific business calendar.
+adapter packages, and a custom adapter can model another calendar such as Persian, Ethiopian, or a
+project-specific business calendar.
 
 The adapter contract is intentionally small. The hard part is not wiring it into Timestamp; the hard
 part is choosing the exact calendar rules and proving that the conversion to and from `epochDay` is

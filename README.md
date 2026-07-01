@@ -8,6 +8,12 @@
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/hawkeye64/timestamp)](https://github.com/hawkeye64/timestamp)
 [![npm downloads](https://img.shields.io/npm/dt/@timestamp-js/core)](https://www.npmjs.com/package/@timestamp-js/core)
 
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+
+[![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
+[![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
 Framework-agnostic TypeScript utilities for date-only, time-only, date-time, interval, and range workflows in browsers, Node.js, and modern JavaScript runtimes.
 
 Timestamp focuses on immutable plain objects and small utility functions. It is intentionally independent of any UI framework, backend framework, or application platform.
@@ -20,7 +26,9 @@ The package is ESM, side-effect free, and designed for tree-shaking. Prefer name
 pnpm add @timestamp-js/core
 ```
 
-Optional calendar adapters are published as separate packages:
+Optional calendar adapters are published as separate packages. They share the same `CalendarSystem`
+contract as the Gregorian core and can be passed to adapter-aware helpers such as `today()`,
+`parseCalendarTimestamp()`, `createCalendarDayList()`, and the calendar boundary helpers:
 
 ```bash
 pnpm add @timestamp-js/calendar-islamic
@@ -43,13 +51,13 @@ console.log(billingDate ? getDateTime(billingDate) : 'Invalid date') // 2026-07-
 
 ## Browser Globals
 
-Timestamp also ships browser-global IIFE bundles for CDN and CodePen-style usage. Load the core package first, then any optional calendar adapters.
+Timestamp also ships browser-global IIFE bundles for CDN and CodePen-style usage. Load the core package first, then any optional calendar adapters. Use the current package version or a dist tag that matches your release policy.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@0.1.0-rc.4/dist/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@0.1.0-rc.4/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/core@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-islamic@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-saka@latest/dist/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@timestamp-js/calendar-hebrew@latest/dist/index.global.min.js"></script>
 <script>
   const visible = TimestampJsCore.parseCalendarTimestamp(
     '1445-09-15',
@@ -116,7 +124,8 @@ pnpm docs:build
 - Parse date strings and ISO-like date-time strings into Timestamp objects.
 - Convert native `Date` objects into Timestamp objects.
 - Compare dates, times, date-times, and timestamp ranges, including optional second and millisecond precision.
-- Generate day and interval lists for calendar-style views.
+- Generate day, interval, month, and range lists for calendar-style views.
+- Use Gregorian by default or pass calendar adapters for Hijri, Saka, Hebrew, and future calendar systems.
 - Format weekday and month names through `Intl.DateTimeFormat`.
 - Keep the public surface small, typed, immutable, and runtime-agnostic while the package stabilizes.
 

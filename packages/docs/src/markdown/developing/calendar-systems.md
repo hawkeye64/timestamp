@@ -214,8 +214,8 @@ calendar options in many runtimes, but display-only formatting is not enough for
 real calendar adapter must control month length, leap rules, navigation, weekday calculation, and
 range comparisons.
 
-That means Islamic/Hijri, Hebrew, Chinese, Indian National/Saka, and similar calendars should be
-treated as first-class adapter work, not only as translated Gregorian dates.
+That means Islamic/Hijri, Hebrew, Indian National/Saka, Persian, and other non-Gregorian calendars
+should be treated as first-class adapter work, not only as translated Gregorian dates.
 
 ## Temporal
 
@@ -241,6 +241,6 @@ Use `parseCalendarTimestamp()` for adapter-native `YYYY-MM-DD` strings. Use help
 `updateRelative(timestamp, now, time, calendar)` when working with timestamp objects that already
 belong to a calendar. Use the `*Calendar*` helper names when that makes the call site clearer.
 
-Islamic civil, Saka, and Hebrew are the current proving adapters. Chinese/lunisolar support is the
-next adapter design pressure point because leap months need an explicit model representation before
-Timestamp can expose unambiguous native `YYYY-MM-DD` strings for that calendar.
+Islamic civil, Saka, and Hebrew are the current proving adapters. Future adapters with leap months
+or non-linear month naming will be the next design pressure point because those calendars need an
+explicit model representation before Timestamp can expose unambiguous native `YYYY-MM-DD` strings.
